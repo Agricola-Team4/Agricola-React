@@ -1,8 +1,5 @@
-import logo from './logo.svg';
-import './App.css';
-
 function App() {
-  return <></>;
+  return <div className="flex text-red-300">hello</div>;
 }
 
 export default App;

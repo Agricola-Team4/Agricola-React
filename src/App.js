@@ -1,5 +1,11 @@
+import ActionBoard from './components/ActionBoard';
+
 function App() {
-  return <div className="flex text-red-300">hello</div>;
+  return (
+    <>
+      <ActionBoard />
+    </>
+  );
 }
 
 export default App;

@@ -3,9 +3,9 @@ module.exports = {
   content: ['./src/**/*.{js,jsx}'],
   theme: {
     extend: {
-      backgroundImage: theme => ({
-        example: "url('/public/img/example.jpg')",
-      }),
+      backgroundImage: {
+        'major': "url('./public/img/majors_bg.jpg')",
+      }
     },
   },
   plugins: [],

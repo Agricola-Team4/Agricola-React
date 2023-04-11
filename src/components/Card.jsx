@@ -1,10 +1,11 @@
 import React from 'react';
 
-export default function Card() {
+export default function Card({ratio, bg}) {
     return (
-        <div>
-            
+        <>
+        <div className={`${bg} basis-${ratio} bg-contain bg-no-repeat bg-center`}>
         </div>
+        </>
     );
 }
 

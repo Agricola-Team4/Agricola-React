@@ -10,7 +10,8 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100vh;
-  background: rgb(0, 204, 102);
+  background-image: url(../public/img/background.jpg);
+  background-repeat: repeat;
 }
 
 #root {

@@ -3,7 +3,7 @@ import Box from './Box';
 
 export default function ActionBoard() {
   return (
-    <div className="flex flex-wrap w-6/12">
+    <div className="flex flex-wrap ">
       <Box ratio="basis-1/5" isSquare={true} bgColor={'bg-red-200'} />
       <Box ratio="basis-1/5" isSquare={true} bgColor={'bg-red-200'} />
       <Box ratio="basis-1/5" isSquare={true} bgColor={'bg-red-200'} />

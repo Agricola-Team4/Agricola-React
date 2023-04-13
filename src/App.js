@@ -3,7 +3,7 @@ import CardSlot from './components/CardSlot';
 import { useState } from 'react';
 import CardSlotBoard from './components/CardSlotBoard';
 import SharedResourceBoard from './components/SharedResourceBoard';
-import PersonalResurceBoard from './components/PersonalResurceBoard';
+import Prompt from './components/Prompt';
 
 function App() {
   const [isCardSlotOpen, setIsCardSlotOpen] = useState(false);
@@ -28,7 +28,7 @@ function App() {
         </div>
       </div>
       <div className="w-6/12">
-        <PersonalResurceBoard />
+        <Prompt />
         <div className="flex h-full">
           <div className="w-6/12 bg-green-300"></div>
           <div className="w-6/12 bg-green-500"></div>

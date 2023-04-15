@@ -3,7 +3,8 @@ import { useState } from 'react';
 import CardSlotBoard from './components/CardSlotBoard';
 import SharedResourceBoard from './components/SharedResourceBoard';
 import Prompt from './components/Prompt';
-
+import PersonalResourceBoard from './components/PersonalResourceBoard';
+import FarmBoard from './components/FarmBoard';
 
 function App() {
   const [isCardSlotOpen, setIsCardSlotOpen] = useState(false);
@@ -30,8 +31,30 @@ function App() {
       <div className="w-6/12">
         <Prompt />
         <div className="flex h-full">
-          <div className="w-6/12 bg-green-300"></div>
-          <div className="w-6/12 bg-green-500"></div>
+          <div className="flex flex-col w-6/12 bg-green-300 bg-clip-content	p-1">
+            <PersonalResourceBoard />
+            <FarmBoard />
+            <div className="flex bg-purple-500 basis-2/12">
+              <div className="basis-1/2 bg-red-200 bg-clip-content	p-1">
+                보유 카드
+              </div>
+              <div className="basis-1/2 bg-red-300 bg-clip-content	p-1">
+                활성화 카드
+              </div>
+            </div>
+          </div>
+          <div className="flex flex-col w-6/12 bg-green-500 bg-clip-content	p-1">
+            <PersonalResourceBoard />
+            <FarmBoard />
+            <div className="flex bg-purple-500 basis-2/12">
+              <div className="basis-1/2 bg-red-200 bg-clip-content p-1">
+                보유 카드
+              </div>
+              <div className="basis-1/2 bg-red-300 bg-clip-content p-1">
+                활성화 카드
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 

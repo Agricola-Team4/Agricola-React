@@ -1,9 +1,9 @@
 import ActionBoard from './components/ActionBoard';
-import CardSlot from './components/CardSlot';
 import { useState } from 'react';
 import CardSlotBoard from './components/CardSlotBoard';
 import SharedResourceBoard from './components/SharedResourceBoard';
 import Prompt from './components/Prompt';
+
 
 function App() {
   const [isCardSlotOpen, setIsCardSlotOpen] = useState(false);

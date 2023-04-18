@@ -6,6 +6,7 @@ module.exports = {
       backgroundImage: {
         'major': "url('/public/img/majors_bg.jpg')",
         'majorWell' : "url('/public/img/major-well.png')",
+
       }
     },
   },

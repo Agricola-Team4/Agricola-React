@@ -28,9 +28,9 @@ function App() {
           <div className="basis-1/5 bg-yellow-300"></div>
         </div>
       </div>
-      <div className="w-6/12">
+      <div className="w-6/12 flex flex-col">
         <Prompt />
-        <div className="flex h-full">
+        <div className="flex basis-11/12">
           <div className="flex flex-col w-6/12 bg-green-300 bg-clip-content	p-1">
             <PersonalResourceBoard />
             <FarmBoard />

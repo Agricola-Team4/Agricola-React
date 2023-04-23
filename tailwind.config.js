@@ -1,6 +1,9 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
-  content: ['./src/**/*.{js,jsx}'],
+
+const withMT = require("@material-tailwind/react/utils/withMT");
+
+module.exports = withMT({
+  content: ["./src/**/*.{js,jsx}"],
   theme: {
     extend: {
       backgroundImage: {
@@ -8,10 +11,12 @@ module.exports = {
         majorWell: "url('/public/img/major-well.png')",
       },
       flexBasis: {
-        '1/19': '5.2631578%',
-        '5/19': '26.3157894%',
+        "1/19": "5.2631578%",
+        "5/19": "26.3157894%",
+        "5/7": "71.428571%",
+        "2/7": "28.571429",
       },
     },
   },
   plugins: [],
-};
+});

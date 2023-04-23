@@ -5,7 +5,7 @@ export default function Fence({ ratio, height }) {
 
   return (
     <div
-      className={`${ratio} bg-yellow-500 bg-clip-content p-1 ${height} transition duration-150 ease-out hover:ease-in hover:scale-105 cursor-pointer hover:opacity-100 ${
+      className={`${ratio} bg-yellow-500 bg-clip-content p-1  transition duration-150 ease-out hover:ease-in hover:scale-105 cursor-pointer hover:opacity-100 ${
         isActive ? '' : 'opacity-50'
       }`}
       onClick={() => setIsActive(!isActive)}

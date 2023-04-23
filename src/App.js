@@ -20,13 +20,7 @@ function App() {
         <div className="w-max h-max bg-red-300" onClick={openCardSlot}>
           주요설비
         </div>
-        <div className="flex flex-row">
-          <div className="basis-1/5 bg-yellow-300"></div>
-          <div className="basis-1/5 bg-yellow-300"></div>
-          <div className="basis-1/5 bg-yellow-300"></div>
-          <div className="basis-1/5 bg-yellow-300"></div>
-          <div className="basis-1/5 bg-yellow-300"></div>
-        </div>
+
       </div>
       <div className="w-6/12 flex flex-col">
         <Prompt />

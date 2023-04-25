@@ -8,7 +8,6 @@ module.exports = withMT({
     extend: {
       backgroundImage: {
         major: "url('/public/img/majors_bg.jpg')",
-        majorWell: "url('/public/img/major-well.png')",
       },
       flexBasis: {
         "1/19": "5.2631578%",

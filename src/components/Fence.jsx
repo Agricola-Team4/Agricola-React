@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 
-export default function Fence({ ratio, height }) {
+export default function Fence({ ratio, isVertical }) {
   const [isActive, setIsActive] = useState(false);
 
   return (
     <div
-      className={`${ratio} bg-yellow-500 bg-clip-content p-1  transition duration-150 ease-out hover:ease-in hover:scale-105 cursor-pointer hover:opacity-100 ${
-        isActive ? '' : 'opacity-50'
-      }`}
-      onClick={() => setIsActive(!isActive)}
+      className={`${ratio} bg-orange-500 transition duration-150 ease-out hover:ease-in hover:scale-105 cursor-pointer hover:opacity-100
+      ${isVertical ? '' : 'aspect-5/1'} ${isActive ? '' : 'opacity-20'}`}
+      onClick={() => {
+        setIsActive(!isActive);
+      }}
     ></div>
   );
 }

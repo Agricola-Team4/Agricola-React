@@ -6,6 +6,7 @@ module.exports = {
       backgroundImage: {
         major: "url('/public/img/majors_bg.jpg')",
         majorWell: "url('/public/img/major-well.png')",
+        frame: "url('/public/img/action_frame.png')",
       },
       flexBasis: {
         '1/19': '5.2631578%',

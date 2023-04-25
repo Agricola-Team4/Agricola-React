@@ -20,6 +20,7 @@ export default function ActionBoard() {
     false,
   ];
 
+  console.log('hello');
   return (
     <div className="flex flex-wrap ">
       <Box ratio="basis-1/5" isSquare={true} title="농장 확장"></Box>

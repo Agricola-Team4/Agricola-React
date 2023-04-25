@@ -6,7 +6,7 @@ export default function Fence({ ratio, isVertical }) {
   return (
     <div
       className={`${ratio} bg-orange-500 transition duration-150 ease-out hover:ease-in hover:scale-105 cursor-pointer hover:opacity-100
-      ${isVertical ? '' : 'aspect-5/1'} ${isActive ? '' : 'opacity-20'}`}
+      ${isVertical ? '' : 'aspect-15/2'} ${isActive ? '' : 'opacity-20'}`}
       onClick={() => {
         setIsActive(!isActive);
       }}

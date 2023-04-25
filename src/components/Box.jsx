@@ -1,6 +1,7 @@
 import React from 'react';
 
 export default function Box({ ratio, isSquare, extraStyle, title, children }) {
+  console.log('hello');
   return (
     <div className={`${ratio} p-0.5`}>
       <div

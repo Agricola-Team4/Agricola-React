@@ -10,7 +10,7 @@ function App() {
 
   const openCardSlot = () => setIsCardSlotOpen(true);
   const closeCardSlot = () => setIsCardSlotOpen(false);
-
+  console.log('hello');
   return (
     <div className="flex flex-col md:flex-row">
       <div className="w-full my-1 flex flex-col md:w-6/12">

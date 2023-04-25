@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 export default function Fence({ ratio, isVertical }) {
   const [isActive, setIsActive] = useState(false);
-
+  console.log('hello');
   return (
     <div
       className={`${ratio} bg-orange-500 transition duration-150 ease-out hover:ease-in hover:scale-105 cursor-pointer hover:opacity-100

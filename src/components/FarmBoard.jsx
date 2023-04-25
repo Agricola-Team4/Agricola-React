@@ -3,6 +3,7 @@ import Fence from './Fence';
 import Land from './Land';
 
 export default function FarmBoard() {
+  console.log('hello');
   return (
     <section className="flex flex-wrap mb-1 ">
       <div className="basis-1/19"></div>

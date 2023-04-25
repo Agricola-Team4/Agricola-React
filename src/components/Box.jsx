@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 
 export default function Box({ ratio, isSquare, extraStyle, title, children }) {
   return (

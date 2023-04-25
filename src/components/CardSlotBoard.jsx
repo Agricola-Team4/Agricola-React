@@ -1,10 +1,6 @@
 import React from "react";
 import Card from "./Card";
-import {
-  jobImages,
-  majorImages,
-  subImages,
-} from "../../constants/imageContants";
+import { jobImages, majorImages, subImages } from "../constants/imageContants";
 
 export default function CardSlotBoard({ name, bg, cardNum, ratio, close }) {
   console.log(name);

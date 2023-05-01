@@ -15,23 +15,9 @@ export default function FarmBoard() {
       <Fence ratio="basis-1/28" isVertical={true} />
       <Land isRoom={true} isField={false} isPen={false} /> {/* 1 */}
       <Fence ratio="basis-1/28" isVertical={true} />
-      <Land isRoom={false} isField={true} isPen={false} /> {/* 2 */}
+      <Land isRoom={true} isField={false} isPen={false} /> {/* 2 */}
       <Fence ratio="basis-1/28" isVertical={true} />
-      <Land isRoom={false} isField={false} isPen={true} /> {/* 3 */}
-      <Fence ratio="basis-1/28" isVertical={true} />
-      <div className="basis-1/28"></div>
-      <Fence ratio="basis-8/28" isVertical={false} />
-      <div className="basis-1/28"></div>
-      <Fence ratio="basis-8/28" isVertical={false} />
-      <div className="basis-1/28"></div>
-      <Fence ratio="basis-8/28" isVertical={false} />
-      <div className="basis-1/28"></div>
-      <Fence ratio="basis-1/28" isVertical={true} />
-      <Land />
-      <Fence ratio="basis-1/28" isVertical={true} />
-      <Land />
-      <Fence ratio="basis-1/28" isVertical={true} />
-      <Land />
+      <Land /> {/* 3 */}
       <Fence ratio="basis-1/28" isVertical={true} />
       <div className="basis-1/28"></div>
       <Fence ratio="basis-8/28" isVertical={false} />
@@ -44,6 +30,20 @@ export default function FarmBoard() {
       <Land />
       <Fence ratio="basis-1/28" isVertical={true} />
       <Land />
+      <Fence ratio="basis-1/28" isVertical={true} />
+      <Land isRoom={false} isField={true} isPen={false} />
+      <Fence ratio="basis-1/28" isVertical={true} />
+      <div className="basis-1/28"></div>
+      <Fence ratio="basis-8/28" isVertical={false} />
+      <div className="basis-1/28"></div>
+      <Fence ratio="basis-8/28" isVertical={false} />
+      <div className="basis-1/28"></div>
+      <Fence ratio="basis-8/28" isVertical={false} />
+      <div className="basis-1/28"></div>
+      <Fence ratio="basis-1/28" isVertical={true} />
+      <Land />
+      <Fence ratio="basis-1/28" isVertical={true} />
+      <Land isRoom={false} isField={false} isPen={true} />
       <Fence ratio="basis-1/28" isVertical={true} />
       <Land />
       <Fence ratio="basis-1/28" isVertical={true} />

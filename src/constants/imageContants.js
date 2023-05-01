@@ -19,4 +19,19 @@ const majorImages = {};
 
 const subImages = {};
 
-export { jobImages, majorImages, subImages };
+const playerRed = {
+  farmer: require("../assets/images/farmer_icon_red.png"),
+  stable: require("../assets/images/stable_icon_red.png"),
+  fence: require("../assets/images/fence_icon_red.png"),
+};
+
+const resource = {
+  boar: require("../assets/images/boar_icon.png"),
+  cow: require("../assets/images/cow_icon.png"),
+  sheep: require("../assets/images/sheep_icon.png"),
+  food: require("../assets/images/food_icon.png"),
+  grain: require("../assets/images/grain_icon.png"),
+  vege: require("../assets/images/vege_icon.png"),
+};
+
+export { jobImages, majorImages, subImages, playerRed, resource };

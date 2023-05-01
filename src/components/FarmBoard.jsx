@@ -1,6 +1,6 @@
-import React from 'react';
-import Fence from './Fence';
-import Land from './Land';
+import React from "react";
+import Fence from "./Fence";
+import Land from "./Land";
 
 export default function FarmBoard() {
   return (
@@ -12,15 +12,13 @@ export default function FarmBoard() {
       <div className="basis-1/28"></div>
       <Fence ratio="basis-8/28" isVertical={false} />
       <div className="basis-1/28"></div>
-
       <Fence ratio="basis-1/28" isVertical={true} />
-      <Land />
+      <Land isRoom={true} isField={false} isPen={false} /> {/* 1 */}
       <Fence ratio="basis-1/28" isVertical={true} />
-      <Land />
+      <Land isRoom={false} isField={true} isPen={false} /> {/* 2 */}
       <Fence ratio="basis-1/28" isVertical={true} />
-      <Land />
+      <Land isRoom={false} isField={false} isPen={true} /> {/* 3 */}
       <Fence ratio="basis-1/28" isVertical={true} />
-
       <div className="basis-1/28"></div>
       <Fence ratio="basis-8/28" isVertical={false} />
       <div className="basis-1/28"></div>
@@ -28,7 +26,6 @@ export default function FarmBoard() {
       <div className="basis-1/28"></div>
       <Fence ratio="basis-8/28" isVertical={false} />
       <div className="basis-1/28"></div>
-
       <Fence ratio="basis-1/28" isVertical={true} />
       <Land />
       <Fence ratio="basis-1/28" isVertical={true} />
@@ -36,7 +33,6 @@ export default function FarmBoard() {
       <Fence ratio="basis-1/28" isVertical={true} />
       <Land />
       <Fence ratio="basis-1/28" isVertical={true} />
-
       <div className="basis-1/28"></div>
       <Fence ratio="basis-8/28" isVertical={false} />
       <div className="basis-1/28"></div>
@@ -44,7 +40,6 @@ export default function FarmBoard() {
       <div className="basis-1/28"></div>
       <Fence ratio="basis-8/28" isVertical={false} />
       <div className="basis-1/28"></div>
-
       <Fence ratio="basis-1/28" isVertical={true} />
       <Land />
       <Fence ratio="basis-1/28" isVertical={true} />
@@ -52,7 +47,6 @@ export default function FarmBoard() {
       <Fence ratio="basis-1/28" isVertical={true} />
       <Land />
       <Fence ratio="basis-1/28" isVertical={true} />
-
       <div className="basis-1/28"></div>
       <Fence ratio="basis-8/28" isVertical={false} />
       <div className="basis-1/28"></div>
@@ -60,7 +54,6 @@ export default function FarmBoard() {
       <div className="basis-1/28"></div>
       <Fence ratio="basis-8/28" isVertical={false} />
       <div className="basis-1/28"></div>
-
       <Fence ratio="basis-1/28" isVertical={true} />
       <Land />
       <Fence ratio="basis-1/28" isVertical={true} />
@@ -68,7 +61,6 @@ export default function FarmBoard() {
       <Fence ratio="basis-1/28" isVertical={true} />
       <Land />
       <Fence ratio="basis-1/28" isVertical={true} />
-
       <div className="basis-1/28"></div>
       <Fence ratio="basis-8/28" isVertical={false} />
       <div className="basis-1/28"></div>
@@ -76,7 +68,6 @@ export default function FarmBoard() {
       <div className="basis-1/28"></div>
       <Fence ratio="basis-8/28" isVertical={false} />
       <div className="basis-1/28"></div>
-
       <Fence ratio="basis-1/28" isVertical={true} />
       <Land />
       <Fence ratio="basis-1/28" isVertical={true} />
@@ -84,7 +75,6 @@ export default function FarmBoard() {
       <Fence ratio="basis-1/28" isVertical={true} />
       <Land />
       <Fence ratio="basis-1/28" isVertical={true} />
-
       <div className="basis-1/28"></div>
       <Fence ratio="basis-8/28" isVertical={false} />
       <div className="basis-1/28"></div>

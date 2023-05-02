@@ -10,6 +10,10 @@ module.exports = withMT({
         major: "url('/public/img/majors_bg.jpg')",
         majorWell: "url('/public/img/major-well.png')",
         frame: "url('/public/img/action_frame.png')",
+        woodRoom: "url('/src/assets/images/wood_room.jpg')",
+        soilRoom: "url('/src/assets/images/soil_room.jpg')",
+        stoneRoom: "url('/src/assets/images/stone_room.jpg')",
+        field: "url('/src/assets/images/field.jpg')",
       },
       flexBasis: {
         "1/19": "5.2631578%",

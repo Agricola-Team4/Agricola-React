@@ -66,14 +66,14 @@ export default function ActionBoard({ openMajorSlot }) {
     },
     {
       title: '집개조',
-      childTags: `<div className="flex flex-col">
+      childTags: `<div className="flex flex-col items-center">
       <div className="flex items-center">
         <p className=" font-bold mr-0.5">1</p>
         <img className="w-5" src='/img/reed_icon.png' alt="reed" />
         <p className="mx-1 font-bold text-xs">+</p>
-        <img className="w-12" src='/img/upgradeRoom_icon.png' alt="upgradeRoom" />
+        <img className="w-20" src='/img/upgradeRoom_icon.png' alt="upgradeRoom" />
       </div>
-      <p className="mx-1 font-bold text-xs">한 후에</p>
+      <p className="mx-1 font-bold text-xs my-1">한 후에</p>
       <div className="flex items-center">
         <p className=" font-bold mr-0.5">1</p>
         <img className="w-7" src='/img/mainEqCard_icon.png' alt="mainEqCard" />
@@ -165,7 +165,7 @@ export default function ActionBoard({ openMajorSlot }) {
               alt="ustoneRoom"
             />
           </div>
-          <p className="mx-1 font-bold">and/or</p>
+          <p className="mx-1 font-bold my-1">and/or</p>
           <div className="flex items-center">
             <p className=" font-bold mr-0.5">2</p>
             <img className="w-3" src="/img/wood_icon.png" alt="wood" />

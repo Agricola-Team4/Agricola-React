@@ -3,7 +3,7 @@ import Box from './Box';
 import RoundBox from './RoundBox';
 import HTMLReactParser from 'html-react-parser';
 
-export default function ActionBoard() {
+export default function ActionBoard({ openMajorSlot }) {
   const roundArray = [
     true,
     true,
@@ -371,7 +371,7 @@ export default function ActionBoard() {
       ) : (
         <RoundBox ratio="basis-1/5" round="6" />
       )}
-      <Box ratio="basis-1/5" isSquare={true}>
+      <Box ratio="basis-1/5" isSquare={true} onClick={openMajorSlot}>
         <p>주요설비</p>
       </Box>
     </div>

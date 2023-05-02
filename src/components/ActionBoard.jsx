@@ -1,56 +1,188 @@
 import React from 'react';
 import Box from './Box';
 import RoundBox from './RoundBox';
+import HTMLReactParser from 'html-react-parser';
 
-export default function ActionBoard() {
+export default function ActionBoard({ openMajorSlot }) {
   const roundArray = [
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
   ];
+
+  const round1 = [
+    {
+      title: '양시장🔻',
+      childTags: `<p className=" text-lg font-bold mr-0.5">1</p>
+<img className="w-10" src='/img/sheep_icon.png' alt="sheep" />`,
+    },
+    {
+      title: '울타리',
+      childTags: `<div className="flex items-center">
+      <p className=" text-lg font-bold mr-0.5">1</p>
+      <img className="w-7" src='/img/wood_icon.png' alt="wood" />
+      <p className="mx-1 text-lg">→</p>
+      <img className="w-7" src='/img/fence_icon.png' alt="fence" />
+    </div>`,
+    },
+    {
+      title: '주요설비',
+      childTags: `<p className=" text-lg font-bold mr-0.5">1</p>
+      <img className="w-7" src='/img/mainEqCard_icon.png' alt="mainEqCard" />
+      <p className="mx-1 text-lg font-bold">or</p>
+      <img className="w-7" src='/img/subEqCard_icon.png' alt="subEqCard" />`,
+    },
+    {
+      title: '곡식활용',
+      childTags: `<img className="w-10" src='/img/grainVege_icon.png' alt="grainVege" />
+      <p className="mx-1 font-bold">and/or</p>
+      <img className="w-7" src='/img/bread_icon.png' alt="bread" />`,
+    },
+  ];
+
+  const round2 = [
+    {
+      title: '서부 채석장🔻',
+      childTags: `<p className=" text-lg font-bold mr-0.5">1</p>
+      <img className="w-7" src='/img/stone_icon.png' alt="stone" />`,
+    },
+    {
+      title: '기본 가족 늘리기',
+      childTags: `<img className="w-7" src=/img/addPerson_icon.png alt="addPerson" />
+      <p className="mx-1 font-bold text-xs">한 후에</p>
+      <p className="mr-0.5 text-lg font-bold">1</p>
+      <img className="w-7" src='/img/subEqCard_icon.png' alt="subEqCard" />`,
+    },
+    {
+      title: '집개조',
+      childTags: `<div className="flex flex-col">
+      <div className="flex items-center">
+        <p className=" font-bold mr-0.5">1</p>
+        <img className="w-5" src='/img/reed_icon.png' alt="reed" />
+        <p className="mx-1 font-bold text-xs">+</p>
+        <img className="w-12" src='/img/upgradeRoom_icon.png' alt="upgradeRoom" />
+      </div>
+      <p className="mx-1 font-bold text-xs">한 후에</p>
+      <div className="flex items-center">
+        <p className=" font-bold mr-0.5">1</p>
+        <img className="w-7" src='/img/mainEqCard_icon.png' alt="mainEqCard" />
+        <p className="mx-1  font-bold">or</p>
+        <img className="w-7" src='/img/subEqCard_icon.png' alt="subEqCard" />
+      </div>
+    </div>`,
+    },
+  ];
+
+  const round3 = [
+    {
+      title: '채소 종자',
+      childTags: `<p className=" text-lg font-bold mr-0.5">+1</p>
+      <img className="w-10" src=/img/vege_icon.png alt="vegetable" />`,
+    },
+    {
+      title: '돼지 시장🔻',
+      childTags: `<p className=" text-lg font-bold mr-0.5">1</p>
+      <img className="w-10" src=/img/boar_icon.png alt="boar" />`,
+    },
+  ];
+
+  const round4 = [
+    {
+      title: '소 시장🔻',
+      childTags: `<p className=" text-lg font-bold mr-0.5">1</p>
+      <img className="w-10" src=/img/cow_icon.png alt="cow" />`,
+    },
+    {
+      title: '동부 채석장🔻',
+      childTags: `<p className=" text-lg font-bold mr-0.5">1</p>
+      <img className="w-7" src='/img/stone_icon.png' alt="stone" />`,
+    },
+  ];
+
+  const round5 = [
+    {
+      title: '급한 가족 늘리기',
+      childTags: `<img className="w-10" src='/img/addPerson2_icon.png' alt="addPerson2" />`,
+    },
+    {
+      title: '밭 농사',
+      childTags: `<div className="flex flex-col items-center">
+      <img className="w-10" src='/img/farmland_icon.png' alt="farmland" />
+      <p className="mx-1 font-bold">and/or</p>
+      <img className="w-10" src='/img/grainVege_icon.png' alt="grainVege" />
+    </div>`,
+    },
+  ];
+
+  const shuffle = arr => arr.sort(() => Math.random() - 0.5);
+
+  const shuffledRound1 = shuffle(round1);
+  const shuffledRound2 = shuffle(round2);
+  const shuffledRound3 = shuffle(round3);
+  const shuffledRound4 = shuffle(round4);
+  const shuffledRound5 = shuffle(round5);
 
   return (
     <div className="flex flex-wrap ">
-      <Box ratio="basis-1/5" isSquare={true} title="농장 확장"></Box>
-      {roundArray[0] ? (
-        <Box ratio="basis-1/5" isSquare={true}>
-          <p className="text-4xl">1</p>
-        </Box>
-      ) : (
-        <RoundBox ratio="basis-1/5" round="1" />
-      )}
-      {roundArray[1] ? (
-        <Box ratio="basis-1/5" isSquare={true}>
-          <p className="text-4xl">1</p>
-        </Box>
-      ) : (
-        <RoundBox ratio="basis-1/5" round="1" />
-      )}
-      {roundArray[2] ? (
-        <Box ratio="basis-1/5" isSquare={true}>
-          <p className="text-4xl">1</p>
-        </Box>
-      ) : (
-        <RoundBox ratio="basis-1/5" round="1" />
-      )}
-      {roundArray[3] ? (
-        <Box ratio="basis-1/5" isSquare={true}>
-          <p className="text-4xl">1</p>
-        </Box>
-      ) : (
-        <RoundBox ratio="basis-1/5" round="1" />
-      )}
+      <Box ratio="basis-1/5" isSquare={true} title="농장 확장">
+        <div className="flex flex-col items-center">
+          <div className="flex items-center">
+            <p className=" font-bold mr-0.5">5</p>
+            <img className="w-3" src="/img/wood_icon.png" alt="wood" />
+            <p className=" font-bold mr-0.5">2</p>
+            <img className="w-3" src="/img/reed_icon.png" alt="reed" />
+            <p className="mx-1 font-bold text-xs">→</p>
+            <img className="w-7" src="/img/woodRoom_icon.png" alt="woodRoom" />
+          </div>
+          <div className="flex items-center">
+            <p className=" font-bold mr-0.5">5</p>
+            <img className="w-3" src="/img/soil_icon.png" alt="soil" />
+            <p className=" font-bold mr-0.5">2</p>
+            <img className="w-3" src="/img/reed_icon.png" alt="reed" />
+            <p className="mx-1 font-bold text-xs">→</p>
+            <img className="w-7" src="/img/soilRoom_icon.png" alt="soilRoom" />
+          </div>
+          <div className="flex items-center">
+            <p className=" font-bold mr-0.5">5</p>
+            <img className="w-3" src="/img/stone_icon.png" alt="stone" />
+            <p className=" font-bold mr-0.5">2</p>
+            <img className="w-3" src="/img/reed_icon.png" alt="reed" />
+            <p className="mx-1 font-bold text-xs">→</p>
+            <img
+              className="w-7"
+              src="/img/stoneRoom_icon.png"
+              alt="ustoneRoom"
+            />
+          </div>
+          <p className="mx-1 font-bold">and/or</p>
+          <div className="flex items-center">
+            <p className=" font-bold mr-0.5">2</p>
+            <img className="w-3" src="/img/wood_icon.png" alt="wood" />
+            <p className="mx-1 font-bold text-xs">→</p>
+            <img className="w-4" src="/img/stable_icon_red.png" alt="stable" />
+          </div>
+        </div>
+      </Box>
+      {shuffledRound1.map((info, idx) => {
+        return roundArray[idx] ? (
+          <Box ratio="basis-1/5" isSquare={true} title={info.title} key={idx}>
+            {HTMLReactParser(info.childTags)}
+          </Box>
+        ) : (
+          <RoundBox ratio="basis-1/5" round="1" key={idx} />
+        );
+      })}
       <div className="basis-1/5  flex flex-col">
         <Box
           ratio="basis-1/2"
@@ -58,8 +190,16 @@ export default function ActionBoard() {
           extraStyle="h-full"
           title="회합 장소"
         >
-          <p className=" text-lg font-bold mr-1">+1</p>
-          <img className="w-5" src="img/grain_icon.png" alt="" />
+          <img className="w-3" src="/img/first_icon.png" alt="first" />
+          <p className="mx-1 font-bold">and/or</p>
+          <>
+            <p className="font-bold mr-0.5">1</p>
+            <img
+              className="w-5"
+              src="/img/subEqCard_icon.png"
+              alt="subEqCard"
+            />
+          </>
         </Box>
         <Box
           ratio="basis-1/2"
@@ -67,123 +207,171 @@ export default function ActionBoard() {
           extraStyle="h-full"
           title="곡식 종자"
         >
-          <p className=" text-lg font-bold mr-1">+1</p>
-          <img className="w-5" src="img/grain_icon.png" alt="" />
+          <p className="font-bold mr-0.5">+1</p>
+          <img className="w-5" src="/img/grain_icon.png" alt="grain" />
         </Box>
       </div>
-      <Box ratio="basis-1/5" isSquare={true} title="숲🔻"></Box>
-      {roundArray[4] ? (
-        <Box ratio="basis-1/5" isSquare={true}>
-          <p className="text-4xl">2</p>
-        </Box>
-      ) : (
-        <RoundBox ratio="basis-1/5" round="2" />
-      )}
-      {roundArray[5] ? (
-        <Box ratio="basis-1/5" isSquare={true}>
-          <p className="text-4xl">2</p>
-        </Box>
-      ) : (
-        <RoundBox ratio="basis-1/5" round="2" />
-      )}
-      {roundArray[6] ? (
-        <Box ratio="basis-1/5" isSquare={true}>
-          <p className="text-4xl">2</p>
-        </Box>
-      ) : (
-        <RoundBox ratio="basis-1/5" round="2" />
-      )}
+      <Box ratio="basis-1/5" isSquare={true} title="숲🔻">
+        <p className=" text-lg font-bold mr-0.5">3</p>
+        <img className="w-7" src="/img/wood_icon.png" alt="wood" />
+      </Box>
+      {shuffledRound2.map((info, idx) => {
+        return roundArray[idx + 4] ? (
+          <Box
+            ratio="basis-1/5"
+            isSquare={true}
+            title={info.title}
+            key={idx + 4}
+          >
+            {HTMLReactParser(info.childTags)}
+          </Box>
+        ) : (
+          <RoundBox ratio="basis-1/5" round="2" key={idx + 4} />
+        );
+      })}
       <div className="basis-2/5   flex flex-wrap">
         <Box
           ratio="basis-1/2"
           isSquare={false}
           extraStyle="h-full"
           title="농지"
-        ></Box>
+        >
+          <img className="w-10" src="/img/farmland_icon.png" alt="farmland" />
+        </Box>
         <Box
           ratio="basis-1/2"
           isSquare={false}
           extraStyle="h-full"
           title="흙 채굴장🔻"
-        ></Box>
+        >
+          <p className=" text-lg font-bold mr-0.5">1</p>
+          <img className="w-7" src="/img/soil_icon.png" alt="soil" />
+        </Box>
         <Box
           ratio="basis-1/2"
           isSquare={false}
           extraStyle="h-full"
           title="교습"
-        ></Box>
+        >
+          <div className="flex flex-col">
+            <p>직업당</p>
+            <div className="flex items-center">
+              <>
+                <p className="font-bold mr-0.5">1</p>
+                <img className="w-5" src="/img/food_icon.png" alt="food" />
+              </>
+              <p className="mx-1 text-lg">→</p>
+              <>
+                <p className="font-bold mr-0.5">1</p>
+                <img
+                  className="w-7"
+                  src="/img/jobCard_icon.png"
+                  alt="jobCard"
+                />
+              </>
+            </div>
+          </div>
+        </Box>
         <Box
           ratio="basis-1/2"
           isSquare={false}
           extraStyle="h-full"
           title="갈대밭🔻"
-        ></Box>
+        >
+          <p className=" text-lg font-bold mr-0.5">1</p>
+          <img className="w-7" src="/img/reed_icon.png" alt="reed" />
+        </Box>
         <Box
           ratio="basis-1/2"
           isSquare={false}
           extraStyle="h-full"
-          title="납품 팔이"
-        ></Box>
+          title="납품팔이"
+        >
+          <p className=" text-lg font-bold mr-0.5">+2</p>
+          <img className="w-7" src="/img/food_icon.png" alt="food" />
+        </Box>
         <Box
           ratio="basis-1/2"
           isSquare={false}
           extraStyle="h-full"
           title="낚시🔻"
-        ></Box>
+        >
+          <p className=" text-lg font-bold mr-0.5">1</p>
+          <img className="w-7" src="/img/food_icon.png" alt="food" />
+        </Box>
       </div>
       <div className="basis-2/5 aspect-square	 flex flex-wrap">
-        {roundArray[7] ? (
-          <Box ratio="basis-1/2" isSquare={true}>
-            <p className="text-4xl">3</p>
-          </Box>
-        ) : (
-          <RoundBox ratio="basis-1/2" round="3" />
-        )}
-        {roundArray[8] ? (
-          <Box ratio="basis-1/2" isSquare={true}>
-            <p className="text-4xl">3</p>
-          </Box>
-        ) : (
-          <RoundBox ratio="basis-1/2" round="3" />
-        )}
-        {roundArray[9] ? (
-          <Box ratio="basis-1/2" isSquare={true}>
-            <p className="text-4xl">4</p>
-          </Box>
-        ) : (
-          <RoundBox ratio="basis-1/2" round="4" />
-        )}
-        {roundArray[10] ? (
-          <Box ratio="basis-1/2" isSquare={true}>
-            <p className="text-4xl">4</p>
-          </Box>
-        ) : (
-          <RoundBox ratio="basis-1/2" round="4" />
-        )}
+        {shuffledRound3.map((info, idx) => {
+          return roundArray[idx + 7] ? (
+            <Box
+              ratio="basis-1/2"
+              isSquare={true}
+              title={info.title}
+              key={idx + 7}
+            >
+              {HTMLReactParser(info.childTags)}
+            </Box>
+          ) : (
+            <RoundBox ratio="basis-1/2" round="3" key={idx + 7} />
+          );
+        })}
+        {shuffledRound4.map((info, idx) => {
+          return roundArray[idx + 9] ? (
+            <Box
+              ratio="basis-1/2"
+              isSquare={true}
+              title={info.title}
+              key={idx + 9}
+            >
+              {HTMLReactParser(info.childTags)}
+            </Box>
+          ) : (
+            <RoundBox ratio="basis-1/2" round="4" key={idx + 9} />
+          );
+        })}
       </div>
       <div className="basis-1/5"></div>
-      {roundArray[11] ? (
-        <Box ratio="basis-1/5" isSquare={true}>
-          <p className="text-4xl">5</p>
-        </Box>
-      ) : (
-        <RoundBox ratio="basis-1/5" round="5" />
-      )}
-      {roundArray[12] ? (
-        <Box ratio="basis-1/5" isSquare={true}>
-          <p className="text-4xl">5</p>
-        </Box>
-      ) : (
-        <RoundBox ratio="basis-1/5" round="5" />
-      )}
+      {shuffledRound5.map((info, idx) => {
+        return roundArray[idx + 11] ? (
+          <Box
+            ratio="basis-1/5"
+            isSquare={true}
+            title={info.title}
+            key={idx + 11}
+          >
+            {HTMLReactParser(info.childTags)}
+          </Box>
+        ) : (
+          <RoundBox ratio="basis-1/5" round="5" key={idx + 11} />
+        );
+      })}
+
       {roundArray[13] ? (
-        <Box ratio="basis-1/5" isSquare={true}>
-          <p className="text-4xl">6</p>
+        <Box ratio="basis-1/5" isSquare={true} title="농장 개조">
+          <div className="flex flex-col ">
+            <div className="flex items-center">
+              <p className="font-bold mr-0.5">1</p>
+              <img className="w-5" src="/img/reed_icon.png" alt="reed" />
+              <p className="mx-1 font-bold text-xs">+</p>
+              <img
+                className="w-12"
+                src="/img/upgradeRoom_icon.png"
+                alt="upgradeRoom"
+              />
+            </div>
+            <p className="mx-1 font-bold text-xs">한 후에</p>
+            <div className="flex items-center justify-center">
+              <p className="font-bold mr-0.5">1</p>
+              <img className="w-5" src="/img/wood_icon.png" alt="wood" />
+              <p className="mx-1 text-lg">→</p>
+              <img className="w-5" src="/img/fence_icon.png" alt="fence" />
+            </div>
+          </div>
         </Box>
       ) : (
         <RoundBox ratio="basis-1/5" round="6" />
       )}
-      <Box ratio="basis-1/5" isSquare={true}>
+      <Box ratio="basis-1/5" isSquare={true} onClick={openMajorSlot}>
         <p>주요설비</p>
       </Box>
     </div>

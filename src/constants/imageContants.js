@@ -15,8 +15,34 @@ const jobImages = {
   job_b108: require("../assets/images/b108.jpg"),
 };
 
-const majorImages = {};
+const majorImages = {
+  baguni: require("../assets/images/baguni.png"),
+  fire: require("../assets/images/fire.png"),
+  fire2: require("../assets/images/fire2.png"),
+  hwaduck: require("../assets/images/hwaduck.png"),
+  hwaduck2: require("../assets/images/hwaduck2.png"),
+  gagu: require("../assets/images/gagu.png"),
+  plate: require("../assets/images/plate.png"),
+  soil_gama: require("../assets/images/soil_gama.png"),
+  stone_gama: require("../assets/images/stone_gama.png"),
+  umul: require("../assets/images/umul.png"),
+};
 
-const subImages = {};
+const subImages = {
+  sub_a026: require("../assets/images/a026.png"),
+  sub_a038: require("../assets/images/a038.png"),
+  sub_a044: require("../assets/images/a044.png"),
+  sub_a055: require("../assets/images/a055.png"),
+  sub_a067: require("../assets/images/a067.png"),
+  sub_a075: require("../assets/images/a075.png"),
+  sub_a078: require("../assets/images/a078.png"),
+  sub_a080: require("../assets/images/a080.png"),
+  sub_b010: require("../assets/images/b010.png"),
+  sub_b033: require("../assets/images/b033.png"),
+  sub_b050: require("../assets/images/b050.png"),
+  sub_b062: require("../assets/images/b062.png"),
+  sub_b077: require("../assets/images/b077.png"),
+  sub_b080: require("../assets/images/b080.png"),
+};
 
 export { jobImages, majorImages, subImages };

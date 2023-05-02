@@ -1,8 +1,8 @@
-import React from 'react';
-import Box from './Box';
-import RoundBox from './RoundBox';
+import React from "react";
+import Box from "./Box";
+import RoundBox from "./RoundBox";
 
-export default function ActionBoard() {
+export default function ActionBoard({ openMajorSlot }) {
   const roundArray = [
     false,
     false,
@@ -183,7 +183,7 @@ export default function ActionBoard() {
       ) : (
         <RoundBox ratio="basis-1/5" round="6" />
       )}
-      <Box ratio="basis-1/5" isSquare={true}>
+      <Box ratio="basis-1/5" isSquare={true} onClick={openMajorSlot}>
         <p>주요설비</p>
       </Box>
     </div>

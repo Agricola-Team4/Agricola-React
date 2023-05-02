@@ -7,6 +7,11 @@ export default function CardSlotBoard({ name, bg, cardNum, ratio, close }) {
   // 주요설비 이미지
   // 보조설비 이미지
   // 직업카드 이미지
+  const openCardSlot = (imageSet) => {
+    return Object.values(jobImages).map((src) => (
+      <Card cardType={src} ratio="basis-1/5"></Card>
+    ));
+  };
 
   return (
     <>
@@ -23,7 +28,7 @@ export default function CardSlotBoard({ name, bg, cardNum, ratio, close }) {
 
         <div className="flex flex-row flex-wrap w-full h-full box-border bg-orange-300">
           {Object.values(jobImages).map((src) => (
-            <Card cardType={src} ratio="basis-1/5"></Card>
+            <Card cardType={src} ratio="basis-1/7"></Card>
           ))}
         </div>
       </div>

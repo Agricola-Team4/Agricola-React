@@ -24,61 +24,61 @@ export default function ActionBoard({ openMajorSlot }) {
   const round1 = [
     {
       title: '양시장🔻',
-      childTags: `<p className=" text-lg font-bold mr-0.5">1</p>
-<img className="w-10" src='/img/sheep_icon.png' alt="sheep" />`,
+      childTags: `<p className=" text-xl font-bold mr-0.5">1</p>
+<img className="w-1/3" src='/img/sheep_icon.png' alt="sheep" />`,
     },
     {
       title: '울타리',
-      childTags: `<div className="flex items-center">
+      childTags: `<div className="flex items-center justify-center">
       <p className=" text-lg font-bold mr-0.5">1</p>
-      <img className="w-7" src='/img/wood_icon.png' alt="wood" />
-      <p className="mx-1 text-lg">→</p>
-      <img className="w-7" src='/img/fence_icon.png' alt="fence" />
+      <img className="w-1/4" src='/img/wood_icon.png' alt="wood" />
+      <p className="mx-1 text-2xl font-bold">→</p>
+      <img className="w-1/4" src='/img/fence_icon.png' alt="fence" />
     </div>`,
     },
     {
       title: '주요설비',
       childTags: `<p className=" text-lg font-bold mr-0.5">1</p>
-      <img className="w-7" src='/img/mainEqCard_icon.png' alt="mainEqCard" />
+      <img className="w-1/4" src='/img/mainEqCard_icon.png' alt="mainEqCard" />
       <p className="mx-1 text-lg font-bold">or</p>
-      <img className="w-7" src='/img/subEqCard_icon.png' alt="subEqCard" />`,
+      <img className="w-1/4" src='/img/subEqCard_icon.png' alt="subEqCard" />`,
     },
     {
       title: '곡식활용',
-      childTags: `<img className="w-10" src='/img/grainVege_icon.png' alt="grainVege" />
+      childTags: `<img className="w-1/4" src='/img/grainVege_icon.png' alt="grainVege" />
       <p className="mx-1 font-bold">and/or</p>
-      <img className="w-7" src='/img/bread_icon.png' alt="bread" />`,
+      <img className="w-1/4" src='/img/bread_icon.png' alt="bread" />`,
     },
   ];
 
   const round2 = [
     {
       title: '서부 채석장🔻',
-      childTags: `<p className=" text-lg font-bold mr-0.5">1</p>
-      <img className="w-7" src='/img/stone_icon.png' alt="stone" />`,
+      childTags: `<p className=" text-xl font-bold mr-0.5">1</p>
+      <img className="w-1/3" src='/img/stone_icon.png' alt="stone" />`,
     },
     {
       title: '기본 가족 늘리기',
-      childTags: `<img className="w-7" src=/img/addPerson_icon.png alt="addPerson" />
+      childTags: `<img className="w-1/4" src=/img/addPerson_icon.png alt="addPerson" />
       <p className="mx-1 font-bold text-xs">한 후에</p>
       <p className="mr-0.5 text-lg font-bold">1</p>
-      <img className="w-7" src='/img/subEqCard_icon.png' alt="subEqCard" />`,
+      <img className="w-1/4" src='/img/subEqCard_icon.png' alt="subEqCard" />`,
     },
     {
       title: '집개조',
-      childTags: `<div className="flex flex-col items-center">
-      <div className="flex items-center">
+      childTags: `<div className="flex flex-col items-center h-full">
+      <div className="flex items-center justify-center basis-2/5">
         <p className=" font-bold mr-0.5">1</p>
-        <img className="w-5" src='/img/reed_icon.png' alt="reed" />
-        <p className="mx-1 font-bold text-xs">+</p>
-        <img className="w-20" src='/img/upgradeRoom_icon.png' alt="upgradeRoom" />
+        <img className="w-1/4" src='/img/reed_icon.png' alt="reed" />
+        <p className="mx-1 font-bold text-lg">+</p>
+        <img className="w-1/2" src='/img/upgradeRoom_icon.png' alt="upgradeRoom" />
       </div>
-      <p className="mx-1 font-bold text-xs my-1">한 후에</p>
-      <div className="flex items-center">
+      <p className="font-bold text-xs basis-1/5 flex items-center">한 후에</p>
+      <div className="flex items-center justify-center basis-2/5">
         <p className=" font-bold mr-0.5">1</p>
-        <img className="w-7" src='/img/mainEqCard_icon.png' alt="mainEqCard" />
+        <img className="w-1/4" src='/img/mainEqCard_icon.png' alt="mainEqCard" />
         <p className="mx-1  font-bold">or</p>
-        <img className="w-7" src='/img/subEqCard_icon.png' alt="subEqCard" />
+        <img className="w-1/4" src='/img/subEqCard_icon.png' alt="subEqCard" />
       </div>
     </div>`,
     },
@@ -88,12 +88,12 @@ export default function ActionBoard({ openMajorSlot }) {
     {
       title: '채소 종자',
       childTags: `<p className=" text-lg font-bold mr-0.5">+1</p>
-      <img className="w-10" src=/img/vege_icon.png alt="vegetable" />`,
+      <img className="w-1/3" src=/img/vege_icon.png alt="vegetable" />`,
     },
     {
       title: '돼지 시장🔻',
       childTags: `<p className=" text-lg font-bold mr-0.5">1</p>
-      <img className="w-10" src=/img/boar_icon.png alt="boar" />`,
+      <img className="w-1/3" src=/img/boar_icon.png alt="boar" />`,
     },
   ];
 
@@ -101,26 +101,30 @@ export default function ActionBoard({ openMajorSlot }) {
     {
       title: '소 시장🔻',
       childTags: `<p className=" text-lg font-bold mr-0.5">1</p>
-      <img className="w-10" src=/img/cow_icon.png alt="cow" />`,
+      <img className="w-1/3" src=/img/cow_icon.png alt="cow" />`,
     },
     {
       title: '동부 채석장🔻',
       childTags: `<p className=" text-lg font-bold mr-0.5">1</p>
-      <img className="w-7" src='/img/stone_icon.png' alt="stone" />`,
+      <img className="w-1/3" src='/img/stone_icon.png' alt="stone" />`,
     },
   ];
 
   const round5 = [
     {
       title: '급한 가족 늘리기',
-      childTags: `<img className="w-10" src='/img/addPerson2_icon.png' alt="addPerson2" />`,
+      childTags: `<img className="w-1/3" src='/img/addPerson2_icon.png' alt="addPerson2" />`,
     },
     {
       title: '밭 농사',
-      childTags: `<div className="flex flex-col items-center">
-      <img className="w-10" src='/img/farmland_icon.png' alt="farmland" />
-      <p className="mx-1 font-bold">and/or</p>
-      <img className="w-10" src='/img/grainVege_icon.png' alt="grainVege" />
+      childTags: `<div className="flex flex-col items-center h-full py-1">
+      <div className="w-1/3 basis-2/5 flex items-center">
+        <img src='/img/farmland_icon.png' alt="farmland" />
+      </div>
+      <p className="font-bold basis-1/5">and/or</p>
+      <div className="w-1/3 basis-2/5 flex items-center">
+        <img  src='/img/grainVege_icon.png' alt="grainVege" />
+      </div>
     </div>`,
     },
   ];
@@ -136,41 +140,55 @@ export default function ActionBoard({ openMajorSlot }) {
   return (
     <div className="flex flex-wrap ">
       <Box ratio="basis-1/5" isSquare={true} title="농장 확장">
-        <div className="flex flex-col items-center">
-          <div className="flex items-center">
-            <p className=" font-bold mr-0.5">5</p>
-            <img className="w-3" src="/img/wood_icon.png" alt="wood" />
-            <p className=" font-bold mr-0.5">2</p>
-            <img className="w-3" src="/img/reed_icon.png" alt="reed" />
-            <p className="mx-1 font-bold text-xs">→</p>
-            <img className="w-7" src="/img/woodRoom_icon.png" alt="woodRoom" />
+        <div className="flex flex-col items-center h-full">
+          <div className="basis-3/6">
+            <div className="flex items-center basis-1/3 justify-center">
+              <p className=" font-bold mr-0.5">5</p>
+              <img className="w-1/10" src="/img/wood_icon.png" alt="wood" />
+              <p className=" font-bold ml-1 mr-0.5">2</p>
+              <img className="w-1/10" src="/img/reed_icon.png" alt="reed" />
+              <p className="mx-1 font-bold text-xs">→</p>
+              <img
+                className="w-1/5"
+                src="/img/woodRoom_icon.png"
+                alt="woodRoom"
+              />
+            </div>
+            <div className="flex items-center basis-1/3 justify-center">
+              <p className=" font-bold mr-0.5">5</p>
+              <img className="w-1/10" src="/img/soil_icon.png" alt="soil" />
+              <p className=" font-bold ml-1 mr-0.5">2</p>
+              <img className="w-1/10" src="/img/reed_icon.png" alt="reed" />
+              <p className="mx-1 font-bold text-xs">→</p>
+              <img
+                className="w-1/5"
+                src="/img/soilRoom_icon.png"
+                alt="soilRoom"
+              />
+            </div>
+            <div className="flex items-center basis-1/3 justify-center">
+              <p className=" font-bold mr-0.5">5</p>
+              <img className="w-1/10" src="/img/stone_icon.png" alt="stone" />
+              <p className=" font-bold ml-1 mr-0.5">2</p>
+              <img className="w-1/10" src="/img/reed_icon.png" alt="reed" />
+              <p className="mx-1 font-bold text-xs">→</p>
+              <img
+                className="w-1/5"
+                src="/img/stoneRoom_icon.png"
+                alt="ustoneRoom"
+              />
+            </div>
           </div>
-          <div className="flex items-center">
-            <p className=" font-bold mr-0.5">5</p>
-            <img className="w-3" src="/img/soil_icon.png" alt="soil" />
-            <p className=" font-bold mr-0.5">2</p>
-            <img className="w-3" src="/img/reed_icon.png" alt="reed" />
-            <p className="mx-1 font-bold text-xs">→</p>
-            <img className="w-7" src="/img/soilRoom_icon.png" alt="soilRoom" />
-          </div>
-          <div className="flex items-center">
-            <p className=" font-bold mr-0.5">5</p>
-            <img className="w-3" src="/img/stone_icon.png" alt="stone" />
-            <p className=" font-bold mr-0.5">2</p>
-            <img className="w-3" src="/img/reed_icon.png" alt="reed" />
+          <p className="mx-1 font-bold my-1 basis-1/6">and/or</p>
+          <div className="flex items-center justify-center basis-2/6">
+            <p className=" font-bold ml-1 mr-0.5">2</p>
+            <img className="w-1/6" src="/img/wood_icon.png" alt="wood" />
             <p className="mx-1 font-bold text-xs">→</p>
             <img
-              className="w-7"
-              src="/img/stoneRoom_icon.png"
-              alt="ustoneRoom"
+              className="w-1/6"
+              src="/img/stable_icon_red.png"
+              alt="stable"
             />
-          </div>
-          <p className="mx-1 font-bold my-1">and/or</p>
-          <div className="flex items-center">
-            <p className=" font-bold mr-0.5">2</p>
-            <img className="w-3" src="/img/wood_icon.png" alt="wood" />
-            <p className="mx-1 font-bold text-xs">→</p>
-            <img className="w-4" src="/img/stable_icon_red.png" alt="stable" />
           </div>
         </div>
       </Box>
@@ -190,12 +208,12 @@ export default function ActionBoard({ openMajorSlot }) {
           extraStyle="h-full"
           title="회합 장소"
         >
-          <img className="w-3" src="/img/first_icon.png" alt="first" />
+          <img className="w-1/6" src="/img/first_icon.png" alt="first" />
           <p className="mx-1 font-bold">and/or</p>
           <>
             <p className="font-bold mr-0.5">1</p>
             <img
-              className="w-5"
+              className="w-1/4"
               src="/img/subEqCard_icon.png"
               alt="subEqCard"
             />
@@ -208,12 +226,12 @@ export default function ActionBoard({ openMajorSlot }) {
           title="곡식 종자"
         >
           <p className="font-bold mr-0.5">+1</p>
-          <img className="w-5" src="/img/grain_icon.png" alt="grain" />
+          <img className="w-1/4" src="/img/grain_icon.png" alt="grain" />
         </Box>
       </div>
       <Box ratio="basis-1/5" isSquare={true} title="숲🔻">
         <p className=" text-lg font-bold mr-0.5">3</p>
-        <img className="w-7" src="/img/wood_icon.png" alt="wood" />
+        <img className="w-1/3" src="/img/wood_icon.png" alt="wood" />
       </Box>
       {shuffledRound2.map((info, idx) => {
         return roundArray[idx + 4] ? (
@@ -236,7 +254,7 @@ export default function ActionBoard({ openMajorSlot }) {
           extraStyle="h-full"
           title="농지"
         >
-          <img className="w-10" src="/img/farmland_icon.png" alt="farmland" />
+          <img className="w-1/3" src="/img/farmland_icon.png" alt="farmland" />
         </Box>
         <Box
           ratio="basis-1/2"
@@ -245,7 +263,7 @@ export default function ActionBoard({ openMajorSlot }) {
           title="흙 채굴장🔻"
         >
           <p className=" text-lg font-bold mr-0.5">1</p>
-          <img className="w-7" src="/img/soil_icon.png" alt="soil" />
+          <img className="w-1/4" src="/img/soil_icon.png" alt="soil" />
         </Box>
         <Box
           ratio="basis-1/2"
@@ -254,17 +272,17 @@ export default function ActionBoard({ openMajorSlot }) {
           title="교습"
         >
           <div className="flex flex-col">
-            <p>직업당</p>
-            <div className="flex items-center">
+            <p className="font-bold">직업당</p>
+            <div className="flex items-center justify-center">
               <>
                 <p className="font-bold mr-0.5">1</p>
-                <img className="w-5" src="/img/food_icon.png" alt="food" />
+                <img className="w-1/4" src="/img/food_icon.png" alt="food" />
               </>
               <p className="mx-1 text-lg">→</p>
               <>
                 <p className="font-bold mr-0.5">1</p>
                 <img
-                  className="w-7"
+                  className="w-1/4"
                   src="/img/jobCard_icon.png"
                   alt="jobCard"
                 />
@@ -279,7 +297,7 @@ export default function ActionBoard({ openMajorSlot }) {
           title="갈대밭🔻"
         >
           <p className=" text-lg font-bold mr-0.5">1</p>
-          <img className="w-7" src="/img/reed_icon.png" alt="reed" />
+          <img className="w-1/4" src="/img/reed_icon.png" alt="reed" />
         </Box>
         <Box
           ratio="basis-1/2"
@@ -288,7 +306,7 @@ export default function ActionBoard({ openMajorSlot }) {
           title="납품팔이"
         >
           <p className=" text-lg font-bold mr-0.5">+2</p>
-          <img className="w-7" src="/img/food_icon.png" alt="food" />
+          <img className="w-1/4" src="/img/food_icon.png" alt="food" />
         </Box>
         <Box
           ratio="basis-1/2"
@@ -297,7 +315,7 @@ export default function ActionBoard({ openMajorSlot }) {
           title="낚시🔻"
         >
           <p className=" text-lg font-bold mr-0.5">1</p>
-          <img className="w-7" src="/img/food_icon.png" alt="food" />
+          <img className="w-1/4" src="/img/food_icon.png" alt="food" />
         </Box>
       </div>
       <div className="basis-2/5 aspect-square	 flex flex-wrap">
@@ -348,23 +366,25 @@ export default function ActionBoard({ openMajorSlot }) {
 
       {roundArray[13] ? (
         <Box ratio="basis-1/5" isSquare={true} title="농장 개조">
-          <div className="flex flex-col ">
-            <div className="flex items-center">
+          <div className="flex flex-col items-center h-full">
+            <div className="flex items-center justify-center basis-2/5">
               <p className="font-bold mr-0.5">1</p>
-              <img className="w-5" src="/img/reed_icon.png" alt="reed" />
-              <p className="mx-1 font-bold text-xs">+</p>
+              <img className="w-1/4" src="/img/reed_icon.png" alt="reed" />
+              <p className="mx-1 font-bold text-lg">+</p>
               <img
-                className="w-12"
+                className="w-1/2"
                 src="/img/upgradeRoom_icon.png"
                 alt="upgradeRoom"
               />
             </div>
-            <p className="mx-1 font-bold text-xs">한 후에</p>
-            <div className="flex items-center justify-center">
+            <p className="mx-1 font-bold text-xs basis-1/5 flex items-center">
+              한 후에
+            </p>
+            <div className="flex items-center justify-center basis-2/5">
               <p className="font-bold mr-0.5">1</p>
-              <img className="w-5" src="/img/wood_icon.png" alt="wood" />
+              <img className="w-1/4" src="/img/wood_icon.png" alt="wood" />
               <p className="mx-1 text-lg">→</p>
-              <img className="w-5" src="/img/fence_icon.png" alt="fence" />
+              <img className="w-1/4" src="/img/fence_icon.png" alt="fence" />
             </div>
           </div>
         </Box>

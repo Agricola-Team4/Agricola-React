@@ -1,0 +1,38 @@
+{
+  "resource": [
+    {
+      "id": 1,
+      "sheep": 1,
+      "cow": 1,
+      "reed": 1,
+      "boar": 1,
+      "grain": 1,
+      "soil": 1,
+      "stone": 1,
+      "vege": 1,
+      "wood": 1,
+      "food": 1,
+      "profile": 1,
+      "farmer_red": 1,
+      "fence_red": 1,
+      "stable_red": 1
+    },
+    {
+      "id": 2,
+      "sheep": 1,
+      "cow": 1,
+      "reed": 1,
+      "boar": 1,
+      "grain": 1,
+      "soil": 1,
+      "stone": 1,
+      "vege": 1,
+      "wood": 1,
+      "food": 1,
+      "profile": 1,
+      "farmer_red": 1,
+      "fence_red": 1,
+      "stable_red": 1
+    }
+  ]
+}

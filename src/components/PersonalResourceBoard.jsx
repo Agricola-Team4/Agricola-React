@@ -38,20 +38,14 @@ export default function PersonalResourceBoard() {
       fence_red,
       stable_red,
     } = {},
-  } = useQuery(
-    ['resource'],
-    async () => {
-      console.log('🙇🏻‍♀️afternoon fetching ...🙇🏻‍♀️');
-      return await axios
-        .get('http://localhost:3001/resource/1')
-        .then(res => res.data);
+  } = useQuery(['resource'], async () => {
+    console.log('🙇🏻‍♀️afternoon fetching ...🙇🏻‍♀️');
+    return await axios
+      .get('http://localhost:3001/resource/1')
+      .then(res => res.data);
 
-      // return result;
-    },
-    {
-      staleTime: 1000 * 60,
-    }
-  );
+    // return result;
+  });
 
   // const {
   //   sheep,

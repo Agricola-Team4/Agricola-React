@@ -6,7 +6,7 @@ export default function PromptBtn({ text }) {
     <div
       className="px-2 py-1 mx-0.5 border-2 border-black rounded-lg cursor-pointer"
       onClick={() => {
-        axios.patch('http://localhost:3001/resource/1', { wood: 4 });
+        axios.patch('http://localhost:3001/resource/1', { wood: 10 });
       }}
     >
       {text}

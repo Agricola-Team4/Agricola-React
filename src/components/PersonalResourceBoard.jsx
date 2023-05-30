@@ -45,7 +45,7 @@ export default function PersonalResourceBoard() {
       <div className="basis-2/12 mb-1 flex flex-row justify-center bg-brown-100">
         <div className="basis-2/12 flex flex-col items-center pt-4 border-r-2">
           <Avatar src={profile_img} alt="avatar" size="md" variant="circular" />
-          <p className="pt-2">이름</p>
+          <p className="pt-2">{profile}</p>
         </div>
 
         <div className="basis-10/12 flex justify-center">
@@ -67,7 +67,7 @@ export default function PersonalResourceBoard() {
                   alt=""
                   style={{ height: '38px' }}
                 />
-                <p className="">15</p>
+                <p className="">{soil}</p>
               </div>
               <div className="basis-1/5 flex items-center justify-center flex-col mx-2">
                 <img
@@ -76,7 +76,7 @@ export default function PersonalResourceBoard() {
                   alt=""
                   style={{ height: '38px' }}
                 />
-                <p className="">15</p>
+                <p className="">{stone}</p>
               </div>
               <div className="basis-1/5 flex items-center justify-center flex-col mx-2">
                 <img
@@ -85,7 +85,7 @@ export default function PersonalResourceBoard() {
                   alt=""
                   style={{ height: '38px' }}
                 />
-                <p className="">15</p>
+                <p className="">{reed}</p>
               </div>
               <div className="basis-1/5 flex items-center justify-center flex-col mx-2">
                 <img
@@ -94,7 +94,7 @@ export default function PersonalResourceBoard() {
                   alt=""
                   style={{ height: '38px' }}
                 />
-                <p className="">15</p>
+                <p className="">{food}</p>
               </div>
             </div>
             <div className="flex flex-row">
@@ -105,7 +105,7 @@ export default function PersonalResourceBoard() {
                   alt=""
                   style={{ height: '38px' }}
                 />
-                <p className="">15</p>
+                <p className="">{sheep}</p>
               </div>
               <div className="basis-1/5 flex items-center justify-center flex-col mx-2">
                 <img
@@ -114,7 +114,7 @@ export default function PersonalResourceBoard() {
                   alt=""
                   style={{ height: '38px' }}
                 />
-                <p className="">15</p>
+                <p className="">{boar}</p>
               </div>
               <div className="basis-1/5 flex items-center justify-center flex-col mx-2">
                 <img
@@ -123,7 +123,7 @@ export default function PersonalResourceBoard() {
                   alt=""
                   style={{ height: '38px' }}
                 />
-                <p className="">15</p>
+                <p className="">{cow}</p>
               </div>
               <div className="basis-1/5 flex items-center justify-center flex-col mx-2">
                 <img
@@ -132,7 +132,7 @@ export default function PersonalResourceBoard() {
                   alt=""
                   style={{ height: '38px' }}
                 />
-                <p className="">15</p>
+                <p className="">{grain}</p>
               </div>
               <div className="basis-1/5 flex items-center justify-center flex-col mx-2">
                 <img
@@ -141,7 +141,7 @@ export default function PersonalResourceBoard() {
                   alt=""
                   style={{ height: '38px' }}
                 />
-                <p className="">15</p>
+                <p className="">{vege}</p>
               </div>
             </div>
           </div>
@@ -155,7 +155,7 @@ export default function PersonalResourceBoard() {
                   alt=""
                   style={{ height: '38px' }}
                 />
-                <p className="">15</p>
+                <p className="">{farmer_red}</p>
               </div>
               <div className="basis-1/2 flex items-center justify-center flex-col mx-2">
                 <img
@@ -164,7 +164,7 @@ export default function PersonalResourceBoard() {
                   alt="신생아"
                   style={{ height: '38px' }}
                 />
-                <p className="">15</p>
+                <p className="">{farmer_red}</p>
               </div>
             </div>
             <div className="flex">
@@ -175,7 +175,7 @@ export default function PersonalResourceBoard() {
                   alt=""
                   style={{ height: '38px' }}
                 />
-                <p className="">15</p>
+                <p className="">{fence_red}</p>
               </div>
               <div className="basis-1/2 flex items-center justify-center flex-col mx-2">
                 <img
@@ -184,7 +184,7 @@ export default function PersonalResourceBoard() {
                   alt=""
                   style={{ height: '38px' }}
                 />
-                <p className="">15</p>
+                <p className="">{stable_red}</p>
               </div>
             </div>
           </div>

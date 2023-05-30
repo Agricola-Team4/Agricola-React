@@ -14,56 +14,31 @@ import profile_img from '../assets/images/korea.png';
 import farmer_red_img from '../assets/images/farmer_icon_red.png';
 import fence_red_img from '../assets/images/fence_icon_red.png';
 import stable_red_img from '../assets/images/stable_icon_red.png';
-import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
+import useResource from '../hooks/useResource';
 
 export default function PersonalResourceBoard() {
-  // console.log(sheep);
-
   const {
-    isLoading,
-    error,
-    data: {
-      sheep,
-      cow,
-      reed,
-      boar,
-      grain,
-      soil,
-      stone,
-      vege,
-      wood,
-      food,
-      profile,
-      farmer_red,
-      fence_red,
-      stable_red,
-    } = {},
-  } = useQuery(['resource'], async () => {
-    console.log('🙇🏻‍♀️afternoon fetching ...🙇🏻‍♀️');
-    return await axios
-      .get('http://localhost:3001/resource/1')
-      .then(res => res.data);
-
-    // return result;
-  });
-
-  // const {
-  //   sheep,
-  //   cow,
-  //   reed,
-  //   boar,
-  //   grain,
-  //   soil,
-  //   stone,
-  //   vege,
-  //   wood,
-  //   food,
-  //   profile,
-  //   farmer_red,
-  //   fence_red,
-  //   stable_red,
-  // } = resource;
+    resourceQuery: {
+      isLadoing,
+      error,
+      data: {
+        sheep,
+        cow,
+        reed,
+        boar,
+        grain,
+        soil,
+        stone,
+        vege,
+        wood,
+        food,
+        profile,
+        farmer_red,
+        fence_red,
+        stable_red,
+      } = {},
+    },
+  } = useResource();
 
   return (
     <>

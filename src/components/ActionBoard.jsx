@@ -235,7 +235,7 @@ export default function ActionBoard({ openMajorSlot }) {
         ratio="basis-1/5"
         isSquare={true}
         title="숲🔻"
-        onClick={() => updateResource.mutate({})}
+        onClick={() => updateResource.mutate()}
       >
         <p className=" text-lg font-bold mr-0.5">3</p>
         <img className="w-1/3" src="/img/wood_icon.png" alt="wood" />

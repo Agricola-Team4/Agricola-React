@@ -6,7 +6,7 @@ export default function useResource() {
 
   const resourceQuery = useQuery(['resource'], getResource);
 
-  const updateResource = useMutation(({}) => updateWood(), {
+  const updateResource = useMutation(() => updateWood(), {
     onSuccess: () => queryClient.invalidateQueries(['resource']), // queryKey 유효성 제거
   });
 

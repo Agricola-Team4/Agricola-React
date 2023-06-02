@@ -2,6 +2,7 @@ import React from 'react';
 import Box from './Box';
 import RoundBox from './RoundBox';
 import HTMLReactParser from 'html-react-parser';
+import useResource from '../hooks/useResource';
 
 export default function ActionBoard({ openMajorSlot }) {
   const roundArray = [
@@ -20,6 +21,7 @@ export default function ActionBoard({ openMajorSlot }) {
     true,
     true,
   ];
+  const { updateResource } = useResource();
 
   const round1 = [
     {
@@ -229,7 +231,12 @@ export default function ActionBoard({ openMajorSlot }) {
           <img className="w-1/4" src="/img/grain_icon.png" alt="grain" />
         </Box>
       </div>
-      <Box ratio="basis-1/5" isSquare={true} title="숲🔻">
+      <Box
+        ratio="basis-1/5"
+        isSquare={true}
+        title="숲🔻"
+        onClick={() => updateResource.mutate()}
+      >
         <p className=" text-lg font-bold mr-0.5">3</p>
         <img className="w-1/3" src="/img/wood_icon.png" alt="wood" />
       </Box>

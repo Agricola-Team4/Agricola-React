@@ -1,0 +1,38 @@
+{
+  "resource": [
+    {
+      "id": 1,
+      "sheep": 0,
+      "cow": 0,
+      "reed": 0,
+      "boar": 0,
+      "grain": 0,
+      "soil": 0,
+      "stone": 0,
+      "vege": 0,
+      "wood": 10,
+      "food": 2,
+      "profile": "dongree",
+      "farmer_red": 2,
+      "fence_red": 15,
+      "stable_red": 15
+    },
+    {
+      "id": 2,
+      "sheep": 0,
+      "cow": 0,
+      "reed": 0,
+      "boar": 0,
+      "grain": 0,
+      "soil": 0,
+      "stone": 0,
+      "vege": 0,
+      "wood": 0,
+      "food": 3,
+      "profile": "hyeseon",
+      "farmer_red": 2,
+      "fence_red": 15,
+      "stable_red": 15
+    }
+  ]
+}

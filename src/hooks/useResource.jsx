@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { getResource, updateWood } from '../api/agricola';
+import { updateBabyState } from '../api/agricola';
 
 export default function useResource() {
   const queryClient = useQueryClient();
@@ -10,5 +11,9 @@ export default function useResource() {
     onSuccess: () => queryClient.invalidateQueries(['resource']), // queryKey 유효성 제거
   });
 
-  return { resourceQuery, updateResource };
+  const updateBaby = useMutation(() => updateBabyState(), {
+    onSuccess: () => queryClient.invalidateQueries(['resource']), // queryKey 유효성 제거
+  });
+
+  return { resourceQuery, updateResource, updateBaby };
 }

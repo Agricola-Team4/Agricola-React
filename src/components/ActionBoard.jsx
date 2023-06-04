@@ -21,113 +21,235 @@ export default function ActionBoard({ openMajorSlot }) {
     true,
     true,
   ];
-  const { updateResource } = useResource();
+  const { updateResource, updateBaby } = useResource();
 
   const round1 = [
     {
       title: '양시장🔻',
-      childTags: `<p className=" text-xl font-bold mr-0.5">1</p>
-<img className="w-1/3" src='/img/sheep_icon.png' alt="sheep" />`,
+      childTags: (
+        <>
+          <p className=" text-xl font-bold mr-0.5">1</p>
+          <img className="w-1/3" src="/img/sheep_icon.png" alt="sheep" />
+        </>
+      ),
+      onClick: () => {
+        console.log('hello1 !!!!!');
+      },
     },
     {
       title: '울타리',
-      childTags: `<div className="flex items-center justify-center">
-      <p className=" text-lg font-bold mr-0.5">1</p>
-      <img className="w-1/4" src='/img/wood_icon.png' alt="wood" />
-      <p className="mx-1 text-2xl font-bold">→</p>
-      <img className="w-1/4" src='/img/fence_icon.png' alt="fence" />
-    </div>`,
+      childTags: (
+        <div className="flex items-center justify-center">
+          <p className=" text-lg font-bold mr-0.5">1</p>
+          <img className="w-1/4" src="/img/wood_icon.png" alt="wood" />
+          <p className="mx-1 text-2xl font-bold">→</p>
+          <img className="w-1/4" src="/img/fence_icon.png" alt="fence" />
+        </div>
+      ),
+      onClick: () => {
+        console.log('hello2 !!!!!');
+      },
     },
     {
       title: '주요설비',
-      childTags: `<p className=" text-lg font-bold mr-0.5">1</p>
-      <img className="w-1/4" src='/img/mainEqCard_icon.png' alt="mainEqCard" />
-      <p className="mx-1 text-lg font-bold">or</p>
-      <img className="w-1/4" src='/img/subEqCard_icon.png' alt="subEqCard" />`,
+      childTags: (
+        <>
+          <p className=" text-lg font-bold mr-0.5">1</p>
+          <img
+            className="w-1/4"
+            src="/img/mainEqCard_icon.png"
+            alt="mainEqCard"
+          />
+          <p className="mx-1 text-lg font-bold">or</p>
+          <img
+            className="w-1/4"
+            src="/img/subEqCard_icon.png"
+            alt="subEqCard"
+          />
+        </>
+      ),
+      onClick: () => {
+        console.log('hello3 !!!!!');
+      },
     },
     {
       title: '곡식활용',
-      childTags: `<img className="w-1/4" src='/img/grainVege_icon.png' alt="grainVege" />
-      <p className="mx-1 font-bold">and/or</p>
-      <img className="w-1/4" src='/img/bread_icon.png' alt="bread" />`,
+      childTags: (
+        <>
+          <img
+            className="w-1/4"
+            src="/img/grainVege_icon.png"
+            alt="grainVege"
+          />
+          <p className="mx-1 font-bold">and/or</p>
+          <img className="w-1/4" src="/img/bread_icon.png" alt="bread" />
+        </>
+      ),
+      onClick: () => {
+        console.log('hello4 !!!!!');
+      },
     },
   ];
 
   const round2 = [
     {
       title: '서부 채석장🔻',
-      childTags: `<p className=" text-xl font-bold mr-0.5">1</p>
-      <img className="w-1/3" src='/img/stone_icon.png' alt="stone" />`,
+      childTags: (
+        <>
+          <p className=" text-xl font-bold mr-0.5">1</p>
+          <img className="w-1/3" src="/img/stone_icon.png" alt="stone" />
+        </>
+      ),
+      onClick: () => {
+        console.log('hello5 !!!!!');
+      },
     },
     {
       title: '기본 가족 늘리기',
-      childTags: `<img className="w-1/4" src=/img/addPerson_icon.png alt="addPerson" />
-      <p className="mx-1 font-bold text-xs">한 후에</p>
-      <p className="mr-0.5 text-lg font-bold">1</p>
-      <img className="w-1/4" src='/img/subEqCard_icon.png' alt="subEqCard" />`,
+      childTags: (
+        <>
+          <img
+            className="w-1/4"
+            src="/img/addPerson_icon.png"
+            alt="addPerson"
+          />
+          <p className="mx-1 font-bold text-xs">한 후에</p>
+          <p className="mr-0.5 text-lg font-bold">1</p>
+          <img
+            className="w-1/4"
+            src="/img/subEqCard_icon.png"
+            alt="subEqCard"
+          />
+        </>
+      ),
+      onClick: () => {
+        console.log('hello6 !!!!!');
+      },
     },
+
     {
       title: '집개조',
-      childTags: `<div className="flex flex-col items-center h-full">
-      <div className="flex items-center justify-center basis-2/5">
-        <p className=" font-bold mr-0.5">1</p>
-        <img className="w-1/4" src='/img/reed_icon.png' alt="reed" />
-        <p className="mx-1 font-bold text-lg">+</p>
-        <img className="w-1/2" src='/img/upgradeRoom_icon.png' alt="upgradeRoom" />
-      </div>
-      <p className="font-bold text-xs basis-1/5 flex items-center">한 후에</p>
-      <div className="flex items-center justify-center basis-2/5">
-        <p className=" font-bold mr-0.5">1</p>
-        <img className="w-1/4" src='/img/mainEqCard_icon.png' alt="mainEqCard" />
-        <p className="mx-1  font-bold">or</p>
-        <img className="w-1/4" src='/img/subEqCard_icon.png' alt="subEqCard" />
-      </div>
-    </div>`,
+      childTags: (
+        <div className="flex flex-col items-center h-full">
+          <div className="flex items-center justify-center basis-2/5">
+            <p className=" font-bold mr-0.5">1</p>
+            <img className="w-1/4" src="/img/reed_icon.png" alt="reed" />
+            <p className="mx-1 font-bold text-lg">+</p>
+            <img
+              className="w-1/2"
+              src="/img/upgradeRoom_icon.png"
+              alt="upgradeRoom"
+            />
+          </div>
+          <p className="font-bold text-xs basis-1/5 flex items-center">
+            한 후에
+          </p>
+          <div className="flex items-center justify-center basis-2/5">
+            <p className=" font-bold mr-0.5">1</p>
+            <img
+              className="w-1/4"
+              src="/img/mainEqCard_icon.png"
+              alt="mainEqCard"
+            />
+            <p className="mx-1  font-bold">or</p>
+            <img
+              className="w-1/4"
+              src="/img/subEqCard_icon.png"
+              alt="subEqCard"
+            />
+          </div>
+        </div>
+      ),
+      onClick: () => {
+        console.log('hello7 !!!!!');
+      },
     },
   ];
 
   const round3 = [
     {
       title: '채소 종자',
-      childTags: `<p className=" text-lg font-bold mr-0.5">+1</p>
-      <img className="w-1/3" src=/img/vege_icon.png alt="vegetable" />`,
+      childTags: (
+        <>
+          <p className=" text-lg font-bold mr-0.5">+1</p>
+          <img className="w-1/3" src="/img/vege_icon.png" alt="vegetable" />
+        </>
+      ),
+      onClick: () => {
+        console.log('hello8 !!!!!');
+      },
     },
     {
       title: '돼지 시장🔻',
-      childTags: `<p className=" text-lg font-bold mr-0.5">1</p>
-      <img className="w-1/3" src=/img/boar_icon.png alt="boar" />`,
+      childTags: (
+        <>
+          <p className=" text-lg font-bold mr-0.5">1</p>
+          <img className="w-1/3" src="/img/boar_icon.png" alt="boar" />
+        </>
+      ),
+      onClick: () => {
+        console.log('hello9 !!!!!');
+      },
     },
   ];
 
   const round4 = [
     {
       title: '소 시장🔻',
-      childTags: `<p className=" text-lg font-bold mr-0.5">1</p>
-      <img className="w-1/3" src=/img/cow_icon.png alt="cow" />`,
+      childTags: (
+        <>
+          <p className=" text-lg font-bold mr-0.5">1</p>
+          <img className="w-1/3" src="/img/cow_icon.png" alt="cow" />
+        </>
+      ),
+      onClick: () => {
+        console.log('hello10 !!!!!');
+      },
     },
     {
       title: '동부 채석장🔻',
-      childTags: `<p className=" text-lg font-bold mr-0.5">1</p>
-      <img className="w-1/3" src='/img/stone_icon.png' alt="stone" />`,
+      childTags: (
+        <>
+          <p className=" text-lg font-bold mr-0.5">1</p>
+          <img className="w-1/3" src="/img/stone_icon.png" alt="stone" />
+        </>
+      ),
+      onClick: () => {
+        console.log('hello11 !!!!!');
+      },
     },
   ];
 
   const round5 = [
     {
       title: '급한 가족 늘리기',
-      childTags: `<img className="w-1/3" src='/img/addPerson2_icon.png' alt="addPerson2" />`,
+      childTags: (
+        <img
+          className="w-1/3"
+          src="/img/addPerson2_icon.png"
+          alt="addPerson2"
+        />
+      ),
+      onClick: () => {
+        console.log('hello12 !!!!!');
+      },
     },
     {
       title: '밭 농사',
-      childTags: `<div className="flex flex-col items-center h-full py-1">
-      <div className="w-1/3 basis-2/5 flex items-center">
-        <img src='/img/farmland_icon.png' alt="farmland" />
-      </div>
-      <p className="font-bold basis-1/5">and/or</p>
-      <div className="w-1/3 basis-2/5 flex items-center">
-        <img  src='/img/grainVege_icon.png' alt="grainVege" />
-      </div>
-    </div>`,
+      childTags: (
+        <div className="flex flex-col items-center h-full py-1">
+          <div className="w-1/3 basis-2/5 flex items-center">
+            <img src="/img/farmland_icon.png" alt="farmland" />
+          </div>
+          <p className="font-bold basis-1/5">and/or</p>
+          <div className="w-1/3 basis-2/5 flex items-center">
+            <img src="/img/grainVege_icon.png" alt="grainVege" />
+          </div>
+        </div>
+      ),
+      onClick: () => {
+        console.log('hello13 !!!!!');
+      },
     },
   ];
 
@@ -196,8 +318,14 @@ export default function ActionBoard({ openMajorSlot }) {
       </Box>
       {shuffledRound1.map((info, idx) => {
         return roundArray[idx] ? (
-          <Box ratio="basis-1/5" isSquare={true} title={info.title} key={idx}>
-            {HTMLReactParser(info.childTags)}
+          <Box
+            ratio="basis-1/5"
+            isSquare={true}
+            title={info.title}
+            key={idx}
+            onClick={info.onClick}
+          >
+            {info.childTags}
           </Box>
         ) : (
           <RoundBox ratio="basis-1/5" round="1" key={idx} />
@@ -247,8 +375,9 @@ export default function ActionBoard({ openMajorSlot }) {
             isSquare={true}
             title={info.title}
             key={idx + 4}
+            onClick={info.onClick}
           >
-            {HTMLReactParser(info.childTags)}
+            {info.childTags}
           </Box>
         ) : (
           <RoundBox ratio="basis-1/5" round="2" key={idx + 4} />
@@ -333,8 +462,9 @@ export default function ActionBoard({ openMajorSlot }) {
               isSquare={true}
               title={info.title}
               key={idx + 7}
+              onClick={info.onClick}
             >
-              {HTMLReactParser(info.childTags)}
+              {info.childTags}
             </Box>
           ) : (
             <RoundBox ratio="basis-1/2" round="3" key={idx + 7} />
@@ -347,8 +477,9 @@ export default function ActionBoard({ openMajorSlot }) {
               isSquare={true}
               title={info.title}
               key={idx + 9}
+              onClick={info.onClick}
             >
-              {HTMLReactParser(info.childTags)}
+              {info.childTags}
             </Box>
           ) : (
             <RoundBox ratio="basis-1/2" round="4" key={idx + 9} />
@@ -363,8 +494,9 @@ export default function ActionBoard({ openMajorSlot }) {
             isSquare={true}
             title={info.title}
             key={idx + 11}
+            onClick={info.onClick}
           >
-            {HTMLReactParser(info.childTags)}
+            {info.childTags}
           </Box>
         ) : (
           <RoundBox ratio="basis-1/5" round="5" key={idx + 11} />

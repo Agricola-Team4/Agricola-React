@@ -1,5 +1,4 @@
 import React from 'react';
-import { Avatar } from '@material-tailwind/react';
 import sheep_img from '../assets/images/sheep_icon.png';
 import cow_img from '../assets/images/cow_icon.png';
 import reed_img from '../assets/images/reed_icon.png';
@@ -15,6 +14,8 @@ import farmer_red_img from '../assets/images/farmer_icon_red.png';
 import fence_red_img from '../assets/images/fence_icon_red.png';
 import stable_red_img from '../assets/images/stable_icon_red.png';
 import useResource from '../hooks/useResource';
+import ResourceInfo from './ResourceInfo';
+import Profile from './Profile';
 
 export default function PersonalResourceBoard() {
   const {
@@ -42,150 +43,107 @@ export default function PersonalResourceBoard() {
 
   return (
     <>
-      <div className="basis-2/12 mb-1 flex flex-row justify-center bg-brown-100">
+      <div className="flex flex-row justify-center bg-brown-100 mb-1">
         <div className="basis-2/12 flex flex-col items-center pt-4 border-r-2">
-          <Avatar src={profile_img} alt="avatar" size="md" variant="circular" />
-          <p className="pt-2">{profile}</p>
+          <Profile img={profile_img} name={profile} />
         </div>
 
         <div className="basis-10/12 flex justify-center">
           <div className="basis-5/7 flex flex-col justify-center items-center border-r-2">
             <div className="flex flex-row pb-2">
-              <div className="basis-1/5 flex items-center justify-center flex-col mx-2">
-                <img
-                  className="aspect-square"
-                  src={wood_img}
-                  alt=""
-                  style={{ height: '38px' }}
-                />
-                <p className="">{wood}</p>
-              </div>
-              <div className="basis-1/5 flex items-center justify-center flex-col mx-2">
-                <img
-                  className="aspect-square"
-                  src={soil_img}
-                  alt=""
-                  style={{ height: '38px' }}
-                />
-                <p className="">{soil}</p>
-              </div>
-              <div className="basis-1/5 flex items-center justify-center flex-col mx-2">
-                <img
-                  className="aspect-square"
-                  src={stone_img}
-                  alt=""
-                  style={{ height: '38px' }}
-                />
-                <p className="">{stone}</p>
-              </div>
-              <div className="basis-1/5 flex items-center justify-center flex-col mx-2">
-                <img
-                  className="aspect-square"
-                  src={reed_img}
-                  alt=""
-                  style={{ height: '38px' }}
-                />
-                <p className="">{reed}</p>
-              </div>
-              <div className="basis-1/5 flex items-center justify-center flex-col mx-2">
-                <img
-                  className="aspect-square"
-                  src={food_img}
-                  alt=""
-                  style={{ height: '38px' }}
-                />
-                <p className="">{food}</p>
-              </div>
+              <ResourceInfo
+                img={wood_img}
+                num={wood}
+                alt="wood"
+                basis="basis-1/5"
+              />
+              <ResourceInfo
+                img={soil_img}
+                num={soil}
+                alt="soil"
+                basis="basis-1/5"
+              />
+              <ResourceInfo
+                img={stone_img}
+                num={stone}
+                alt="stone"
+                basis="basis-1/5"
+              />
+              <ResourceInfo
+                img={reed_img}
+                num={reed}
+                alt="reed"
+                basis="basis-1/5"
+              />
+              <ResourceInfo
+                img={food_img}
+                num={food}
+                alt="food"
+                basis="basis-1/5"
+              />
             </div>
             <div className="flex flex-row">
-              <div className="basis-1/5 flex items-center justify-center flex-col mx-2">
-                <img
-                  className="aspect-square"
-                  src={sheep_img}
-                  alt=""
-                  style={{ height: '38px' }}
-                />
-                <p className="">{sheep}</p>
-              </div>
-              <div className="basis-1/5 flex items-center justify-center flex-col mx-2">
-                <img
-                  className="aspect-square"
-                  src={boar_img}
-                  alt=""
-                  style={{ height: '38px' }}
-                />
-                <p className="">{boar}</p>
-              </div>
-              <div className="basis-1/5 flex items-center justify-center flex-col mx-2">
-                <img
-                  className="aspect-square"
-                  src={cow_img}
-                  alt=""
-                  style={{ height: '38px' }}
-                />
-                <p className="">{cow}</p>
-              </div>
-              <div className="basis-1/5 flex items-center justify-center flex-col mx-2">
-                <img
-                  className="aspect-square"
-                  src={grain_img}
-                  alt=""
-                  style={{ height: '38px' }}
-                />
-                <p className="">{grain}</p>
-              </div>
-              <div className="basis-1/5 flex items-center justify-center flex-col mx-2">
-                <img
-                  className="aspect-square"
-                  src={vege_img}
-                  alt=""
-                  style={{ height: '38px' }}
-                />
-                <p className="">{vege}</p>
-              </div>
+              <ResourceInfo
+                img={sheep_img}
+                num={sheep}
+                alt="sheep"
+                basis="basis-1/5"
+              />
+              <ResourceInfo
+                img={boar_img}
+                num={boar}
+                alt="boar"
+                basis="basis-1/5"
+              />
+              <ResourceInfo
+                img={cow_img}
+                num={cow}
+                alt="cow"
+                basis="basis-1/5"
+              />
+              <ResourceInfo
+                img={grain_img}
+                num={grain}
+                alt="grain"
+                basis="basis-1/5"
+              />
+              <ResourceInfo
+                img={vege_img}
+                num={vege}
+                alt="vege"
+                basis="basis-1/5"
+              />
             </div>
           </div>
 
           <div className="basis-2/7 flex flex-col justify-center items-center">
             <div className="flex flex-row pb-2">
-              <div className="basis-1/2 flex items-center justify-center flex-col mx-2">
-                <img
-                  className="aspect-square"
-                  src={farmer_red_img}
-                  alt=""
-                  style={{ height: '38px' }}
-                />
-                <p className="">{farmer_red}</p>
-              </div>
-              <div className="basis-1/2 flex items-center justify-center flex-col mx-2">
-                <img
-                  className="aspect-square"
-                  src={farmer_red_img}
-                  alt="신생아"
-                  style={{ height: '38px' }}
-                />
-                <p className="">{farmer_red}</p>
-              </div>
+              <ResourceInfo
+                img={farmer_red_img}
+                num={farmer_red}
+                alt="farmer_red"
+                basis="basis-1/2"
+              />
+              <ResourceInfo
+                img={farmer_red_img}
+                num={farmer_red}
+                alt="baby"
+                basis="basis-1/2"
+              />
             </div>
             <div className="flex">
-              <div className="basis-1/2 flex items-center justify-center flex-col mx-2">
-                <img
-                  className="aspect-square"
-                  src={fence_red_img}
-                  alt=""
-                  style={{ height: '38px' }}
-                />
-                <p className="">{fence_red}</p>
-              </div>
-              <div className="basis-1/2 flex items-center justify-center flex-col mx-2">
-                <img
-                  className="aspect-square"
-                  src={stable_red_img}
-                  alt=""
-                  style={{ height: '38px' }}
-                />
-                <p className="">{stable_red}</p>
-              </div>
+              <ResourceInfo
+                img={fence_red_img}
+                num={fence_red}
+                alt="fence_red"
+                basis="basis-1/2"
+              />
+              <ResourceInfo
+                img={stable_red_img}
+                num={stable_red}
+                alt="stable_red"
+                basis="basis-1/2"
+              />
             </div>
           </div>
         </div>

@@ -410,6 +410,35 @@ export default function ActionBoard({ openMajorSlot }) {
         console.log("hello13 !!!!!");
       },
     },
+    {
+      title: "농장 개조",
+      childTags: (
+        <div className="flex flex-col items-center h-full">
+          <div className="flex items-center justify-center basis-2/5">
+            <p className="font-bold mr-0.5">1</p>
+            <img className="w-1/4" src="/img/reed_icon.png" alt="reed" />
+            <p className="mx-1 font-bold text-lg">+</p>
+            <img
+              className="w-1/2"
+              src="/img/upgradeRoom_icon.png"
+              alt="upgradeRoom"
+            />
+          </div>
+          <p className="mx-1 font-bold text-xs basis-1/5 flex items-center">
+            한 후에
+          </p>
+          <div className="flex items-center justify-center basis-2/5">
+            <p className="font-bold mr-0.5">1</p>
+            <img className="w-1/4" src="/img/wood_icon.png" alt="wood" />
+            <p className="mx-1 text-lg">→</p>
+            <img className="w-1/4" src="/img/fence_icon.png" alt="fence" />
+          </div>
+        </div>
+      ),
+      onClick: () => {
+        console.log("hello13 !!!!!");
+      },
+    },
   ];
 
   const roundArray = [

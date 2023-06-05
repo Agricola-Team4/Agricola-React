@@ -12,13 +12,12 @@ export default function useResource() {
     () => getAllResource(pid),
     { enabled: !!pid }
   );
-  console.log(pid);
 
   // update Resource 인자 넣어서 하는 방법 진행해야함.
   const updateResource = useMutation(
-    (pid, rid, num) => updateOneResource(pid, rid, num),
+    ({ rid, num }) => updateOneResource(pid, rid, num),
     {
-      onSuccess: () => queryClient.invalidateQueries(["resource"]), // queryKey 유효성 제거
+      onSuccess: () => queryClient.invalidateQueries(["resource", pid]), // queryKey 유효성 제거
     }
   );
 

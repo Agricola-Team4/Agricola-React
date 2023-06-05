@@ -67,7 +67,7 @@ export async function getAllResource(pid) {
     // console.log(resource_id, resource_name);
 
     resource_object[resource_name] = resource_num;
-    console.log("res", resource_object);
+    // console.log("res", resource_object);
   });
 
   const data2 = await axios
@@ -75,7 +75,7 @@ export async function getAllResource(pid) {
       `http://3.36.7.233:3000/playerresource/get_family_resource/?player_id=${pid}`
     )
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       return res.data;
     });
   resource_object["farmer"] = data2.adult;
@@ -86,13 +86,13 @@ export async function getAllResource(pid) {
       `http://3.36.7.233:3000/playerresource/get_agricultural_resource/?player_id=${pid}`
     )
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       return res.data;
     });
   resource_object["fence"] = data3.fence;
   resource_object["stable"] = data3.cowshed;
 
-  console.log("res_fin", resource_object);
+  // console.log("res_fin", resource_object);
   return resource_object;
 }
 
@@ -117,22 +117,25 @@ export async function getResource(pid, rid) {
     });
 
   const resource_num = data.resource_num;
-  console.log("num", resource_num);
+  // console.log("num", resource_num);
 
   return resource_num;
 }
 
 export async function updateOneResource(pid, rid, num) {
-  const data = await axios
-    .get(
-      `http://3.36.7.233:3000/playerresource/update_player_resource?player_id=${pid}&resource_id=${rid}&num_to_add=${num}`
-    )
+  return await axios
+    .put("http://3.36.7.233:3000/playerresource/update_player_resource/", {
+      player_id: pid,
+      resource_id: rid,
+      num: num,
+    })
     .then((res) => {
+      console.log("update !!!!!!!!!!!", pid, rid, num);
       return res.data;
     });
 
-  const updated_resource_num = data.resource_num;
-  // console.log("updated_resource_num", updated_resource_num);
+  // const updated_resource_num = data.resource_num;
+  // // console.log("updated_resource_num", updated_resource_num);
 
-  return updated_resource_num;
+  // return updated_resource_num;
 }

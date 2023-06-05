@@ -96,8 +96,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
-        console.log("hello12 !!!!!");
-        updateResource.mutate({ pid: pid, rid: 1, num: 3 });
+        updateResource.mutate({ rid: 5, num: 3 });
       },
     },
     {
@@ -519,6 +518,7 @@ export default function ActionBoard({ openMajorSlot }) {
           isSquare={false}
           extraStyle="h-full"
           title={action[2].title}
+          onClick={action[2].onClick}
         >
           {action[2].childTags}
         </Box>

@@ -43,7 +43,7 @@ export default function PersonalResourceBoard() {
         stable,
       } = {},
     },
-  } = useResource();
+  } = useResource(pid);
 
   return (
     <>

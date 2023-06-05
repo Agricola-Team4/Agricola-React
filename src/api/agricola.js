@@ -49,29 +49,31 @@ export async function amITurn(pid) {
 
 // Resource 관련
 export async function getAllResource(pid) {
-  const resource_object = {};
+  if (pid !== undefined) {
+    const resource_object = {};
+    console.log("api pid", pid);
+    const data = await axios
+      .get(
+        `http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}`
+      )
+      .then((res) => {
+        console.log(res.data);
+        return res.data;
+      });
 
-  const data = await axios
-    .get(
-      `http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}`
-    )
-    .then((res) => {
-      // console.log(res.data);
-      return res.data;
+    data.forEach((item) => {
+      const resource_id = item.resource_id;
+      const resource_num = item.resource_num;
+
+      const resource_name = resource_R[resource_id];
+      // console.log(resource_id, resource_name);
+
+      resource_object[resource_name] = resource_num;
+      console.log("res", resource_object);
     });
 
-  data.forEach((item) => {
-    const resource_id = item.resource_id;
-    const resource_num = item.resource_num;
-
-    const resource_name = resource_R[resource_id];
-    // console.log(resource_id, resource_name);
-
-    resource_object[resource_name] = resource_num;
-    // console.log("res", resource_object);
-  });
-
-  return resource_object;
+    return resource_object;
+  }
 }
 
 export async function getResource(pid, rid) {
@@ -89,7 +91,7 @@ export async function getResource(pid, rid) {
   return resource_num;
 }
 
-export async function updateResource(pid, rid, num) {
+export async function updateOneResource(pid, rid, num) {
   const data = await axios
     .get(
       `http://3.36.7.233:3000/playerresource/update_player_resource?player_id=${pid}&resource_id=${rid}&num_to_add=${num}`

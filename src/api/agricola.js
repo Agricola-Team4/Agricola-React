@@ -52,8 +52,9 @@ export async function getAllResource(pid) {
   const resource_object = {};
 
   const data = await axios
-    .get(`http://localhost:3001/api_resource`)
-    // .get(`http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}`)
+    .get(
+      `http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}`
+    )
     .then((res) => {
       // console.log(res.data);
       return res.data;
@@ -75,8 +76,9 @@ export async function getAllResource(pid) {
 
 export async function getResource(pid, rid) {
   const data = await axios
-    .get(`http://localhost:3001/api_resource`)
-    // .get(`http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}&resource_id=${rid}`)
+    .get(
+      `http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}&resource_id=${rid}`
+    )
     .then((res) => {
       return res.data[1];
     });

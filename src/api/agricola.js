@@ -55,7 +55,7 @@ export async function getAllResource(pid) {
     .get(`http://localhost:3001/api_resource`)
     // .get(`http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}`)
     .then((res) => {
-      console.log(res.data);
+      // console.log(res.data);
       return res.data;
     });
 
@@ -67,7 +67,7 @@ export async function getAllResource(pid) {
     // console.log(resource_id, resource_name);
 
     resource_object[resource_name] = resource_num;
-    console.log("res", resource_object);
+    // console.log("res", resource_object);
   });
 
   return resource_object;
@@ -97,7 +97,7 @@ export async function updateResource(pid, rid, num) {
     });
 
   const updated_resource_num = data.resource_num;
-  console.log("updated_resource_num", updated_resource_num);
+  // console.log("updated_resource_num", updated_resource_num);
 
   return updated_resource_num;
 }

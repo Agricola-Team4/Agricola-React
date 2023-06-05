@@ -1,15 +1,14 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { getAllResource, updateOneResource } from '../api/agricola';
-import { updateBabyState } from '../api/agricola';
-import { useAuthContext } from '../context/AuthContext';
-import { get } from 'http';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { getAllResource, updateOneResource } from "../api/agricola";
+import { updateBabyState } from "../api/agricola";
+import { useAuthContext } from "../context/AuthContext";
 
 export default function useResource() {
   const { pid } = useAuthContext();
   const queryClient = useQueryClient();
 
   const resourceQuery = useQuery(
-    ['resource', pid || ''],
+    ["resource", pid || ""],
     () => getAllResource(pid),
     { enabled: !!pid }
   );
@@ -19,12 +18,12 @@ export default function useResource() {
   const updateResource = useMutation(
     (pid, rid, num) => updateOneResource(pid, rid, num),
     {
-      onSuccess: () => queryClient.invalidateQueries(['resource']), // queryKey 유효성 제거
+      onSuccess: () => queryClient.invalidateQueries(["resource"]), // queryKey 유효성 제거
     }
   );
 
   const updateBaby = useMutation(() => updateBabyState(), {
-    onSuccess: () => queryClient.invalidateQueries(['resource']), // queryKey 유효성 제거
+    onSuccess: () => queryClient.invalidateQueries(["resource"]), // queryKey 유효성 제거
   });
 
   return { resourceQuery, updateResource, updateBaby };

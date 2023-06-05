@@ -49,31 +49,62 @@ export async function amITurn(pid) {
 
 // Resource 관련
 export async function getAllResource(pid) {
-  if (pid !== undefined) {
-    const resource_object = {};
-    console.log("api pid", pid);
-    const data = await axios
-      .get(
-        `http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}`
-      )
-      .then((res) => {
-        console.log(res.data);
-        return res.data;
-      });
-
-    data.forEach((item) => {
-      const resource_id = item.resource_id;
-      const resource_num = item.resource_num;
-
-      const resource_name = resource_R[resource_id];
-      // console.log(resource_id, resource_name);
-
-      resource_object[resource_name] = resource_num;
-      console.log("res", resource_object);
+  const resource_object = {};
+  console.log("api pid", pid);
+  const data = await axios
+    .get(
+      `http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}`
+    )
+    .then((res) => {
+      return res.data;
     });
 
-    return resource_object;
-  }
+  data.forEach((item) => {
+    const resource_id = item.resource_id;
+    const resource_num = item.resource_num;
+
+    const resource_name = resource_R[resource_id];
+    // console.log(resource_id, resource_name);
+
+    resource_object[resource_name] = resource_num;
+    console.log("res", resource_object);
+  });
+
+  const data2 = await axios
+    .get(
+      `http://3.36.7.233:3000/playerresource/get_family_resource/?player_id=${pid}`
+    )
+    .then((res) => {
+      console.log(res.data);
+      return res.data;
+    });
+  resource_object["farmer"] = data2.adult;
+  resource_object["baby"] = data2.baby;
+
+  const data3 = await axios
+    .get(
+      `http://3.36.7.233:3000/playerresource/get_agricultural_resource/?player_id=${pid}`
+    )
+    .then((res) => {
+      console.log(res.data);
+      return res.data;
+    });
+  resource_object["fence"] = data3.fence;
+  resource_object["stable"] = data3.cowshed;
+
+  console.log("res_fin", resource_object);
+  return resource_object;
+}
+
+export async function getUserResource(pid) {
+  return await axios
+    .get(
+      `http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}`
+    )
+    .then((res) => {
+      console.log(res.data);
+      return res.data;
+    });
 }
 
 export async function getResource(pid, rid) {

@@ -4,7 +4,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 const AuthContext = createContext();
 
 export function AuthContextProvider({ children }) {
-  const [playerId, setPlayerId] = useState(null);
+  const [pid, setPid] = useState(null);
 
   useEffect(() => {
     // player 정보 가져오기 http://3.36.7.233:3000/player
@@ -15,7 +15,7 @@ export function AuthContextProvider({ children }) {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ playerId }}>{children}</AuthContext.Provider>
+    <AuthContext.Provider value={{ pid }}>{children}</AuthContext.Provider>
   );
 }
 

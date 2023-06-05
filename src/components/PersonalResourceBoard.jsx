@@ -16,8 +16,11 @@ import stable_red_img from '../assets/images/stable_icon_red.png';
 import useResource from '../hooks/useResource';
 import ResourceInfo from './ResourceInfo';
 import Profile from './Profile';
+import { useAuthContext } from '../context/AuthContext';
 
 export default function PersonalResourceBoard() {
+  const { pid } = useAuthContext();
+  console.log(pid);
   const {
     resourceQuery: {
       isLadoing,

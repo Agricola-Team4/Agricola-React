@@ -14,6 +14,7 @@ module.exports = withMT({
         soilRoom: "url('/src/assets/images/soil_room.jpg')",
         stoneRoom: "url('/src/assets/images/stone_room.jpg')",
         field: "url('/src/assets/images/field.jpg')",
+        majorCard: 'url(/public/img/majors_icon.png)',
       },
       width: {
         '1/10': '10%',

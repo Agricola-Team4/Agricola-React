@@ -1,21 +1,21 @@
-import React from 'react';
-import sheep_img from '../assets/images/sheep_icon.png';
-import cow_img from '../assets/images/cow_icon.png';
-import reed_img from '../assets/images/reed_icon.png';
-import boar_img from '../assets/images/boar_icon.png';
-import grain_img from '../assets/images/grain_icon.png';
-import soil_img from '../assets/images/soil_icon.png';
-import stone_img from '../assets/images/stone_icon.png';
-import vege_img from '../assets/images/vege_icon.png';
-import wood_img from '../assets/images/wood_icon.png';
-import food_img from '../assets/images/food_icon.png';
-import profile_img from '../assets/images/korea.png';
-import farmer_red_img from '../assets/images/farmer_icon_red.png';
-import fence_red_img from '../assets/images/fence_icon_red.png';
-import stable_red_img from '../assets/images/stable_icon_red.png';
-import useResource from '../hooks/useResource';
-import ResourceInfo from './ResourceInfo';
-import Profile from './Profile';
+import React from "react";
+import sheep_img from "../assets/images/sheep_icon.png";
+import cow_img from "../assets/images/cow_icon.png";
+import reed_img from "../assets/images/reed_icon.png";
+import boar_img from "../assets/images/boar_icon.png";
+import grain_img from "../assets/images/grain_icon.png";
+import soil_img from "../assets/images/soil_icon.png";
+import stone_img from "../assets/images/stone_icon.png";
+import vege_img from "../assets/images/vege_icon.png";
+import wood_img from "../assets/images/wood_icon.png";
+import food_img from "../assets/images/food_icon.png";
+import profile_img from "../assets/images/korea.png";
+import farmer_red_img from "../assets/images/farmer_icon_red.png";
+import fence_red_img from "../assets/images/fence_icon_red.png";
+import stable_red_img from "../assets/images/stable_icon_red.png";
+import useResource from "../hooks/useResource";
+import ResourceInfo from "./ResourceInfo";
+import Profile from "./Profile";
 
 export default function PersonalResourceBoard() {
   const {
@@ -68,6 +68,7 @@ export default function PersonalResourceBoard() {
                 num={stone}
                 alt="stone"
                 basis="basis-1/5"
+                testId="stone-test"
               />
               <ResourceInfo
                 img={reed_img}

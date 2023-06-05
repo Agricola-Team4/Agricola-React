@@ -1,8 +1,8 @@
-import React from 'react';
-import Box from './Box';
-import RoundBox from './RoundBox';
-import HTMLReactParser from 'html-react-parser';
-import useResource from '../hooks/useResource';
+import React from "react";
+import Box from "./Box";
+import RoundBox from "./RoundBox";
+// import HTMLReactParser from 'html-react-parser';
+import useResource from "../hooks/useResource";
 
 export default function ActionBoard({ openMajorSlot }) {
   const roundArray = [
@@ -25,7 +25,7 @@ export default function ActionBoard({ openMajorSlot }) {
 
   const round1 = [
     {
-      title: '양시장🔻',
+      title: "양시장🔻",
       childTags: (
         <>
           <p className=" text-xl font-bold mr-0.5">1</p>
@@ -33,11 +33,11 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
-        console.log('hello1 !!!!!');
+        console.log("hello1 !!!!!");
       },
     },
     {
-      title: '울타리',
+      title: "울타리",
       childTags: (
         <div className="flex items-center justify-center">
           <p className=" text-lg font-bold mr-0.5">1</p>
@@ -47,11 +47,11 @@ export default function ActionBoard({ openMajorSlot }) {
         </div>
       ),
       onClick: () => {
-        console.log('hello2 !!!!!');
+        console.log("hello2 !!!!!");
       },
     },
     {
-      title: '주요설비',
+      title: "주요설비",
       childTags: (
         <>
           <p className=" text-lg font-bold mr-0.5">1</p>
@@ -69,11 +69,11 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
-        console.log('hello3 !!!!!');
+        console.log("hello3 !!!!!");
       },
     },
     {
-      title: '곡식활용',
+      title: "곡식활용",
       childTags: (
         <>
           <img
@@ -86,14 +86,14 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
-        console.log('hello4 !!!!!');
+        console.log("hello4 !!!!!");
       },
     },
   ];
 
   const round2 = [
     {
-      title: '서부 채석장🔻',
+      title: "서부 채석장🔻",
       childTags: (
         <>
           <p className=" text-xl font-bold mr-0.5">1</p>
@@ -101,11 +101,11 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
-        console.log('hello5 !!!!!');
+        console.log("hello5 !!!!!");
       },
     },
     {
-      title: '기본 가족 늘리기',
+      title: "기본 가족 늘리기",
       childTags: (
         <>
           <img
@@ -123,12 +123,12 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
-        console.log('hello6 !!!!!');
+        console.log("hello6 !!!!!");
       },
     },
 
     {
-      title: '집개조',
+      title: "집개조",
       childTags: (
         <div className="flex flex-col items-center h-full">
           <div className="flex items-center justify-center basis-2/5">
@@ -161,14 +161,14 @@ export default function ActionBoard({ openMajorSlot }) {
         </div>
       ),
       onClick: () => {
-        console.log('hello7 !!!!!');
+        console.log("hello7 !!!!!");
       },
     },
   ];
 
   const round3 = [
     {
-      title: '채소 종자',
+      title: "채소 종자",
       childTags: (
         <>
           <p className=" text-lg font-bold mr-0.5">+1</p>
@@ -176,11 +176,11 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
-        console.log('hello8 !!!!!');
+        console.log("hello8 !!!!!");
       },
     },
     {
-      title: '돼지 시장🔻',
+      title: "돼지 시장🔻",
       childTags: (
         <>
           <p className=" text-lg font-bold mr-0.5">1</p>
@@ -188,14 +188,14 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
-        console.log('hello9 !!!!!');
+        console.log("hello9 !!!!!");
       },
     },
   ];
 
   const round4 = [
     {
-      title: '소 시장🔻',
+      title: "소 시장🔻",
       childTags: (
         <>
           <p className=" text-lg font-bold mr-0.5">1</p>
@@ -203,11 +203,11 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
-        console.log('hello10 !!!!!');
+        console.log("hello10 !!!!!");
       },
     },
     {
-      title: '동부 채석장🔻',
+      title: "동부 채석장🔻",
       childTags: (
         <>
           <p className=" text-lg font-bold mr-0.5">1</p>
@@ -215,14 +215,14 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
-        console.log('hello11 !!!!!');
+        console.log("hello11 !!!!!");
       },
     },
   ];
 
   const round5 = [
     {
-      title: '급한 가족 늘리기',
+      title: "급한 가족 늘리기",
       childTags: (
         <img
           className="w-1/3"
@@ -231,11 +231,11 @@ export default function ActionBoard({ openMajorSlot }) {
         />
       ),
       onClick: () => {
-        console.log('hello12 !!!!!');
+        console.log("hello12 !!!!!");
       },
     },
     {
-      title: '밭 농사',
+      title: "밭 농사",
       childTags: (
         <div className="flex flex-col items-center h-full py-1">
           <div className="w-1/3 basis-2/5 flex items-center">
@@ -248,12 +248,12 @@ export default function ActionBoard({ openMajorSlot }) {
         </div>
       ),
       onClick: () => {
-        console.log('hello13 !!!!!');
+        console.log("hello13 !!!!!");
       },
     },
   ];
 
-  const shuffle = arr => arr.sort(() => Math.random() - 0.5);
+  const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
 
   const shuffledRound1 = shuffle(round1);
   const shuffledRound2 = shuffle(round2);

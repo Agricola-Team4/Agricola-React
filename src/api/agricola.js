@@ -1,16 +1,21 @@
 import axios from "axios";
 import { resource_R } from "../constants/resourceConstants";
+import axios from "axios";
+import { resource_R } from "../constants/resourceConstants";
 
 export async function getBabyState() {
+  return axios.get("http://localhost:3001/resource/1").then((res) => res.data);
   return axios.get("http://localhost:3001/resource/1").then((res) => res.data);
 }
 
 export async function updateBabyState() {
   const state = await getBabyState();
   return axios.patch("http://localhost:3001/resource/1", { babyState: !state });
+  return axios.patch("http://localhost:3001/resource/1", { babyState: !state });
 }
 
 export async function getFarmBoard() {
+  return axios.get("http://localhost:3001/farmBoard/1").then((res) => res.data);
   return axios.get("http://localhost:3001/farmBoard/1").then((res) => res.data);
 }
 

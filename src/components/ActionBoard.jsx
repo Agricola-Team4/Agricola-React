@@ -410,86 +410,15 @@ export default function ActionBoard({ openMajorSlot }) {
         console.log("hello13 !!!!!");
       },
     },
-    {
-      title: "농장 개조",
-      childTags: (
-        <div className="flex flex-col items-center h-full">
-          <div className="flex items-center justify-center basis-2/5">
-            <p className="font-bold mr-0.5">1</p>
-            <img className="w-1/4" src="/img/reed_icon.png" alt="reed" />
-            <p className="mx-1 font-bold text-lg">+</p>
-            <img
-              className="w-1/2"
-              src="/img/upgradeRoom_icon.png"
-              alt="upgradeRoom"
-            />
-          </div>
-          <p className="mx-1 font-bold text-xs basis-1/5 flex items-center">
-            한 후에
-          </p>
-          <div className="flex items-center justify-center basis-2/5">
-            <p className="font-bold mr-0.5">1</p>
-            <img className="w-1/4" src="/img/wood_icon.png" alt="wood" />
-            <p className="mx-1 text-lg">→</p>
-            <img className="w-1/4" src="/img/fence_icon.png" alt="fence" />
-          </div>
-        </div>
-      ),
-      onClick: () => {
-        console.log("hello13 !!!!!");
-      },
-    },
   ];
 
-  const roundArray = [
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-  ];
-  const { updateResource, updateBaby } = useResource();
-
-  const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
+  // const shuffle = arr => arr.sort(() => Math.random() - 0.5);
 
   // const shuffledRound1 = shuffle(round1);
   // const shuffledRound2 = shuffle(round2);
   // const shuffledRound3 = shuffle(round3);
   // const shuffledRound4 = shuffle(round4);
   // const shuffledRound5 = shuffle(round5);
-
-  const round1 = action.slice(10, 14);
-  const round2 = action.slice(14, 17);
-  const round3 = action.slice(17, 19);
-  const round4 = action.slice(19, 21);
-  const round5 = action.slice(21, 23);
-
-  const renderRound = (round, basis, roundNum) => {
-    return round.map((info, idx) => {
-      return roundArray[idx] ? (
-        <Box
-          ratio={basis}
-          isSquare={true}
-          title={info.title}
-          key={idx}
-          onClick={info.onClick}
-        >
-          {info.childTags}
-        </Box>
-      ) : (
-        <RoundBox ratio={basis} round={roundNum} key={idx} />
-      );
-    });
-  };
 
   return (
     <div className="flex flex-wrap ">

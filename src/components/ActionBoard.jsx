@@ -412,6 +412,56 @@ export default function ActionBoard({ openMajorSlot }) {
     },
   ];
 
+  const roundArray = [
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+  ];
+  const { updateResource, updateBaby } = useResource();
+
+  const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
+
+  // const shuffledRound1 = shuffle(round1);
+  // const shuffledRound2 = shuffle(round2);
+  // const shuffledRound3 = shuffle(round3);
+  // const shuffledRound4 = shuffle(round4);
+  // const shuffledRound5 = shuffle(round5);
+
+  const round1 = action.slice(10, 14);
+  const round2 = action.slice(14, 17);
+  const round3 = action.slice(17, 19);
+  const round4 = action.slice(19, 21);
+  const round5 = action.slice(21, 23);
+
+  const renderRound = (round, basis, roundNum) => {
+    return round.map((info, idx) => {
+      return roundArray[idx] ? (
+        <Box
+          ratio={basis}
+          isSquare={true}
+          title={info.title}
+          key={idx}
+          onClick={info.onClick}
+        >
+          {info.childTags}
+        </Box>
+      ) : (
+        <RoundBox ratio={basis} round={roundNum} key={idx} />
+      );
+    });
+  };
+
   // const shuffle = arr => arr.sort(() => Math.random() - 0.5);
 
   // const shuffledRound1 = shuffle(round1);

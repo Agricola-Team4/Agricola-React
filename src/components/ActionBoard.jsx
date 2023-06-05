@@ -1,7 +1,6 @@
 import React from 'react';
 import Box from './Box';
 import RoundBox from './RoundBox';
-import HTMLReactParser from 'html-react-parser';
 import useResource from '../hooks/useResource';
 
 export default function ActionBoard({ openMajorSlot }) {

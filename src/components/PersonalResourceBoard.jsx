@@ -1,21 +1,21 @@
-import React from 'react';
-import sheep_img from '../assets/images/sheep_icon.png';
-import cow_img from '../assets/images/cow_icon.png';
-import reed_img from '../assets/images/reed_icon.png';
-import boar_img from '../assets/images/boar_icon.png';
-import grain_img from '../assets/images/grain_icon.png';
-import soil_img from '../assets/images/soil_icon.png';
-import stone_img from '../assets/images/stone_icon.png';
-import vege_img from '../assets/images/vege_icon.png';
-import wood_img from '../assets/images/wood_icon.png';
-import food_img from '../assets/images/food_icon.png';
-import profile_img from '../assets/images/korea.png';
-import farmer_red_img from '../assets/images/farmer_icon_red.png';
-import fence_red_img from '../assets/images/fence_icon_red.png';
-import stable_red_img from '../assets/images/stable_icon_red.png';
-import useResource from '../hooks/useResource';
-import ResourceInfo from './ResourceInfo';
-import Profile from './Profile';
+import React from "react";
+import sheep_img from "../assets/images/sheep_icon.png";
+import cow_img from "../assets/images/cow_icon.png";
+import reed_img from "../assets/images/reed_icon.png";
+import boar_img from "../assets/images/boar_icon.png";
+import grain_img from "../assets/images/grain_icon.png";
+import soil_img from "../assets/images/soil_icon.png";
+import stone_img from "../assets/images/stone_icon.png";
+import vege_img from "../assets/images/vege_icon.png";
+import wood_img from "../assets/images/wood_icon.png";
+import food_img from "../assets/images/food_icon.png";
+import profile_img from "../assets/images/korea.png";
+import farmer_red_img from "../assets/images/farmer_icon_red.png";
+import fence_red_img from "../assets/images/fence_icon_red.png";
+import stable_red_img from "../assets/images/stable_icon_red.png";
+import useResource from "../hooks/useResource";
+import ResourceInfo from "./ResourceInfo";
+import Profile from "./Profile";
 
 export default function PersonalResourceBoard() {
   const {
@@ -33,10 +33,11 @@ export default function PersonalResourceBoard() {
         vege,
         wood,
         food,
-        profile,
-        farmer_red,
-        fence_red,
-        stable_red,
+        beg,
+        farmer,
+        baby,
+        fence,
+        stable,
       } = {},
     },
   } = useResource();
@@ -45,7 +46,7 @@ export default function PersonalResourceBoard() {
     <>
       <div className="flex flex-row justify-center bg-brown-100 mb-1">
         <div className="basis-2/12 flex flex-col items-center pt-4 border-r-2">
-          <Profile img={profile_img} name={profile} />
+          <Profile img={profile_img} name="하드코딩" />
         </div>
 
         <div className="basis-10/12 flex justify-center">
@@ -120,13 +121,13 @@ export default function PersonalResourceBoard() {
             <div className="flex flex-row pb-2">
               <ResourceInfo
                 img={farmer_red_img}
-                num={farmer_red}
+                num={farmer}
                 alt="farmer_red"
                 basis="basis-1/2"
               />
               <ResourceInfo
                 img={farmer_red_img}
-                num={farmer_red}
+                num={baby}
                 alt="baby"
                 basis="basis-1/2"
               />
@@ -134,13 +135,13 @@ export default function PersonalResourceBoard() {
             <div className="flex">
               <ResourceInfo
                 img={fence_red_img}
-                num={fence_red}
+                num={fence}
                 alt="fence_red"
                 basis="basis-1/2"
               />
               <ResourceInfo
                 img={stable_red_img}
-                num={stable_red}
+                num={stable}
                 alt="stable_red"
                 basis="basis-1/2"
               />

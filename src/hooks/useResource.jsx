@@ -7,9 +7,13 @@ export default function useResource() {
 
   const resourceQuery = useQuery(["resource"], getAllResource);
 
-  const updateResource = useMutation(() => updateResource(), {
-    onSuccess: () => queryClient.invalidateQueries(["resource"]), // queryKey 유효성 제거
-  });
+  // update Resource 인자 넣어서 하는 방법 진행해야함.
+  const updateResource = useMutation(
+    (pid, rid, num) => updateResource(pid, rid, num),
+    {
+      onSuccess: () => queryClient.invalidateQueries(["resource"]), // queryKey 유효성 제거
+    }
+  );
 
   const updateBaby = useMutation(() => updateBabyState(), {
     onSuccess: () => queryClient.invalidateQueries(["resource"]), // queryKey 유효성 제거

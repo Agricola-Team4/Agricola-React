@@ -19,8 +19,8 @@ import Profile from './Profile';
 import { useAuthContext } from '../context/AuthContext';
 
 export default function PersonalResourceBoard() {
-  const { playerId } = useAuthContext();
-  console.log(playerId);
+  const { pid } = useAuthContext();
+  console.log(pid);
   const {
     resourceQuery: {
       isLadoing,

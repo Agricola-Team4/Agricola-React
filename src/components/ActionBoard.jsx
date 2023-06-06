@@ -65,6 +65,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </div>
       ),
       onClick: () => {
+        takeAction({ pid, aid: 8 });
         console.log("hello12 !!!!!");
       },
     },
@@ -85,6 +86,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
+        takeAction({ pid, aid: 9 });
         console.log("hello12 !!!!!");
       },
     },
@@ -107,6 +109,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
+        takeAction({ pid, aid: 11 });
         console.log("hello12 !!!!!");
       },
     },
@@ -116,6 +119,7 @@ export default function ActionBoard({ openMajorSlot }) {
         <img className="w-1/3" src="/img/farmland_icon.png" alt="farmland" />
       ),
       onClick: () => {
+        takeAction({ pid, aid: 12 });
         console.log("hello12 !!!!!");
       },
     },
@@ -128,6 +132,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
+        takeAction({ pid, aid: 13 });
         console.log("hello12 !!!!!");
       },
     },
@@ -154,6 +159,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </div>
       ),
       onClick: () => {
+        takeAction({ pid, aid: 5 });
         console.log("hello12 !!!!!");
       },
     },
@@ -166,6 +172,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
+        takeAction({ pid, aid: 14 });
         console.log("hello12 !!!!!");
       },
     },
@@ -178,6 +185,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
+        takeAction({ pid, aid: 15 });
         console.log("hello12 !!!!!");
       },
     },
@@ -190,6 +198,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
+        takeAction({ pid, aid: 16 });
         console.log("hello12 !!!!!");
       },
     },
@@ -202,6 +211,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
+        takeAction({ pid, aid: 18 });
         console.log("hello1 !!!!!");
       },
     },
@@ -216,6 +226,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </div>
       ),
       onClick: () => {
+        takeAction({ pid, aid: 17 });
         console.log("hello2 !!!!!");
       },
     },
@@ -238,6 +249,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
+        takeAction({ pid, aid: 20 });
         console.log("hello3 !!!!!");
       },
     },
@@ -255,6 +267,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
+        takeAction({ pid, aid: 19 });
         console.log("hello4 !!!!!");
       },
     },
@@ -267,6 +280,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
+        takeAction({ pid, aid: 22 });
         console.log("hello5 !!!!!");
       },
     },
@@ -289,6 +303,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
+        takeAction({ pid, aid: 23 });
         console.log("hello6 !!!!!");
       },
     },
@@ -327,6 +342,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </div>
       ),
       onClick: () => {
+        takeAction({ pid, aid: 21 });
         console.log("hello7 !!!!!");
       },
     },
@@ -339,6 +355,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
+        takeAction({ pid, aid: 25 });
         console.log("hello8 !!!!!");
       },
     },
@@ -351,6 +368,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
+        takeAction({ pid, aid: 24 });
         console.log("hello9 !!!!!");
       },
     },
@@ -363,6 +381,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
+        takeAction({ pid, aid: 26 });
         console.log("hello10 !!!!!");
       },
     },
@@ -375,6 +394,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => {
+        takeAction({ pid, aid: 27 });
         console.log("hello11 !!!!!");
       },
     },
@@ -388,6 +408,7 @@ export default function ActionBoard({ openMajorSlot }) {
         />
       ),
       onClick: () => {
+        takeAction({ pid, aid: 29 });
         console.log("hello12 !!!!!");
       },
     },
@@ -405,6 +426,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </div>
       ),
       onClick: () => {
+        takeAction({ pid, aid: 28 });
         console.log("hello13 !!!!!");
       },
     },
@@ -434,6 +456,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </div>
       ),
       onClick: () => {
+        takeAction({ pid, aid: 30 });
         console.log("hello13 !!!!!");
       },
     },

@@ -51,6 +51,12 @@ const playerRed = {
   fence: require("../assets/images/fence_icon_red.png"),
 };
 
+const playerBlue = {
+  farmer: require("../assets/images/farmer_icon_blue.png"),
+  stable: require("../assets/images/stable_icon_blue.png"),
+  fence: require("../assets/images/fence_icon_blue.png"),
+};
+
 const resource = {
   boar: require("../assets/images/boar_icon.png"),
   cow: require("../assets/images/cow_icon.png"),
@@ -60,4 +66,4 @@ const resource = {
   vege: require("../assets/images/vege_icon.png"),
 };
 
-export { jobImages, majorImages, subImages, playerRed, resource };
+export { jobImages, majorImages, subImages, playerRed, playerBlue, resource };

@@ -1,23 +1,25 @@
-import ActionBoard from './components/ActionBoard';
-import { useState } from 'react';
-import CardSlotBoard from './components/CardSlotBoard';
-import Prompt from './components/Prompt';
-import PersonalResourceBoard from './components/PersonalResourceBoard';
-import FarmBoard from './components/FarmBoard';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { AuthContextProvider } from './context/AuthContext';
+import ActionBoard from "./components/ActionBoard";
+import { useState } from "react";
+import CardSlotBoard from "./components/CardSlotBoard";
+import Prompt from "./components/Prompt";
+import PersonalResourceBoard from "./components/PersonalResourceBoard";
+import FarmBoard from "./components/FarmBoard";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { AuthContextProvider } from "./context/AuthContext";
+
+import { majorImages } from "../src/constants/imageContants";
 
 function App() {
   const [isCardSlotOpen, setIsCardSlotOpen] = useState(false);
 
   const openCardSlot = () => {
     setIsCardSlotOpen(true);
-    console.log('true로 바꿈');
+    console.log("true로 바꿈");
   };
   const closeCardSlot = () => {
     setIsCardSlotOpen(false);
-    console.log('false로 바꿈');
+    console.log("false로 바꿈");
   };
 
   const queryClient = new QueryClient();
@@ -59,13 +61,24 @@ function App() {
               </div>
             </div>
           </div>
-
           {/* 주요설비 */}
+          {/* {isCardSlotOpen && (
+            <CardSlotBoard
+              imageSet={majorImages}
+              // bg="../../public/img/majors_bg.jpg"
+              col="5"
+              row="2"
+              ratio="basis-1/5"
+              close={closeCardSlot}
+            />
+          )} */}
+
           {isCardSlotOpen && (
             <CardSlotBoard
-              name="jobImages"
-              bg="../../public/img/majors_bg.jpg"
-              cardNum="10"
+              imageSet={majorImages}
+              // bg="../../public/img/majors_bg.jpg"
+              col="5"
+              row="2"
               ratio="basis-1/5"
               close={closeCardSlot}
             />

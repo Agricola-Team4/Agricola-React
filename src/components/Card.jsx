@@ -9,7 +9,8 @@ export default function Card({ cardType, ratio }) {
         className={`${ratio} flex justify-center items-center w-full h-1/2 p-2  bg-white`}
       >
         <img
-          className="h-full transition duration-150 ease-out hover:ease-in hover:scale-105 cursor-pointer"
+          className="w-44 transition duration-150 ease-out hover:ease-in hover:scale-105 cursor-pointer"
+          // h-full
           src={cardType}
           alt={cardType}
         />

@@ -142,25 +142,46 @@ export async function updateOneResource(pid, rid, num) {
 
 // 💪🏻 Action Board - Take Action 💪🏻
 export async function takeAction({ pid, aid }) {
-  const turn = await axios
-    .get("http://3.36.7.233:3000/gamestatus/get_turn/")
+  console.log("action id는 ", aid, " pid는 ", pid);
+  const isYourTurn = await axios
+    .get(`http://3.36.7.233:3000/gamestatus/my_turn?player_id=${pid}`)
     .then((res) => {
-      console.log("get_turn: ", res.data.turn);
-      return res.data.turn;
+      return res.data.my_turn;
     });
 
-  console.log("??", pid, aid);
-  return await axios
-    .post("http://3.36.7.233:3000/familyposition/take_action/", {
-      turn: turn,
-      player_id: pid,
-      action_id: aid,
-    })
-    .then((res) => {
-      console.log("(turn:", turn, ") ", pid, "가 ", aid, "액션을 하였습니다.");
-      return res.data;
-    })
-    .catch(() => {
-      console.log("오류가났대요");
-    });
+  if (isYourTurn) {
+    // take action을 하려는 플레이어가 지금 자기 차례이다.
+    const turn = await axios
+      .get("http://3.36.7.233:3000/gamestatus/get_turn/")
+      .then((res) => {
+        console.log("get_turn of ", pid, " : ", res.data.turn);
+        return res.data.turn;
+      });
+
+    return await axios
+      .post("http://3.36.7.233:3000/familyposition/take_action/", {
+        turn: turn,
+        player_id: pid,
+        action_id: aid,
+      })
+      .then((res) => {
+        console.log(
+          "(turn:",
+          turn,
+          ") ",
+          pid,
+          "가 ",
+          aid,
+          "액션을 하였습니다."
+        );
+        return res.data;
+      })
+      .catch((err) => {
+        console.log("오류가났대요 : ", err);
+      });
+  } else {
+    // prompt에 지금은 player __의 차례가 아닙니다.
+    // 또는 소켓 사용시 특정 player의 프롬프트에만 보내줄 수 있으면 그렇게 하기
+    return console.log("지금은 ", pid, "의 차례가 아닙니다.");
+  }
 }

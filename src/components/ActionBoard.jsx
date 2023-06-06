@@ -16,6 +16,7 @@ export default function ActionBoard({ openMajorSlot }) {
 
   const calcAccumul = idx => {
     return (
+      data &&
       data[idx].acc_resource !== null &&
       data[idx].acc_resource > data[idx].add_resource
     );

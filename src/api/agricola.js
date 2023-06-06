@@ -175,6 +175,7 @@ export async function takeAction({ pid, aid }) {
           aid,
           "액션을 하였습니다."
         );
+        console.log("res.data : ", res.data);
         return res.data;
       })
       .catch((err) => {
@@ -185,4 +186,28 @@ export async function takeAction({ pid, aid }) {
     // 또는 소켓 사용시 특정 player의 프롬프트에만 보내줄 수 있으면 그렇게 하기
     return console.log("지금은 ", pid, "의 차례가 아닙니다.");
   }
+}
+
+// login
+export async function login({ id, pw }) {
+  console.log("id", id, " pw", pw);
+  const login_result = await axios
+    .post("http://3.36.7.233:3000/account/login/", {
+      user_id: id,
+      user_pw: pw,
+    })
+    .then((res) => {
+      console.log("login");
+      return res.data.player_id;
+    })
+    .catch((err) => {
+      return console.log("err msg : ", err.response.data);
+    });
+
+  return login_result;
+
+  // const updated_resource_num = data.resource_num;
+  // // console.log("updated_resource_num", updated_resource_num);
+
+  // return updated_resource_num;
 }

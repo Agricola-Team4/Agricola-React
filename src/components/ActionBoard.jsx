@@ -1,16 +1,30 @@
-import React from "react";
-import Box from "./Box";
-import RoundBox from "./RoundBox";
-import useResource from "../hooks/useResource";
-import MajorCardBox from "./MajorCardBox";
-import { useAuthContext } from "../context/AuthContext";
-import { takeAction } from "../api/agricola";
+import React from 'react';
+import Box from './Box';
+import RoundBox from './RoundBox';
+import useResource from '../hooks/useResource';
+import MajorCardBox from './MajorCardBox';
+import { useAuthContext } from '../context/AuthContext';
+import { getActionBoard, takeAction } from '../api/agricola';
+import useActionBoard from '../hooks/useActionBoard';
 
 export default function ActionBoard({ openMajorSlot }) {
   const { pid } = useAuthContext();
+
+  const {
+    actionBoardQuery: { isLadoing, error, data },
+  } = useActionBoard();
+
+  const calcAccumul = idx => {
+    return (
+      data[idx].acc_resource !== null &&
+      data[idx].acc_resource > data[idx].add_resource
+    );
+  };
+
   const action = [
     {
-      title: "농장 확장",
+      id: 8,
+      title: '농장 확장',
       childTags: (
         <div className="flex flex-col items-center h-full">
           <div className="basis-3/6">
@@ -67,9 +81,11 @@ export default function ActionBoard({ openMajorSlot }) {
       onClick: () => {
         takeAction({ pid, aid: 8 });
       },
+      isAccumul: calcAccumul(7),
     },
     {
-      title: "회합 장소",
+      id: 9,
+      title: '회합 장소',
       childTags: (
         <>
           <img className="w-1/6" src="/img/first_icon.png" alt="first" />
@@ -87,9 +103,11 @@ export default function ActionBoard({ openMajorSlot }) {
       onClick: () => {
         takeAction({ pid, aid: 9 });
       },
+      isAccumul: calcAccumul(8),
     },
     {
-      title: "곡식 종자",
+      id: 10,
+      title: '곡식 종자',
       childTags: (
         <>
           <p className="font-bold mr-0.5">+1</p>
@@ -97,42 +115,54 @@ export default function ActionBoard({ openMajorSlot }) {
         </>
       ),
       onClick: () => takeAction({ pid, aid: 10 }),
+      isAccumul: calcAccumul(9),
     },
     {
-      title: "숲",
+      id: 11,
+      title: '숲🔻',
       childTags: (
         <>
-          <p className=" text-lg font-bold mr-0.5">3</p>
+          <p className=" text-lg font-bold mr-0.5">
+            {data && data[10].acc_resource}
+          </p>
           <img className="w-1/3" src="/img/wood_icon.png" alt="wood" />
         </>
       ),
       onClick: () => {
         takeAction({ pid, aid: 11 });
       },
+      isAccumul: calcAccumul(10),
     },
     {
-      title: "농지",
+      id: 12,
+      title: '농지',
       childTags: (
         <img className="w-1/3" src="/img/farmland_icon.png" alt="farmland" />
       ),
       onClick: () => {
         takeAction({ pid, aid: 12 });
       },
+      isAccumul: calcAccumul(11),
     },
     {
-      title: "흙 채굴장🔻",
+      id: 13,
+      title: '흙 채굴장🔻',
       childTags: (
         <>
-          <p className=" text-lg font-bold mr-0.5">1</p>
+          <p className=" text-lg font-bold mr-0.5">
+            {data && data[12].acc_resource}
+          </p>
           <img className="w-1/4" src="/img/soil_icon.png" alt="soil" />
         </>
       ),
       onClick: () => {
         takeAction({ pid, aid: 13 });
       },
+      isAccumul: calcAccumul(12),
     },
     {
-      title: "교습",
+      id: 5,
+      title: '교습',
       childTags: (
         <div className="flex flex-col">
           <p className="font-bold">직업당</p>
@@ -156,21 +186,27 @@ export default function ActionBoard({ openMajorSlot }) {
       onClick: () => {
         takeAction({ pid, aid: 5 });
       },
+      isAccumul: calcAccumul(4),
     },
     {
-      title: "갈대밭🔻",
+      id: 14,
+      title: '갈대밭🔻',
       childTags: (
         <>
-          <p className=" text-lg font-bold mr-0.5">1</p>
+          <p className=" text-lg font-bold mr-0.5">
+            {data && data[13].acc_resource}
+          </p>
           <img className="w-1/4" src="/img/reed_icon.png" alt="reed" />
         </>
       ),
       onClick: () => {
         takeAction({ pid, aid: 14 });
       },
+      isAccumul: calcAccumul(13),
     },
     {
-      title: "납품팔이",
+      id: 15,
+      title: '납품팔이',
       childTags: (
         <>
           <p className=" text-lg font-bold mr-0.5">+2</p>
@@ -180,33 +216,43 @@ export default function ActionBoard({ openMajorSlot }) {
       onClick: () => {
         takeAction({ pid, aid: 15 });
       },
+      isAccumul: calcAccumul(9),
     },
     {
-      title: "낚시🔻",
+      id: 16,
+      title: '낚시🔻',
       childTags: (
         <>
-          <p className=" text-lg font-bold mr-0.5">1</p>
+          <p className=" text-lg font-bold mr-0.5">
+            {data && data[15].acc_resource}
+          </p>
           <img className="w-1/4" src="/img/food_icon.png" alt="food" />
         </>
       ),
       onClick: () => {
         takeAction({ pid, aid: 16 });
       },
+      isAccumul: calcAccumul(15),
     },
     {
-      title: "양시장🔻",
+      id: 18,
+      title: '양시장🔻',
       childTags: (
         <>
-          <p className=" text-xl font-bold mr-0.5">1</p>
+          <p className=" text-xl font-bold mr-0.5">
+            {data && data[17].acc_resource}
+          </p>
           <img className="w-1/3" src="/img/sheep_icon.png" alt="sheep" />
         </>
       ),
       onClick: () => {
         takeAction({ pid, aid: 18 });
       },
+      isAccumul: calcAccumul(17),
     },
     {
-      title: "울타리",
+      id: 17,
+      title: '울타리',
       childTags: (
         <div className="flex items-center justify-center">
           <p className=" text-lg font-bold mr-0.5">1</p>
@@ -218,9 +264,11 @@ export default function ActionBoard({ openMajorSlot }) {
       onClick: () => {
         takeAction({ pid, aid: 17 });
       },
+      isAccumul: calcAccumul(16),
     },
     {
-      title: "주요설비",
+      id: 20,
+      title: '주요설비',
       childTags: (
         <>
           <p className=" text-lg font-bold mr-0.5">1</p>
@@ -240,9 +288,11 @@ export default function ActionBoard({ openMajorSlot }) {
       onClick: () => {
         takeAction({ pid, aid: 20 });
       },
+      isAccumul: calcAccumul(19),
     },
     {
-      title: "곡식활용",
+      id: 19,
+      title: '곡식활용',
       childTags: (
         <>
           <img
@@ -257,21 +307,27 @@ export default function ActionBoard({ openMajorSlot }) {
       onClick: () => {
         takeAction({ pid, aid: 19 });
       },
+      isAccumul: calcAccumul(18),
     },
     {
-      title: "서부 채석장🔻",
+      id: 22,
+      title: '서부 채석장🔻',
       childTags: (
         <>
-          <p className=" text-xl font-bold mr-0.5">1</p>
+          <p className=" text-xl font-bold mr-0.5">
+            {data && data[21].acc_resource}
+          </p>
           <img className="w-1/3" src="/img/stone_icon.png" alt="stone" />
         </>
       ),
       onClick: () => {
         takeAction({ pid, aid: 22 });
       },
+      isAccumul: calcAccumul(21),
     },
     {
-      title: "기본 가족 늘리기",
+      id: 23,
+      title: '기본 가족 늘리기',
       childTags: (
         <>
           <img
@@ -291,10 +347,12 @@ export default function ActionBoard({ openMajorSlot }) {
       onClick: () => {
         takeAction({ pid, aid: 23 });
       },
+      isAccumul: calcAccumul(22),
     },
 
     {
-      title: "집개조",
+      id: 21,
+      title: '집개조',
       childTags: (
         <div className="flex flex-col items-center h-full">
           <div className="flex items-center justify-center basis-2/5">
@@ -329,9 +387,11 @@ export default function ActionBoard({ openMajorSlot }) {
       onClick: () => {
         takeAction({ pid, aid: 21 });
       },
+      isAccumul: calcAccumul(20),
     },
     {
-      title: "채소 종자",
+      id: 25,
+      title: '채소 종자',
       childTags: (
         <>
           <p className=" text-lg font-bold mr-0.5">+1</p>
@@ -341,45 +401,59 @@ export default function ActionBoard({ openMajorSlot }) {
       onClick: () => {
         takeAction({ pid, aid: 25 });
       },
+      isAccumul: calcAccumul(24),
     },
     {
-      title: "돼지 시장🔻",
+      id: 24,
+      title: '돼지 시장🔻',
       childTags: (
         <>
-          <p className=" text-lg font-bold mr-0.5">1</p>
+          <p className=" text-lg font-bold mr-0.5">
+            {data && data[23].acc_resource}
+          </p>
           <img className="w-1/3" src="/img/boar_icon.png" alt="boar" />
         </>
       ),
       onClick: () => {
         takeAction({ pid, aid: 24 });
       },
+      isAccumul: calcAccumul(23),
     },
     {
-      title: "소 시장🔻",
+      id: 26,
+      title: '소 시장🔻',
       childTags: (
         <>
-          <p className=" text-lg font-bold mr-0.5">1</p>
+          <p className=" text-lg font-bold mr-0.5">
+            {data && data[25].acc_resource}
+          </p>
           <img className="w-1/3" src="/img/cow_icon.png" alt="cow" />
         </>
       ),
       onClick: () => {
         takeAction({ pid, aid: 26 });
       },
+      isAccumul: calcAccumul(25),
     },
     {
-      title: "동부 채석장🔻",
+      id: 27,
+      title: '동부 채석장🔻',
       childTags: (
         <>
-          <p className=" text-lg font-bold mr-0.5">1</p>
+          <p className=" text-lg font-bold mr-0.5">
+            {data && data[26].acc_resource}
+          </p>
           <img className="w-1/3" src="/img/stone_icon.png" alt="stone" />
         </>
       ),
       onClick: () => {
         takeAction({ pid, aid: 27 });
       },
+      isAccumul: calcAccumul(26),
     },
     {
-      title: "급한 가족 늘리기",
+      id: 29,
+      title: '급한 가족 늘리기',
       childTags: (
         <img
           className="w-1/3"
@@ -390,9 +464,11 @@ export default function ActionBoard({ openMajorSlot }) {
       onClick: () => {
         takeAction({ pid, aid: 29 });
       },
+      isAccumul: calcAccumul(28),
     },
     {
-      title: "밭 농사",
+      id: 28,
+      title: '밭 농사',
       childTags: (
         <div className="flex flex-col items-center h-full py-1">
           <div className="w-1/3 basis-2/5 flex items-center">
@@ -407,9 +483,11 @@ export default function ActionBoard({ openMajorSlot }) {
       onClick: () => {
         takeAction({ pid, aid: 28 });
       },
+      isAccumul: calcAccumul(27),
     },
     {
-      title: "농장 개조",
+      id: 30,
+      title: '농장 개조',
       childTags: (
         <div className="flex flex-col items-center h-full">
           <div className="flex items-center justify-center basis-2/5">
@@ -436,6 +514,7 @@ export default function ActionBoard({ openMajorSlot }) {
       onClick: () => {
         takeAction({ pid, aid: 30 });
       },
+      isAccumul: calcAccumul(29),
     },
   ];
 
@@ -457,7 +536,7 @@ export default function ActionBoard({ openMajorSlot }) {
   ];
   const { updateResource, updateBaby } = useResource();
 
-  const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
+  const shuffle = arr => arr.sort(() => Math.random() - 0.5);
 
   // const shuffledRound1 = shuffle(round1);
   // const shuffledRound2 = shuffle(round2);
@@ -480,6 +559,7 @@ export default function ActionBoard({ openMajorSlot }) {
           title={info.title}
           key={idx}
           onClick={info.onClick}
+          isAccumul={info.isAccumul}
         >
           {info.childTags}
         </Box>
@@ -504,10 +584,11 @@ export default function ActionBoard({ openMajorSlot }) {
         isSquare={true}
         title={action[0].title}
         onClick={action[0].onClick}
+        isAccumul={action[0].isAccumul}
       >
         {action[0].childTags}
       </Box>
-      {renderRound(round1, "basis-1/5", 1)}
+      {renderRound(round1, 'basis-1/5', 1)}
       <div className="basis-1/5  flex flex-col">
         <Box
           ratio="basis-1/2"
@@ -515,6 +596,7 @@ export default function ActionBoard({ openMajorSlot }) {
           extraStyle="h-full"
           title={action[1].title}
           onClick={action[1].onClick}
+          isAccumul={action[1].isAccumul}
         >
           {action[1].childTags}
         </Box>
@@ -524,6 +606,7 @@ export default function ActionBoard({ openMajorSlot }) {
           extraStyle="h-full"
           title={action[2].title}
           onClick={action[2].onClick}
+          isAccumul={action[2].isAccumul}
         >
           {action[2].childTags}
         </Box>
@@ -533,10 +616,11 @@ export default function ActionBoard({ openMajorSlot }) {
         isSquare={true}
         title={action[3].title}
         onClick={action[3].onClick}
+        isAccumul={action[3].isAccumul}
       >
         {action[3].childTags}
       </Box>
-      {renderRound(round2, "basis-1/5", 2)}
+      {renderRound(round2, 'basis-1/5', 2)}
       <div className="basis-2/5   flex flex-wrap">
         <Box
           ratio="basis-1/2"
@@ -544,6 +628,7 @@ export default function ActionBoard({ openMajorSlot }) {
           extraStyle="h-full"
           title={action[4].title}
           onClick={action[4].onClick}
+          isAccumul={action[4].isAccumul}
         >
           {action[4].childTags}
         </Box>
@@ -553,6 +638,7 @@ export default function ActionBoard({ openMajorSlot }) {
           extraStyle="h-full"
           title={action[5].title}
           onClick={action[5].onClick}
+          isAccumul={action[5].isAccumul}
         >
           {action[5].childTags}
         </Box>
@@ -562,6 +648,7 @@ export default function ActionBoard({ openMajorSlot }) {
           extraStyle="h-full"
           title={action[6].title}
           onClick={action[6].onClick}
+          isAccumul={action[6].isAccumul}
         >
           {action[6].childTags}
         </Box>
@@ -571,6 +658,7 @@ export default function ActionBoard({ openMajorSlot }) {
           extraStyle="h-full"
           title={action[7].title}
           onClick={action[7].onClick}
+          isAccumul={action[7].isAccumul}
         >
           {action[7].childTags}
         </Box>
@@ -580,6 +668,7 @@ export default function ActionBoard({ openMajorSlot }) {
           extraStyle="h-full"
           title={action[8].title}
           onClick={action[8].onClick}
+          isAccumul={action[8].isAccumul}
         >
           {action[8].childTags}
         </Box>
@@ -589,22 +678,24 @@ export default function ActionBoard({ openMajorSlot }) {
           extraStyle="h-full"
           title={action[9].title}
           onClick={action[9].onClick}
+          isAccumul={action[9].isAccumul}
         >
           {action[9].childTags}
         </Box>
       </div>
       <div className="basis-2/5 aspect-square    flex flex-wrap">
-        {renderRound(round3, "basis-1/2", 3)}
-        {renderRound(round4, "basis-1/2", 4)}
+        {renderRound(round3, 'basis-1/2', 3)}
+        {renderRound(round4, 'basis-1/2', 4)}
       </div>
       <div className="basis-1/5"></div>
-      {renderRound(round5, "basis-1/5", 5)}
+      {renderRound(round5, 'basis-1/5', 5)}
       {roundArray[13] ? (
         <Box
           ratio="basis-1/5"
           isSquare={true}
           title={action[23].title}
           onClick={action[23].onClick}
+          isAccumul={action[23].isAccumul}
         >
           {action[23].childTags}
         </Box>

@@ -150,11 +150,12 @@ export async function takeAction({ pid, aid }) {
     });
 
   if (isYourTurn) {
+    console.log(pid, "턴이니? : ", isYourTurn);
     // take action을 하려는 플레이어가 지금 자기 차례이다.
     const turn = await axios
       .get("http://3.36.7.233:3000/gamestatus/get_turn/")
       .then((res) => {
-        console.log("get_turn of ", pid, " : ", res.data.turn);
+        console.log("현재 turn값은 : ", res.data.turn);
         return res.data.turn;
       });
 
@@ -177,7 +178,7 @@ export async function takeAction({ pid, aid }) {
         return res.data;
       })
       .catch((err) => {
-        console.log("오류가났대요 : ", err);
+        console.log("오류가났대요 : ", err.response.data);
       });
   } else {
     // prompt에 지금은 player __의 차례가 아닙니다.

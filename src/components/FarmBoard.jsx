@@ -1,6 +1,6 @@
-import React from "react";
-import Fence from "./Fence";
-import Land from "./Land";
+import React from 'react';
+import Fence from './Fence';
+import Land from './Land';
 
 export default function FarmBoard() {
   return (
@@ -13,25 +13,11 @@ export default function FarmBoard() {
       <Fence ratio="basis-8/28" isVertical={false} />
       <div className="basis-1/28"></div>
       <Fence ratio="basis-1/28" isVertical={true} />
-      <Land isRoom={true} isField={false} isPen={false} /> {/* 1 */}
+      <Land isRoom={true} isField={false} isPen={false} type="room" /> {/* 1 */}
       <Fence ratio="basis-1/28" isVertical={true} />
-      <Land isRoom={true} isField={false} isPen={false} /> {/* 2 */}
+      <Land isRoom={true} isField={false} isPen={false} type="room" /> {/* 2 */}
       <Fence ratio="basis-1/28" isVertical={true} />
-      <Land /> {/* 3 */}
-      <Fence ratio="basis-1/28" isVertical={true} />
-      <div className="basis-1/28"></div>
-      <Fence ratio="basis-8/28" isVertical={false} />
-      <div className="basis-1/28"></div>
-      <Fence ratio="basis-8/28" isVertical={false} />
-      <div className="basis-1/28"></div>
-      <Fence ratio="basis-8/28" isVertical={false} />
-      <div className="basis-1/28"></div>
-      <Fence ratio="basis-1/28" isVertical={true} />
-      <Land />
-      <Fence ratio="basis-1/28" isVertical={true} />
-      <Land />
-      <Fence ratio="basis-1/28" isVertical={true} />
-      <Land isRoom={false} isField={true} isPen={false} />
+      <Land type="empty" /> {/* 3 */}
       <Fence ratio="basis-1/28" isVertical={true} />
       <div className="basis-1/28"></div>
       <Fence ratio="basis-8/28" isVertical={false} />
@@ -41,25 +27,11 @@ export default function FarmBoard() {
       <Fence ratio="basis-8/28" isVertical={false} />
       <div className="basis-1/28"></div>
       <Fence ratio="basis-1/28" isVertical={true} />
-      <Land />
+      <Land type="empty" />
       <Fence ratio="basis-1/28" isVertical={true} />
-      <Land isRoom={false} isField={false} isPen={true} />
+      <Land type="empty" />
       <Fence ratio="basis-1/28" isVertical={true} />
-      <Land />
-      <Fence ratio="basis-1/28" isVertical={true} />
-      <div className="basis-1/28"></div>
-      <Fence ratio="basis-8/28" isVertical={false} />
-      <div className="basis-1/28"></div>
-      <Fence ratio="basis-8/28" isVertical={false} />
-      <div className="basis-1/28"></div>
-      <Fence ratio="basis-8/28" isVertical={false} />
-      <div className="basis-1/28"></div>
-      <Fence ratio="basis-1/28" isVertical={true} />
-      <Land />
-      <Fence ratio="basis-1/28" isVertical={true} />
-      <Land />
-      <Fence ratio="basis-1/28" isVertical={true} />
-      <Land />
+      <Land isRoom={false} isField={true} isPen={false} type="empty" />
       <Fence ratio="basis-1/28" isVertical={true} />
       <div className="basis-1/28"></div>
       <Fence ratio="basis-8/28" isVertical={false} />
@@ -69,11 +41,39 @@ export default function FarmBoard() {
       <Fence ratio="basis-8/28" isVertical={false} />
       <div className="basis-1/28"></div>
       <Fence ratio="basis-1/28" isVertical={true} />
-      <Land />
+      <Land type="empty" />
       <Fence ratio="basis-1/28" isVertical={true} />
-      <Land />
+      <Land isRoom={false} isField={false} isPen={true} type="empty" />
       <Fence ratio="basis-1/28" isVertical={true} />
-      <Land />
+      <Land type="empty" />
+      <Fence ratio="basis-1/28" isVertical={true} />
+      <div className="basis-1/28"></div>
+      <Fence ratio="basis-8/28" isVertical={false} />
+      <div className="basis-1/28"></div>
+      <Fence ratio="basis-8/28" isVertical={false} />
+      <div className="basis-1/28"></div>
+      <Fence ratio="basis-8/28" isVertical={false} />
+      <div className="basis-1/28"></div>
+      <Fence ratio="basis-1/28" isVertical={true} />
+      <Land type="empty" />
+      <Fence ratio="basis-1/28" isVertical={true} />
+      <Land type="field" />
+      <Fence ratio="basis-1/28" isVertical={true} />
+      <Land type="pen" />
+      <Fence ratio="basis-1/28" isVertical={true} />
+      <div className="basis-1/28"></div>
+      <Fence ratio="basis-8/28" isVertical={false} />
+      <div className="basis-1/28"></div>
+      <Fence ratio="basis-8/28" isVertical={false} />
+      <div className="basis-1/28"></div>
+      <Fence ratio="basis-8/28" isVertical={false} />
+      <div className="basis-1/28"></div>
+      <Fence ratio="basis-1/28" isVertical={true} />
+      <Land type="empty" />
+      <Fence ratio="basis-1/28" isVertical={true} />
+      <Land type="empty" />
+      <Fence ratio="basis-1/28" isVertical={true} />
+      <Land type="empty" />
       <Fence ratio="basis-1/28" isVertical={true} />
       <div className="basis-1/28"></div>
       <Fence ratio="basis-8/28" isVertical={false} />

@@ -2,40 +2,17 @@ import React from 'react';
 import Room from './Room';
 import Field from './Field';
 import Pen from './Pen';
+import Empty from './Empty';
 
-export default function Land({ isRoom, isField, isPen }) {
-  // {
-  //   // isRoom: Boolean
-  //   // isField: Boolean
-  //   // isPen: Boolean
-  //   type:
-  //   Room:{
-  //     isFarmer: Boolean
-  //     type: String
-  //   }
-  //   Filed:{
-  //     type: String
-  //     num: Int
-  //   }
-  //   Pen:{
-  //     isStable:  Boolean
-  //     animalType: String
-  //     num: Int
-  //   }
-  // }
-
-  // const test
-
-  // console.log(isRoom, isField, isPen);
-  const type = 'field';
-
+export default function Land({ isRoom, isField, isPen, type }) {
   return (
-    // <div className="basis-8/28 bg-green-400 aspect-square cursor-pointer">
-    <div className="basis-8/28 bg-green-400 aspect-square cursor-pointer">
+    <div className="relative basis-8/28 aspect-square cursor-pointer transition duration-150 ease-in hover:scale-105 ">
       {
         {
-          room: <Room />,
+          room: <Room isFarmer={true} />,
           field: <Field />,
+          pen: <Pen />,
+          empty: <Empty />,
         }[type]
       }
     </div>

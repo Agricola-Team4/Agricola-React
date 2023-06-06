@@ -1,3 +1,4 @@
+
 const majorImages = {
   baguni: require("../assets/images/baguni.png"),
   fire: require("../assets/images/fire.png"),
@@ -49,13 +50,21 @@ const subImages_2 = {
   sub_b080: require("../assets/images/b080.png"),
 };
 
+
+
 const user_1_have = jobImages_1 + subImages_1;
 const user_2_have = jobImages_1 + subImages_2;
 
 const playerRed = {
-  farmer: require("../assets/images/farmer_icon_red.png"),
-  stable: require("../assets/images/stable_icon_red.png"),
-  fence: require("../assets/images/fence_icon_red.png"),
+  farmer: require('../assets/images/farmer_icon_red.png'),
+  stable: require('../assets/images/stable_icon_red.png'),
+  fence: require('../assets/images/fence_icon_red.png'),
+};
+
+const playerBlue = {
+  farmer: require('../assets/images/farmer_icon_blue.png'),
+  stable: require('../assets/images/stable_icon_blue.png'),
+  fence: require('../assets/images/fence_icon_blue.png'),
 };
 
 const playerBlue = {
@@ -65,13 +74,14 @@ const playerBlue = {
 };
 
 const resource = {
-  boar: require("../assets/images/boar_icon.png"),
-  cow: require("../assets/images/cow_icon.png"),
-  sheep: require("../assets/images/sheep_icon.png"),
-  food: require("../assets/images/food_icon.png"),
-  grain: require("../assets/images/grain_icon.png"),
-  vege: require("../assets/images/vege_icon.png"),
+  boar: require('../assets/images/boar_icon.png'),
+  cow: require('../assets/images/cow_icon.png'),
+  sheep: require('../assets/images/sheep_icon.png'),
+  food: require('../assets/images/food_icon.png'),
+  grain: require('../assets/images/grain_icon.png'),
+  vege: require('../assets/images/vege_icon.png'),
 };
+
 
 export {
   jobImages_1,

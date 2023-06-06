@@ -83,6 +83,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 8 });
       },
       isAccumul: calcAccumul(7),
+      isOcuupied: data && data[7].is_occupied,
     },
     {
       id: 9,
@@ -105,6 +106,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 9 });
       },
       isAccumul: calcAccumul(8),
+      isOcuupied: data && data[8].is_occupied,
     },
     {
       id: 10,
@@ -117,6 +119,7 @@ export default function ActionBoard({ openMajorSlot }) {
       ),
       onClick: () => takeAction({ pid, aid: 10 }),
       isAccumul: calcAccumul(9),
+      isOcuupied: data && data[9].is_occupied,
     },
     {
       id: 11,
@@ -133,6 +136,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 11 });
       },
       isAccumul: calcAccumul(10),
+      isOcuupied: data && data[10].is_occupied,
     },
     {
       id: 12,
@@ -144,6 +148,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 12 });
       },
       isAccumul: calcAccumul(11),
+      isOcuupied: data && data[11].is_occupied,
     },
     {
       id: 13,
@@ -160,6 +165,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 13 });
       },
       isAccumul: calcAccumul(12),
+      isOcuupied: data && data[12].is_occupied,
     },
     {
       id: 5,
@@ -188,6 +194,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 5 });
       },
       isAccumul: calcAccumul(4),
+      isOcuupied: data && data[4].is_occupied,
     },
     {
       id: 14,
@@ -204,6 +211,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 14 });
       },
       isAccumul: calcAccumul(13),
+      isOcuupied: data && data[13].is_occupied,
     },
     {
       id: 15,
@@ -218,6 +226,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 15 });
       },
       isAccumul: calcAccumul(9),
+      isOcuupied: data && data[9].is_occupied,
     },
     {
       id: 16,
@@ -234,6 +243,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 16 });
       },
       isAccumul: calcAccumul(15),
+      isOcuupied: data && data[15].is_occupied,
     },
     {
       id: 18,
@@ -250,6 +260,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 18 });
       },
       isAccumul: calcAccumul(17),
+      isOcuupied: data && data[17].is_occupied,
     },
     {
       id: 17,
@@ -266,6 +277,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 17 });
       },
       isAccumul: calcAccumul(16),
+      isOcuupied: data && data[16].is_occupied,
     },
     {
       id: 20,
@@ -290,6 +302,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 20 });
       },
       isAccumul: calcAccumul(19),
+      isOcuupied: data && data[19].is_occupied,
     },
     {
       id: 19,
@@ -309,6 +322,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 19 });
       },
       isAccumul: calcAccumul(18),
+      isOcuupied: data && data[18].is_occupied,
     },
     {
       id: 22,
@@ -325,6 +339,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 22 });
       },
       isAccumul: calcAccumul(21),
+      isOcuupied: data && data[21].is_occupied,
     },
     {
       id: 23,
@@ -349,6 +364,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 23 });
       },
       isAccumul: calcAccumul(22),
+      isOcuupied: data && data[22].is_occupied,
     },
 
     {
@@ -389,6 +405,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 21 });
       },
       isAccumul: calcAccumul(20),
+      isOcuupied: data && data[20].is_occupied,
     },
     {
       id: 25,
@@ -403,6 +420,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 25 });
       },
       isAccumul: calcAccumul(24),
+      isOcuupied: data && data[24].is_occupied,
     },
     {
       id: 24,
@@ -419,6 +437,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 24 });
       },
       isAccumul: calcAccumul(23),
+      isOcuupied: data && data[23].is_occupied,
     },
     {
       id: 26,
@@ -435,6 +454,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 26 });
       },
       isAccumul: calcAccumul(25),
+      isOcuupied: data && data[25].is_occupied,
     },
     {
       id: 27,
@@ -451,6 +471,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 27 });
       },
       isAccumul: calcAccumul(26),
+      isOcuupied: data && data[26].is_occupied,
     },
     {
       id: 29,
@@ -466,6 +487,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 29 });
       },
       isAccumul: calcAccumul(28),
+      isOcuupied: data && data[28].is_occupied,
     },
     {
       id: 28,
@@ -485,6 +507,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 28 });
       },
       isAccumul: calcAccumul(27),
+      isOcuupied: data && data[27].is_occupied,
     },
     {
       id: 30,
@@ -516,6 +539,7 @@ export default function ActionBoard({ openMajorSlot }) {
         takeAction({ pid, aid: 30 });
       },
       isAccumul: calcAccumul(29),
+      isOcuupied: data && data[29].is_occupied,
     },
   ];
 
@@ -561,6 +585,7 @@ export default function ActionBoard({ openMajorSlot }) {
           key={idx}
           onClick={info.onClick}
           isAccumul={info.isAccumul}
+          isOcuupied={info.isOcuupied}
         >
           {info.childTags}
         </Box>
@@ -586,6 +611,7 @@ export default function ActionBoard({ openMajorSlot }) {
         title={action[0].title}
         onClick={action[0].onClick}
         isAccumul={action[0].isAccumul}
+        isOcuupied={action[0].isOcuupied}
       >
         {action[0].childTags}
       </Box>
@@ -598,6 +624,7 @@ export default function ActionBoard({ openMajorSlot }) {
           title={action[1].title}
           onClick={action[1].onClick}
           isAccumul={action[1].isAccumul}
+          isOcuupied={action[1].isOcuupied}
         >
           {action[1].childTags}
         </Box>
@@ -608,6 +635,7 @@ export default function ActionBoard({ openMajorSlot }) {
           title={action[2].title}
           onClick={action[2].onClick}
           isAccumul={action[2].isAccumul}
+          isOcuupied={action[2].isOcuupied}
         >
           {action[2].childTags}
         </Box>
@@ -618,6 +646,7 @@ export default function ActionBoard({ openMajorSlot }) {
         title={action[3].title}
         onClick={action[3].onClick}
         isAccumul={action[3].isAccumul}
+        isOcuupied={action[3].isOcuupied}
       >
         {action[3].childTags}
       </Box>
@@ -630,6 +659,7 @@ export default function ActionBoard({ openMajorSlot }) {
           title={action[4].title}
           onClick={action[4].onClick}
           isAccumul={action[4].isAccumul}
+          isOcuupied={action[4].isOcuupied}
         >
           {action[4].childTags}
         </Box>
@@ -640,6 +670,7 @@ export default function ActionBoard({ openMajorSlot }) {
           title={action[5].title}
           onClick={action[5].onClick}
           isAccumul={action[5].isAccumul}
+          isOcuupied={action[5].isOcuupied}
         >
           {action[5].childTags}
         </Box>
@@ -650,6 +681,7 @@ export default function ActionBoard({ openMajorSlot }) {
           title={action[6].title}
           onClick={action[6].onClick}
           isAccumul={action[6].isAccumul}
+          isOcuupied={action[6].isOcuupied}
         >
           {action[6].childTags}
         </Box>
@@ -660,6 +692,7 @@ export default function ActionBoard({ openMajorSlot }) {
           title={action[7].title}
           onClick={action[7].onClick}
           isAccumul={action[7].isAccumul}
+          isOcuupied={action[7].isOcuupied}
         >
           {action[7].childTags}
         </Box>
@@ -670,6 +703,7 @@ export default function ActionBoard({ openMajorSlot }) {
           title={action[8].title}
           onClick={action[8].onClick}
           isAccumul={action[8].isAccumul}
+          isOcuupied={action[8].isOcuupied}
         >
           {action[8].childTags}
         </Box>
@@ -680,6 +714,7 @@ export default function ActionBoard({ openMajorSlot }) {
           title={action[9].title}
           onClick={action[9].onClick}
           isAccumul={action[9].isAccumul}
+          isOcuupied={action[9].isOcuupied}
         >
           {action[9].childTags}
         </Box>
@@ -697,6 +732,7 @@ export default function ActionBoard({ openMajorSlot }) {
           title={action[23].title}
           onClick={action[23].onClick}
           isAccumul={action[23].isAccumul}
+          isOcuupied={action[23].isOcuupied}
         >
           {action[23].childTags}
         </Box>

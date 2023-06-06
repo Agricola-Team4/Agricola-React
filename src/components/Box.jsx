@@ -1,4 +1,6 @@
 import React from 'react';
+import Farmer from './Farmer';
+import { useAuthContext } from '../context/AuthContext';
 
 export default function Box({
   ratio,
@@ -8,9 +10,11 @@ export default function Box({
   children,
   onClick,
   isAccumul,
+  isOcuupied,
 }) {
+  const { pid } = useAuthContext();
   return (
-    <div className={`${ratio} p-0.5`} onClick={onClick}>
+    <div className={`${ratio} p-0.5 relative`} onClick={onClick}>
       <div
         className={`${
           isSquare ? 'aspect-square' : ''
@@ -20,12 +24,13 @@ export default function Box({
           {title}
         </p>
         <div
-          className={`h-full text-xs basis-4/5 ${
+          className={` h-full text-xs basis-4/5 ${
             isAccumul ? 'bg-purple-100' : 'bg-yellow-200'
           }  w-full text-center rounded-b-xl flex justify-center items-center`}
         >
           {children}
         </div>
+        {isOcuupied && <Farmer isRed={pid % 2} />}
       </div>
     </div>
   );

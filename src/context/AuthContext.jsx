@@ -9,8 +9,8 @@ export function AuthContextProvider({ children }) {
   useEffect(() => {
     // player 정보 가져오기 http://3.36.7.233:3000/player
     axios.get("http://3.36.7.233:3000/player").then((res) => {
-      console.log(res.data[1]);
-      setPid(res.data[1].id);
+      console.log(res.data[0]);
+      setPid(res.data[0].id);
     });
   }, []);
 

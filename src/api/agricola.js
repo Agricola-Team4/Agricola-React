@@ -175,7 +175,7 @@ export async function takeAction({ pid, aid }) {
           aid,
           '액션을 하였습니다.'
         );
-        console.log("res.data : ", res.data);
+        console.log('res.data : ', res.data);
         return res.data;
       })
       .catch(err => {
@@ -188,24 +188,24 @@ export async function takeAction({ pid, aid }) {
   }
 }
 
-
 export async function getActionBoard() {
   return axios.get('http://3.36.7.233:3000/actionbox').then(res => res.data);
-  
+}
+
 // login
 export async function login({ id, pw }) {
-  console.log("id", id, " pw", pw);
+  console.log('id', id, ' pw', pw);
   const login_result = await axios
-    .post("http://3.36.7.233:3000/account/login/", {
+    .post('http://3.36.7.233:3000/account/login/', {
       user_id: id,
       user_pw: pw,
     })
-    .then((res) => {
-      console.log("login");
+    .then(res => {
+      console.log('login');
       return res.data.player_id;
     })
-    .catch((err) => {
-      return console.log("err msg : ", err.response.data);
+    .catch(err => {
+      return console.log('err msg : ', err.response.data);
     });
 
   return login_result;

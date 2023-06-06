@@ -4,6 +4,7 @@ import RoundBox from "./RoundBox";
 import useResource from "../hooks/useResource";
 import MajorCardBox from "./MajorCardBox";
 import { useAuthContext } from "../context/AuthContext";
+import { takeAction } from "../api/agricola";
 
 export default function ActionBoard({ openMajorSlot }) {
   const { pid } = useAuthContext();
@@ -95,9 +96,7 @@ export default function ActionBoard({ openMajorSlot }) {
           <img className="w-1/4" src="/img/grain_icon.png" alt="grain" />
         </>
       ),
-      onClick: () => {
-        updateResource.mutate({ rid: 5, num: 3 });
-      },
+      onClick: () => takeAction({ pid, aid: 10 }),
     },
     {
       title: "숲",

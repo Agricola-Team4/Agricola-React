@@ -139,3 +139,28 @@ export async function updateOneResource(pid, rid, num) {
 
   // return updated_resource_num;
 }
+
+// 💪🏻 Action Board - Take Action 💪🏻
+export async function takeAction({ pid, aid }) {
+  const turn = await axios
+    .get("http://3.36.7.233:3000/gamestatus/get_turn/")
+    .then((res) => {
+      console.log("get_turn: ", res.data.turn);
+      return res.data.turn;
+    });
+
+  console.log("??", pid, aid);
+  return await axios
+    .post("http://3.36.7.233:3000/familyposition/take_action/", {
+      turn: turn,
+      player_id: pid,
+      action_id: aid,
+    })
+    .then((res) => {
+      console.log("(turn:", turn, ") ", pid, "가 ", aid, "액션을 하였습니다.");
+      return res.data;
+    })
+    .catch(() => {
+      console.log("오류가났대요");
+    });
+}

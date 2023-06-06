@@ -7,6 +7,7 @@ export default function Box({
   title,
   children,
   onClick,
+  isAccumul,
 }) {
   return (
     <div className={`${ratio} p-0.5`} onClick={onClick}>
@@ -18,7 +19,11 @@ export default function Box({
         <p className="py-1 text-xs font-bold basis-1/5 bg-gray-100 w-full text-center rounded-t-xl border-b-2 border-yellow-700 flex items-center justify-center">
           {title}
         </p>
-        <div className="h-full text-xs basis-4/5 bg-yellow-200 w-full text-center rounded-b-xl flex justify-center items-center">
+        <div
+          className={`h-full text-xs basis-4/5 ${
+            isAccumul ? 'bg-yellow-400' : 'bg-yellow-200'
+          }  w-full text-center rounded-b-xl flex justify-center items-center`}
+        >
           {children}
         </div>
       </div>

@@ -9,6 +9,8 @@ import { createBrowserRouter } from "react-router-dom";
 
 import Login from "./components/Login";
 import { AuthContextProvider } from "./context/AuthContext";
+import DragTest from "./components/DragTest";
+import { BackgroundContextProvider } from "./context/BackgroundContext";
 
 const router = createBrowserRouter([
   {
@@ -20,13 +22,19 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
+  {
+    path: "/dragTest",
+    element: <DragTest />,
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <AuthContextProvider>
-      <RouterProvider router={router} />
+      <BackgroundContextProvider>
+        <RouterProvider router={router} />
+      </BackgroundContextProvider>
     </AuthContextProvider>
   </React.StrictMode>
 );

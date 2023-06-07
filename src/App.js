@@ -1,12 +1,13 @@
-import ActionBoard from './components/ActionBoard';
-import { useState } from 'react';
-import CardSlotBoard from './components/CardSlotBoard';
-import Prompt from './components/Prompt';
-import PersonalResourceBoard from './components/PersonalResourceBoard';
-import FarmBoard from './components/FarmBoard';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { AuthContextProvider } from './context/AuthContext';
+import ActionBoard from "./components/ActionBoard";
+import { useState } from "react";
+import CardSlotBoard from "./components/CardSlotBoard";
+import Prompt from "./components/Prompt";
+import PersonalResourceBoard from "./components/PersonalResourceBoard";
+import FarmBoard from "./components/FarmBoard";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { AuthContextProvider } from "./context/AuthContext";
+import { useBackgroundContext } from "../src/context/BackgroundContext";
 
 import {
   jobImages_1,
@@ -14,14 +15,22 @@ import {
   majorImages,
   subImages_1,
   subImages_2,
-} from '../src/constants/imageContants';
+} from "../src/constants/imageContants";
 
-import { motion, AnimatePresence } from 'framer-motion';
-import { useCardBoard } from '../src/hooks/useCardBoard';
-import CardPack from './components/CardPack';
+import { motion, AnimatePresence } from "framer-motion";
+import { useCardBoard } from "../src/hooks/useCardBoard";
+import CardPack from "./components/CardPack";
 
 function App() {
   const queryClient = new QueryClient();
+  const { isAnimal } = useBackgroundContext();
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (event) => {
+    console.log(event.clientX, event.clientY);
+    setMousePosition({ x: event.clientX, y: event.clientY });
+  };
+
   const {
     isMajorOpen,
     setIsMajorOpen,
@@ -47,7 +56,10 @@ function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
-        <div className="flex flex-col lg:flex-row">
+        <div
+          className="flex flex-col lg:flex-row"
+          onMouseMove={handleMouseMove}
+        >
           <div className="w-full flex flex-col lg:w-6/12 ">
             <Prompt />
             <ActionBoard openMajorSlot={openMajorSlot} />
@@ -134,10 +146,32 @@ function App() {
                 close={closeMajorSlot}
               />
             ) : (
-              ''
+              ""
             )}
           </AnimatePresence>
         </div>
+        {isAnimal.visible && mousePosition && (
+          <div
+            className="flex justify-center items-center flex-wrap p-2"
+            style={{
+              position: "absolute",
+              top: `${mousePosition.y - 200}px`,
+              left: `${mousePosition.x - 200}px`,
+              //   zIndex: 1,
+              // borderRadius: "50%",
+              background: "white",
+              border: "1px black solid",
+              width: "200px",
+              // height: "50px",
+            }}
+          >
+            {Array(isAnimal.num)
+              .fill()
+              .map((_, index) => isAnimal.img)}
+            {/* {isAnimal.img}
+            <p className="font-bold pl-2">{isAnimal.num}</p> */}
+          </div>
+        )}
       </AuthContextProvider>
       <ReactQueryDevtools />
     </QueryClientProvider>

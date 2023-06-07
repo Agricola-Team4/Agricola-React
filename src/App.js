@@ -1,12 +1,12 @@
-import ActionBoard from "./components/ActionBoard";
-import { useState } from "react";
-import CardSlotBoard from "./components/CardSlotBoard";
-import Prompt from "./components/Prompt";
-import PersonalResourceBoard from "./components/PersonalResourceBoard";
-import FarmBoard from "./components/FarmBoard";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { AuthContextProvider } from "./context/AuthContext";
+import ActionBoard from './components/ActionBoard';
+import { useState } from 'react';
+import CardSlotBoard from './components/CardSlotBoard';
+import Prompt from './components/Prompt';
+import PersonalResourceBoard from './components/PersonalResourceBoard';
+import FarmBoard from './components/FarmBoard';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { AuthContextProvider } from './context/AuthContext';
 
 import {
   jobImages_1,
@@ -14,10 +14,11 @@ import {
   majorImages,
   subImages_1,
   subImages_2,
-} from "../src/constants/imageContants";
+} from '../src/constants/imageContants';
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useCardBoard } from "../src/hooks/useCardBoard";
+import { motion, AnimatePresence } from 'framer-motion';
+import { useCardBoard } from '../src/hooks/useCardBoard';
+import CardPack from './components/CardPack';
 
 function App() {
   const queryClient = new QueryClient();
@@ -56,36 +57,32 @@ function App() {
               <PersonalResourceBoard />
               <FarmBoard />
               <div className="flex ">
-                <div
-                  className="basis-1/2 bg-red-200 bg-clip-content p-1 aspect-square cursor-pointer"
+                <CardPack
+                  text="보유카드"
+                  bgColor="bg-yellow-200"
                   onClick={openP1HaveSlot}
-                >
-                  보유 카드
-                </div>
-                <div
-                  className="basis-1/2 bg-red-300 bg-clip-content	p-1 aspect-square"
+                />
+                <CardPack
+                  text="활성화카드"
+                  bgColor="bg-orange-300"
                   onClick={openP1ActSlot}
-                >
-                  활성화 카드
-                </div>
+                />
               </div>
             </div>
             <div className="flex flex-col w-6/12  bg-clip-content	p-1">
               <PersonalResourceBoard />
               <FarmBoard />
               <div className="flex ">
-                <div
-                  className="basis-1/2 bg-red-200 bg-clip-content p-1 aspect-square"
+                <CardPack
+                  text="보유카드"
+                  bgColor="bg-yellow-200"
                   onClick={openP2HaveSlot}
-                >
-                  보유 카드
-                </div>
-                <div
-                  className="basis-1/2 bg-red-300 bg-clip-content p-1 aspect-square"
+                />
+                <CardPack
+                  text="활성화카드"
+                  bgColor="bg-orange-300"
                   onClick={openP2ActSlot}
-                >
-                  활성화 카드
-                </div>
+                />
               </div>
             </div>
           </div>
@@ -133,7 +130,7 @@ function App() {
                 close={closeMajorSlot}
               />
             ) : (
-              <p>hi</p>
+              ''
             )}
           </AnimatePresence>
         </div>

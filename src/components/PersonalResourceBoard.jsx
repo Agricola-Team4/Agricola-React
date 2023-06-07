@@ -47,7 +47,7 @@ export default function PersonalResourceBoard() {
 
   return (
     <>
-      <div className="flex flex-row justify-center bg-brown-100 mb-1">
+      <div className="flex flex-row justify-center bg-brown-100 mb-1 rounded-lg p-1">
         <div className="basis-2/12 flex flex-col items-center pt-4 border-r-2">
           <Profile img={profile_img} name="하드코딩" />
         </div>

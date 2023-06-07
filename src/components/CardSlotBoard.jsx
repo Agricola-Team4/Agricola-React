@@ -1,10 +1,10 @@
-import React from "react";
-import Card from "./Card";
-import { motion, AnimatePresence } from "framer-motion";
+import React from 'react';
+import Card from './Card';
+import { motion, AnimatePresence } from 'framer-motion';
 // import { jobImages, majorImages, subImages } from "../constants/imageContants";
 
 export default function CardSlotBoard({ imageSet, col, row, ratio, close }) {
-  console.log("???", imageSet);
+  console.log('???', imageSet);
 
   return (
     <>
@@ -14,21 +14,21 @@ export default function CardSlotBoard({ imageSet, col, row, ratio, close }) {
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
         style={{
-          position: "fixed",
+          position: 'fixed',
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
-          background: "rgba(0, 0, 0, 0.5)",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
+          background: 'rgba(0, 0, 0, 0.5)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
         }}
       >
         <div
-          style={{ height: "650px", width: "1000px" }}
+          style={{ height: '650px', width: '1000px' }}
           // style={{ top: "18%", left: "20%", height: "650px" }}
-          className="absolute w-fit py-8 px-10 bg-white"
+          className="absolute w-fit py-8 px-10 bg-yellow-200 rounded-lg border-8 border-yellow-700"
         >
           {/* w-7/12 */}
           <button
@@ -38,8 +38,8 @@ export default function CardSlotBoard({ imageSet, col, row, ratio, close }) {
             Ⅹ
           </button>
 
-          <div className="flex flex-row flex-wrap w-full h-full box-border bg-orange-300">
-            {Object.values(imageSet).map((src) => (
+          <div className="flex flex-row flex-wrap w-full h-full box-border bg-white">
+            {Object.values(imageSet).map(src => (
               <Card cardType={src} ratio={ratio}></Card>
             ))}
           </div>

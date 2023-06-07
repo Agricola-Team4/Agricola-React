@@ -130,7 +130,7 @@ function App() {
                 close={closeMajorSlot}
               />
             ) : (
-              <p>hi</p>
+              ''
             )}
           </AnimatePresence>
         </div>

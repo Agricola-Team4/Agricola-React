@@ -5,9 +5,9 @@ export default function ResourceInfo({ img, num, alt, basis }) {
         className="aspect-square"
         src={img}
         alt={alt}
-        style={{ height: '38px' }}
+        style={{ height: '28px' }}
       />
-      <p className="">{num}</p>
+      <p className="text-xs font-bold">{num}</p>
     </div>
   );
 }

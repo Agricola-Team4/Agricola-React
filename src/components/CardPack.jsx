@@ -1,7 +1,7 @@
-export default function CardPack({ text, bgColor, onClick }) {
+export default function CardPack({ text, bgColor, onClick, margin }) {
   return (
     <div
-      className={`basis-1/2 rounded-lg bg-clip-content m-1 aspect-square border-8 border-orange-600 flex justify-center items-center font-bold cursor-pointer ${bgColor}`}
+      className={`basis-1/2 rounded-lg bg-clip-content ${margin} mb-1 border-1 border-black flex justify-center items-center font-bold cursor-pointer text-sm ${bgColor}`}
       onClick={onClick}
     >
       {text}

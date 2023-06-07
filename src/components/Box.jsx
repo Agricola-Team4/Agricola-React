@@ -25,7 +25,7 @@ export default function Box({
         </p>
         <div
           className={` h-full text-xs basis-4/5 ${
-            isAccumul ? 'bg-purple-100' : 'bg-yellow-200'
+            isAccumul ? 'bg-yellow-300' : 'bg-yellow-200'
           }  w-full text-center rounded-b-xl flex justify-center items-center`}
         >
           {children}

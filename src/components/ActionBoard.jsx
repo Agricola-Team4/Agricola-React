@@ -544,20 +544,20 @@ export default function ActionBoard({ openMajorSlot }) {
   ];
 
   const roundArray = [
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
   ];
   const { updateResource, updateBaby } = useResource();
 
@@ -575,9 +575,9 @@ export default function ActionBoard({ openMajorSlot }) {
   const round4 = action.slice(19, 21);
   const round5 = action.slice(21, 23);
 
-  const renderRound = (round, basis, roundNum) => {
+  const renderRound = (round, basis, roundNum, inum) => {
     return round.map((info, idx) => {
-      return roundArray[idx] ? (
+      return roundArray[idx + inum] ? (
         <Box
           ratio={basis}
           isSquare={true}
@@ -604,7 +604,7 @@ export default function ActionBoard({ openMajorSlot }) {
   // const shuffledRound5 = shuffle(round5);
 
   return (
-    <div className="flex flex-wrap ">
+    <div className="flex flex-wrap pr-28">
       <Box
         ratio="basis-1/5"
         isSquare={true}
@@ -615,7 +615,7 @@ export default function ActionBoard({ openMajorSlot }) {
       >
         {action[0].childTags}
       </Box>
-      {renderRound(round1, 'basis-1/5', 1)}
+      {renderRound(round1, 'basis-1/5', 1, 0)}
       <div className="basis-1/5  flex flex-col">
         <Box
           ratio="basis-1/2"
@@ -650,7 +650,7 @@ export default function ActionBoard({ openMajorSlot }) {
       >
         {action[3].childTags}
       </Box>
-      {renderRound(round2, 'basis-1/5', 2)}
+      {renderRound(round2, 'basis-1/5', 2, 4)}
       <div className="basis-2/5   flex flex-wrap">
         <Box
           ratio="basis-1/2"
@@ -720,11 +720,11 @@ export default function ActionBoard({ openMajorSlot }) {
         </Box>
       </div>
       <div className="basis-2/5 aspect-square    flex flex-wrap">
-        {renderRound(round3, 'basis-1/2', 3)}
-        {renderRound(round4, 'basis-1/2', 4)}
+        {renderRound(round3, 'basis-1/2', 3, 7)}
+        {renderRound(round4, 'basis-1/2', 4, 9)}
       </div>
       <div className="basis-1/5"></div>
-      {renderRound(round5, 'basis-1/5', 5)}
+      {renderRound(round5, 'basis-1/5', 5, 11)}
       {roundArray[13] ? (
         <Box
           ratio="basis-1/5"

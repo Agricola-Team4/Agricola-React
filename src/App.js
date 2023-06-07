@@ -48,42 +48,46 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
         <div className="flex flex-col lg:flex-row">
-          <div className="w-full my-1 flex flex-col lg:w-6/12">
+          <div className="w-full my-1 flex flex-col lg:w-6/12 ">
             <Prompt />
             <ActionBoard openMajorSlot={openMajorSlot} />
           </div>
           <div className="w-full flex lg:w-6/12">
-            <div className="flex flex-col w-6/12 bg-clip-content	p-1">
+            <div className="flex flex-col w-6/12 bg-clip-content pl-5">
               <PersonalResourceBoard />
-              <FarmBoard />
               <div className="flex ">
                 <CardPack
                   text="보유카드"
-                  bgColor="bg-yellow-200"
+                  bgColor="bg-purple-100"
+                  margin="mr-1"
                   onClick={openP1HaveSlot}
                 />
                 <CardPack
                   text="활성화카드"
-                  bgColor="bg-orange-300"
+                  bgColor="bg-blue-100"
+                  margin="ml-1"
                   onClick={openP1ActSlot}
                 />
               </div>
-            </div>
-            <div className="flex flex-col w-6/12  bg-clip-content	p-1">
-              <PersonalResourceBoard />
               <FarmBoard />
+            </div>
+            <div className="flex flex-col w-6/12  bg-clip-content	pl-5">
+              <PersonalResourceBoard />
               <div className="flex ">
                 <CardPack
                   text="보유카드"
-                  bgColor="bg-yellow-200"
+                  bgColor="bg-purple-100"
+                  margin="mr-1"
                   onClick={openP2HaveSlot}
                 />
                 <CardPack
                   text="활성화카드"
-                  bgColor="bg-orange-300"
+                  bgColor="bg-blue-100"
+                  margin="ml-1"
                   onClick={openP2ActSlot}
                 />
               </div>
+              <FarmBoard />
             </div>
           </div>
 

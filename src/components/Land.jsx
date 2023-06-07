@@ -6,7 +6,7 @@ import Empty from './Empty';
 
 export default function Land({ isRoom, isField, isPen, type }) {
   return (
-    <div className="relative basis-8/28 aspect-square cursor-pointer transition duration-150 ease-in hover:scale-105 ">
+    <div className="relative basis-9/31 aspect-square cursor-pointer transition duration-150 ease-in hover:scale-105 p-0.5 ">
       {
         {
           room: <Room isFarmer={true} />,

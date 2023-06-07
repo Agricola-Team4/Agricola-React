@@ -48,7 +48,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
         <div className="flex flex-col lg:flex-row">
-          <div className="w-full my-1 flex flex-col lg:w-6/12 ">
+          <div className="w-full flex flex-col lg:w-6/12 ">
             <Prompt />
             <ActionBoard openMajorSlot={openMajorSlot} />
           </div>

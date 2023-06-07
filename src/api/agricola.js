@@ -11,7 +11,9 @@ export async function updateBabyState() {
 }
 
 export async function getFarmBoard() {
-  return axios.get('http://localhost:3001/farmBoard/1').then(res => res.data);
+  return axios
+    .get('http://3.36.7.233:3000/boardposition/')
+    .then(res => res.data);
 }
 
 export async function createLand(landId, landType) {

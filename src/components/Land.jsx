@@ -4,22 +4,24 @@ import Field from './Field';
 import Pen from './Pen';
 import Empty from './Empty';
 
-export default function Land({ isRoom, isField, isPen, type }) {
+export default function Land({ data }) {
   return (
-    <div className="relative basis-9/31 aspect-square cursor-pointer transition duration-150 ease-in hover:scale-105 p-0.5 ">
+    <div
+      className="relative basis-9/31 aspect-square cursor-pointer transition duration-150 ease-in hover:scale-105 p-0.5 "
+      onClick={() => console.log('hello')}
+    >
       {
         {
-          room: <Room isFarmer={true} />,
-          field: <Field />,
-          pen: <Pen />,
-          empty: <Empty />,
-        }[type]
+          0: <Empty isStable={false} />,
+          1: <Room isFarmer={data && data.is_fam} type={'wood'} />,
+          2: (
+            <Field type={data && data.vege_type} num={data && data.vege_num} />
+          ),
+          3: <Pen isStable={false} num={data && data.animal_num} />,
+          4: <Empty isStable={true} />,
+          5: <Pen isStable={true} num={data && data.animal_num} />,
+        }[data && data.position_type]
       }
     </div>
-
-    //   {/* {isRoom ? <Room /> : null}
-    //   {isField ? <Field /> : null}
-    //   {isPen ? <Pen /> : null}
-    // </div> */}
   );
 }

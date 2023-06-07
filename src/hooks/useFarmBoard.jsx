@@ -6,7 +6,9 @@ export default function useFarmBoard() {
 
   const farmBoardQuery = useQuery(['farmBoard'], getFarmBoard);
 
-  const updateFarmBoard = useMutation(() => updateFarmBoard(), {
-    onSuccess: () => queryClient.invalidateQueries(['farmBoard']), // queryKey 유효성 제거
-  });
+  // const updateFarmBoard = useMutation(() => updateFarmBoard(), {
+  //   onSuccess: () => queryClient.invalidateQueries(['farmBoard']), // queryKey 유효성 제거
+  // });
+
+  return { farmBoardQuery };
 }

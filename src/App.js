@@ -1,13 +1,10 @@
-import ActionBoard from "./components/ActionBoard";
-import { useState } from "react";
-import CardSlotBoard from "./components/CardSlotBoard";
-import Prompt from "./components/Prompt";
-import PersonalResourceBoard from "./components/PersonalResourceBoard";
-import FarmBoard from "./components/FarmBoard";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import { AuthContextProvider } from "./context/AuthContext";
-import { useBackgroundContext } from "../src/context/BackgroundContext";
+import ActionBoard from './components/ActionBoard';
+import { useState } from 'react';
+import CardSlotBoard from './components/CardSlotBoard';
+import Prompt from './components/Prompt';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { useBackgroundContext } from '../src/context/BackgroundContext';
 
 import {
   jobImages_1,
@@ -15,12 +12,12 @@ import {
   majorImages,
   subImages_1,
   subImages_2,
-} from "../src/constants/imageContants";
+} from '../src/constants/imageContants';
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useCardBoard } from "../src/hooks/useCardBoard";
-import CardPack from "./components/CardPack";
-
+import { motion, AnimatePresence } from 'framer-motion';
+import { useCardBoard } from '../src/hooks/useCardBoard';
+import PlayerContainer from './components/PlayerContainer';
+import MouseComponent from './components/MouseComponent';
 
 const aa = [
   { id: 8, left: true, right: true, top: true, bottom: true },
@@ -122,95 +119,6 @@ const farmBoard = {
 
 function App() {
   const queryClient = new QueryClient();
-  const { isAnimal } = useBackgroundContext();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (event) => {
-    console.log(event.clientX, event.clientY);
-    setMousePosition({ x: event.clientX, y: event.clientY });
-  };
-
-  const [fencePosition1, setFencePosition1] = useState({
-    1: false,
-    2: false,
-    3: false,
-    4: false,
-    5: false,
-    6: false,
-    7: false,
-    8: false,
-    9: false,
-    10: false,
-    11: false,
-    12: false,
-    13: false,
-    14: false,
-    15: false,
-    16: false,
-    17: false,
-    18: false,
-    19: false,
-    20: false,
-    21: false,
-    22: false,
-    23: false,
-    24: false,
-    25: false,
-    26: false,
-    27: false,
-    28: false,
-    29: false,
-    30: false,
-    31: false,
-    32: false,
-    33: false,
-    34: false,
-    35: false,
-    36: false,
-    37: false,
-    38: false,
-  });
-
-  const [fencePosition2, setFencePosition2] = useState({
-    1: false,
-    2: false,
-    3: false,
-    4: false,
-    5: false,
-    6: false,
-    7: false,
-    8: false,
-    9: false,
-    10: false,
-    11: false,
-    12: false,
-    13: false,
-    14: false,
-    15: false,
-    16: false,
-    17: false,
-    18: false,
-    19: false,
-    20: false,
-    21: false,
-    22: false,
-    23: false,
-    24: false,
-    25: false,
-    26: false,
-    27: false,
-    28: false,
-    29: false,
-    30: false,
-    31: false,
-    32: false,
-    33: false,
-    34: false,
-    35: false,
-    36: false,
-    37: false,
-    38: false,
-  });
 
   const {
     isMajorOpen,
@@ -251,109 +159,82 @@ function App() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <AuthContextProvider>
+      <MouseComponent />
+      <div className="flex flex-col lg:flex-row">
         <div
-          className="flex flex-col lg:flex-row"
-          onMouseMove={handleMouseMove}
+        // onClick={() => {
+        //   pid % 2 == 1
+        //     ? updateFenceposition(fencePosition1, setFencePosition1)
+        //     : updateFenceposition(fencePosition2, setFencePosition2);
+        // }}
         >
-          <div
-            onClick={() => {
-              pid % 2 == 1
-                ? updateFenceposition(fencePosition1, setFencePosition1)
-                : updateFenceposition(fencePosition2, setFencePosition1);
-            }}
-          >
-            test
-          </div>
-          <div className="w-full flex flex-col lg:w-6/12 ">
-            <Prompt />
-            <ActionBoard openMajorSlot={openMajorSlot} />
-          </div>
-          <div className="w-full flex lg:w-6/12">
-            <PlayerContainer
-              fencePosition={fencePosition1}
-              onClick1={openP1HaveSlot}
-              onClick2={openP1ActSlot}
-              pid={1}
-            />
-            <PlayerContainer
-              fencePosition={fencePosition2}
-              onClick1={openP2HaveSlot}
-              onClick2={openP2ActSlot}
-              pid={2}
-            />
-          </div>
-
-          <AnimatePresence>
-            {/* {isCardSlotOpen && ( */}
-            {isMajorOpen ? (
-              <CardSlotBoard
-                imageSet={majorImages}
-                col="5"
-                row="2"
-                ratio="basis-1/5"
-                close={closeMajorSlot}
-              />
-            ) : isP1HaveOpen ? (
-              <CardSlotBoard
-                imageSet={subImages_1}
-                col="5"
-                row="2"
-                ratio="basis-1/5"
-                close={closeMajorSlot}
-              />
-            ) : isP1ActOpen ? (
-              <CardSlotBoard
-                imageSet={subImages_2}
-                col="5"
-                row="2"
-                ratio="basis-1/5"
-                close={closeMajorSlot}
-              />
-            ) : isP2HaveOpen ? (
-              <CardSlotBoard
-                imageSet={jobImages_1}
-                col="5"
-                row="2"
-                ratio="basis-1/5"
-                close={closeMajorSlot}
-              />
-            ) : isP2ActOpen ? (
-              <CardSlotBoard
-                imageSet={jobImages_2}
-                col="5"
-                row="2"
-                ratio="basis-1/5"
-                close={closeMajorSlot}
-              />
-            ) : (
-              ""
-            )}
-          </AnimatePresence>
+          test
         </div>
-        {isAnimal.visible && mousePosition && (
-          <div
-            className="flex justify-center items-center flex-wrap p-2"
-            style={{
-              position: "absolute",
-              top: `${mousePosition.y - 200}px`,
-              left: `${mousePosition.x - 200}px`,
-              //   zIndex: 1,
-              // borderRadius: "50%",
-              background: "white",
-              border: "1px black solid",
-              width: "200px",
-              // height: "50px",
-            }}
-          >
-            {Array(isAnimal.num)
-              .fill()
-              .map((_, index) => isAnimal.img)}
-            {/* {isAnimal.img}
-            <p className="font-bold pl-2">{isAnimal.num}</p> */}
-          </div>
-        )}
-      </AuthContextProvider>
+        <div className="w-full flex flex-col lg:w-6/12 ">
+          <Prompt />
+          <ActionBoard openMajorSlot={openMajorSlot} />
+        </div>
+        <div className="w-full flex lg:w-6/12">
+          <PlayerContainer
+            onClick1={openP1HaveSlot}
+            onClick2={openP1ActSlot}
+            pid={1}
+          />
+          <PlayerContainer
+            onClick1={openP2HaveSlot}
+            onClick2={openP2ActSlot}
+            pid={2}
+          />
+        </div>
+
+        <AnimatePresence>
+          {/* {isCardSlotOpen && ( */}
+          {isMajorOpen ? (
+            <CardSlotBoard
+              imageSet={majorImages}
+              col="5"
+              row="2"
+              ratio="basis-1/5"
+              close={closeMajorSlot}
+            />
+          ) : isP1HaveOpen ? (
+            <CardSlotBoard
+              imageSet={subImages_1}
+              col="5"
+              row="2"
+              ratio="basis-1/5"
+              close={closeMajorSlot}
+            />
+          ) : isP1ActOpen ? (
+            <CardSlotBoard
+              imageSet={subImages_2}
+              col="5"
+              row="2"
+              ratio="basis-1/5"
+              close={closeMajorSlot}
+            />
+          ) : isP2HaveOpen ? (
+            <CardSlotBoard
+              imageSet={jobImages_1}
+              col="5"
+              row="2"
+              ratio="basis-1/5"
+              close={closeMajorSlot}
+            />
+          ) : isP2ActOpen ? (
+            <CardSlotBoard
+              imageSet={jobImages_2}
+              col="5"
+              row="2"
+              ratio="basis-1/5"
+              close={closeMajorSlot}
+            />
+          ) : (
+            ''
+          )}
+        </AnimatePresence>
+      </div>
+
       <ReactQueryDevtools />
     </QueryClientProvider>
   );

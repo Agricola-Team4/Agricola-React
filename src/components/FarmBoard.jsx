@@ -4,13 +4,16 @@ import Land from './Land';
 import { useAuthContext } from '../context/AuthContext';
 import { useState } from 'react';
 import useFarmBoard from '../hooks/useFarmBoard';
+import { useBackgroundContext } from '../context/BackgroundContext';
 
-export default function FarmBoard({ fencePosition, pid }) {
+export default function FarmBoard({ pid }) {
   const { isFbActive } = useAuthContext();
   const {
     farmBoardQuery: { isLadoing, error, data },
   } = useFarmBoard(pid);
 
+  const { fencePosition1, fencePosition2 } = useBackgroundContext();
+  const fencePosition = pid === 1 ? fencePosition1 : fencePosition2;
   console.log(data);
   // const [arr, setArr] = useState([]);
 

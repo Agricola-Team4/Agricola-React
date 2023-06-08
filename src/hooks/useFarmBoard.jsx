@@ -3,9 +3,10 @@ import { getFarmBoard } from "../api/agricola";
 import { useBackgroundContext } from "../context/BackgroundContext";
 import { useState } from "react";
 
-export default function useFarmBoard() {
+export default function useFarmBoard(pid) {
   const queryClient = useQueryClient();
-  // const farmBoardQuery = useQuery(["farmBoard"], getFarmBoard);
+  
+  const farmBoardQuery = useQuery(['farmBoard', pid], () => getFarmBoard(pid));
   const { setIsAnimal } = useBackgroundContext();
   const updateFarmBoard = useMutation(() => updateFarmBoard(), {
     onSuccess: () => queryClient.invalidateQueries(["farmBoard"]), // queryKey 유효성 제거
@@ -23,5 +24,5 @@ export default function useFarmBoard() {
     });
   };
 
-  return { animalEvent };
+  return { farmBoardQuery, animalEvent };
 }

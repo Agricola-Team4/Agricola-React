@@ -9,7 +9,8 @@ import useActionBoard from "../hooks/useActionBoard";
 import useFarmBoard from "../hooks/useFarmBoard";
 
 export default function ActionBoard({ openMajorSlot }) {
-  const { pid } = useAuthContext();
+  const { pid, isFbActive, setIsFbActive, isAbActive, setIsAbActive } =
+    useAuthContext();
 
   const {
     actionBoardQuery: { isLadoing, error, data },
@@ -278,6 +279,8 @@ export default function ActionBoard({ openMajorSlot }) {
       ),
       onClick: () => {
         takeAction({ pid, aid: 17 });
+        setIsFbActive(true);
+        setIsAbActive(false);
       },
       isAccumul: calcAccumul(16),
       isOcuupied: data && data[16].is_occupied,
@@ -547,21 +550,6 @@ export default function ActionBoard({ openMajorSlot }) {
   ];
 
   const roundArray = [
-    // false,
-    // false,
-    // false,
-    // false,
-    // false,
-    // false,
-    // false,
-    // false,
-    // false,
-    // false,
-    // false,
-    // false,
-    // false,
-    // false,
-
     true,
     true,
     true,
@@ -622,7 +610,9 @@ export default function ActionBoard({ openMajorSlot }) {
   // const shuffledRound5 = shuffle(round5);
 
   return (
-    <div className="flex flex-wrap pr-28">
+    <div
+      className={`flex flex-wrap pr-28 ${!isAbActive && 'pointer-events-none'}`}
+    >
       <Box
         ratio="basis-1/5"
         isSquare={true}

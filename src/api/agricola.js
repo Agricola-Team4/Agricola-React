@@ -10,9 +10,13 @@ export async function updateBabyState() {
   return axios.patch("http://localhost:3001/resource/1", { babyState: !state });
 }
 
-// export async function getFarmBoard() {
-//   return axios.get('http://localhost:3001/farmBoard/1').then(res => res.data);
-// }
+export async function getFarmBoard(id) {
+  return axios
+    .post('http://3.36.7.233:3000/boardposition/get_all_position/', {
+      player_id: id,
+    })
+    .then(res => res.data);
+}
 
 export async function createLand(landId, landType) {
   return axios.patch(`http://localhost:3001/farmBoard/1/${landId}`, {

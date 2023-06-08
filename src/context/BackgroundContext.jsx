@@ -93,6 +93,20 @@ export function BackgroundContextProvider({ children }) {
 
   const [prompt, setPrompt] = useState({ message: "", buttons: [] });
 
+  const [selectedPosArr, setSelectedPosArr] = useState([]); //Farmboard arr
+
+  const [fencePosArr, setFencePosArr] = useState([]);
+
+  const handleAdd = (num) => {
+    const newArr = [...selectedPosArr];
+    newArr.push(num);
+    setSelectedPosArr(newArr);
+    console.log(selectedPosArr);
+  };
+  const getSelectedPosArr = () => {
+    console.log(selectedPosArr);
+    return selectedPosArr;
+  };
   return (
     <BackgroundContext.Provider
       value={{
@@ -104,6 +118,9 @@ export function BackgroundContextProvider({ children }) {
         setFencePosition2,
         prompt,
         setPrompt,
+        selectedPosArr,
+        handleAdd,
+        getSelectedPosArr,
       }}
     >
       {children}

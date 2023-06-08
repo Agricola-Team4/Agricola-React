@@ -8,14 +8,14 @@ import { getActionBoard, takeAction } from "../api/agricola";
 import useActionBoard from "../hooks/useActionBoard";
 import useFarmBoard from "../hooks/useFarmBoard";
 import { useBackgroundContext } from "../context/BackgroundContext";
-import { fence } from "../api/action";
 export default function ActionBoard({ openMajorSlot }) {
   const { pid, isFbActive, setIsFbActive, isAbActive, setIsAbActive } =
     useAuthContext();
-  const { setPrompt } = useBackgroundContext();
+  const { setPrompt, getSelectedPosArr } = useBackgroundContext();
 
   const {
     actionBoardQuery: { isLadoing, error, data },
+    fence,
   } = useActionBoard();
 
   const { animalEvent } = useFarmBoard();
@@ -280,7 +280,8 @@ export default function ActionBoard({ openMajorSlot }) {
         </div>
       ),
       onClick: () => {
-        fence(setIsAbActive, setIsFbActive, setPrompt);
+        // console.log("selected", selectedPosArr);
+        fence();
       },
       isAccumul: calcAccumul(16),
       isOcuupied: data && data[16].is_occupied,

@@ -1,10 +1,8 @@
 import ActionBoard from './components/ActionBoard';
-import { useState } from 'react';
 import CardSlotBoard from './components/CardSlotBoard';
 import Prompt from './components/Prompt';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
-import { useBackgroundContext } from '../src/context/BackgroundContext';
 
 import {
   jobImages_1,
@@ -155,21 +153,10 @@ function App() {
     setFencePosition(box);
   };
 
-  const pid = 1;
-
   return (
     <QueryClientProvider client={queryClient}>
       <MouseComponent />
       <div className="flex flex-col lg:flex-row">
-        <div
-        // onClick={() => {
-        //   pid % 2 == 1
-        //     ? updateFenceposition(fencePosition1, setFencePosition1)
-        //     : updateFenceposition(fencePosition2, setFencePosition2);
-        // }}
-        >
-          test
-        </div>
         <div className="w-full flex flex-col lg:w-6/12 ">
           <Prompt />
           <ActionBoard openMajorSlot={openMajorSlot} />

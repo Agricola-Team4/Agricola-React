@@ -21,9 +21,5 @@ export default function useResource(pid) {
     }
   );
 
-  const updateBaby = useMutation(() => updateBabyState(), {
-    onSuccess: () => queryClient.invalidateQueries(['resource']), // queryKey 유효성 제거
-  });
-
-  return { resourceQuery, updateResource, updateBaby };
+  return { resourceQuery, updateResource };
 }

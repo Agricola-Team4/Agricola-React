@@ -5,7 +5,7 @@ export default function Fence({ ratio, isVertical, isActive }) {
 
   return (
     <div
-      className={`${ratio} bg-fence	p-1 rounded-lg   
+      className={`${ratio} bg-fence	p-1 rounded-lg 
       ${isVertical ? '' : 'aspect-9/1'} ${
         isActive ? 'opacity-100' : 'opacity-20'
       }`}

@@ -45,7 +45,6 @@ export default function PersonalResourceBoard({ pid }) {
       } = {},
     },
   } = useResource(pid);
-  console.log(pid);
 
   return (
     <>

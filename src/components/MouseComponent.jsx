@@ -8,7 +8,7 @@ export default function MouseComponent() {
   const handleMouseMove = event => {
     setMousePosition({ x: event.clientX, y: event.clientY });
   };
-  console.log(mousePosition);
+  // console.log(mousePosition);
   return (
     <div
       onMouseMove={handleMouseMove}

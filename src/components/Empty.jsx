@@ -1,7 +1,10 @@
 import { playerRed, resource } from '../constants/imageContants';
-export default function Empty({ isStable }) {
+export default function Empty({ isStable, onClick }) {
   return (
-    <div className="bg-empty bg-clip-border bg-contain bg-no-repeat w-full h-full flex justify-center items-center p-2">
+    <div
+      className="bg-empty bg-clip-border bg-contain bg-no-repeat w-full h-full flex justify-center items-center p-2"
+      onClick={onClick}
+    >
       {isStable && (
         <div className="w-full h-full flex">
           <div className="basis-1/2  flex justify-center items-center">

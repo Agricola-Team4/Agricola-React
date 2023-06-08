@@ -2,7 +2,15 @@ import CardPack from './CardPack';
 import FarmBoard from './FarmBoard';
 import PersonalResourceBoard from './PersonalResourceBoard';
 
-export default function PlayerContainer({ onClick1, onClick2, pid }) {
+export default function PlayerContainer({
+  onClick1,
+  onClick2,
+  pid,
+  fencePosArr,
+  setFencePosArr,
+  condition,
+  setCondition,
+}) {
   return (
     <div className="flex flex-col w-6/12  bg-clip-content	pl-5">
       <PersonalResourceBoard pid={pid} />
@@ -20,7 +28,13 @@ export default function PlayerContainer({ onClick1, onClick2, pid }) {
           onClick={onClick2}
         />
       </div>
-      <FarmBoard pid={pid} />
+      <FarmBoard
+        pid={pid}
+        fencePosArr={fencePosArr}
+        setFencePosArr={setFencePosArr}
+        condition={condition}
+        setCondition={setCondition}
+      />
     </div>
   );
 }

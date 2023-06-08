@@ -192,3 +192,17 @@ export async function login({ id, pw }) {
 
   // return updated_resource_num;
 }
+
+export async function buildFence(id, arr) {
+  const fence_arr = await axios
+    .post('http://3.36.7.233:3000/fenceposition/build_fence/', {
+      player_id: id,
+      fence_array: arr,
+    })
+    .then(res => res.data)
+    .catch(err => {
+      console.log(err);
+    });
+
+  return fence_arr.position_arr;
+}

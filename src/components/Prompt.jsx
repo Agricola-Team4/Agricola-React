@@ -22,6 +22,8 @@ export default function Prompt() {
       <p className="mr-1">당신이 진행할 행동을 선택해주세요</p>
       <PromptBtn text="방 만들기" onClick={handleLogin} />
       <PromptBtn text="외양간 짓기" />
+      <PromptBtn text="확인" />
+      <PromptBtn text="확인2" />
     </section>
   );
 }

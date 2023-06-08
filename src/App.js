@@ -2,8 +2,6 @@ import ActionBoard from './components/ActionBoard';
 import { useState } from 'react';
 import CardSlotBoard from './components/CardSlotBoard';
 import Prompt from './components/Prompt';
-import PersonalResourceBoard from './components/PersonalResourceBoard';
-import FarmBoard from './components/FarmBoard';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { AuthContextProvider } from './context/AuthContext';
@@ -16,92 +14,12 @@ import {
 } from '../src/constants/imageContants';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useCardBoard } from '../src/hooks/useCardBoard';
-import CardPack from './components/CardPack';
 import PlayerContainer from './components/PlayerContainer';
 
-const aa = [{ id: 12, left: true, right: true, top: true, bottom: true }];
-
-const fencePosition1 = {
-  1: false,
-  2: false,
-  3: false,
-  4: false,
-  5: false,
-  6: false,
-  7: false,
-  8: false,
-  9: false,
-  10: false,
-  11: false,
-  12: false,
-  13: false,
-  14: false,
-  15: false,
-  16: false,
-  17: false,
-  18: false,
-  19: false,
-  20: false,
-  21: false,
-  22: false,
-  23: false,
-  24: false,
-  25: false,
-  26: false,
-  27: false,
-  28: false,
-  29: false,
-  30: false,
-  31: false,
-  32: false,
-  33: false,
-  34: false,
-  35: false,
-  36: false,
-  37: false,
-  38: false,
-};
-
-const fencePosition2 = {
-  1: false,
-  2: false,
-  3: false,
-  4: false,
-  5: false,
-  6: false,
-  7: false,
-  8: false,
-  9: false,
-  10: false,
-  11: false,
-  12: false,
-  13: false,
-  14: false,
-  15: false,
-  16: false,
-  17: false,
-  18: false,
-  19: false,
-  20: false,
-  21: false,
-  22: false,
-  23: false,
-  24: false,
-  25: false,
-  26: false,
-  27: false,
-  28: false,
-  29: false,
-  30: false,
-  31: false,
-  32: false,
-  33: false,
-  34: false,
-  35: false,
-  36: false,
-  37: false,
-  38: false,
-};
+const aa = [
+  { id: 8, left: true, right: true, top: true, bottom: true },
+  { id: 9, left: true, right: true, top: true, bottom: true },
+];
 
 const farmBoard = {
   1: {
@@ -196,22 +114,91 @@ const farmBoard = {
   },
 };
 
-const updateFenceposition = fencePosition => {
-  for (let a of aa) {
-    fencePosition[farmBoard[a.id].top] = a.top;
-    fencePosition[farmBoard[a.id].left] = a.left;
-    fencePosition[farmBoard[a.id].right] = a.right;
-    fencePosition[farmBoard[a.id].bottom] = a.bottom;
-  }
-};
-
-const pid = 1;
-pid % 2 == 1
-  ? updateFenceposition(fencePosition1)
-  : updateFenceposition(fencePosition2);
-
 function App() {
   const queryClient = new QueryClient();
+
+  const [fencePosition1, setFencePosition1] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false,
+    9: false,
+    10: false,
+    11: false,
+    12: false,
+    13: false,
+    14: false,
+    15: false,
+    16: false,
+    17: false,
+    18: false,
+    19: false,
+    20: false,
+    21: false,
+    22: false,
+    23: false,
+    24: false,
+    25: false,
+    26: false,
+    27: false,
+    28: false,
+    29: false,
+    30: false,
+    31: false,
+    32: false,
+    33: false,
+    34: false,
+    35: false,
+    36: false,
+    37: false,
+    38: false,
+  });
+
+  const [fencePosition2, setFencePosition2] = useState({
+    1: false,
+    2: false,
+    3: false,
+    4: false,
+    5: false,
+    6: false,
+    7: false,
+    8: false,
+    9: false,
+    10: false,
+    11: false,
+    12: false,
+    13: false,
+    14: false,
+    15: false,
+    16: false,
+    17: false,
+    18: false,
+    19: false,
+    20: false,
+    21: false,
+    22: false,
+    23: false,
+    24: false,
+    25: false,
+    26: false,
+    27: false,
+    28: false,
+    29: false,
+    30: false,
+    31: false,
+    32: false,
+    33: false,
+    34: false,
+    35: false,
+    36: false,
+    37: false,
+    38: false,
+  });
+
   const {
     isMajorOpen,
     setIsMajorOpen,
@@ -234,10 +221,34 @@ function App() {
     openP2ActSlot,
     closeP2ActSlot,
   } = useCardBoard();
+
+  const updateFenceposition = (fencePosition, setFencePosition) => {
+    const box = { ...fencePosition };
+    console.log(box);
+    for (let a of aa) {
+      box[farmBoard[a.id].top] = a.top;
+      box[farmBoard[a.id].left] = a.left;
+      box[farmBoard[a.id].right] = a.right;
+      box[farmBoard[a.id].bottom] = a.bottom;
+    }
+    setFencePosition(box);
+  };
+
+  const pid = 1;
+
   return (
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
         <div className="flex flex-col lg:flex-row">
+          <div
+            onClick={() => {
+              pid % 2 == 1
+                ? updateFenceposition(fencePosition1, setFencePosition1)
+                : updateFenceposition(fencePosition2, setFencePosition1);
+            }}
+          >
+            test
+          </div>
           <div className="w-full flex flex-col lg:w-6/12 ">
             <Prompt />
             <ActionBoard openMajorSlot={openMajorSlot} />
@@ -247,11 +258,13 @@ function App() {
               fencePosition={fencePosition1}
               onClick1={openP1HaveSlot}
               onClick2={openP1ActSlot}
+              pid={1}
             />
             <PlayerContainer
               fencePosition={fencePosition2}
               onClick1={openP2HaveSlot}
               onClick2={openP2ActSlot}
+              pid={2}
             />
           </div>
 

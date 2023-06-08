@@ -9,7 +9,8 @@ import stone_img from '../assets/images/stone_icon.png';
 import vege_img from '../assets/images/vege_icon.png';
 import wood_img from '../assets/images/wood_icon.png';
 import food_img from '../assets/images/food_icon.png';
-import profile_img from '../assets/images/korea.png';
+import profile_img1 from '../assets/images/example.jpg';
+import profile_img2 from '../assets/images/korea.png';
 import farmer_red_img from '../assets/images/farmer_icon_red.png';
 import fence_red_img from '../assets/images/fence_icon_red.png';
 import stable_red_img from '../assets/images/stable_icon_red.png';
@@ -18,9 +19,9 @@ import ResourceInfo from './ResourceInfo';
 import Profile from './Profile';
 import { useAuthContext } from '../context/AuthContext';
 
-export default function PersonalResourceBoard() {
-  const { pid } = useAuthContext();
-  console.log(pid);
+export default function PersonalResourceBoard({ pid }) {
+  // const { pid } = useAuthContext();
+  // console.log(pid);
   const {
     resourceQuery: {
       isLadoing,
@@ -43,13 +44,17 @@ export default function PersonalResourceBoard() {
         stable,
       } = {},
     },
-  } = useResource();
+  } = useResource(pid);
+  console.log(pid);
 
   return (
     <>
       <div className="flex flex-row justify-center bg-brown-100 mb-1 rounded-lg p-1">
         <div className="basis-2/12 flex flex-col items-center pt-4 border-r-2">
-          <Profile img={profile_img} name="하드코딩" />
+          <Profile
+            img={pid === 1 ? profile_img1 : profile_img2}
+            name={pid === 1 ? 'dongree' : 'hyeseon'}
+          />
         </div>
 
         <div className="basis-10/12 flex justify-center">

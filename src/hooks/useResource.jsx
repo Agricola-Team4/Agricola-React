@@ -3,8 +3,8 @@ import { getAllResource, updateOneResource } from '../api/agricola';
 import { updateBabyState } from '../api/agricola';
 import { useAuthContext } from '../context/AuthContext';
 
-export default function useResource() {
-  const { pid } = useAuthContext();
+export default function useResource(pid) {
+  // const { pid } = useAuthContext();
   const queryClient = useQueryClient();
 
   const resourceQuery = useQuery(
@@ -12,7 +12,6 @@ export default function useResource() {
     () => getAllResource(pid),
     { enabled: !!pid }
   );
-  console.log(resourceQuery);
 
   // update Resource 인자 넣어서 하는 방법 진행해야함.
   const updateResource = useMutation(

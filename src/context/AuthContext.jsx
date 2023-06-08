@@ -5,6 +5,7 @@ export const AuthContext = createContext();
 
 export function AuthContextProvider({ children }) {
   const [pid, setPid] = useState(1);
+  const [pid2, setPid2] = useState(2);
   const [isFbActive, setIsFbActive] = useState(false);
   const [isAbActive, setIsAbActive] = useState(true);
   const [fenceArr, setFenceArr] = useState([]);
@@ -21,6 +22,7 @@ export function AuthContextProvider({ children }) {
       value={{
         pid,
         setPid,
+        pid2,
         isFbActive,
         setIsFbActive,
         isAbActive,

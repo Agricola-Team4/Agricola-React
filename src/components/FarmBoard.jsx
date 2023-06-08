@@ -5,14 +5,13 @@ import { useAuthContext } from '../context/AuthContext';
 import { useState } from 'react';
 import useFarmBoard from '../hooks/useFarmBoard';
 
-export default function FarmBoard({ fencePosition }) {
+export default function FarmBoard({ fencePosition, pid }) {
   const { isFbActive } = useAuthContext();
   const {
     farmBoardQuery: { isLadoing, error, data },
-  } = useFarmBoard();
+  } = useFarmBoard(pid);
 
   console.log(data);
-
   // const [arr, setArr] = useState([]);
 
   return (
@@ -43,19 +42,37 @@ export default function FarmBoard({ fencePosition }) {
         isVertical={true}
         isActive={fencePosition && fencePosition[4]}
       />
-      <Land data={data && data[0]} /> {/* 1 */}
+      <Land
+        data={
+          data && { ...data.position_arr[0], animal_type: data.animal_type[0] }
+        }
+        pid={pid}
+      />
+      {/* 1 */}
       <Fence
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[5]}
       />
-      <Land data={data && data[1]} /> {/* 2 */}
+      <Land
+        data={
+          data && { ...data.position_arr[1], animal_type: data.animal_type[1] }
+        }
+        pid={pid}
+      />
+      {/* 2 */}
       <Fence
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[6]}
       />
-      <Land data={data && data[2]} /> {/* 3 */}
+      <Land
+        data={
+          data && { ...data.position_arr[2], animal_type: data.animal_type[2] }
+        }
+        pid={pid}
+      />
+      {/* 3 */}
       <Fence
         ratio="basis-1/31"
         isVertical={true}
@@ -85,19 +102,34 @@ export default function FarmBoard({ fencePosition }) {
         isVertical={true}
         isActive={fencePosition && fencePosition[11]}
       />
-      <Land data={data && data[3]} />
+      <Land
+        data={
+          data && { ...data.position_arr[3], animal_type: data.animal_type[3] }
+        }
+        pid={pid}
+      />
       <Fence
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[12]}
       />
-      <Land data={data && data[4]} />
+      <Land
+        data={
+          data && { ...data.position_arr[4], animal_type: data.animal_type[4] }
+        }
+        pid={pid}
+      />
       <Fence
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[13]}
       />
-      <Land data={data && data[5]} />
+      <Land
+        data={
+          data && { ...data.position_arr[5], animal_type: data.animal_type[5] }
+        }
+        pid={pid}
+      />
       <Fence
         ratio="basis-1/31"
         isVertical={true}
@@ -127,19 +159,34 @@ export default function FarmBoard({ fencePosition }) {
         isVertical={true}
         isActive={fencePosition && fencePosition[18]}
       />
-      <Land data={data && data[6]} />
+      <Land
+        data={
+          data && { ...data.position_arr[6], animal_type: data.animal_type[6] }
+        }
+        pid={pid}
+      />
       <Fence
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[19]}
       />
-      <Land data={data && data[7]} />
+      <Land
+        data={
+          data && { ...data.position_arr[7], animal_type: data.animal_type[7] }
+        }
+        pid={pid}
+      />
       <Fence
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[20]}
       />
-      <Land data={data && data[8]} />
+      <Land
+        data={
+          data && { ...data.position_arr[8], animal_type: data.animal_type[8] }
+        }
+        pid={pid}
+      />
       <Fence
         ratio="basis-1/31"
         isVertical={true}
@@ -169,19 +216,40 @@ export default function FarmBoard({ fencePosition }) {
         isVertical={true}
         isActive={fencePosition && fencePosition[25]}
       />
-      <Land data={data && data[9]} />
+      <Land
+        data={
+          data && { ...data.position_arr[9], animal_type: data.animal_type[9] }
+        }
+        pid={pid}
+      />
       <Fence
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[26]}
       />
-      <Land data={data && data[10]} />
+      <Land
+        data={
+          data && {
+            ...data.position_arr[10],
+            animal_type: data.animal_type[10],
+          }
+        }
+        pid={pid}
+      />
       <Fence
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[27]}
       />
-      <Land data={data && data[11]} />
+      <Land
+        data={
+          data && {
+            ...data.position_arr[11],
+            animal_type: data.animal_type[11],
+          }
+        }
+        pid={pid}
+      />
       <Fence
         ratio="basis-1/31"
         isVertical={true}
@@ -211,19 +279,43 @@ export default function FarmBoard({ fencePosition }) {
         isVertical={true}
         isActive={fencePosition && fencePosition[32]}
       />
-      <Land data={data && data[12]} />
+      <Land
+        data={
+          data && {
+            ...data.position_arr[12],
+            animal_type: data.animal_type[12],
+          }
+        }
+        pid={pid}
+      />
       <Fence
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[33]}
       />
-      <Land data={data && data[13]} />
+      <Land
+        data={
+          data && {
+            ...data.position_arr[13],
+            animal_type: data.animal_type[13],
+          }
+        }
+        pid={pid}
+      />
       <Fence
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[34]}
       />
-      <Land data={data && data[14]} />
+      <Land
+        data={
+          data && {
+            ...data.position_arr[14],
+            animal_type: data.animal_type[14],
+          }
+        }
+        pid={pid}
+      />
       <Fence
         ratio="basis-1/31"
         isVertical={true}

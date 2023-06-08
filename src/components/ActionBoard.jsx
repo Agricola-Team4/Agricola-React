@@ -7,10 +7,12 @@ import { useAuthContext } from "../context/AuthContext";
 import { getActionBoard, takeAction } from "../api/agricola";
 import useActionBoard from "../hooks/useActionBoard";
 import useFarmBoard from "../hooks/useFarmBoard";
-
+import { useBackgroundContext } from "../context/BackgroundContext";
+import { fence } from "../api/action";
 export default function ActionBoard({ openMajorSlot }) {
   const { pid, isFbActive, setIsFbActive, isAbActive, setIsAbActive } =
     useAuthContext();
+  const { setPrompt } = useBackgroundContext();
 
   const {
     actionBoardQuery: { isLadoing, error, data },
@@ -278,9 +280,7 @@ export default function ActionBoard({ openMajorSlot }) {
         </div>
       ),
       onClick: () => {
-        takeAction({ pid, aid: 17 });
-        setIsFbActive(true);
-        setIsAbActive(false);
+        fence(setIsAbActive, setIsFbActive, setPrompt);
       },
       isAccumul: calcAccumul(16),
       isOcuupied: data && data[16].is_occupied,
@@ -611,7 +611,7 @@ export default function ActionBoard({ openMajorSlot }) {
 
   return (
     <div
-      className={`flex flex-wrap pr-28 ${!isAbActive && 'pointer-events-none'}`}
+      className={`flex flex-wrap pr-28 ${!isAbActive && "pointer-events-none"}`}
     >
       <Box
         ratio="basis-1/5"

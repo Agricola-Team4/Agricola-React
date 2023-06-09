@@ -1,12 +1,12 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from 'react';
 
 export const BackgroundContext = createContext();
 export function BackgroundContextProvider({ children }) {
   const [isAnimal, setIsAnimal] = useState({
     visible: false,
-    name: "",
-    num: "",
-    img: "",
+    name: '',
+    num: '',
+    img: '',
   });
 
   const [fencePosition1, setFencePosition1] = useState({
@@ -91,19 +91,20 @@ export function BackgroundContextProvider({ children }) {
     38: false,
   });
 
-  const [prompt, setPrompt] = useState({ message: "", buttons: [] });
+  const [prompt, setPrompt] = useState({ message: '', buttons: [] });
 
   const [selectedPosArr, setSelectedPosArr] = useState([]); //Farmboard arr
 
   const [fencePosArr, setFencePosArr] = useState([]);
 
-  const handleAdd = (num) => {
-    setSelectedPosArr((prev) => [...prev, num]);
-    // const newArr = [...selectedPosArr];
-    // newArr.push(num);
-    // setSelectedPosArr((prev)=>newArr);
-    // console.log(selectedPosArr);
-  };
+  // const handleAdd = (num) => {
+  //   setSelectedPosArr((prev) => [...prev, num]);
+  // const newArr = [...selectedPosArr];
+  // newArr.push(num);
+  // setSelectedPosArr((prev)=>newArr);
+  // console.log(selectedPosArr);
+  // };
+
   const getSelectedPosArr = () => {
     console.log(selectedPosArr);
     return selectedPosArr;
@@ -120,7 +121,8 @@ export function BackgroundContextProvider({ children }) {
         prompt,
         setPrompt,
         selectedPosArr,
-        handleAdd,
+        setSelectedPosArr,
+        // handleAdd,
         getSelectedPosArr,
       }}
     >

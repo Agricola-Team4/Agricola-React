@@ -227,7 +227,11 @@ export async function getPlayerHaveCard() {
       const image_key = image_R[item.card_id];
       const imagePath = all_Images[image_key];
       // console.log(index, " ?? ", image_key, " ?? ", imagePath);
-      player1_cardSet[image_key] = { id: item.card_id, path: imagePath };
+      player1_cardSet[image_key] = {
+        id: item.card_id,
+        path: imagePath,
+        activated: item.activate,
+      };
     });
     // console.log("arr1", player1_cardSet);
 
@@ -237,7 +241,11 @@ export async function getPlayerHaveCard() {
       const imagePath = all_Images[image_key];
       // console.log(index, " ??? ", image_key, " ??? ", imagePath);
       // player2_cardSet.push({ image_key: image_key, path: imagePath });
-      player2_cardSet[image_key] = { id: item.card_id, path: imagePath };
+      player2_cardSet[image_key] = {
+        id: item.card_id,
+        path: imagePath,
+        activated: item.activate,
+      };
     });
     // console.log("arr2", player2_cardSet);
 
@@ -287,5 +295,29 @@ export async function getPlayerActCard() {
 
       return { p1: player1_cardSet, p2: player2_cardSet };
     }
+  });
+}
+
+export async function getMajorCard() {
+  const cardSet = {};
+
+  return await axios.get("http://3.36.7.233:3000/playercard/").then((res) => {
+    const data = res.data;
+    const major = data.filter(
+      (item) => 29 <= item.card_id && item.card_id < 39
+    );
+
+    major.map((item, index) => {
+      const image_key = image_R[item.card_id];
+      const imagePath = all_Images[image_key];
+      // console.log(index, " ?? ", image_key, " ?? ", imagePath);
+      cardSet[image_key] = {
+        id: item.card_id,
+        path: imagePath,
+        activated: item.activate,
+      };
+    });
+
+    return cardSet;
   });
 }

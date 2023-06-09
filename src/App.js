@@ -163,6 +163,7 @@ function App() {
   const {
     haveCardDataQuery: { isLoading, error, data: haveCard },
     actCardDataQuery: { isLoading: actLoading, error: actErr, data: actCard },
+    majorCardDataQuery: { data: majorCard },
   } = useCardBoard();
   console.log("<<", actCard);
   haveCard && console.log("card data come", actCard);
@@ -237,7 +238,8 @@ function App() {
         <AnimatePresence>
           {isMajorOpen ? (
             <CardSlotBoard
-              imageSet={majorImages}
+              condition={1}
+              imageSet={majorCard}
               col="5"
               row="2"
               ratio="basis-1/5"

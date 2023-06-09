@@ -1,8 +1,8 @@
-import ActionBoard from "./components/ActionBoard";
-import CardSlotBoard from "./components/CardSlotBoard";
-import Prompt from "./components/Prompt";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import ActionBoard from './components/ActionBoard';
+import CardSlotBoard from './components/CardSlotBoard';
+import Prompt from './components/Prompt';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 
 import {
   jobImages_1,
@@ -10,15 +10,15 @@ import {
   majorImages,
   subImages_1,
   subImages_2,
-} from "../src/constants/imageContants";
+} from '../src/constants/imageContants';
 
-import { motion, AnimatePresence } from "framer-motion";
-import { useCardBoard } from "../src/hooks/useCardBoard";
-import PlayerContainer from "./components/PlayerContainer";
-import MouseComponent from "./components/MouseComponent";
-import { useState } from "react";
-import { buildFence } from "./api/agricola";
-import { useBackgroundContext } from "./context/BackgroundContext";
+import { motion, AnimatePresence } from 'framer-motion';
+import { useCardBoard } from '../src/hooks/useCardBoard';
+import PlayerContainer from './components/PlayerContainer';
+import MouseComponent from './components/MouseComponent';
+import { useState } from 'react';
+import { buildFence } from './api/agricola';
+import { useBackgroundContext } from './context/BackgroundContext';
 
 const aa = [
   { id: 8, left: true, right: true, top: true, bottom: true },
@@ -27,18 +27,18 @@ const aa = [
 
 const prompt = {
   1: {
-    message: "프롬프트 테스트입니다.",
+    message: '프롬프트 테스트입니다.',
     buttons: [
       {
-        text: "선택완료",
+        text: '선택완료',
         onClick: () => {
-          console.log("hello");
+          console.log('hello');
         },
       },
       {
-        text: "최종선택완료",
+        text: '최종선택완료',
         onClick: () => {
-          console.log("hello");
+          console.log('hello');
         },
       },
     ],
@@ -185,7 +185,7 @@ function App() {
   const [condition, setCondition] = useState(0);
   const [fencePosArr, setFencePosArr] = useState([]);
 
-  const handleClickBtn = async (n) => {
+  const handleClickBtn = async n => {
     switch (n) {
       case 1:
         setCondition(1);
@@ -274,7 +274,7 @@ function App() {
               close={closeMajorSlot}
             />
           ) : (
-            ""
+            ''
           )}
         </AnimatePresence>
       </div>

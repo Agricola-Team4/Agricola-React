@@ -16,7 +16,7 @@ export default function FarmBoard({
   const {
     farmBoardQuery: { isLadoing, error, data },
   } = useFarmBoard(pid);
-  // console.log(data);
+  // console.log("data", data);
   const { fencePosition1, fencePosition2 } = useBackgroundContext();
   const fencePosition = pid === 1 ? fencePosition1 : fencePosition2;
   const [arr, setArr] = useState([]);
@@ -68,7 +68,11 @@ export default function FarmBoard({
       />
       <Land
         data={
-          data && { ...data.position_arr[0], animal_type: data.animal_type[0] }
+          data && {
+            ...data.position_arr[0],
+            animal_type: data.animal_type[0],
+            room_type: data.house_type,
+          }
         }
         pid={pid}
         onAdd={handleAdd}
@@ -81,7 +85,11 @@ export default function FarmBoard({
       />
       <Land
         data={
-          data && { ...data.position_arr[1], animal_type: data.animal_type[1] }
+          data && {
+            ...data.position_arr[1],
+            animal_type: data.animal_type[1],
+            room_type: data.house_type,
+          }
         }
         pid={pid}
         onAdd={handleAdd}
@@ -94,7 +102,11 @@ export default function FarmBoard({
       />
       <Land
         data={
-          data && { ...data.position_arr[2], animal_type: data.animal_type[2] }
+          data && {
+            ...data.position_arr[2],
+            animal_type: data.animal_type[2],
+            room_type: data.house_type,
+          }
         }
         pid={pid}
         onAdd={handleAdd}
@@ -131,7 +143,11 @@ export default function FarmBoard({
       />
       <Land
         data={
-          data && { ...data.position_arr[3], animal_type: data.animal_type[3] }
+          data && {
+            ...data.position_arr[3],
+            animal_type: data.animal_type[3],
+            room_type: data.house_type,
+          }
         }
         pid={pid}
         onAdd={handleAdd}
@@ -143,7 +159,11 @@ export default function FarmBoard({
       />
       <Land
         data={
-          data && { ...data.position_arr[4], animal_type: data.animal_type[4] }
+          data && {
+            ...data.position_arr[4],
+            animal_type: data.animal_type[4],
+            room_type: data.house_type,
+          }
         }
         pid={pid}
         onAdd={handleAdd}
@@ -155,7 +175,11 @@ export default function FarmBoard({
       />
       <Land
         data={
-          data && { ...data.position_arr[5], animal_type: data.animal_type[5] }
+          data && {
+            ...data.position_arr[5],
+            animal_type: data.animal_type[5],
+            room_type: data.house_type,
+          }
         }
         pid={pid}
         onAdd={handleAdd}
@@ -191,7 +215,11 @@ export default function FarmBoard({
       />
       <Land
         data={
-          data && { ...data.position_arr[6], animal_type: data.animal_type[6] }
+          data && {
+            ...data.position_arr[6],
+            animal_type: data.animal_type[6],
+            room_type: data.house_type,
+          }
         }
         pid={pid}
         onAdd={handleAdd}
@@ -203,7 +231,11 @@ export default function FarmBoard({
       />
       <Land
         data={
-          data && { ...data.position_arr[7], animal_type: data.animal_type[7] }
+          data && {
+            ...data.position_arr[7],
+            animal_type: data.animal_type[7],
+            room_type: data.house_type,
+          }
         }
         pid={pid}
         onAdd={handleAdd}
@@ -215,7 +247,11 @@ export default function FarmBoard({
       />
       <Land
         data={
-          data && { ...data.position_arr[8], animal_type: data.animal_type[8] }
+          data && {
+            ...data.position_arr[8],
+            animal_type: data.animal_type[8],
+            room_type: data.house_type,
+          }
         }
         pid={pid}
         onAdd={handleAdd}
@@ -251,7 +287,11 @@ export default function FarmBoard({
       />
       <Land
         data={
-          data && { ...data.position_arr[9], animal_type: data.animal_type[9] }
+          data && {
+            ...data.position_arr[9],
+            animal_type: data.animal_type[9],
+            room_type: data.house_type,
+          }
         }
         pid={pid}
         onAdd={handleAdd}
@@ -266,6 +306,7 @@ export default function FarmBoard({
           data && {
             ...data.position_arr[10],
             animal_type: data.animal_type[10],
+            room_type: data.house_type,
           }
         }
         pid={pid}
@@ -281,6 +322,7 @@ export default function FarmBoard({
           data && {
             ...data.position_arr[11],
             animal_type: data.animal_type[11],
+            room_type: data.house_type,
           }
         }
         pid={pid}
@@ -320,6 +362,7 @@ export default function FarmBoard({
           data && {
             ...data.position_arr[12],
             animal_type: data.animal_type[12],
+            room_type: data.house_type,
           }
         }
         pid={pid}
@@ -335,6 +378,7 @@ export default function FarmBoard({
           data && {
             ...data.position_arr[13],
             animal_type: data.animal_type[13],
+            room_type: data.house_type,
           }
         }
         pid={pid}
@@ -350,6 +394,7 @@ export default function FarmBoard({
           data && {
             ...data.position_arr[14],
             animal_type: data.animal_type[14],
+            room_type: data.house_type,
           }
         }
         pid={pid}

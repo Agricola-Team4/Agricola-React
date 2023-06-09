@@ -4,7 +4,7 @@ import { login } from '../api/agricola';
 import { useAuthContext } from '../context/AuthContext';
 import { useBackgroundContext } from '../context/BackgroundContext';
 
-export default function Prompt({ onPromptBtnClick }) {
+export default function Prompt() {
   const { pid, setPid } = useAuthContext();
   const { prompt } = useBackgroundContext();
   console.log(prompt);

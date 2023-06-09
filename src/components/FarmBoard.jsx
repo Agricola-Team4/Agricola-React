@@ -5,13 +5,7 @@ import { useAuthContext } from '../context/AuthContext';
 import useFarmBoard from '../hooks/useFarmBoard';
 import { useBackgroundContext } from '../context/BackgroundContext';
 
-export default function FarmBoard({
-  pid,
-  fencePosArr,
-  setFencePosArr,
-  condition,
-  setCondition,
-}) {
+export default function FarmBoard({ pid }) {
   const { isFbActive } = useAuthContext();
   const {
     farmBoardQuery: { isLadoing, error, data },
@@ -19,24 +13,6 @@ export default function FarmBoard({
   // console.log("data", data);
   const { fencePosition1, fencePosition2 } = useBackgroundContext();
   const fencePosition = pid === 1 ? fencePosition1 : fencePosition2;
-  const [arr, setArr] = useState([]);
-
-  const handleAdd = num => {
-    const aarr = [...arr];
-    aarr.push(num);
-    setArr(aarr);
-  };
-
-  useEffect(() => {
-    if (arr.length > 0) {
-      const box = [...fencePosArr];
-      box.push(arr);
-      setFencePosArr(box);
-      setCondition(0);
-      setArr([]);
-      console.log(box);
-    }
-  }, [condition]);
 
   return (
     <section
@@ -75,7 +51,6 @@ export default function FarmBoard({
           }
         }
         pid={pid}
-        onAdd={handleAdd}
       />
       {/* 1 */}
       <Fence
@@ -92,7 +67,6 @@ export default function FarmBoard({
           }
         }
         pid={pid}
-        onAdd={handleAdd}
       />
       {/* 2 */}
       <Fence
@@ -109,7 +83,6 @@ export default function FarmBoard({
           }
         }
         pid={pid}
-        onAdd={handleAdd}
       />
       {/* 3 */}
       <Fence
@@ -150,7 +123,6 @@ export default function FarmBoard({
           }
         }
         pid={pid}
-        onAdd={handleAdd}
       />
       <Fence
         ratio="basis-1/31"
@@ -166,7 +138,6 @@ export default function FarmBoard({
           }
         }
         pid={pid}
-        onAdd={handleAdd}
       />
       <Fence
         ratio="basis-1/31"
@@ -182,7 +153,6 @@ export default function FarmBoard({
           }
         }
         pid={pid}
-        onAdd={handleAdd}
       />
       <Fence
         ratio="basis-1/31"
@@ -222,7 +192,6 @@ export default function FarmBoard({
           }
         }
         pid={pid}
-        onAdd={handleAdd}
       />
       <Fence
         ratio="basis-1/31"
@@ -238,7 +207,6 @@ export default function FarmBoard({
           }
         }
         pid={pid}
-        onAdd={handleAdd}
       />
       <Fence
         ratio="basis-1/31"
@@ -254,7 +222,6 @@ export default function FarmBoard({
           }
         }
         pid={pid}
-        onAdd={handleAdd}
       />
       <Fence
         ratio="basis-1/31"
@@ -294,7 +261,6 @@ export default function FarmBoard({
           }
         }
         pid={pid}
-        onAdd={handleAdd}
       />
       <Fence
         ratio="basis-1/31"
@@ -310,7 +276,6 @@ export default function FarmBoard({
           }
         }
         pid={pid}
-        onAdd={handleAdd}
       />
       <Fence
         ratio="basis-1/31"
@@ -326,7 +291,6 @@ export default function FarmBoard({
           }
         }
         pid={pid}
-        onAdd={handleAdd}
       />
       <Fence
         ratio="basis-1/31"
@@ -366,7 +330,6 @@ export default function FarmBoard({
           }
         }
         pid={pid}
-        onAdd={handleAdd}
       />
       <Fence
         ratio="basis-1/31"
@@ -382,7 +345,6 @@ export default function FarmBoard({
           }
         }
         pid={pid}
-        onAdd={handleAdd}
       />
       <Fence
         ratio="basis-1/31"
@@ -398,7 +360,6 @@ export default function FarmBoard({
           }
         }
         pid={pid}
-        onAdd={handleAdd}
       />
       <Fence
         ratio="basis-1/31"

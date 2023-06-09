@@ -11,7 +11,8 @@ import { useBackgroundContext } from "../context/BackgroundContext";
 export default function ActionBoard({ openMajorSlot }) {
   const { pid, isFbActive, setIsFbActive, isAbActive, setIsAbActive } =
     useAuthContext();
-  const { setPrompt, getSelectedPosArr } = useBackgroundContext();
+  const { setPrompt, getSelectedPosArr, condition, setCondition } =
+    useBackgroundContext();
 
   const {
     actionBoardQuery: { isLadoing, error, data },
@@ -280,7 +281,9 @@ export default function ActionBoard({ openMajorSlot }) {
         </div>
       ),
       onClick: () => {
-        // console.log("selected", selectedPosArr);
+        setIsFbActive(true);
+        setIsAbActive(false);
+
         fence();
       },
       isAccumul: calcAccumul(16),

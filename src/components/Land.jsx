@@ -6,7 +6,7 @@ import Empty from "./Empty";
 import { useBackgroundContext } from "../context/BackgroundContext";
 
 export default function Land({ data, pid }) {
-  const { handleAdd } = useBackgroundContext();
+  const { handleAdd, setPrompt, selectedPosArr } = useBackgroundContext();
   return (
     <div
       className="relative basis-9/31 aspect-square cursor-pointer transition duration-150 ease-in hover:scale-105 p-0.5 "
@@ -19,7 +19,29 @@ export default function Land({ data, pid }) {
               isStable={false}
               onClick={() => {
                 handleAdd(data.position);
-                // console.log(selectedPosArr);
+                setPrompt({
+                  message: "울타리를 치고 싶은 땅을 모두 선택하세요.",
+                  buttons: [
+                    {
+                      text: "최종선택완료",
+                      onClick: () => {
+                        console.log("hello");
+                        const pid = 1;
+                        console.log("짝은어레이", selectedPosArr);
+                        //   const fenceDataArray = buildFence(pid, [selectedPosArr]);
+                        //   console.log(fenceDataArray);
+                      },
+                    },
+                    {
+                      text: "이어서 치기",
+                      onClick: () => {
+                        console.log("이어서 치기");
+                      },
+                    },
+                  ],
+                });
+                console.log("??", selectedPosArr);
+                // console.log("다시 prompt 업데이트");
               }}
             />
           ),

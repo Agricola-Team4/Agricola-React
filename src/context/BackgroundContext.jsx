@@ -98,10 +98,11 @@ export function BackgroundContextProvider({ children }) {
   const [fencePosArr, setFencePosArr] = useState([]);
 
   const handleAdd = (num) => {
-    const newArr = [...selectedPosArr];
-    newArr.push(num);
-    setSelectedPosArr(newArr);
-    console.log(selectedPosArr);
+    setSelectedPosArr((prev) => [...prev, num]);
+    // const newArr = [...selectedPosArr];
+    // newArr.push(num);
+    // setSelectedPosArr((prev)=>newArr);
+    // console.log(selectedPosArr);
   };
   const getSelectedPosArr = () => {
     console.log(selectedPosArr);

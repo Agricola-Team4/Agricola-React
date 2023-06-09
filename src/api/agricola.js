@@ -4,9 +4,12 @@ import { resource_R } from "../constants/resourceConstants";
 export async function getFarmBoard(id) {
   return axios
     .post("http://3.36.7.233:3000/boardposition/get_all_position/", {
-      player_id: id,
+      player_id: 1,
     })
-    .then((res) => res.data);
+    .then((res) => {
+      console.log(res.data);
+      return res.data;
+    });
 }
 
 // BE api

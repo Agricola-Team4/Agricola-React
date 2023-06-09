@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import Fence from './Fence';
-import Land from './Land';
-import { useAuthContext } from '../context/AuthContext';
-import useFarmBoard from '../hooks/useFarmBoard';
-import { useBackgroundContext } from '../context/BackgroundContext';
+import React, { useEffect, useState } from "react";
+import Fence from "./Fence";
+import Land from "./Land";
+import { useAuthContext } from "../context/AuthContext";
+import useFarmBoard from "../hooks/useFarmBoard";
+import { useBackgroundContext } from "../context/BackgroundContext";
 
 export default function FarmBoard({
   pid,
@@ -16,12 +16,12 @@ export default function FarmBoard({
   const {
     farmBoardQuery: { isLadoing, error, data },
   } = useFarmBoard(pid);
-  // console.log(data);
+  console.log("data", data);
   const { fencePosition1, fencePosition2 } = useBackgroundContext();
   const fencePosition = pid === 1 ? fencePosition1 : fencePosition2;
   const [arr, setArr] = useState([]);
 
-  const handleAdd = num => {
+  const handleAdd = (num) => {
     const aarr = [...arr];
     aarr.push(num);
     setArr(aarr);
@@ -40,7 +40,7 @@ export default function FarmBoard({
 
   return (
     <section
-      className={`flex flex-wrap mb-1 ${!isFbActive && 'pointer-events-none'}`}
+      className={`flex flex-wrap mb-1 ${!isFbActive && "pointer-events-none"}`}
     >
       <div className="basis-1/31"></div>
       <Fence

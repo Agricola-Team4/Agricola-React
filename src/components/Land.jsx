@@ -5,15 +5,15 @@ import Pen from './Pen';
 import Empty from './Empty';
 import { useBackgroundContext } from '../context/BackgroundContext';
 import { buildFence } from '../api/agricola';
+import { useAuthContext } from '../context/AuthContext';
 
 export default function Land({ data, pid }) {
-  const { handleAdd, setPrompt, selectedPosArr, setSelectedPosArr } =
+  const { setPrompt, selectedPosArr, setSelectedPosArr } =
     useBackgroundContext();
+  const { setIsFbActive, setIsAbActive } = useAuthContext();
+
   return (
-    <div
-      className="relative basis-9/31 aspect-square cursor-pointer transition duration-150 ease-in hover:scale-105 p-0.5 "
-      // onClick={() => console.log('hello')}
-    >
+    <div className="relative basis-9/31 aspect-square cursor-pointer transition duration-150 ease-in hover:scale-105 p-0.5 ">
       {
         {
           0: (
@@ -32,25 +32,32 @@ export default function Land({ data, pid }) {
                         const pid = 1;
                         console.log('짝은어레이', updatedPosArr);
                         // buildFence(pid, [updatedPosArr]);
+                        setPrompt({ message: '', buttons: [] });
+                        setSelectedPosArr([]);
+                        setIsFbActive(false);
+                        setIsAbActive(true);
                       },
                     },
                     {
                       text: '이어서 치기',
                       onClick: () => {
-                        console.log('이어서 치기');
+                        console.log('이어서 치기', updatedPosArr);
+                        // buildFence(pid, [updatedPosArr]);
+                        setSelectedPosArr([]);
                       },
                     },
                   ],
                 });
-                // console.log('??', selectedPosArr);
-                // console.log("다시 prompt 업데이트");
-                // setTimeout(() => {
-                //   console.log(selectedPosArr);
-                // }, 1000);
               }}
             />
           ),
-          1: <Room isFarmer={data && data.is_fam} type={'wood'} pid={pid} />,
+          1: (
+            <Room
+              isFarmer={data && data.is_fam}
+              type={data && data.room_type}
+              pid={pid}
+            />
+          ),
           2: (
             <Field type={data && data.vege_type} num={data && data.vege_num} />
           ),

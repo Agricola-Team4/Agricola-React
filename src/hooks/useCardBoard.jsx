@@ -1,4 +1,7 @@
 import { useState } from "react";
+import { image_R, job_sub_Images } from "../constants/imageContants";
+import { getPlayerActCard, getPlayerHaveCard } from "../api/agricola";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 
 export function useCardBoard() {
   const [isMajorOpen, setIsMajorOpen] = useState(false);
@@ -83,6 +86,12 @@ export function useCardBoard() {
     setIsP2ActOpen(false);
   };
 
+  const haveCardDataQuery = useQuery(["haveCardData"], () =>
+    getPlayerHaveCard()
+  );
+
+  const actCardDataQuery = useQuery(["actCardData"], () => getPlayerActCard());
+
   return {
     isMajorOpen,
     setIsMajorOpen,
@@ -104,5 +113,7 @@ export function useCardBoard() {
     closeP2HaveSlot,
     openP2ActSlot,
     closeP2ActSlot,
+    haveCardDataQuery,
+    actCardDataQuery,
   };
 }

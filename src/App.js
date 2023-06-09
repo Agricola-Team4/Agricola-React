@@ -1,8 +1,6 @@
-import ActionBoard from './components/ActionBoard';
-import CardSlotBoard from './components/CardSlotBoard';
-import Prompt from './components/Prompt';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import ActionBoard from "./components/ActionBoard";
+import CardSlotBoard from "./components/CardSlotBoard";
+import Prompt from "./components/Prompt";
 
 import {
   jobImages_1,
@@ -10,15 +8,15 @@ import {
   majorImages,
   subImages_1,
   subImages_2,
-} from '../src/constants/imageContants';
+} from "../src/constants/imageContants";
 
-import { motion, AnimatePresence } from 'framer-motion';
-import { useCardBoard } from '../src/hooks/useCardBoard';
-import PlayerContainer from './components/PlayerContainer';
-import MouseComponent from './components/MouseComponent';
-import { useState } from 'react';
-import { buildFence } from './api/agricola';
-import { useBackgroundContext } from './context/BackgroundContext';
+import { motion, AnimatePresence } from "framer-motion";
+import { useCardBoard } from "../src/hooks/useCardBoard";
+import PlayerContainer from "./components/PlayerContainer";
+import MouseComponent from "./components/MouseComponent";
+import { useEffect, useState } from "react";
+import { buildFence } from "./api/agricola";
+import { useBackgroundContext } from "./context/BackgroundContext";
 
 const aa = [
   { id: 8, left: true, right: true, top: true, bottom: true },
@@ -27,18 +25,18 @@ const aa = [
 
 const prompt = {
   1: {
-    message: '프롬프트 테스트입니다.',
+    message: "프롬프트 테스트입니다.",
     buttons: [
       {
-        text: '선택완료',
+        text: "선택완료",
         onClick: () => {
-          console.log('hello');
+          console.log("hello");
         },
       },
       {
-        text: '최종선택완료',
+        text: "최종선택완료",
         onClick: () => {
-          console.log('hello');
+          console.log("hello");
         },
       },
     ],
@@ -139,8 +137,6 @@ const farmBoard = {
 };
 
 function App() {
-  const queryClient = new QueryClient();
-
   const {
     isMajorOpen,
     setIsMajorOpen,
@@ -163,6 +159,14 @@ function App() {
     openP2ActSlot,
     closeP2ActSlot,
   } = useCardBoard();
+
+  const {
+    haveCardDataQuery: { isLoading, error, data: haveCard },
+    actCardDataQuery: { isLoading: actLoading, error: actErr, data: actCard },
+  } = useCardBoard();
+  console.log("<<", actCard);
+  haveCard && console.log("card data come", actCard);
+
   const {
     fencePosition1,
     setFencePosition1,
@@ -185,7 +189,7 @@ function App() {
   const [condition, setCondition] = useState(0);
   const [fencePosArr, setFencePosArr] = useState([]);
 
-  const handleClickBtn = async n => {
+  const handleClickBtn = async (n) => {
     switch (n) {
       case 1:
         setCondition(1);
@@ -203,7 +207,7 @@ function App() {
   };
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <MouseComponent />
       <div className="flex flex-col lg:flex-row">
         <div className="w-full flex flex-col lg:w-6/12 ">
@@ -230,9 +234,7 @@ function App() {
             setCondition={setCondition}
           />
         </div>
-
         <AnimatePresence>
-          {/* {isCardSlotOpen && ( */}
           {isMajorOpen ? (
             <CardSlotBoard
               imageSet={majorImages}
@@ -243,44 +245,48 @@ function App() {
             />
           ) : isP1HaveOpen ? (
             <CardSlotBoard
-              imageSet={subImages_1}
-              col="5"
+              condition={1}
+              imageSet={haveCard && haveCard.p1}
+              col="7"
               row="2"
-              ratio="basis-1/5"
-              close={closeMajorSlot}
+              ratio="basis-1/7"
+              close={closeP1HaveSlot}
             />
           ) : isP1ActOpen ? (
             <CardSlotBoard
-              imageSet={subImages_2}
-              col="5"
+              condition={actCard ? 1 : 0}
+              imageSet={actCard && actCard.p1}
+              col="7"
               row="2"
-              ratio="basis-1/5"
-              close={closeMajorSlot}
+              ratio="basis-1/7"
+              close={closeP1ActSlot}
             />
           ) : isP2HaveOpen ? (
             <CardSlotBoard
-              imageSet={jobImages_1}
+              condition={1}
+              imageSet={haveCard && haveCard.p2}
               col="5"
               row="2"
-              ratio="basis-1/5"
-              close={closeMajorSlot}
+              ratio="basis-1/7"
+              close={closeP2HaveSlot}
             />
           ) : isP2ActOpen ? (
             <CardSlotBoard
-              imageSet={jobImages_2}
+              condition={actCard ? 1 : 0}
+              imageSet={actCard && actCard.p2}
               col="5"
               row="2"
               ratio="basis-1/5"
-              close={closeMajorSlot}
+              close={closeP2ActSlot}
             />
           ) : (
-            ''
+            ""
           )}
         </AnimatePresence>
       </div>
 
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+      {/* <ReactQueryDevtools /> */}
+    </>
   );
 }
 

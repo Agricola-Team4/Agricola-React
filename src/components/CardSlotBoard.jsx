@@ -48,14 +48,3 @@ export default function CardSlotBoard({ imageSet, col, row, ratio, close }) {
     </>
   );
 }
-
-export async function getPlayerCard() {
-  const player1_cardSet = [];
-  const player2_cardSet = [];
-  const allCards = await axios
-    .get('http://3.36.7.233:3000/playercard/')
-    .then(res => res.data);
-
-  return allCards;
-  // return [player1_cardSet, player2_cardSet];
-}

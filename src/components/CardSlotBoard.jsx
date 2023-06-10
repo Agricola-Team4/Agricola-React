@@ -1,10 +1,18 @@
-import React from 'react';
-import Card from './Card';
-import { motion, AnimatePresence } from 'framer-motion';
-// import { jobImages, majorImages, subImages } from "../constants/imageContants";
+import React from "react";
+import Card from "./Card";
+import { motion, AnimatePresence } from "framer-motion";
+import { majorImages } from "../constants/imageContants";
 
-export default function CardSlotBoard({ imageSet, col, row, ratio, close }) {
-  console.log('???', imageSet);
+export default function CardSlotBoard({
+  condition,
+  imageSet,
+  col,
+  row,
+  ratio,
+  close,
+}) {
+  // console.log("???", imageSet);
+  console.log("condition", condition);
 
   return (
     <>
@@ -14,19 +22,19 @@ export default function CardSlotBoard({ imageSet, col, row, ratio, close }) {
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
         style={{
-          position: 'fixed',
+          position: "fixed",
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'rgba(0, 0, 0, 0.5)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+          background: "rgba(0, 0, 0, 0.5)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <div
-          style={{ height: '650px', width: '1000px' }}
+          style={{ height: "650px", width: "1000px" }}
           // style={{ top: "18%", left: "20%", height: "650px" }}
           className="absolute w-fit py-8 px-10 bg-yellow-200 rounded-lg border-8 border-yellow-700"
         >
@@ -39,9 +47,13 @@ export default function CardSlotBoard({ imageSet, col, row, ratio, close }) {
           </button>
 
           <div className="flex flex-row flex-wrap w-full h-full box-border bg-white">
-            {Object.values(imageSet).map(src => (
-              <Card cardType={src} ratio={ratio}></Card>
-            ))}
+            {condition ? (
+              Object.values(imageSet).map((data) => (
+                <Card id={data.id} cardType={data.path} ratio={ratio}></Card>
+              ))
+            ) : (
+              <p>암것동없음</p>
+            )}
           </div>
         </div>
       </motion.div>

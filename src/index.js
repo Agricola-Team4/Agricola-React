@@ -12,6 +12,10 @@ import { AuthContextProvider } from "./context/AuthContext";
 import DragTest from "./components/DragTest";
 import { BackgroundContextProvider } from "./context/BackgroundContext";
 
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
 const router = createBrowserRouter([
   {
     path: "/",
@@ -29,13 +33,18 @@ const router = createBrowserRouter([
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
+
+const queryClient = new QueryClient();
 root.render(
   <React.StrictMode>
-    <AuthContextProvider>
-      <BackgroundContextProvider>
-        <RouterProvider router={router} />
-      </BackgroundContextProvider>
-    </AuthContextProvider>
+    <QueryClientProvider client={queryClient}>
+      <AuthContextProvider>
+        <BackgroundContextProvider>
+          <RouterProvider router={router} />
+        </BackgroundContextProvider>
+      </AuthContextProvider>
+      <ReactQueryDevtools />
+    </QueryClientProvider>
   </React.StrictMode>
 );
 

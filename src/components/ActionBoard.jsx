@@ -145,7 +145,7 @@ export default function ActionBoard() {
         </>
       ),
       onClick: () => {
-        takeAction({ pid, aid: 11 });
+        takeAction(2, 11);
       },
       isAccumul: calcAccumul(10),
       isOcuupied: data && data[10].is_occupied,
@@ -270,8 +270,14 @@ export default function ActionBoard() {
         </>
       ),
       onClick: () => {
-        takeAction({ pid, aid: 18 });
-        animalEvent({ name: '양', num: data[17].acc_resource });
+        takeAction(pid, 18);
+        // animalEvent({ name: '양', num: data[17].acc_resource });
+        setPrompt({
+          message: '동물을 키울 울타리를 선택하세요!',
+          buttons: [],
+        });
+        setIsAbActive(false);
+        setIsFbActive(true);
       },
       isAccumul: calcAccumul(17),
       isOcuupied: data && data[17].is_occupied,

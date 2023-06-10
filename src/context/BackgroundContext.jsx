@@ -97,6 +97,12 @@ export function BackgroundContextProvider({ children }) {
 
   const [fencePosArr, setFencePosArr] = useState([]);
 
+  // 0 : default
+  // 1 : 울타리
+  // 2 : 농지
+  // 3 : 농장확장
+  const [condition, setCondition] = useState(0);
+
   const getSelectedPosArr = () => {
     console.log(selectedPosArr);
     return selectedPosArr;
@@ -218,6 +224,8 @@ export function BackgroundContextProvider({ children }) {
         closeP2HaveSlot,
         openP2ActSlot,
         closeP2ActSlot,
+        condition,
+        setCondition,
       }}
     >
       {children}

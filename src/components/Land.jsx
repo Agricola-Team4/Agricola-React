@@ -10,7 +10,8 @@ import { useAuthContext } from '../context/AuthContext';
 export default function Land({ data, pid }) {
   const { setPrompt, selectedPosArr, setSelectedPosArr } =
     useBackgroundContext();
-  const { setIsFbActive, setIsAbActive } = useAuthContext();
+  const { setIsFbActive, setIsAbActive, condition, setCondition } =
+    useAuthContext();
 
   return (
     <div className="relative basis-9/31 aspect-square cursor-pointer transition duration-150 ease-in hover:scale-105 p-0.5 ">
@@ -19,36 +20,52 @@ export default function Land({ data, pid }) {
           0: (
             <Empty
               isStable={false}
-              onClick={() => {
-                const updatedPosArr = [...selectedPosArr, data.position];
-                setSelectedPosArr(updatedPosArr);
-                // handleAdd(data.position);
-                setPrompt({
-                  message: '울타리를 치고 싶은 땅을 모두 선택하세요.',
-                  buttons: [
-                    {
-                      text: '최종선택완료',
-                      onClick: () => {
-                        const pid = 1;
-                        console.log('짝은어레이', updatedPosArr);
-                        // buildFence(pid, [updatedPosArr]);
-                        setPrompt({ message: '', buttons: [] });
-                        setSelectedPosArr([]);
-                        setIsFbActive(false);
-                        setIsAbActive(true);
-                      },
-                    },
-                    {
-                      text: '이어서 치기',
-                      onClick: () => {
-                        console.log('이어서 치기', updatedPosArr);
-                        // buildFence(pid, [updatedPosArr]);
-                        setSelectedPosArr([]);
-                      },
-                    },
-                  ],
-                });
-              }}
+              onClick={
+                {
+                  1: () => {
+                    // '울타리' 클릭 이벤트
+                    const updatedPosArr = [...selectedPosArr, data.position];
+                    setSelectedPosArr(updatedPosArr);
+                    // handleAdd(data.position);
+                    setPrompt({
+                      message: '울타리를 치고 싶은 땅을 모두 선택하세요.',
+                      buttons: [
+                        {
+                          text: '최종선택완료',
+                          onClick: () => {
+                            const pid = 1;
+                            console.log('짝은어레이', updatedPosArr);
+                            // buildFence(pid, [updatedPosArr]);
+                            setPrompt({ message: '', buttons: [] });
+                            setSelectedPosArr([]);
+                            setIsFbActive(false);
+                            setIsAbActive(true);
+                            setCondition(0);
+                          },
+                        },
+                        {
+                          text: '이어서 치기',
+                          onClick: () => {
+                            console.log('이어서 치기', updatedPosArr);
+                            // buildFence(pid, [updatedPosArr]);
+                            setSelectedPosArr([]);
+                          },
+                        },
+                      ],
+                    });
+                  },
+                  2: () => {
+                    // '농지' 클릭 이벤트
+
+                    setCondition(0);
+                  },
+                  3: () => {
+                    // '농장 확장' 클릭 이벤트
+
+                    setCondition(0);
+                  },
+                }[condition]
+              }
             />
           ),
           1: (

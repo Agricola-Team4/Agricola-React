@@ -12,8 +12,13 @@ import { useBackgroundContext } from '../context/BackgroundContext';
 export default function ActionBoard() {
   const { pid, setIsFbActive, isAbActive, setIsAbActive, setIsCsActive } =
     useAuthContext();
-  const { setPrompt, openMajorSlot, openP1HaveSlot, openP2HaveSlot } =
-    useBackgroundContext();
+  const {
+    setPrompt,
+    openMajorSlot,
+    openP1HaveSlot,
+    openP2HaveSlot,
+    setCondition,
+  } = useBackgroundContext();
 
   const {
     actionBoardQuery: { isLadoing, error, data },
@@ -87,6 +92,7 @@ export default function ActionBoard() {
       ),
       onClick: () => {
         takeAction({ pid, aid: 8 });
+        setCondition(3);
       },
       isAccumul: calcAccumul(7),
       isOcuupied: data && data[7].is_occupied,
@@ -152,6 +158,7 @@ export default function ActionBoard() {
       ),
       onClick: () => {
         takeAction({ pid, aid: 12 });
+        setCondition(2);
       },
       isAccumul: calcAccumul(11),
       isOcuupied: data && data[11].is_occupied,
@@ -300,6 +307,7 @@ export default function ActionBoard() {
             },
           ],
         });
+        setCondition(1);
         setIsFbActive(true);
         setIsAbActive(false);
       },

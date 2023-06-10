@@ -1,12 +1,12 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState } from "react";
 
 export const BackgroundContext = createContext();
 export function BackgroundContextProvider({ children }) {
   const [isAnimal, setIsAnimal] = useState({
     visible: false,
-    name: '',
-    num: '',
-    img: '',
+    name: "",
+    num: "",
+    img: "",
   });
 
   const [fencePosition1, setFencePosition1] = useState({
@@ -91,7 +91,7 @@ export function BackgroundContextProvider({ children }) {
     38: false,
   });
 
-  const [prompt, setPrompt] = useState({ message: '', buttons: [] });
+  const [prompt, setPrompt] = useState({ message: "", buttons: [] });
 
   const [selectedPosArr, setSelectedPosArr] = useState([]); //Farmboard arr
 
@@ -101,6 +101,8 @@ export function BackgroundContextProvider({ children }) {
     console.log(selectedPosArr);
     return selectedPosArr;
   };
+
+  const [validLandArr, setValidLandArr] = useState([]);
 
   // Card 관련
   const [isMajorOpen, setIsMajorOpen] = useState(false);
@@ -218,6 +220,8 @@ export function BackgroundContextProvider({ children }) {
         closeP2HaveSlot,
         openP2ActSlot,
         closeP2ActSlot,
+        validLandArr,
+        setValidLandArr,
       }}
     >
       {children}

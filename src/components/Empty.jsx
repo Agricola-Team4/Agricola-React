@@ -1,5 +1,5 @@
-import { playerRed, resource } from '../constants/imageContants';
-export default function Empty({ isStable, onClick }) {
+import { playerRed, resource } from "../constants/imageContants";
+export default function Empty({ isStable, onClick, onClick2 }) {
   return (
     <div
       className="bg-empty bg-clip-border bg-contain bg-no-repeat w-full h-full flex justify-center items-center p-2"

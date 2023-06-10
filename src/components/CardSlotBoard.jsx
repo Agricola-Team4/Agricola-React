@@ -2,6 +2,7 @@ import React from 'react';
 import Card from './Card';
 import { motion, AnimatePresence } from 'framer-motion';
 import { majorImages } from '../constants/imageContants';
+import { useAuthContext } from '../context/AuthContext';
 
 export default function CardSlotBoard({
   condition,
@@ -12,9 +13,8 @@ export default function CardSlotBoard({
   close,
   isActCardBoard,
 }) {
-  // console.log("???", imageSet);
   console.log('condition', condition);
-
+  const { isCsActive } = useAuthContext();
   return (
     <>
       <motion.div
@@ -47,7 +47,11 @@ export default function CardSlotBoard({
             Ⅹ
           </button>
 
-          <div className="flex flex-row flex-wrap w-full h-full box-border bg-white">
+          <div
+            className={`flex flex-row flex-wrap w-full h-full box-border bg-white ${
+              !isCsActive && 'pointer-events-none'
+            }`}
+          >
             {condition ? (
               Object.values(imageSet).map(data => (
                 <Card

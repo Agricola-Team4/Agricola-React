@@ -11,14 +11,17 @@ import { useBackgroundContext } from "../context/BackgroundContext";
 import { useQueryClient } from "@tanstack/react-query";
 
 export default function ActionBoard() {
-  const { pid, isFbActive, setIsFbActive, isAbActive, setIsAbActive } =
+  const { pid, setIsFbActive, isAbActive, setIsAbActive, setIsCsActive } =
     useAuthContext();
+
   const queryClient = useQueryClient();
+
   const {
     setPrompt,
     openMajorSlot,
     openP1HaveSlot,
     openP2HaveSlot,
+    setCondition,
     validLandArr,
     setValidLandArr,
   } = useBackgroundContext();
@@ -96,6 +99,7 @@ export default function ActionBoard() {
       ),
       onClick: () => {
         takeAction({ pid, aid: 8 });
+        setCondition(3);
       },
       isAccumul: calcAccumul(7),
       isOcuupied: data && data[7].is_occupied,
@@ -148,7 +152,7 @@ export default function ActionBoard() {
         </>
       ),
       onClick: () => {
-        takeAction({ pid, aid: 11 });
+        takeAction(2, 11);
       },
       isAccumul: calcAccumul(10),
       isOcuupied: data && data[10].is_occupied,
@@ -159,6 +163,7 @@ export default function ActionBoard() {
       childTags: (
         <img className="w-1/3" src="/img/farmland_icon.png" alt="farmland" />
       ),
+
       onClick: async () => {
         // useValidLand.mutate({ pid });
         setIsFbActive(true);
@@ -167,6 +172,7 @@ export default function ActionBoard() {
           message: "밭을 만들 땅을 클릭하세요.",
           buttons: [],
         });
+        setCondition(2);
         const result = await takeAction(pid, 12, 0);
         queryClient.invalidateQueries(["actionBoard"]);
 
@@ -286,8 +292,14 @@ export default function ActionBoard() {
         </>
       ),
       onClick: () => {
-        takeAction({ pid, aid: 18 });
-        animalEvent({ name: "양", num: data[17].acc_resource });
+        takeAction(pid, 18);
+        // animalEvent({ name: '양', num: data[17].acc_resource });
+        setPrompt({
+          message: '동물을 키울 울타리를 선택하세요!',
+          buttons: [],
+        });
+        setIsAbActive(false);
+        setIsFbActive(true);
       },
       isAccumul: calcAccumul(17),
       isOcuupied: data && data[17].is_occupied,
@@ -304,6 +316,26 @@ export default function ActionBoard() {
         </div>
       ),
       onClick: () => {
+        setPrompt({
+          message: '울타리를 치고 싶은 땅을 모두 선택하세요.',
+          buttons: [
+            {
+              text: '최종선택완료',
+              onClick: () => {
+                const pid = 1;
+                console.log('짝은어레이', []);
+                // buildFence(pid, [updatedPosArr]);
+              },
+            },
+            {
+              text: '이어서 치기',
+              onClick: () => {
+                console.log('이어서 치기');
+              },
+            },
+          ],
+        });
+        setCondition(1);
         setIsFbActive(true);
         setIsAbActive(false);
       },
@@ -453,6 +485,7 @@ export default function ActionBoard() {
           ],
         });
         setIsAbActive(false);
+        setIsCsActive(true);
         // // 2.
         // takeAction({ pid, aid: 21 });
       },

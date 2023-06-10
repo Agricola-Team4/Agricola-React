@@ -11,9 +11,9 @@ export default function useFarmBoard(pid) {
     { enabled: !!pid }
   );
   const { setIsAnimal } = useBackgroundContext();
-  const updateFarmBoard = useMutation(() => updateFarmBoard(), {
-    onSuccess: () => queryClient.invalidateQueries(['farmBoard']), // queryKey 유효성 제거
-  });
+  // const updateFarmBoard = useMutation(() => updateFarmBoard(), {
+  //   onSuccess: () => queryClient.invalidateQueries(['farmBoard']), // queryKey 유효성 제거
+  // });
 
   const animalEvent = ({ name, num }) => {
     console.log('음메에에에에에에에에에에', name, num);

@@ -12,7 +12,10 @@ import { useQueryClient } from "@tanstack/react-query";
 export default function Land({ data, pid }) {
   const { setPrompt, selectedPosArr, setSelectedPosArr, validLandArr } =
     useBackgroundContext();
-  const { setIsFbActive, setIsAbActive } = useAuthContext();
+
+  const { setIsFbActive, setIsAbActive, condition, setCondition } =
+    useAuthContext();
+
   const queryClient = useQueryClient();
 
   return (
@@ -22,9 +25,44 @@ export default function Land({ data, pid }) {
           0: (
             <Empty
               isStable={false}
-              onClick={async () => {
-                const clickedLand = data.position;
-                // 유효한 땅인지 검사하기
+              onClick={
+                {
+                  1: () => {
+                    // '울타리' 클릭 이벤트
+                    const updatedPosArr = [...selectedPosArr, data.position];
+                    setSelectedPosArr(updatedPosArr);
+                    // handleAdd(data.position);
+                    setPrompt({
+                      message: '울타리를 치고 싶은 땅을 모두 선택하세요.',
+                      buttons: [
+                        {
+                          text: '최종선택완료',
+                          onClick: () => {
+                            const pid = 1;
+                            console.log('짝은어레이', updatedPosArr);
+                            // buildFence(pid, [updatedPosArr]);
+                            setPrompt({ message: '', buttons: [] });
+                            setSelectedPosArr([]);
+                            setIsFbActive(false);
+                            setIsAbActive(true);
+                            setCondition(0);
+                          },
+                        },
+                        {
+                          text: '이어서 치기',
+                          onClick: () => {
+                            console.log('이어서 치기', updatedPosArr);
+                            // buildFence(pid, [updatedPosArr]);
+                            setSelectedPosArr([]);
+                          },
+                        },
+                      ],
+                    });
+                  },
+                  2: async () => {
+                    // '농지' 클릭 이벤트
+                    const clickedLand = data.position;
+                    // 유효한 땅인지 검사하기
                 let player_id;
                 if (pid % 2 === 0) {
                   player_id = 2;
@@ -50,37 +88,15 @@ export default function Land({ data, pid }) {
                   });
                 }
                 return queryClient.invalidateQueries(["farmBoard", player_id]);
-              }}
-              onClick2={() => {
-                const updatedPosArr = [...selectedPosArr, data.position];
-                setSelectedPosArr(updatedPosArr);
-                // handleAdd(data.position);
-                setPrompt({
-                  message: "울타리를 치고 싶은 땅을 모두 선택하세요.",
-                  buttons: [
-                    {
-                      text: "최종선택완료",
-                      onClick: () => {
-                        const pid = 1;
-                        console.log("짝은어레이", updatedPosArr);
-                        // buildFence(pid, [updatedPosArr]);
-                        setPrompt({ message: "", buttons: [] });
-                        setSelectedPosArr([]);
-                        setIsFbActive(false);
-                        setIsAbActive(true);
-                      },
-                    },
-                    {
-                      text: "이어서 치기",
-                      onClick: () => {
-                        console.log("이어서 치기", updatedPosArr);
-                        // buildFence(pid, [updatedPosArr]);
-                        setSelectedPosArr([]);
-                      },
-                    },
-                  ],
-                });
-              }}
+                    setCondition(0);
+                  },
+                  3: () => {
+                    // '농장 확장' 클릭 이벤트
+                
+                    setCondition(0);
+                  },
+                }[condition]
+              }
             />
           ),
           1: (

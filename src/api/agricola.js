@@ -335,6 +335,16 @@ export async function getMajorCard() {
   });
 }
 
+
+export async function raiseAnimal(pid, type, position) {
+  return await axios
+    .put('http://3.36.7.233:3000/playerboardstatus/raise_animal/', {
+      player_id: pid,
+      animal_type: type,
+      position: position,
+    })
+    .then(res => res.data);
+
 export async function constructLand(pid, land_num) {
   return await axios
     .put("http://3.36.7.233:3000/boardposition/construct_land/", {
@@ -342,4 +352,5 @@ export async function constructLand(pid, land_num) {
       land_num: land_num,
     })
     .then((res) => res.data);
+
 }

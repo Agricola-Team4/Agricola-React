@@ -323,15 +323,17 @@ export default function ActionBoard() {
           <img className="w-1/3" src="/img/sheep_icon.png" alt="sheep" />
         </>
       ),
-      onClick: () => {
-        takeAction(pid, 18, 1);
+      onClick: async () => {
+        const a = await takeAction(pid, 18, 1);
         // animalEvent({ name: '양', num: data[17].acc_resource });
-        setPrompt({
-          message: '동물을 키울 울타리를 선택하세요!',
-          buttons: [],
-        });
-        setIsAbActive(false);
-        setIsFbActive(true);
+        if (a !== 0) {
+          setPrompt({
+            message: '동물을 키울 울타리를 선택하세요!',
+            buttons: [],
+          });
+          setIsAbActive(false);
+          setIsFbActive(true);
+        }
       },
       isAccumul: calcAccumul(17),
       isOcuupied: data && data[17].is_occupied,

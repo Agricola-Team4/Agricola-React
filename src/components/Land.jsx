@@ -116,6 +116,7 @@ export default function Land({ data, pid }) {
               isStable={false}
               type={data && data.animal_type}
               num={data && data.animal_num}
+              position={data && data.position}
             />
           ),
           4: <Empty isStable={true} />,

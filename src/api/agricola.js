@@ -175,7 +175,7 @@ export async function takeAction(pid, aid, cid) {
   // prompt에 지금은 player __의 차례가 아닙니다.
   // 또는 소켓 사용시 특정 player의 프롬프트에만 보내줄 수 있으면 그렇게 하기
   console.log('지금은 ', pid, '의 차례가 아닙니다.');
-  return;
+  return 0;
 }
 
 export async function getActionBoard() {

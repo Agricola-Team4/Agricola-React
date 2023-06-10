@@ -124,6 +124,10 @@ function App() {
     isP2HaveOpen,
     isP2ActOpen,
     closeMajorSlot,
+    closeP1HaveSlot,
+    closeP1ActSlot,
+    closeP2HaveSlot,
+    closeP2ActSlot,
   } = useBackgroundContext();
 
   const {

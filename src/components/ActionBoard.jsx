@@ -1,31 +1,38 @@
-import React from 'react';
-import Box from './Box';
-import RoundBox from './RoundBox';
-import useResource from '../hooks/useResource';
-import MajorCardBox from './MajorCardBox';
-import { useAuthContext } from '../context/AuthContext';
-import { getActionBoard, takeAction } from '../api/agricola';
-import useActionBoard from '../hooks/useActionBoard';
-import useFarmBoard from '../hooks/useFarmBoard';
-import { useBackgroundContext } from '../context/BackgroundContext';
+import React from "react";
+import Box from "./Box";
+import RoundBox from "./RoundBox";
+import useResource from "../hooks/useResource";
+import MajorCardBox from "./MajorCardBox";
+import { useAuthContext } from "../context/AuthContext";
+import { getActionBoard, takeAction } from "../api/agricola";
+import { useActionBoard } from "../hooks/useActionBoard";
+import useFarmBoard from "../hooks/useFarmBoard";
+import { useBackgroundContext } from "../context/BackgroundContext";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function ActionBoard() {
   const { pid, setIsFbActive, isAbActive, setIsAbActive, setIsCsActive } =
     useAuthContext();
+
+  const queryClient = useQueryClient();
+
   const {
     setPrompt,
     openMajorSlot,
     openP1HaveSlot,
     openP2HaveSlot,
     setCondition,
+    validLandArr,
+    setValidLandArr,
   } = useBackgroundContext();
 
   const {
     actionBoardQuery: { isLadoing, error, data },
   } = useActionBoard();
+  // console.log("validLandArr", validLandArr);
 
   const { animalEvent } = useFarmBoard();
-  const calcAccumul = idx => {
+  const calcAccumul = (idx) => {
     return (
       data &&
       data[idx].acc_resource !== null &&
@@ -36,7 +43,7 @@ export default function ActionBoard() {
   const action = [
     {
       id: 8,
-      title: '농장 확장',
+      title: "농장 확장",
       childTags: (
         <div className="flex flex-col items-center h-full">
           <div className="basis-3/6">
@@ -99,7 +106,7 @@ export default function ActionBoard() {
     },
     {
       id: 9,
-      title: '회합 장소',
+      title: "회합 장소",
       childTags: (
         <>
           <img className="w-1/6" src="/img/first_icon.png" alt="first" />
@@ -122,7 +129,7 @@ export default function ActionBoard() {
     },
     {
       id: 10,
-      title: '곡식 종자',
+      title: "곡식 종자",
       childTags: (
         <>
           <p className="font-bold mr-0.5">+1</p>
@@ -135,7 +142,7 @@ export default function ActionBoard() {
     },
     {
       id: 11,
-      title: '숲🔻',
+      title: "숲🔻",
       childTags: (
         <>
           <p className=" text-lg font-bold mr-0.5">
@@ -152,20 +159,35 @@ export default function ActionBoard() {
     },
     {
       id: 12,
-      title: '농지',
+      title: "농지",
       childTags: (
         <img className="w-1/3" src="/img/farmland_icon.png" alt="farmland" />
       ),
-      onClick: () => {
-        takeAction({ pid, aid: 12 });
+
+      onClick: async () => {
+        // useValidLand.mutate({ pid });
+        setIsFbActive(true);
+        setIsAbActive(false);
+        setPrompt({
+          message: "밭을 만들 땅을 클릭하세요.",
+          buttons: [],
+        });
         setCondition(2);
+        const result = await takeAction(pid, 12, 0);
+        queryClient.invalidateQueries(["actionBoard"]);
+
+        console.log("resss", result);
+        console.log("resss2", result.lands);
+        // 농지 condition으로 변경
+        setValidLandArr(result.lands);
+        console.log("validLandArr", validLandArr);
       },
       isAccumul: calcAccumul(11),
       isOcuupied: data && data[11].is_occupied,
     },
     {
       id: 13,
-      title: '흙 채굴장🔻',
+      title: "흙 채굴장🔻",
       childTags: (
         <>
           <p className=" text-lg font-bold mr-0.5">
@@ -182,7 +204,7 @@ export default function ActionBoard() {
     },
     {
       id: 5,
-      title: '교습',
+      title: "교습",
       childTags: (
         <div className="flex flex-col">
           <p className="font-bold">직업당</p>
@@ -211,7 +233,7 @@ export default function ActionBoard() {
     },
     {
       id: 14,
-      title: '갈대밭🔻',
+      title: "갈대밭🔻",
       childTags: (
         <>
           <p className=" text-lg font-bold mr-0.5">
@@ -228,7 +250,7 @@ export default function ActionBoard() {
     },
     {
       id: 15,
-      title: '납품팔이',
+      title: "납품팔이",
       childTags: (
         <>
           <p className=" text-lg font-bold mr-0.5">+2</p>
@@ -243,7 +265,7 @@ export default function ActionBoard() {
     },
     {
       id: 16,
-      title: '낚시🔻',
+      title: "낚시🔻",
       childTags: (
         <>
           <p className=" text-lg font-bold mr-0.5">
@@ -260,7 +282,7 @@ export default function ActionBoard() {
     },
     {
       id: 18,
-      title: '양시장🔻',
+      title: "양시장🔻",
       childTags: (
         <>
           <p className=" text-xl font-bold mr-0.5">
@@ -284,7 +306,7 @@ export default function ActionBoard() {
     },
     {
       id: 17,
-      title: '울타리',
+      title: "울타리",
       childTags: (
         <div className="flex items-center justify-center">
           <p className=" text-lg font-bold mr-0.5">1</p>
@@ -322,7 +344,7 @@ export default function ActionBoard() {
     },
     {
       id: 20,
-      title: '주요설비',
+      title: "주요설비",
       childTags: (
         <>
           <p className=" text-lg font-bold mr-0.5">1</p>
@@ -347,7 +369,7 @@ export default function ActionBoard() {
     },
     {
       id: 19,
-      title: '곡식활용',
+      title: "곡식활용",
       childTags: (
         <>
           <img
@@ -367,7 +389,7 @@ export default function ActionBoard() {
     },
     {
       id: 22,
-      title: '서부 채석장🔻',
+      title: "서부 채석장🔻",
       childTags: (
         <>
           <p className=" text-xl font-bold mr-0.5">
@@ -384,7 +406,7 @@ export default function ActionBoard() {
     },
     {
       id: 23,
-      title: '기본 가족 늘리기',
+      title: "기본 가족 늘리기",
       childTags: (
         <>
           <img
@@ -410,7 +432,7 @@ export default function ActionBoard() {
 
     {
       id: 21,
-      title: '집개조',
+      title: "집개조",
       childTags: (
         <div className="flex flex-col items-center h-full">
           <div className="flex items-center justify-center basis-2/5">
@@ -445,16 +467,16 @@ export default function ActionBoard() {
       onClick: () => {
         // 1. 프롬프트 띄우기
         setPrompt({
-          message: '어떤 카드를 활성화시키고 싶으신가요?',
+          message: "어떤 카드를 활성화시키고 싶으신가요?",
           buttons: [
             {
-              text: '주요설비',
+              text: "주요설비",
               onClick: () => {
                 openMajorSlot();
               },
             },
             {
-              text: '보조설비',
+              text: "보조설비",
               onClick: () => {
                 const pid = 1;
                 pid === 1 ? openP1HaveSlot() : openP2HaveSlot();
@@ -472,7 +494,7 @@ export default function ActionBoard() {
     },
     {
       id: 25,
-      title: '채소 종자',
+      title: "채소 종자",
       childTags: (
         <>
           <p className=" text-lg font-bold mr-0.5">+1</p>
@@ -487,7 +509,7 @@ export default function ActionBoard() {
     },
     {
       id: 24,
-      title: '돼지 시장🔻',
+      title: "돼지 시장🔻",
       childTags: (
         <>
           <p className=" text-lg font-bold mr-0.5">
@@ -504,7 +526,7 @@ export default function ActionBoard() {
     },
     {
       id: 26,
-      title: '소 시장🔻',
+      title: "소 시장🔻",
       childTags: (
         <>
           <p className=" text-lg font-bold mr-0.5">
@@ -521,7 +543,7 @@ export default function ActionBoard() {
     },
     {
       id: 27,
-      title: '동부 채석장🔻',
+      title: "동부 채석장🔻",
       childTags: (
         <>
           <p className=" text-lg font-bold mr-0.5">
@@ -538,7 +560,7 @@ export default function ActionBoard() {
     },
     {
       id: 29,
-      title: '급한 가족 늘리기',
+      title: "급한 가족 늘리기",
       childTags: (
         <img
           className="w-1/3"
@@ -554,7 +576,7 @@ export default function ActionBoard() {
     },
     {
       id: 28,
-      title: '밭 농사',
+      title: "밭 농사",
       childTags: (
         <div className="flex flex-col items-center h-full py-1">
           <div className="w-1/3 basis-2/5 flex items-center">
@@ -574,7 +596,7 @@ export default function ActionBoard() {
     },
     {
       id: 30,
-      title: '농장 개조',
+      title: "농장 개조",
       childTags: (
         <div className="flex flex-col items-center h-full">
           <div className="flex items-center justify-center basis-2/5">
@@ -624,7 +646,7 @@ export default function ActionBoard() {
   ];
   const { updateResource, updateBaby } = useResource();
 
-  const shuffle = arr => arr.sort(() => Math.random() - 0.5);
+  const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
 
   // const shuffledRound1 = shuffle(round1);
   // const shuffledRound2 = shuffle(round2);
@@ -668,7 +690,7 @@ export default function ActionBoard() {
 
   return (
     <div
-      className={`flex flex-wrap pr-28 ${!isAbActive && 'pointer-events-none'}`}
+      className={`flex flex-wrap pr-28 ${!isAbActive && "pointer-events-none"}`}
     >
       <Box
         ratio="basis-1/5"
@@ -680,7 +702,7 @@ export default function ActionBoard() {
       >
         {action[0].childTags}
       </Box>
-      {renderRound(round1, 'basis-1/5', 1, 0)}
+      {renderRound(round1, "basis-1/5", 1, 0)}
       <div className="basis-1/5  flex flex-col">
         <Box
           ratio="basis-1/2"
@@ -715,7 +737,7 @@ export default function ActionBoard() {
       >
         {action[3].childTags}
       </Box>
-      {renderRound(round2, 'basis-1/5', 2, 4)}
+      {renderRound(round2, "basis-1/5", 2, 4)}
       <div className="basis-2/5   flex flex-wrap">
         <Box
           ratio="basis-1/2"
@@ -785,11 +807,11 @@ export default function ActionBoard() {
         </Box>
       </div>
       <div className="basis-2/5 aspect-square    flex flex-wrap">
-        {renderRound(round3, 'basis-1/2', 3, 7)}
-        {renderRound(round4, 'basis-1/2', 4, 9)}
+        {renderRound(round3, "basis-1/2", 3, 7)}
+        {renderRound(round4, "basis-1/2", 4, 9)}
       </div>
       <div className="basis-1/5"></div>
-      {renderRound(round5, 'basis-1/5', 5, 11)}
+      {renderRound(round5, "basis-1/5", 5, 11)}
       {roundArray[13] ? (
         <Box
           ratio="basis-1/5"

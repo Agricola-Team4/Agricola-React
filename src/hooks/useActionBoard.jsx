@@ -3,19 +3,28 @@ import { getActionBoard, takeAction } from '../api/agricola';
 import { useBackgroundContext } from '../context/BackgroundContext';
 import { useAuthContext } from '../context/AuthContext';
 
-export default function useActionBoard() {
-  const { setIsAbActive, setIsFbActive } = useAuthContext();
+export function useActionBoard() {
+  const { setIsAbActive, setIsFbActive, pid } = useAuthContext();
   const { setPrompt, selectedPosArr } = useBackgroundContext();
+  const queryClient = useQueryClient();
 
   const actionBoardQuery = useQuery(['actionBoard'], () => getActionBoard());
   // const updateFarmBoard = useMutation(() => updateFarmBoard(), {
   //   onSuccess: () => queryClient.invalidateQueries(['farmBoard']), // queryKey 유효성 제거
   // });
 
-  const getSelectedPosArr = () => {
-    console.log(selectedPosArr);
-    return selectedPosArr;
-  };
+  // const validLandQuery = useQuery(
+  //   ["validLandArr", pid || ""],
+  //   () => takeAction(pid, 12, 0),
+  //   { enabled: !!pid }
+  // );
+
+  // const useValidLand = useMutation(({ pid }) => takeAction(pid, 12, 0), {
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries(["validLandArr"], pid);
+  //   },
+  // });
 
   return { actionBoardQuery };
+  // validLandQuery, useValidLand
 }

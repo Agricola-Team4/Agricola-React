@@ -8,10 +8,11 @@ import { getActionBoard, takeAction } from '../api/agricola';
 import useActionBoard from '../hooks/useActionBoard';
 import useFarmBoard from '../hooks/useFarmBoard';
 import { useBackgroundContext } from '../context/BackgroundContext';
-export default function ActionBoard({ openMajorSlot }) {
+
+export default function ActionBoard() {
   const { pid, isFbActive, setIsFbActive, isAbActive, setIsAbActive } =
     useAuthContext();
-  const { setPrompt, getSelectedPosArr, condition, setCondition } =
+  const { setPrompt, openMajorSlot, openP1HaveSlot, openP2HaveSlot } =
     useBackgroundContext();
 
   const {
@@ -428,6 +429,26 @@ export default function ActionBoard({ openMajorSlot }) {
         </div>
       ),
       onClick: () => {
+        // 1. 프롬프트 띄우기
+        setPrompt({
+          message: '어떤 카드를 활성화시키고 싶으신가요?',
+          buttons: [
+            {
+              text: '주요설비',
+              onClick: () => {
+                openMajorSlot();
+              },
+            },
+            {
+              text: '보조설비',
+              onClick: () => {
+                const pid = 1;
+                pid === 1 ? openP1HaveSlot() : openP2HaveSlot();
+              },
+            },
+          ],
+        });
+        // 2.
         takeAction({ pid, aid: 21 });
       },
       isAccumul: calcAccumul(20),
@@ -767,7 +788,7 @@ export default function ActionBoard({ openMajorSlot }) {
       ) : (
         <RoundBox ratio="basis-1/5" round="6" />
       )}
-      <MajorCardBox ratio="basis-1/5" isSquare={true} onClick={openMajorSlot} />
+      <MajorCardBox ratio="basis-1/5" isSquare={true} />
     </div>
   );
 }

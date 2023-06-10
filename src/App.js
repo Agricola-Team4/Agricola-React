@@ -14,7 +14,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useCardBoard } from "../src/hooks/useCardBoard";
 import PlayerContainer from "./components/PlayerContainer";
 import MouseComponent from "./components/MouseComponent";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { buildFence } from "./api/agricola";
 import { useBackgroundContext } from "./context/BackgroundContext";
 
@@ -22,26 +22,6 @@ const aa = [
   { id: 8, left: true, right: true, top: true, bottom: true },
   { id: 9, left: true, right: true, top: true, bottom: true },
 ];
-
-const prompt = {
-  1: {
-    message: "프롬프트 테스트입니다.",
-    buttons: [
-      {
-        text: "선택완료",
-        onClick: () => {
-          console.log("hello");
-        },
-      },
-      {
-        text: "최종선택완료",
-        onClick: () => {
-          console.log("hello");
-        },
-      },
-    ],
-  },
-};
 
 const farmBoard = {
   1: {
@@ -139,26 +119,12 @@ const farmBoard = {
 function App() {
   const {
     isMajorOpen,
-    setIsMajorOpen,
     isP1HaveOpen,
-    setIsP1HaveOpen,
     isP1ActOpen,
-    setIsP1ActOpen,
     isP2HaveOpen,
-    setIsP2HaveOpen,
     isP2ActOpen,
-    setIsP2ActOpen,
-    openMajorSlot,
     closeMajorSlot,
-    openP1HaveSlot,
-    closeP1HaveSlot,
-    openP1ActSlot,
-    closeP1ActSlot,
-    openP2HaveSlot,
-    closeP2HaveSlot,
-    openP2ActSlot,
-    closeP2ActSlot,
-  } = useCardBoard();
+  } = useBackgroundContext();
 
   const {
     haveCardDataQuery: { isLoading, error, data: haveCard },
@@ -187,52 +153,48 @@ function App() {
     setFencePosition(box);
   };
 
-  const [condition, setCondition] = useState(0);
-  const [fencePosArr, setFencePosArr] = useState([]);
+  // const [condition, setCondition] = useState(0);
+  // const [fencePosArr, setFencePosArr] = useState([]);
 
-  const handleClickBtn = async (n) => {
-    switch (n) {
-      case 1:
-        setCondition(1);
-        break;
-      case 2:
-        const pid = 1; // local storage에서 받아왔다고 가정
-        const arr = await buildFence(pid, fencePosArr);
-        console.log(arr);
-        if (pid % 2 === 1)
-          updateFenceposition(arr, fencePosition1, setFencePosition1);
-        else updateFenceposition(arr, fencePosition2, setFencePosition2);
-        setFencePosArr([]);
-        break;
-    }
-  };
+  // const handleClickBtn = async n => {
+  //   switch (n) {
+  //     case 1:
+  //       setCondition(1);
+  //       break;
+  //     case 2:
+  //       const pid = 1; // local storage에서 받아왔다고 가정
+  //       const arr = await buildFence(pid, fencePosArr);
+  //       console.log(arr);
+  //       if (pid % 2 === 1)
+  //         updateFenceposition(arr, fencePosition1, setFencePosition1);
+  //       else updateFenceposition(arr, fencePosition2, setFencePosition2);
+  //       setFencePosArr([]);
+  //       break;
+  //   }
+  // };
 
   return (
     <>
       <MouseComponent />
       <div className="flex flex-col lg:flex-row">
         <div className="w-full flex flex-col lg:w-6/12 ">
-          <Prompt onPromptBtnClick={handleClickBtn} />
-          <ActionBoard openMajorSlot={openMajorSlot} />
+          <Prompt />
+          <ActionBoard />
         </div>
         <div className="w-full flex lg:w-6/12">
           <PlayerContainer
-            onClick1={openP1HaveSlot}
-            onClick2={openP1ActSlot}
             pid={1}
-            fencePosArr={fencePosArr}
-            setFencePosArr={setFencePosArr}
-            condition={condition}
-            setCondition={setCondition}
+            // fencePosArr={fencePosArr}
+            // setFencePosArr={setFencePosArr}
+            // condition={condition}
+            // setCondition={setCondition}
           />
           <PlayerContainer
-            onClick1={openP2HaveSlot}
-            onClick2={openP2ActSlot}
             pid={2}
-            fencePosArr={fencePosArr}
-            setFencePosArr={setFencePosArr}
-            condition={condition}
-            setCondition={setCondition}
+            // fencePosArr={fencePosArr}
+            // setFencePosArr={setFencePosArr}
+            // condition={condition}
+            // setCondition={setCondition}
           />
         </div>
         <AnimatePresence>

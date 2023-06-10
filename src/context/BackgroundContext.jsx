@@ -1,12 +1,12 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from 'react';
 
 export const BackgroundContext = createContext();
 export function BackgroundContextProvider({ children }) {
   const [isAnimal, setIsAnimal] = useState({
     visible: false,
-    name: "",
-    num: "",
-    img: "",
+    name: '',
+    num: '',
+    img: '',
   });
 
   const [fencePosition1, setFencePosition1] = useState({
@@ -91,7 +91,25 @@ export function BackgroundContextProvider({ children }) {
     38: false,
   });
 
-  const [prompt, setPrompt] = useState({ message: "", buttons: [] });
+  const [roundArray, setRoundArray] = useState([
+    true,
+    true,
+    true,
+    true,
+    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
+  const [round, setRound] = useState(5);
+
+  const [prompt, setPrompt] = useState({ message: '', buttons: [] });
 
   const [selectedPosArr, setSelectedPosArr] = useState([]); //Farmboard arr
 
@@ -116,6 +134,17 @@ export function BackgroundContextProvider({ children }) {
   const [isP1ActOpen, setIsP1ActOpen] = useState(false);
   const [isP2HaveOpen, setIsP2HaveOpen] = useState(false);
   const [isP2ActOpen, setIsP2ActOpen] = useState(false);
+
+  const openRoundCard = () => {
+    if (round < 14) {
+      setRoundArray(prev => {
+        const arr = [...prev];
+        arr[round] = true;
+        return arr;
+      });
+      setRound(prev => prev + 1);
+    }
+  };
 
   const openMajorSlot = () => {
     setIsMajorOpen(true);
@@ -230,6 +259,9 @@ export function BackgroundContextProvider({ children }) {
         setCondition,
         validLandArr,
         setValidLandArr,
+        roundArray,
+        setRoundArray,
+        openRoundCard,
       }}
     >
       {children}

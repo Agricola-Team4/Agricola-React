@@ -2,14 +2,14 @@ import React from 'react';
 import { playerRed, resource } from '../constants/imageContants';
 import { raiseAnimal } from '../api/agricola';
 
-export default function Pen({ isStable, type, num }) {
+export default function Pen({ isStable, type, num, position }) {
   return (
     <div
       className="bg-empty bg-clip-border bg-contain bg-no-repeat flex flex-wrap justify-center items-center p-2"
       onClick={() => {
         console.log('hello');
         const pid = 1;
-        raiseAnimal(pid, type);
+        raiseAnimal(pid, 1, position);
       }}
     >
       <div className="basis-1/2 aspect-square flex justify-center items-center">

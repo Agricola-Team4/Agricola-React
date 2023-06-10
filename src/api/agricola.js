@@ -175,12 +175,8 @@ export async function takeAction(pid, aid, cid) {
   // prompt에 지금은 player __의 차례가 아닙니다.
   // 또는 소켓 사용시 특정 player의 프롬프트에만 보내줄 수 있으면 그렇게 하기
   console.log('지금은 ', pid, '의 차례가 아닙니다.');
-  return;
+  return 0;
 }
-
-// export function takeActionAndUpdateCardBoard(pid, cid) {
-//   return takeAction(pid, 21, cid);
-// }
 
 export async function getActionBoard() {
   return axios.get('http://3.36.7.233:3000/actionbox').then(res => res.data);
@@ -348,6 +344,27 @@ export async function constructLand(pid, land_num) {
     .put('http://3.36.7.233:3000/boardposition/construct_land/', {
       player_id: pid,
       land_num: land_num,
+    })
+    .then(res => res.data);
+}
+
+export async function getPlayerInfo() {
+  return await axios
+    .get('http://3.36.7.233:3000/player/')
+    .then(res => res.data);
+}
+
+export async function isRoundEnd() {
+  const infos = await getPlayerInfo();
+  if (infos[0].remain_num === 0 && infos[1].remain_num === 0) return true;
+  return false;
+}
+
+export async function roundEnd() {
+  return await axios
+    .put('http://3.36.7.233:3000/gameStatus/round_end/', {
+      turn: 0,
+      round: 0,
     })
     .then(res => res.data);
 }

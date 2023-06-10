@@ -97,17 +97,17 @@ export function BackgroundContextProvider({ children }) {
     true,
     true,
     true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
   ]);
-  const [round, setRound] = useState(0);
+  const [round, setRound] = useState(5);
 
   const [prompt, setPrompt] = useState({ message: '', buttons: [] });
 

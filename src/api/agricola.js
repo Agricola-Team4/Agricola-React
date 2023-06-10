@@ -178,10 +178,6 @@ export async function takeAction(pid, aid, cid) {
   return;
 }
 
-// export function takeActionAndUpdateCardBoard(pid, cid) {
-//   return takeAction(pid, 21, cid);
-// }
-
 export async function getActionBoard() {
   return axios.get('http://3.36.7.233:3000/actionbox').then(res => res.data);
 }
@@ -348,6 +344,27 @@ export async function constructLand(pid, land_num) {
     .put('http://3.36.7.233:3000/boardposition/construct_land/', {
       player_id: pid,
       land_num: land_num,
+    })
+    .then(res => res.data);
+}
+
+export async function getPlayerInfo() {
+  return await axios
+    .get('http://3.36.7.233:3000/player/')
+    .then(res => res.data);
+}
+
+export async function isRoundEnd() {
+  const infos = await getPlayerInfo();
+  if (infos[0].remain_num === 0 && infos[1].remain_num === 0) return true;
+  return false;
+}
+
+export async function roundEnd() {
+  return await axios
+    .put('http://3.36.7.233:3000/gameStatus/round_end/', {
+      turn: 0,
+      round: 0,
     })
     .then(res => res.data);
 }

@@ -4,7 +4,12 @@ import RoundBox from './RoundBox';
 import useResource from '../hooks/useResource';
 import MajorCardBox from './MajorCardBox';
 import { useAuthContext } from '../context/AuthContext';
-import { getActionBoard, takeAction } from '../api/agricola';
+import {
+  getActionBoard,
+  isRoundEnd,
+  roundEnd,
+  takeAction,
+} from '../api/agricola';
 import { useActionBoard } from '../hooks/useActionBoard';
 import useFarmBoard from '../hooks/useFarmBoard';
 import { useBackgroundContext } from '../context/BackgroundContext';
@@ -123,7 +128,7 @@ export default function ActionBoard() {
         </>
       ),
       onClick: () => {
-        takeAction({ pid, aid: 9 });
+        takeAction(pid, 9, 0);
       },
       isAccumul: calcAccumul(8),
       isOcuupied: data && data[8].is_occupied,
@@ -156,6 +161,8 @@ export default function ActionBoard() {
         await takeAction(pid, 11);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
+        const isEnd = await isRoundEnd();
+        isEnd && roundEnd();
       },
       isAccumul: calcAccumul(10),
       isOcuupied: data && data[10].is_occupied,

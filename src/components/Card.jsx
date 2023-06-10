@@ -21,7 +21,7 @@ export default function Card({
     setPrompt,
   } = useBackgroundContext();
 
-  const { setIsFbActive, setIsAbActive } = useAuthContext();
+  const { setIsAbActive, setIsCsActive } = useAuthContext();
   const { useCard } = useCardBoard();
 
   return (
@@ -39,6 +39,7 @@ export default function Card({
         closeP2ActSlot();
         setPrompt({ message: '', buttons: [] });
         setIsAbActive(true);
+        setIsCsActive(false);
       }}
     >
       <img

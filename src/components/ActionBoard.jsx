@@ -10,7 +10,7 @@ import useFarmBoard from '../hooks/useFarmBoard';
 import { useBackgroundContext } from '../context/BackgroundContext';
 
 export default function ActionBoard() {
-  const { pid, isFbActive, setIsFbActive, isAbActive, setIsAbActive } =
+  const { pid, setIsFbActive, isAbActive, setIsAbActive, setIsCsActive } =
     useAuthContext();
   const { setPrompt, openMajorSlot, openP1HaveSlot, openP2HaveSlot } =
     useBackgroundContext();
@@ -449,6 +449,7 @@ export default function ActionBoard() {
           ],
         });
         setIsAbActive(false);
+        setIsCsActive(true);
         // // 2.
         // takeAction({ pid, aid: 21 });
       },

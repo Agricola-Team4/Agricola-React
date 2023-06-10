@@ -8,6 +8,7 @@ export function AuthContextProvider({ children }) {
   const [pid2, setPid2] = useState(2);
   const [isFbActive, setIsFbActive] = useState(false);
   const [isAbActive, setIsAbActive] = useState(true);
+  const [isCsActive, setIsCsActive] = useState(false);
 
   useEffect(() => {
     // player 정보 가져오기 http://3.36.7.233:3000/player
@@ -26,6 +27,8 @@ export function AuthContextProvider({ children }) {
         setIsFbActive,
         isAbActive,
         setIsAbActive,
+        isCsActive,
+        setIsCsActive,
       }}
     >
       {children}

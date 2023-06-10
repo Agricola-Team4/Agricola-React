@@ -4,7 +4,7 @@ import { useBackgroundContext } from '../context/BackgroundContext';
 
 export default function Profile({ img, name }) {
   const { setIsFbActive, setIsAbActive, setIsCsActive } = useAuthContext();
-  const { setPrompt } = useBackgroundContext();
+  const { setPrompt, openRoundCard } = useBackgroundContext();
   return (
     // 임시 active 초기화 button
     <div
@@ -13,6 +13,7 @@ export default function Profile({ img, name }) {
         setIsAbActive(true);
         setIsCsActive(false);
         setPrompt({ message: '', buttons: [] });
+        // openRoundCard();
       }}
     >
       <Avatar src={img} alt="avatar" size="md" variant="circular" />

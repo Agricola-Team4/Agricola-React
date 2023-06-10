@@ -24,6 +24,7 @@ export default function ActionBoard() {
     setCondition,
     validLandArr,
     setValidLandArr,
+    roundArray,
   } = useBackgroundContext();
 
   const {
@@ -39,7 +40,7 @@ export default function ActionBoard() {
       data[idx].acc_resource > data[idx].add_resource
     );
   };
-
+  console.log(roundArray);
   const action = [
     {
       id: 8,
@@ -630,22 +631,22 @@ export default function ActionBoard() {
     },
   ];
 
-  const roundArray = [
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-    true,
-  ];
+  // const roundArray = [
+  //   true,
+  //   true,
+  //   true,
+  //   true,
+  //   true,
+  //   true,
+  //   true,
+  //   true,
+  //   true,
+  //   true,
+  //   true,
+  //   true,
+  //   true,
+  //   true,
+  // ];
   const { updateResource, updateBaby } = useResource();
 
   const shuffle = arr => arr.sort(() => Math.random() - 0.5);

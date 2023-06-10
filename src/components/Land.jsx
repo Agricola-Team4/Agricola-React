@@ -1,16 +1,19 @@
-import React from 'react';
-import Room from './Room';
-import Field from './Field';
-import Pen from './Pen';
-import Empty from './Empty';
-import { useBackgroundContext } from '../context/BackgroundContext';
-import { buildFence } from '../api/agricola';
-import { useAuthContext } from '../context/AuthContext';
+import React from "react";
+import Room from "./Room";
+import Field from "./Field";
+import Pen from "./Pen";
+import Empty from "./Empty";
+import { useBackgroundContext } from "../context/BackgroundContext";
+import { buildFence, takeAction, constructLand } from "../api/agricola";
+import { useAuthContext } from "../context/AuthContext";
+import { useActionBoard } from "../hooks/useActionBoard";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function Land({ data, pid }) {
-  const { setPrompt, selectedPosArr, setSelectedPosArr } =
+  const { setPrompt, selectedPosArr, setSelectedPosArr, validLandArr } =
     useBackgroundContext();
   const { setIsFbActive, setIsAbActive } = useAuthContext();
+  const queryClient = useQueryClient();
 
   return (
     <div className="relative basis-9/31 aspect-square cursor-pointer transition duration-150 ease-in hover:scale-105 p-0.5 ">
@@ -19,29 +22,58 @@ export default function Land({ data, pid }) {
           0: (
             <Empty
               isStable={false}
-              onClick={() => {
+              onClick={async () => {
+                const clickedLand = data.position;
+                // 유효한 땅인지 검사하기
+                let player_id;
+                if (pid % 2 === 0) {
+                  player_id = 2;
+                } else {
+                  player_id = 1;
+                }
+                // console.log("vd", validLandArr);
+                console.log("땅넘버", clickedLand);
+                console.log("validarr", validLandArr);
+                if (validLandArr.includes(clickedLand)) {
+                  // 밭 짓기
+                  await constructLand(pid, clickedLand);
+                  console.log("pid??", pid);
+
+                  setPrompt({ message: "", buttons: [] });
+                  setIsFbActive(true);
+                  setIsAbActive(true);
+                } else {
+                  setPrompt({
+                    message:
+                      "그곳에는 밭을 지을 수 없습니다. 다른 밭을 선택하세요.",
+                    buttons: [],
+                  });
+                }
+                return queryClient.invalidateQueries(["farmBoard", player_id]);
+              }}
+              onClick2={() => {
                 const updatedPosArr = [...selectedPosArr, data.position];
                 setSelectedPosArr(updatedPosArr);
                 // handleAdd(data.position);
                 setPrompt({
-                  message: '울타리를 치고 싶은 땅을 모두 선택하세요.',
+                  message: "울타리를 치고 싶은 땅을 모두 선택하세요.",
                   buttons: [
                     {
-                      text: '최종선택완료',
+                      text: "최종선택완료",
                       onClick: () => {
                         const pid = 1;
-                        console.log('짝은어레이', updatedPosArr);
+                        console.log("짝은어레이", updatedPosArr);
                         // buildFence(pid, [updatedPosArr]);
-                        setPrompt({ message: '', buttons: [] });
+                        setPrompt({ message: "", buttons: [] });
                         setSelectedPosArr([]);
                         setIsFbActive(false);
                         setIsAbActive(true);
                       },
                     },
                     {
-                      text: '이어서 치기',
+                      text: "이어서 치기",
                       onClick: () => {
-                        console.log('이어서 치기', updatedPosArr);
+                        console.log("이어서 치기", updatedPosArr);
                         // buildFence(pid, [updatedPosArr]);
                         setSelectedPosArr([]);
                       },

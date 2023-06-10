@@ -104,7 +104,7 @@ export default function ActionBoard() {
         </div>
       ),
       onClick: () => {
-        takeAction({ pid, aid: 8 });
+        takeAction(pid, 8, 1);
         setCondition(3);
       },
       isAccumul: calcAccumul(7),
@@ -128,7 +128,7 @@ export default function ActionBoard() {
         </>
       ),
       onClick: () => {
-        takeAction(pid, 9, 0);
+        takeAction(pid, 9, 1);
       },
       isAccumul: calcAccumul(8),
       isOcuupied: data && data[8].is_occupied,
@@ -142,7 +142,13 @@ export default function ActionBoard() {
           <img className="w-1/4" src="/img/grain_icon.png" alt="grain" />
         </>
       ),
-      onClick: () => takeAction({ pid, aid: 10 }),
+      onClick: async () => {
+        await takeAction(pid, 10, 1);
+        queryClient.invalidateQueries(['actionBoard']);
+        queryClient.invalidateQueries(['resource', pid]);
+        const isEnd = await isRoundEnd();
+        isEnd && roundEnd();
+      },
       isAccumul: calcAccumul(9),
       isOcuupied: data && data[9].is_occupied,
     },
@@ -158,7 +164,7 @@ export default function ActionBoard() {
         </>
       ),
       onClick: async () => {
-        await takeAction(pid, 11);
+        await takeAction(pid, 11, 1);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
         const isEnd = await isRoundEnd();
@@ -183,7 +189,7 @@ export default function ActionBoard() {
           buttons: [],
         });
         setCondition(2);
-        const result = await takeAction(pid, 12, 0);
+        const result = await takeAction(pid, 12, 1);
         queryClient.invalidateQueries(['actionBoard']);
 
         console.log('resss', result);
@@ -206,8 +212,12 @@ export default function ActionBoard() {
           <img className="w-1/4" src="/img/soil_icon.png" alt="soil" />
         </>
       ),
-      onClick: () => {
-        takeAction({ pid, aid: 13 });
+      onClick: async () => {
+        await takeAction(pid, 13, 1);
+        queryClient.invalidateQueries(['actionBoard']);
+        queryClient.invalidateQueries(['resource', pid]);
+        const isEnd = await isRoundEnd();
+        isEnd && roundEnd();
       },
       isAccumul: calcAccumul(12),
       isOcuupied: data && data[12].is_occupied,
@@ -236,7 +246,7 @@ export default function ActionBoard() {
         </div>
       ),
       onClick: () => {
-        takeAction({ pid, aid: 5 });
+        takeAction(pid, 5, 1);
       },
       isAccumul: calcAccumul(4),
       isOcuupied: data && data[4].is_occupied,
@@ -252,8 +262,12 @@ export default function ActionBoard() {
           <img className="w-1/4" src="/img/reed_icon.png" alt="reed" />
         </>
       ),
-      onClick: () => {
-        takeAction({ pid, aid: 14 });
+      onClick: async () => {
+        await takeAction(pid, 14, 1);
+        queryClient.invalidateQueries(['actionBoard']);
+        queryClient.invalidateQueries(['resource', pid]);
+        const isEnd = await isRoundEnd();
+        isEnd && roundEnd();
       },
       isAccumul: calcAccumul(13),
       isOcuupied: data && data[13].is_occupied,
@@ -267,8 +281,12 @@ export default function ActionBoard() {
           <img className="w-1/4" src="/img/food_icon.png" alt="food" />
         </>
       ),
-      onClick: () => {
-        takeAction({ pid, aid: 15 });
+      onClick: async () => {
+        await takeAction(pid, 15, 1);
+        queryClient.invalidateQueries(['actionBoard']);
+        queryClient.invalidateQueries(['resource', pid]);
+        const isEnd = await isRoundEnd();
+        isEnd && roundEnd();
       },
       isAccumul: calcAccumul(9),
       isOcuupied: data && data[9].is_occupied,
@@ -284,8 +302,12 @@ export default function ActionBoard() {
           <img className="w-1/4" src="/img/food_icon.png" alt="food" />
         </>
       ),
-      onClick: () => {
-        takeAction({ pid, aid: 16 });
+      onClick: async () => {
+        await takeAction(pid, 16, 1);
+        queryClient.invalidateQueries(['actionBoard']);
+        queryClient.invalidateQueries(['resource', pid]);
+        const isEnd = await isRoundEnd();
+        isEnd && roundEnd();
       },
       isAccumul: calcAccumul(15),
       isOcuupied: data && data[15].is_occupied,
@@ -302,7 +324,7 @@ export default function ActionBoard() {
         </>
       ),
       onClick: () => {
-        takeAction(pid, 18);
+        takeAction(pid, 18, 1);
         // animalEvent({ name: '양', num: data[17].acc_resource });
         setPrompt({
           message: '동물을 키울 울타리를 선택하세요!',
@@ -372,7 +394,7 @@ export default function ActionBoard() {
         </>
       ),
       onClick: () => {
-        takeAction({ pid, aid: 20 });
+        takeAction(pid, 20, 1);
       },
       isAccumul: calcAccumul(19),
       isOcuupied: data && data[19].is_occupied,
@@ -392,7 +414,7 @@ export default function ActionBoard() {
         </>
       ),
       onClick: () => {
-        takeAction({ pid, aid: 19 });
+        takeAction(pid, 19, 1);
       },
       isAccumul: calcAccumul(18),
       isOcuupied: data && data[18].is_occupied,
@@ -408,8 +430,12 @@ export default function ActionBoard() {
           <img className="w-1/3" src="/img/stone_icon.png" alt="stone" />
         </>
       ),
-      onClick: () => {
-        takeAction({ pid, aid: 22 });
+      onClick: async () => {
+        await takeAction(pid, 22, 1);
+        queryClient.invalidateQueries(['actionBoard']);
+        queryClient.invalidateQueries(['resource', pid]);
+        const isEnd = await isRoundEnd();
+        isEnd && roundEnd();
       },
       isAccumul: calcAccumul(21),
       isOcuupied: data && data[21].is_occupied,
@@ -434,7 +460,7 @@ export default function ActionBoard() {
         </>
       ),
       onClick: () => {
-        takeAction({ pid, aid: 23 });
+        takeAction(pid, 23, 1);
       },
       isAccumul: calcAccumul(22),
       isOcuupied: data && data[22].is_occupied,
@@ -511,8 +537,12 @@ export default function ActionBoard() {
           <img className="w-1/3" src="/img/vege_icon.png" alt="vegetable" />
         </>
       ),
-      onClick: () => {
-        takeAction({ pid, aid: 25 });
+      onClick: async () => {
+        await takeAction(pid, 25, 1);
+        queryClient.invalidateQueries(['actionBoard']);
+        queryClient.invalidateQueries(['resource', pid]);
+        const isEnd = await isRoundEnd();
+        isEnd && roundEnd();
       },
       isAccumul: calcAccumul(24),
       isOcuupied: data && data[24].is_occupied,
@@ -528,8 +558,12 @@ export default function ActionBoard() {
           <img className="w-1/3" src="/img/boar_icon.png" alt="boar" />
         </>
       ),
-      onClick: () => {
-        takeAction({ pid, aid: 24 });
+      onClick: async () => {
+        await takeAction(pid, 24, 1);
+        queryClient.invalidateQueries(['actionBoard']);
+        queryClient.invalidateQueries(['resource', pid]);
+        const isEnd = await isRoundEnd();
+        isEnd && roundEnd();
       },
       isAccumul: calcAccumul(23),
       isOcuupied: data && data[23].is_occupied,
@@ -546,7 +580,7 @@ export default function ActionBoard() {
         </>
       ),
       onClick: () => {
-        takeAction({ pid, aid: 26 });
+        takeAction(pid, 26, 1);
       },
       isAccumul: calcAccumul(25),
       isOcuupied: data && data[25].is_occupied,
@@ -562,8 +596,12 @@ export default function ActionBoard() {
           <img className="w-1/3" src="/img/stone_icon.png" alt="stone" />
         </>
       ),
-      onClick: () => {
-        takeAction({ pid, aid: 27 });
+      onClick: async () => {
+        await takeAction(pid, 27, 1);
+        queryClient.invalidateQueries(['actionBoard']);
+        queryClient.invalidateQueries(['resource', pid]);
+        const isEnd = await isRoundEnd();
+        isEnd && roundEnd();
       },
       isAccumul: calcAccumul(26),
       isOcuupied: data && data[26].is_occupied,
@@ -579,7 +617,7 @@ export default function ActionBoard() {
         />
       ),
       onClick: () => {
-        takeAction({ pid, aid: 29 });
+        takeAction(pid, 29, 1);
       },
       isAccumul: calcAccumul(28),
       isOcuupied: data && data[28].is_occupied,
@@ -599,7 +637,7 @@ export default function ActionBoard() {
         </div>
       ),
       onClick: () => {
-        takeAction({ pid, aid: 28 });
+        takeAction(pid, 28, 1);
       },
       isAccumul: calcAccumul(27),
       isOcuupied: data && data[27].is_occupied,
@@ -631,29 +669,13 @@ export default function ActionBoard() {
         </div>
       ),
       onClick: () => {
-        takeAction({ pid, aid: 30 });
+        takeAction(pid, 30, 1);
       },
       isAccumul: calcAccumul(29),
       isOcuupied: data && data[29].is_occupied,
     },
   ];
 
-  // const roundArray = [
-  //   true,
-  //   true,
-  //   true,
-  //   true,
-  //   true,
-  //   true,
-  //   true,
-  //   true,
-  //   true,
-  //   true,
-  //   true,
-  //   true,
-  //   true,
-  //   true,
-  // ];
   const { updateResource, updateBaby } = useResource();
 
   const shuffle = arr => arr.sort(() => Math.random() - 0.5);

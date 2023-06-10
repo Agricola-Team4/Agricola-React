@@ -45,7 +45,7 @@ export default function ActionBoard() {
       data[idx].acc_resource > data[idx].add_resource
     );
   };
-  console.log(roundArray);
+
   const action = [
     {
       id: 8,

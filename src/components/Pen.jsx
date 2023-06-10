@@ -1,13 +1,13 @@
-import React from 'react';
-import { playerRed, resource } from '../constants/imageContants';
-import { raiseAnimal } from '../api/agricola';
+import React from "react";
+import { playerRed, resource } from "../constants/imageContants";
+import { raiseAnimal } from "../api/agricola";
 
 export default function Pen({ isStable, type, num, position }) {
   return (
     <div
       className="bg-empty bg-clip-border bg-contain bg-no-repeat flex flex-wrap justify-center items-center p-2"
       onClick={() => {
-        console.log('hello');
+        console.log("hello");
         const pid = 1;
         raiseAnimal(pid, 1, position);
       }}
@@ -16,7 +16,7 @@ export default function Pen({ isStable, type, num, position }) {
         {isStable && (
           <img
             className="basis-6/12"
-            style={{ height: 'auto', width: '40px' }}
+            style={{ height: "auto", width: "40px" }}
             src={playerRed.stable}
             alt="외양간"
           />

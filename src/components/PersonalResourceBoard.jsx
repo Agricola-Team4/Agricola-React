@@ -1,23 +1,24 @@
-import React from 'react';
-import sheep_img from '../assets/images/sheep_icon.png';
-import cow_img from '../assets/images/cow_icon.png';
-import reed_img from '../assets/images/reed_icon.png';
-import boar_img from '../assets/images/boar_icon.png';
-import grain_img from '../assets/images/grain_icon.png';
-import soil_img from '../assets/images/soil_icon.png';
-import stone_img from '../assets/images/stone_icon.png';
-import vege_img from '../assets/images/vege_icon.png';
-import wood_img from '../assets/images/wood_icon.png';
-import food_img from '../assets/images/food_icon.png';
-import profile_img1 from '../assets/images/example.jpg';
-import profile_img2 from '../assets/images/korea.png';
-import farmer_red_img from '../assets/images/farmer_icon_red.png';
-import fence_red_img from '../assets/images/fence_icon_red.png';
-import stable_red_img from '../assets/images/stable_icon_red.png';
-import useResource from '../hooks/useResource';
-import ResourceInfo from './ResourceInfo';
-import Profile from './Profile';
-import { useAuthContext } from '../context/AuthContext';
+import React from "react";
+import sheep_img from "../assets/images/sheep_icon.png";
+import cow_img from "../assets/images/cow_icon.png";
+import reed_img from "../assets/images/reed_icon.png";
+import boar_img from "../assets/images/boar_icon.png";
+import grain_img from "../assets/images/grain_icon.png";
+import soil_img from "../assets/images/soil_icon.png";
+import stone_img from "../assets/images/stone_icon.png";
+import vege_img from "../assets/images/vege_icon.png";
+import wood_img from "../assets/images/wood_icon.png";
+import food_img from "../assets/images/food_icon.png";
+import profile_img1 from "../assets/images/example.jpg";
+import profile_img2 from "../assets/images/korea.png";
+import farmer_red_img from "../assets/images/farmer_icon_red.png";
+import fence_red_img from "../assets/images/fence_icon_red.png";
+import stable_red_img from "../assets/images/stable_icon_red.png";
+import useResource from "../hooks/useResource";
+import ResourceInfo from "./ResourceInfo";
+import Profile from "./Profile";
+import { useAuthContext } from "../context/AuthContext";
+import axios from "axios";
 
 export default function PersonalResourceBoard({ pid }) {
   // const { pid } = useAuthContext();
@@ -52,7 +53,7 @@ export default function PersonalResourceBoard({ pid }) {
         <div className="basis-2/12 flex flex-col items-center pt-4 border-r-2">
           <Profile
             img={pid === 1 ? profile_img1 : profile_img2}
-            name={pid === 1 ? 'dongree' : 'hyeseon'}
+            name={pid === 1 ? "dongree" : "hyeseon"}
           />
         </div>
 

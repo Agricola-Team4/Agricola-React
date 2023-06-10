@@ -5,7 +5,11 @@ import { useBackgroundContext } from '../context/BackgroundContext';
 export default function useFarmBoard(pid) {
   const queryClient = useQueryClient();
 
-  const farmBoardQuery = useQuery(['farmBoard', pid], () => getFarmBoard(pid));
+  const farmBoardQuery = useQuery(
+    ['farmBoard', pid || ''],
+    () => getFarmBoard(pid),
+    { enabled: !!pid }
+  );
   const { setIsAnimal } = useBackgroundContext();
   const updateFarmBoard = useMutation(() => updateFarmBoard(), {
     onSuccess: () => queryClient.invalidateQueries(['farmBoard']), // queryKey 유효성 제거

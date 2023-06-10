@@ -448,8 +448,9 @@ export default function ActionBoard() {
             },
           ],
         });
-        // 2.
-        takeAction({ pid, aid: 21 });
+        setIsAbActive(false);
+        // // 2.
+        // takeAction({ pid, aid: 21 });
       },
       isAccumul: calcAccumul(20),
       isOcuupied: data && data[20].is_occupied,

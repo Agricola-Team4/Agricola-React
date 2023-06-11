@@ -77,6 +77,16 @@ export async function getAllResource(pid) {
   return resource_object;
 }
 
+export async function getResourceNumById(pid, rid) {
+  return await axios
+    .get(
+      `http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}&resource_id=${rid}`
+    )
+    .then(res => {
+      return res.data.resource_num;
+    });
+}
+
 export async function getUserResource(pid) {
   return await axios
     .get(
@@ -380,9 +390,32 @@ export async function isRoundEnd() {
 
 export async function roundEnd() {
   return await axios
-    .put("http://3.36.7.233:3000/gameStatus/round_end/", {
-      turn: 0,
-      round: 0,
+    .get('http://3.36.7.233:3000/gameStatus/round_end/')
+    .then(res => res.data);
+}
+
+export async function updatePenInFarmboard(pid, pos) {
+  return await axios
+    .patch(`http://3.36.7.233:3000/boardposition/${(pid - 1) * 15 + pos}/`, {
+      position: pos,
+      position_type: 3,
+      is_fam: false,
+      vege_type: 0,
+      vege_num: 0,
+      animal_num: 0,
+      board_id: pid,
+    })
+    .then(res => res.data);
+}
+
+export async function createPenposition(pid, pos) {
+  return await axios
+    .post('http://3.36.7.233:3000/penposition/', {
+      animal_type: 0,
+      max_num: 2,
+      current_num: 0,
+      position_list: `[${pos}]`,
+      board_id: pid,
     })
     .then((res) => res.data);
 }

@@ -10,7 +10,7 @@ import { useBackgroundContext } from "../context/BackgroundContext";
 
 export function useCardBoard() {
   const queryClient = useQueryClient();
-  const { setPrompt } = useBackgroundContext();
+  const { setPrompt, condition, setCondition } = useBackgroundContext();
   const clearPromptMsg = (time) => {
     setTimeout(() => {
       setPrompt({ message: "", buttons: [] });
@@ -40,17 +40,20 @@ export function useCardBoard() {
         queryClient.invalidateQueries(["actionBoard"]);
         queryClient.invalidateQueries(["farmBoard"]);
         queryClient.invalidateQueries(["resource"]);
+        setCondition(0);
 
         clearPromptMsg(3000);
       }, // queryKey 유효성 제거
+
       onError: (err) => {
-        if (aid === 5) {
+        console.log("err msg", err, "condition ", condition);
+        if ((condition = 5)) {
           console.log("err msg", err.response.data.error);
           setPrompt({
             message: "교습 행동을 위한 음식이 부족합니다.",
             buttons: [],
           });
-          clearPromptMsg(3000);
+          // clearPromptMsg(3000);
         }
       },
     }

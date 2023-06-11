@@ -1,7 +1,7 @@
 import React from "react";
 import { jobImages } from "../constants/imageContants";
 import { useBackgroundContext } from "../context/BackgroundContext";
-import { takeAction } from "../api/agricola";
+import { activateCard, takeAction } from "../api/agricola";
 import { useAuthContext } from "../context/AuthContext";
 import { useCardBoard } from "../hooks/useCardBoard";
 
@@ -55,23 +55,40 @@ export default function Card({
   return (
     <div
       className={`${ratio} flex justify-center items-center w-full h-1/2 p-2  bg-white`}
-      onClick={() => {
+      onClick={async () => {
         console.log("card id : ", id, "를 activate 해야합니다");
         // takeAction(2, 21, id);
 
-        // 21 - 집개조,  23- 기본가족늘리기, 5 - 교습
-        useCard.mutate({
-          pid,
-          aid: condition,
-          cid: id,
-        });
+        if (condition === 9) {
+          // 직접 activate card 시키기
+          await activateCard(pid, cid);
+          setPrompt({
+            message: "카드가 활성화 되었습니다.",
+            buttons: [],
+          });
+          queryClient.invalidateQueries(["haveCardData"]);
+          queryClient.invalidateQueries(["majorCardData"]);
+          queryClient.invalidateQueries(["actCardData"]);
+          queryClient.invalidateQueries(["actionBoard"]);
+          queryClient.invalidateQueries(["farmBoard"]);
+          queryClient.invalidateQueries(["resource"]);
+          setCondition(0);
+
+          clearPromptMsg(2000);
+        } else {
+          // 21 - 집개조,  23- 기본가족늘리기, 5 - 교습
+          useCard.mutate({
+            pid,
+            aid: condition,
+            cid: id,
+          });
+        }
         closeMajorSlot();
         closeP1HaveSlot();
         closeP1ActSlot();
         closeP2HaveSlot();
         closeP2ActSlot();
 
-        setCondition(0);
         setIsAbActive(true);
         setIsCsActive(false);
         initCardActive();

@@ -431,3 +431,19 @@ export async function getAvailableSlot(pid, type) {
     )
     .then((res) => res.data.available);
 }
+
+export async function firstPlayerData(pid) {
+  return await axios
+    .get(`http://3.36.7.233:3000/player/${pid}/`)
+    .then((res) => res.data.fst_player);
+}
+
+export async function activateCard(pid, cid) {
+  return await axios
+    .put("http://3.36.7.233:3000/playercard/activate_card/", {
+      activate: 1,
+      player_id: pid,
+      card_id: cid,
+    })
+    .then((res) => res.data);
+}

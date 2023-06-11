@@ -4,6 +4,7 @@ import { useBackgroundContext } from "../context/BackgroundContext";
 import { activateCard, takeAction } from "../api/agricola";
 import { useAuthContext } from "../context/AuthContext";
 import { useCardBoard } from "../hooks/useCardBoard";
+import { QueryClient } from "@tanstack/react-query";
 
 export default function Card({
   id,
@@ -29,6 +30,7 @@ export default function Card({
 
   const { setIsAbActive, setIsCsActive, pid } = useAuthContext();
   const { useCard } = useCardBoard();
+  const queryClient = new QueryClient();
 
   const handleClickPossible = () => {
     if (0 < id && id <= 14) {
@@ -61,7 +63,7 @@ export default function Card({
 
         if (condition === 9) {
           // 직접 activate card 시키기
-          await activateCard(pid, cid);
+          await activateCard(pid, id);
           setPrompt({
             message: "카드가 활성화 되었습니다.",
             buttons: [],

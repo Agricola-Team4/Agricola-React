@@ -7,6 +7,7 @@ import { useAuthContext } from '../context/AuthContext';
 import {
   getActionBoard,
   getAvailableSlot,
+  getMyturn,
   isRoundEnd,
   roundEnd,
   takeAction,
@@ -22,12 +23,6 @@ export default function ActionBoard() {
     useAuthContext();
 
   const queryClient = useQueryClient();
-
-  const clearPromptMsg = () => {
-    setTimeout(() => {
-      setPrompt({ message: '', buttons: [] });
-    }, 3000);
-  };
 
   const {
     setPrompt,
@@ -59,6 +54,12 @@ export default function ActionBoard() {
       data[idx].acc_resource !== null &&
       data[idx].acc_resource > data[idx].add_resource
     );
+  };
+
+  const clearPromptMsg = time => {
+    setTimeout(() => {
+      setPrompt({ message: '', buttons: [] });
+    }, time);
   };
 
   const action = [
@@ -119,6 +120,15 @@ export default function ActionBoard() {
         </div>
       ),
       onClick: async () => {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
+          setPrompt({
+            message: '당신의 턴이 아닙니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
+          return;
+        }
         setIsFbActive(false);
         setIsAbActive(false);
         const result = await takeAction(pid, 8, 1);
@@ -224,7 +234,7 @@ export default function ActionBoard() {
                       buttons: [],
                     });
                     setCondition(0);
-                    clearPromptMsg();
+                    clearPromptMsg(3000);
                     setIsAbActive(true);
                     setIsFbActive(false);
                   },
@@ -270,7 +280,7 @@ export default function ActionBoard() {
                       buttons: [],
                     });
                     setCondition(0);
-                    clearPromptMsg();
+                    clearPromptMsg(3000);
                     setIsAbActive(true);
                     setIsFbActive(false);
                   },
@@ -284,7 +294,7 @@ export default function ActionBoard() {
               buttons: [],
             });
             setCondition(0);
-            clearPromptMsg();
+            clearPromptMsg(3000);
             break;
           default:
             console.log('default');
@@ -315,7 +325,16 @@ export default function ActionBoard() {
           </>
         </>
       ),
-      onClick: () => {
+      onClick: async () => {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
+          setPrompt({
+            message: '당신의 턴이 아닙니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
+          return;
+        }
         takeAction(pid, 9, 1);
       },
       isAccumul: calcAccumul(8),
@@ -331,6 +350,15 @@ export default function ActionBoard() {
         </>
       ),
       onClick: async () => {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
+          setPrompt({
+            message: '당신의 턴이 아닙니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
+          return;
+        }
         await takeAction(pid, 10, 1);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
@@ -352,6 +380,15 @@ export default function ActionBoard() {
         </>
       ),
       onClick: async () => {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
+          setPrompt({
+            message: '당신의 턴이 아닙니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
+          return;
+        }
         await takeAction(pid, 11, 1);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['farmBoard', pid]);
@@ -370,6 +407,15 @@ export default function ActionBoard() {
       ),
 
       onClick: async () => {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
+          setPrompt({
+            message: '당신의 턴이 아닙니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
+          return;
+        }
         // useValidLand.mutate({ pid });
         setIsFbActive(true);
         setIsAbActive(false);
@@ -402,6 +448,15 @@ export default function ActionBoard() {
         </>
       ),
       onClick: async () => {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
+          setPrompt({
+            message: '당신의 턴이 아닙니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
+          return;
+        }
         await takeAction(pid, 13, 1);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
@@ -434,7 +489,16 @@ export default function ActionBoard() {
           </div>
         </div>
       ),
-      onClick: () => {
+      onClick: async () => {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
+          setPrompt({
+            message: '당신의 턴이 아닙니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
+          return;
+        }
         takeAction(pid, 5, 1);
       },
       isAccumul: calcAccumul(4),
@@ -452,6 +516,15 @@ export default function ActionBoard() {
         </>
       ),
       // onClick: async () => {
+      //   const isMyTurn = await getMyturn(pid);
+      //   if (!isMyTurn) {
+      //     setPrompt({
+      //       message: '당신의 턴이 아닙니다.',
+      //       buttons: [],
+      //     });
+      //     clearPromptMsg(2000);
+      //     return;
+      //   }
       //   await takeAction(pid, 14, 1);
       //   queryClient.invalidateQueries(["actionBoard"]);
       //   queryClient.invalidateQueries(["resource", pid]);
@@ -480,6 +553,15 @@ export default function ActionBoard() {
         </>
       ),
       // onClick: async () => {
+      //   const isMyTurn = await getMyturn(pid);
+      //   if (!isMyTurn) {
+      //     setPrompt({
+      //       message: '당신의 턴이 아닙니다.',
+      //       buttons: [],
+      //     });
+      //     clearPromptMsg(2000);
+      //     return;
+      //   }
       //   await takeAction(pid, 15, 1);
       //   queryClient.invalidateQueries(["actionBoard"]);
       //   queryClient.invalidateQueries(["resource", pid]);
@@ -510,6 +592,15 @@ export default function ActionBoard() {
         </>
       ),
       // onClick: async () => {
+      //   const isMyTurn = await getMyturn(pid);
+      //   if (!isMyTurn) {
+      //     setPrompt({
+      //       message: '당신의 턴이 아닙니다.',
+      //       buttons: [],
+      //     });
+      //     clearPromptMsg(2000);
+      //     return;
+      //   }
       //   await takeAction(pid, 16, 1);
       //   queryClient.invalidateQueries(["actionBoard"]);
       //   queryClient.invalidateQueries(["resource", pid]);
@@ -541,18 +632,53 @@ export default function ActionBoard() {
         </>
       ),
       onClick: async () => {
-        const a = await takeAction(pid, 18, 1);
-        // animalEvent({ name: '양', num: data[17].acc_resource });
-        queryClient.invalidateQueries(['resource']);
-        queryClient.invalidateQueries(['actionBoard']);
-        if (a !== 0) {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
           setPrompt({
-            message: '동물을 키울 울타리를 선택하세요!',
+            message: '당신의 턴이 아닙니다.',
             buttons: [],
           });
-          setIsAbActive(false);
-          setIsFbActive(true);
+          clearPromptMsg(2000);
+          return;
         }
+
+        await takeAction(pid, 18, 1)
+          .then(res => {
+            switch (res.case) {
+              case 0:
+                // 아무것도 없는 경우
+                setPrompt({
+                  message: '우리 또는 조리할 주요설비가 없습니다.',
+                  buttons: [],
+                });
+                clearPromptMsg(2000);
+                break;
+              case 1:
+                // 양을 키울 공간만 or 주요 설비 있는 경우
+                break;
+              case 2:
+                // 양을 키울 공간만 있는 경우
+                setPrompt({
+                  message: '양을 키울 울타리를 선택하세요!',
+                  buttons: [],
+                });
+                setIsAbActive(false);
+                setIsFbActive(true);
+
+                break;
+              case 3:
+              // 주요설비만 있는 경우
+            }
+
+            console.log(res);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+        queryClient.invalidateQueries(['resource']);
+        queryClient.invalidateQueries(['actionBoard']);
+        queryClient.invalidateQueries(['farmBoard']);
+        // animalEvent({ name: '양', num: data[17].acc_resource });
       },
       isAccumul: calcAccumul(17),
       isOcuupied: data && data[17].is_occupied,
@@ -569,6 +695,15 @@ export default function ActionBoard() {
         </div>
       ),
       onClick: async () => {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
+          setPrompt({
+            message: '당신의 턴이 아닙니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
+          return;
+        }
         // await takeAction(pid, 17, 1);
         queryClient.invalidateQueries(['actionBoard']);
         setPrompt({
@@ -601,7 +736,16 @@ export default function ActionBoard() {
           />
         </>
       ),
-      onClick: () => {
+      onClick: async () => {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
+          setPrompt({
+            message: '당신의 턴이 아닙니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
+          return;
+        }
         takeAction(pid, 20, 1);
       },
       isAccumul: calcAccumul(19),
@@ -621,7 +765,16 @@ export default function ActionBoard() {
           <img className="w-1/4" src="/img/bread_icon.png" alt="bread" />
         </>
       ),
-      onClick: () => {
+      onClick: async () => {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
+          setPrompt({
+            message: '당신의 턴이 아닙니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
+          return;
+        }
         takeAction(pid, 19, 1);
       },
       isAccumul: calcAccumul(18),
@@ -639,6 +792,15 @@ export default function ActionBoard() {
         </>
       ),
       onClick: async () => {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
+          setPrompt({
+            message: '당신의 턴이 아닙니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
+          return;
+        }
         await takeAction(pid, 22, 1);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
@@ -667,7 +829,16 @@ export default function ActionBoard() {
           />
         </>
       ),
-      onClick: () => {
+      onClick: async () => {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
+          setPrompt({
+            message: '당신의 턴이 아닙니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
+          return;
+        }
         setPrompt({
           message: '활성화 시키고 싶은 보조설비를 선택해주세요',
           buttons: [
@@ -730,7 +901,16 @@ export default function ActionBoard() {
           </div>
         </div>
       ),
-      onClick: () => {
+      onClick: async () => {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
+          setPrompt({
+            message: '당신의 턴이 아닙니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
+          return;
+        }
         // 1. 프롬프트 띄우기
         setPrompt({
           message: '어떤 카드를 활성화시키고 싶으신가요?',
@@ -782,6 +962,15 @@ export default function ActionBoard() {
         </>
       ),
       onClick: async () => {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
+          setPrompt({
+            message: '당신의 턴이 아닙니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
+          return;
+        }
         await takeAction(pid, 25, 1);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
@@ -803,6 +992,15 @@ export default function ActionBoard() {
         </>
       ),
       onClick: async () => {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
+          setPrompt({
+            message: '당신의 턴이 아닙니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
+          return;
+        }
         await takeAction(pid, 24, 1);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
@@ -823,7 +1021,16 @@ export default function ActionBoard() {
           <img className="w-1/3" src="/img/cow_icon.png" alt="cow" />
         </>
       ),
-      onClick: () => {
+      onClick: async () => {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
+          setPrompt({
+            message: '당신의 턴이 아닙니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
+          return;
+        }
         takeAction(pid, 26, 1);
       },
       isAccumul: calcAccumul(25),
@@ -841,6 +1048,15 @@ export default function ActionBoard() {
         </>
       ),
       onClick: async () => {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
+          setPrompt({
+            message: '당신의 턴이 아닙니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
+          return;
+        }
         await takeAction(pid, 27, 1);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
@@ -860,7 +1076,16 @@ export default function ActionBoard() {
           alt="addPerson2"
         />
       ),
-      onClick: () => {
+      onClick: async () => {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
+          setPrompt({
+            message: '당신의 턴이 아닙니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
+          return;
+        }
         takeAction(pid, 29, 1);
       },
       isAccumul: calcAccumul(28),
@@ -880,7 +1105,16 @@ export default function ActionBoard() {
           </div>
         </div>
       ),
-      onClick: () => {
+      onClick: async () => {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
+          setPrompt({
+            message: '당신의 턴이 아닙니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
+          return;
+        }
         takeAction(pid, 28, 1);
       },
       isAccumul: calcAccumul(27),
@@ -912,7 +1146,16 @@ export default function ActionBoard() {
           </div>
         </div>
       ),
-      onClick: () => {
+      onClick: async () => {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
+          setPrompt({
+            message: '당신의 턴이 아닙니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
+          return;
+        }
         takeAction(pid, 30, 1);
       },
       isAccumul: calcAccumul(29),

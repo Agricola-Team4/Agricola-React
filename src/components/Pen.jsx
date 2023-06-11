@@ -9,12 +9,15 @@ export default function Pen({ isStable, type, num, position, pid }) {
   const { setPrompt } = useBackgroundContext();
   const { setIsFbActive, setIsAbActive } = useAuthContext();
   const queryClient = useQueryClient();
+  const clearPromptMsg = time => {
+    setTimeout(() => {
+      setPrompt({ message: '', buttons: [] });
+    }, time);
+  };
   return (
     <div
       className="bg-empty bg-clip-border bg-contain bg-no-repeat flex flex-wrap justify-center items-center p-2"
       onClick={async () => {
-        console.log('hello');
-
         const pid = 1;
         const sheepNum = await getResourceNumById(pid, 7);
         if (sheepNum > 0) {
@@ -23,13 +26,21 @@ export default function Pen({ isStable, type, num, position, pid }) {
               queryClient.invalidateQueries(['resource']);
               queryClient.invalidateQueries(['farmBoard']);
             })
-            .catch(() => {
-              setPrompt({ message: '', buttons: [] });
+            .catch(err => {
+              setPrompt({
+                message: '우리의 수용량을 초과하였습니다.',
+                buttons: [],
+              });
+              clearPromptMsg(2000);
               setIsFbActive(false);
               setIsAbActive(true);
             });
         } else {
-          setPrompt({ message: '', buttons: [] });
+          setPrompt({
+            message: '사용할 수 있는 가축이 없습니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
           setIsFbActive(false);
           setIsAbActive(true);
         }

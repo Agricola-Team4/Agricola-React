@@ -1,9 +1,9 @@
-import React from 'react';
-import { jobImages } from '../constants/imageContants';
-import { useBackgroundContext } from '../context/BackgroundContext';
-import { takeAction } from '../api/agricola';
-import { useAuthContext } from '../context/AuthContext';
-import { useCardBoard } from '../hooks/useCardBoard';
+import React from "react";
+import { jobImages } from "../constants/imageContants";
+import { useBackgroundContext } from "../context/BackgroundContext";
+import { takeAction } from "../api/agricola";
+import { useAuthContext } from "../context/AuthContext";
+import { useCardBoard } from "../hooks/useCardBoard";
 
 export default function Card({
   id,
@@ -27,7 +27,7 @@ export default function Card({
     initCardActive,
   } = useBackgroundContext();
 
-  const { setIsAbActive, setIsCsActive } = useAuthContext();
+  const { setIsAbActive, setIsCsActive, pid } = useAuthContext();
   const { useCard } = useCardBoard();
 
   const handleClickPossible = () => {
@@ -46,15 +46,20 @@ export default function Card({
     }
   };
 
+  const clearPromptMsg = (time) => {
+    setTimeout(() => {
+      setPrompt({ message: "", buttons: [] });
+    }, time);
+  };
+
   return (
     <div
       className={`${ratio} flex justify-center items-center w-full h-1/2 p-2  bg-white`}
       onClick={() => {
-        console.log('card id : ', id, '를 activate 해야합니다');
+        console.log("card id : ", id, "를 activate 해야합니다");
         // takeAction(2, 21, id);
-        const pid = 1;
 
-        // 21 - 집개조,  23- 기본가족늘리기
+        // 21 - 집개조,  23- 기본가족늘리기, 5 - 교습
         useCard.mutate({
           pid,
           aid: condition,
@@ -65,7 +70,7 @@ export default function Card({
         closeP1ActSlot();
         closeP2HaveSlot();
         closeP2ActSlot();
-        setPrompt({ message: '', buttons: [] });
+
         setCondition(0);
         setIsAbActive(true);
         setIsCsActive(false);
@@ -74,8 +79,8 @@ export default function Card({
     >
       <img
         className={`w-44 transition duration-150 ease-out hover:ease-in hover:scale-105 cursor-pointer ${
-          isActive && !isActCardBoard && 'opacity-30'
-        } ${(isActive || !handleClickPossible()) && 'pointer-events-none'}`}
+          isActive && !isActCardBoard && "opacity-30"
+        } ${(isActive || !handleClickPossible()) && "pointer-events-none"}`}
         src={cardPath}
         alt={cardPath}
       />

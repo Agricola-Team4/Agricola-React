@@ -1,6 +1,6 @@
-import ActionBoard from './components/ActionBoard';
-import CardSlotBoard from './components/CardSlotBoard';
-import Prompt from './components/Prompt';
+import ActionBoard from "./components/ActionBoard";
+import CardSlotBoard from "./components/CardSlotBoard";
+import Prompt from "./components/Prompt";
 
 import {
   jobImages_1,
@@ -8,15 +8,15 @@ import {
   majorImages,
   subImages_1,
   subImages_2,
-} from '../src/constants/imageContants';
+} from "../src/constants/imageContants";
 
-import { motion, AnimatePresence } from 'framer-motion';
-import { useCardBoard } from '../src/hooks/useCardBoard';
-import PlayerContainer from './components/PlayerContainer';
-import MouseComponent from './components/MouseComponent';
-import { useState } from 'react';
-import { buildFence } from './api/agricola';
-import { useBackgroundContext } from './context/BackgroundContext';
+import { motion, AnimatePresence } from "framer-motion";
+import { useCardBoard } from "../src/hooks/useCardBoard";
+import PlayerContainer from "./components/PlayerContainer";
+import MouseComponent from "./components/MouseComponent";
+import { useState } from "react";
+import { buildFence } from "./api/agricola";
+import { useBackgroundContext } from "./context/BackgroundContext";
 
 const aa = [
   { id: 8, left: true, right: true, top: true, bottom: true },
@@ -42,8 +42,8 @@ function App() {
     actCardDataQuery: { isLoading: actLoading, error: actErr, data: actCard },
     majorCardDataQuery: { data: majorCard },
   } = useCardBoard();
-  console.log('<<', actCard);
-  haveCard && console.log('card data come', actCard);
+  // console.log('<<', actCard);
+  // haveCard && console.log('card data come', actCard);
 
   const {
     fencePosition1,
@@ -160,7 +160,7 @@ function App() {
               isActCardBoard={true}
             />
           ) : (
-            ''
+            ""
           )}
         </AnimatePresence>
       </div>

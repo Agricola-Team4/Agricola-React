@@ -1,20 +1,26 @@
+
 import React from 'react';
 import Room from './Room';
 import Field from './Field';
 import Pen from './Pen';
 import Empty from './Empty';
 import { useBackgroundContext } from '../context/BackgroundContext';
+
 import {
   buildFence,
   takeAction,
   constructLand,
   updatePenInFarmboard,
   createPenposition,
+  constructRoom,
+  getAvailableSlot,
+  constructStable,
 } from '../api/agricola';
 import { useAuthContext } from '../context/AuthContext';
 import { useActionBoard } from '../hooks/useActionBoard';
 import { useQueryClient } from '@tanstack/react-query';
 import { fencePos } from '../constants/fencePos';
+
 
 export default function Land({ data, pid }) {
   const {
@@ -26,7 +32,16 @@ export default function Land({ data, pid }) {
     setCondition,
     fencePosition1,
     setFencePosition1,
+    validRoomArr,
+    setValidRoomArr,
+    validStableArr,
+    setValidStableArr,
   } = useBackgroundContext();
+  const clearPromptMsg = () => {
+    setTimeout(() => {
+      setPrompt({ message: "", buttons: [] });
+    }, 3000);
+  };
 
   const { setIsFbActive, setIsAbActive } = useAuthContext();
 
@@ -62,15 +77,15 @@ export default function Land({ data, pid }) {
                   setSelectedPosArr(updatedPosArr);
                   // handleAdd(data.position);
                   setPrompt({
-                    message: '울타리를 치고 싶은 땅을 모두 선택하세요.',
+                    message: "울타리를 치고 싶은 땅을 모두 선택하세요.",
                     buttons: [
                       {
-                        text: '최종선택완료',
+                        text: "최종선택완료",
                         onClick: () => {
                           const pid = 1;
-                          console.log('짝은어레이', updatedPosArr);
+                          console.log("짝은어레이", updatedPosArr);
                           // buildFence(pid, [updatedPosArr]);
-                          setPrompt({ message: '', buttons: [] });
+                          setPrompt({ message: "", buttons: [] });
                           setSelectedPosArr([]);
                           setIsFbActive(false);
                           setIsAbActive(true);
@@ -78,9 +93,9 @@ export default function Land({ data, pid }) {
                         },
                       },
                       {
-                        text: '이어서 치기',
+                        text: "이어서 치기",
                         onClick: () => {
-                          console.log('이어서 치기', updatedPosArr);
+                          console.log("이어서 치기", updatedPosArr);
                           // buildFence(pid, [updatedPosArr]);
                           setSelectedPosArr([]);
                         },
@@ -98,31 +113,168 @@ export default function Land({ data, pid }) {
                     player_id = 1;
                   }
                   // console.log("vd", validLandArr);
-                  console.log('땅넘버', clickedLand);
-                  console.log('validarr', validLandArr);
+                  console.log("땅넘버", clickedLand);
+                  console.log("validarr", validLandArr);
                   if (validLandArr.includes(clickedLand)) {
                     // 밭 짓기
                     await constructLand(pid, clickedLand);
-                    console.log('pid??', pid);
+                    console.log("pid??", pid);
 
-                    setPrompt({ message: '', buttons: [] });
+                    setPrompt({ message: "", buttons: [] });
                     setCondition(0);
                     setIsFbActive(true);
                     setIsAbActive(true);
                   } else {
                     setPrompt({
                       message:
-                        '그곳에는 밭을 지을 수 없습니다. 다른 밭을 선택하세요.',
+                        "그곳에는 밭을 지을 수 없습니다. 다시 선택하세요.",
                       buttons: [],
                     });
                   }
                   return queryClient.invalidateQueries([
-                    'farmBoard',
+                    "farmBoard",
                     player_id,
                   ]);
                 } else if (condition === 3) {
-                  setCondition(0);
-                } else if (condition === -1) {
+                  const clickedLand = data.position;
+                  console.log("선택된 땅은 : ", clickedLand);
+
+                  if (validRoomArr.includes(clickedLand)) {
+                    console.log("유효한 번호입니다.");
+                    await constructRoom(pid, clickedLand);
+                    queryClient.invalidateQueries(["farmBoard", pid]);
+                    queryClient.invalidateQueries(["resource"]);
+
+                    // setPrompt({
+                    //   message: "방이 만들어졌습니다.",
+                    //   buttons: [],
+                    // });
+                    // clearPromptMsg();
+                    // 3초
+                    console.log("방 만들기 끝");
+
+                    setPrompt({
+                      message: "외양간을 지으시겠습니까?",
+                      buttons: [
+                        {
+                          text: "Yes",
+                          onClick: async () => {
+                            console.log("외양간을 지어보자");
+                            const available_stable_Arr = await getAvailableSlot(
+                              pid,
+                              "cowshed"
+                            );
+                            console.log(
+                              "getavailabeldSlot 외양간 ver ! pid :",
+                              pid,
+                              available_stable_Arr
+                            );
+                            setValidStableArr(available_stable_Arr);
+
+                            setPrompt({
+                              message:
+                                "외양간을 만들고 싶은 곳을 선택해주세요.",
+                              buttons: [],
+                            });
+
+                            console.log("condition 4로 만들기");
+                            setCondition(4);
+                          },
+                        },
+                        {
+                          text: "No",
+                          onClick: () => {
+                            setPrompt({
+                              message: "행동이 종료되었습니다.",
+                              buttons: [],
+                            });
+                            setCondition(0);
+                            clearPromptMsg();
+                            setIsAbActive(true);
+                            setIsFbActive(false);
+                          },
+                        },
+                      ],
+                    });
+                  } else {
+                    setPrompt({
+                      message:
+                        "그곳에는 방을 만들 수 없습니다. 다시 선택하세요.",
+                      buttons: [],
+                    });
+                    setCondition(3);
+                  }
+                  // setCondition(0);
+                  setIsFbActive(true);
+                  setIsAbActive(true);
+                  return queryClient.invalidateQueries(["farmBoard", pid]);
+                  // 유효한 땅인지 검사하기
+                }
+                 
+                 else if (condition === 4) {
+                  const clickedLand = data.position;
+                  console.log(
+                    "외양간 지을 수 있는 곳 !",
+                    validStableArr,
+                    "선택된 땅은 : ",
+                    clickedLand
+                  );
+
+                  if (validStableArr.includes(clickedLand)) {
+                    // 외양간 짓기
+                    console.log("유효한 번호입니다.");
+                    await constructStable(pid, clickedLand).then((res) => {
+                      console.log("외양간 만들기 성공 !");
+                      return res.data;
+                    });
+
+                    queryClient.invalidateQueries(["farmBoard", pid]);
+                    queryClient.invalidateQueries(["resource"]);
+
+                    setPrompt({
+                      message: "외양간이 만들어졌습니다.",
+                      buttons: [],
+                    });
+                    clearPromptMsg(); // 3초
+
+                    console.log("외양간 만들기 끝");
+
+                    setIsFbActive(false);
+                    setIsAbActive(true);
+                    setCondition(0);
+                  } else {
+                    setPrompt({
+                      message:
+                        "그곳에는 외양간을 만들 수 없습니다. 다시 선택하세요.",
+                      buttons: [],
+                    });
+
+                    setCondition(4);
+                  }
+                } else if (condition === 5) {
+                  const clickedLand = data.position;
+                  console.log("선택된 땅은 : ", clickedLand);
+
+                  if (validRoomArr.includes(clickedLand)) {
+                    console.log("유효한 번호입니다.");
+                    await constructRoom(pid, clickedLand);
+                    queryClient.invalidateQueries(["farmBoard", pid]);
+                    queryClient.invalidateQueries(["resource"]);
+                    console.log("방 만들기 끝");
+                    setPrompt({
+                      message: "방이 만들어졌습니다.",
+                      buttons: [],
+                    });
+                    clearPromptMsg(); // 3초
+                  } else {
+                    setPrompt({
+                      message:
+                        "그곳에는 방을 만들 수 없습니다. 다시 선택하세요.",
+                      buttons: [],
+                    });
+                    setCondition(5);
+                  }
+                else if (condition === -1) {
                   // build fence 대안용
                   const pid = 1;
                   await updatePenInFarmboard(pid, data.position);

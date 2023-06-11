@@ -7,7 +7,7 @@ import { useCardBoard } from '../hooks/useCardBoard';
 
 export default function Card({
   id,
-  cardType,
+  cardPath,
   ratio,
   isActive,
   isActCardBoard,
@@ -19,6 +19,8 @@ export default function Card({
     closeP2HaveSlot,
     closeP2ActSlot,
     setPrompt,
+    condition,
+    setCondition,
   } = useBackgroundContext();
 
   const { setIsAbActive, setIsCsActive } = useAuthContext();
@@ -31,13 +33,20 @@ export default function Card({
         console.log('card id : ', id, '를 activate 해야합니다');
         // takeAction(2, 21, id);
         const pid = 1;
-        useCard.mutate({ pid, cid: id });
+
+        // 21 - 집개조,  23- 기본가족늘리기
+        useCard.mutate({
+          pid,
+          aid: condition,
+          cid: id,
+        });
         closeMajorSlot();
         closeP1HaveSlot();
         closeP1ActSlot();
         closeP2HaveSlot();
         closeP2ActSlot();
         setPrompt({ message: '', buttons: [] });
+        setCondition(0);
         setIsAbActive(true);
         setIsCsActive(false);
       }}
@@ -47,8 +56,8 @@ export default function Card({
           isActive && !isActCardBoard && 'opacity-30 pointer-events-none'
         }`}
         // h-full
-        src={cardType}
-        alt={cardType}
+        src={cardPath}
+        alt={cardPath}
       />
     </div>
   );

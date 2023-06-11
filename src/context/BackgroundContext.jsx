@@ -1,12 +1,12 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState } from 'react';
 
 export const BackgroundContext = createContext();
 export function BackgroundContextProvider({ children }) {
   const [isAnimal, setIsAnimal] = useState({
     visible: false,
-    name: "",
-    num: "",
-    img: "",
+    name: '',
+    num: '',
+    img: '',
   });
 
   const [fencePosition1, setFencePosition1] = useState({
@@ -109,7 +109,7 @@ export function BackgroundContextProvider({ children }) {
   ]);
   const [round, setRound] = useState(5);
 
-  const [prompt, setPrompt] = useState({ message: "", buttons: [] });
+  const [prompt, setPrompt] = useState({ message: '', buttons: [] });
 
   const [selectedPosArr, setSelectedPosArr] = useState([]); //Farmboard arr
 
@@ -119,7 +119,19 @@ export function BackgroundContextProvider({ children }) {
   // 1 : 울타리
   // 2 : 농지
   // 3 : 농장확장
+  // 23 : 기본 가족 늘리기
+  // 21 : 집개조
   const [condition, setCondition] = useState(0);
+
+  // const [isMcActive, setIsMcActive] = useState(false);
+  // const [isScActive, setIsScActive] = useState(false);
+  // const [isJcActive, setIsJcActive] = useState(false);
+
+  // const initCardActive = () => {
+  //   setIsMcActive(false);
+  //   setIsScActive(false);
+  //   setIsJcActive(false);
+  // };
 
   const getSelectedPosArr = () => {
     console.log(selectedPosArr);
@@ -138,12 +150,12 @@ export function BackgroundContextProvider({ children }) {
 
   const openRoundCard = () => {
     if (round < 14) {
-      setRoundArray((prev) => {
+      setRoundArray(prev => {
         const arr = [...prev];
         arr[round] = true;
         return arr;
       });
-      setRound((prev) => prev + 1);
+      setRound(prev => prev + 1);
     }
   };
 
@@ -267,6 +279,13 @@ export function BackgroundContextProvider({ children }) {
         setValidRoomArr,
         validStableArr,
         setValidStableArr,
+        // isMcActive,
+        // setIsMcActive,
+        // isScActive,
+        // setIsScActive,
+        // isJcActive,
+        // setIsJcActive,
+        // initCardActive,
       }}
     >
       {children}

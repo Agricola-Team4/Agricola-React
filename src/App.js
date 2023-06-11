@@ -76,7 +76,6 @@ function App() {
 
   return (
     <>
-      <MouseComponent />
       <div className="flex flex-col lg:flex-row">
         <div className="w-full flex flex-col lg:w-6/12 ">
           <Prompt />
@@ -103,8 +102,8 @@ function App() {
             <CardSlotBoard
               condition={1}
               imageSet={majorCard}
-              col="5"
-              row="2"
+              height="650"
+              width="1000"
               ratio="basis-1/5"
               close={closeMajorSlot}
               isActCardBoard={false}
@@ -113,8 +112,8 @@ function App() {
             <CardSlotBoard
               condition={1}
               imageSet={haveCard && haveCard.p1}
-              col="7"
-              row="2"
+              height="650"
+              width="1300"
               ratio="basis-1/7"
               close={closeP1HaveSlot}
               isActCardBoard={false}
@@ -123,9 +122,9 @@ function App() {
             <CardSlotBoard
               condition={actCard ? 1 : 0}
               imageSet={actCard && actCard.p1}
-              col="7"
-              row="2"
-              ratio="basis-1/7"
+              height="650"
+              width="1000"
+              ratio="basis-1/5"
               close={closeP1ActSlot}
               isActCardBoard={true}
             />
@@ -133,8 +132,8 @@ function App() {
             <CardSlotBoard
               condition={1}
               imageSet={haveCard && haveCard.p2}
-              col="5"
-              row="2"
+              height="650"
+              width="1300"
               ratio="basis-1/7"
               close={closeP2HaveSlot}
               isActCardBoard={false}
@@ -143,8 +142,8 @@ function App() {
             <CardSlotBoard
               condition={actCard ? 1 : 0}
               imageSet={actCard && actCard.p2}
-              col="5"
-              row="2"
+              height="650"
+              width="1000"
               ratio="basis-1/5"
               close={closeP2ActSlot}
               isActCardBoard={true}

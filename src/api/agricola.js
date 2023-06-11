@@ -151,7 +151,6 @@ export async function getTurn() {
 // 💪🏻 Action Board - Take Action 💪🏻
 export async function takeAction(pid, aid, cid) {
   console.log('action id는 ', aid, ' pid는 ', pid);
-
   const turn = await getTurn();
   console.log(turn, pid, aid, cid);
   return await axios
@@ -303,23 +302,32 @@ export async function getPlayerActCard() {
 export async function getMajorCard() {
   const cardSet = {};
 
-  return await axios.get('http://3.36.7.233:3000/playercard/').then(res => {
-    const data = res.data;
-    const major = data.filter(item => 29 <= item.card_id && item.card_id < 39);
+  return await axios
+    .get('http://3.36.7.233:3000/mainfacilitycard/')
+    .then(res => {
+      const major = res.data;
 
-    major.map((item, index) => {
-      const image_key = image_R[item.card_id];
-      const imagePath = all_Images[image_key];
-      // console.log(index, " ?? ", image_key, " ?? ", imagePath);
-      cardSet[image_key] = {
-        id: item.card_id,
-        path: imagePath,
-        activated: item.activate,
-      };
+      major.map((item, index) => {
+        const image_key = image_R[item.card_id];
+        const imagePath = all_Images[image_key];
+        // player_id가 1,2이면 activated 1
+        // player_id가 0이면 activated 0
+        let activated;
+        if ((item.player_id === 1) | (item.player_id === 2)) {
+          activated = 1;
+        } else {
+          activated = 0;
+        }
+        // console.log(index, " ?? ", image_key, " ?? ", imagePath);
+        cardSet[image_key] = {
+          id: item.card_id,
+          path: imagePath,
+          activated: activated,
+        };
+      });
+
+      return cardSet;
     });
-
-    return cardSet;
-  });
 }
 
 export async function raiseAnimal(pid, type, position) {
@@ -407,4 +415,20 @@ export async function getAvailableSlot(pid, type) {
       `http://3.36.7.233:3000/boardposition/get_available_slots/?player_id=${pid}&type=${type}`
     )
     .then(res => res.data.available);
+}
+
+export async function firstPlayerData(pid) {
+  return await axios
+    .get(`http://3.36.7.233:3000/player/${pid}/`)
+    .then(res => res.data.fst_player);
+}
+
+export async function activateCard(pid, cid) {
+  return await axios
+    .put('http://3.36.7.233:3000/playercard/activate_card/', {
+      activate: 1,
+      player_id: pid,
+      card_id: cid,
+    })
+    .then(res => res.data);
 }

@@ -1,19 +1,19 @@
-import React from 'react';
-import Card from './Card';
-import { motion, AnimatePresence } from 'framer-motion';
-import { majorImages } from '../constants/imageContants';
-import { useAuthContext } from '../context/AuthContext';
+import React from "react";
+import Card from "./Card";
+import { motion, AnimatePresence } from "framer-motion";
+import { majorImages } from "../constants/imageContants";
+import { useAuthContext } from "../context/AuthContext";
 
 export default function CardSlotBoard({
   condition,
   imageSet,
-  col,
-  row,
+  height,
+  width,
   ratio,
   close,
   isActCardBoard,
 }) {
-  console.log('card slot condition', condition);
+  console.log("card slot condition", condition);
   const { isCsActive } = useAuthContext();
 
   return (
@@ -24,19 +24,19 @@ export default function CardSlotBoard({
         exit={{ opacity: 0 }}
         transition={{ duration: 0.5 }}
         style={{
-          position: 'fixed',
+          position: "fixed",
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
-          background: 'rgba(0, 0, 0, 0.5)',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
+          background: "rgba(0, 0, 0, 0.5)",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
         }}
       >
         <div
-          style={{ height: '650px', width: '1000px' }}
+          style={{ height: `${height}px`, width: `${width}px` }}
           // style={{ top: "18%", left: "20%", height: "650px" }}
           className="absolute w-fit py-8 px-10 bg-yellow-200 rounded-lg border-8 border-yellow-700"
         >
@@ -48,13 +48,13 @@ export default function CardSlotBoard({
             Ⅹ
           </button>
 
-          <div
-            className={`flex flex-row flex-wrap w-full h-full box-border bg-white ${
-              !isCsActive && 'pointer-events-none'
-            }`}
-          >
-            {condition ? (
-              Object.values(imageSet).map((data, idx) => (
+          {condition ? (
+            <div
+              className={`flex flex-row flex-wrap w-full h-full box-border bg-white ${
+                !isCsActive && "pointer-events-none"
+              }`}
+            >
+              {Object.values(imageSet).map((data) => (
                 <Card
                   key={data.id}
                   id={data.id}
@@ -63,11 +63,13 @@ export default function CardSlotBoard({
                   isActive={data.activated}
                   isActCardBoard={isActCardBoard}
                 ></Card>
-              ))
-            ) : (
-              <p>암것동없음</p>
-            )}
-          </div>
+              ))}
+            </div>
+          ) : (
+            <div className="flex justify-center items-center bg-white w-full h-full">
+              <p className="text-2xl font-bold">Empty</p>
+            </div>
+          )}
         </div>
       </motion.div>
     </>

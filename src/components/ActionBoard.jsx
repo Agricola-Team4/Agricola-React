@@ -335,7 +335,69 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        takeAction(pid, 9, 1);
+        setPrompt({
+          message: '어떤 행동을 하고 싶으신가요?',
+          buttons: [
+            {
+              text: '선플레이어',
+              onClick: () => {
+                // 선플레이어
+                takeAction(pid, 9, 1);
+                queryClient.invalidateQueries(['firstPlayer', pid]);
+
+                setPrompt({
+                  message: '선플레이어가 바뀌었습니다.',
+                  buttons: [],
+                });
+
+                // 2초 후 보조설비 물어보기
+                setTimeout(() => {
+                  setPrompt({
+                    message: '보조설비를 만드시겠습니까?',
+                    buttons: [
+                      {
+                        text: 'Yes',
+                        onClick: () => {
+                          setCondition(9);
+                          setIsCsActive(true);
+                          setIsScActive(true);
+                          setIsJcActive(false);
+                          setIsAbActive(false);
+                          pid === 1 ? openP1HaveSlot() : openP2HaveSlot();
+                        },
+                      },
+                      {
+                        text: 'No',
+                        onClick: () => {
+                          setPrompt({
+                            message: '행동이 종료되었습니다.',
+                            buttons: [],
+                          });
+
+                          setTimeout(() => {
+                            setPrompt({ message: '', buttons: [] });
+                          }, 2000);
+                        },
+                      },
+                    ],
+                  });
+                }, 2000);
+              },
+            },
+            {
+              test: '보조설비',
+              onClick: () => {
+                // 보조설비
+                setCondition(9);
+                setIsCsActive(true);
+                setIsScActive(true);
+                setIsJcActive(false);
+                setIsAbActive(false);
+                pid === 1 ? openP1HaveSlot() : openP2HaveSlot();
+              },
+            },
+          ],
+        });
       },
       isAccumul: calcAccumul(8),
       isOcuupied: data && data[8].is_occupied,
@@ -499,7 +561,38 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        takeAction(pid, 5, 1);
+        setPrompt({
+          message: '활성화 시키고 싶은 직업카드를 선택해주세요',
+          buttons: [],
+        });
+        setCondition(5);
+        pid === 1 ? openP1HaveSlot() : openP2HaveSlot();
+        setIsCsActive(true);
+        setIsScActive(false);
+        setIsJcActive(true);
+        setIsAbActive(false);
+        // await takeAction(pid, 5, 1)
+        //   .then(() => {
+        //     // takeAction 성공
+        //     queryClient.invalidateQueries(["resource", pid]);
+        //     queryClient.invalidateQueries(["actionBoard"]);
+        //   })
+        //   .catch((error) => {
+        //     // let errMsg = ;
+        //     console.log(error.response.data.error);
+        //     if (
+        //       (error.response.data.error =
+        //         "That player seems not to have enough food")
+        //     ) {
+        //       setPrompt({
+        //         message: "교습 행동을 위한 음식이 부족합니다.",
+        //         buttons: [],
+        //       });
+        //       // clear 필요
+        //     } else {
+        //       console.log("동일안함");
+        //     }
+        //   });
       },
       isAccumul: calcAccumul(4),
       isOcuupied: data && data[4].is_occupied,
@@ -746,7 +839,30 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        takeAction(pid, 20, 1);
+        setPrompt({
+          message: '어떤 카드를 활성화시키고 싶으신가요?',
+          buttons: [
+            {
+              text: '주요설비',
+              onClick: () => {
+                openMajorSlot();
+              },
+            },
+            {
+              text: '보조설비',
+              onClick: () => {
+                pid === 1 ? openP1HaveSlot() : openP2HaveSlot();
+              },
+            },
+          ],
+        });
+        setCondition(20);
+        setIsCsActive(true);
+        setIsScActive(true);
+        setIsJcActive(false);
+        setIsMcActive(true);
+
+        setIsAbActive(false);
       },
       isAccumul: calcAccumul(19),
       isOcuupied: data && data[19].is_occupied,

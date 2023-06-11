@@ -434,8 +434,29 @@ export default function ActionBoard() {
           </div>
         </div>
       ),
-      onClick: () => {
-        takeAction(pid, 5, 1);
+      onClick: async () => {
+        await takeAction(pid, 5, 1)
+          .then(() => {
+            // takeAction 성공
+            queryClient.invalidateQueries(["resource", pid]);
+            queryClient.invalidateQueries(["actionBoard"]);
+          })
+          .catch((error) => {
+            // let errMsg = ;
+            console.log(error.response.data.error);
+            if (
+              (error.response.data.error =
+                "That player seems not to have enough food")
+            ) {
+              setPrompt({
+                message: "교습 행동을 위한 음식이 부족합니다.",
+                buttons: [],
+              });
+              // clear 필요
+            } else {
+              console.log("동일안함");
+            }
+          });
       },
       isAccumul: calcAccumul(4),
       isOcuupied: data && data[4].is_occupied,
@@ -543,8 +564,8 @@ export default function ActionBoard() {
       onClick: async () => {
         const a = await takeAction(pid, 18, 1);
         // animalEvent({ name: '양', num: data[17].acc_resource });
-        queryClient.invalidateQueries(['resource']);
-        queryClient.invalidateQueries(['actionBoard']);
+        queryClient.invalidateQueries(["resource"]);
+        queryClient.invalidateQueries(["actionBoard"]);
         if (a !== 0) {
           setPrompt({
             message: '동물을 키울 울타리를 선택하세요!',
@@ -570,9 +591,9 @@ export default function ActionBoard() {
       ),
       onClick: async () => {
         // await takeAction(pid, 17, 1);
-        queryClient.invalidateQueries(['actionBoard']);
+        queryClient.invalidateQueries(["actionBoard"]);
         setPrompt({
-          message: '울타리를 치고 싶은 땅을  선택하세요.',
+          message: "울타리를 치고 싶은 땅을  선택하세요.",
           buttons: [],
         });
         setIsFbActive(true);

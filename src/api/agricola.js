@@ -82,7 +82,7 @@ export async function getResourceNumById(pid, rid) {
     .get(
       `http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}&resource_id=${rid}`
     )
-    .then(res => {
+    .then((res) => {
       return res.data.resource_num;
     });
 }
@@ -177,9 +177,6 @@ export async function takeAction(pid, aid, cid) {
         console.log("res.data : ", res.data);
 
         return res.data;
-      })
-      .catch((err) => {
-        console.log("오류가났대요 : ", err.response.data);
       });
   }
   // prompt에 지금은 player __의 차례가 아닙니다.
@@ -320,25 +317,32 @@ export async function getPlayerActCard() {
 export async function getMajorCard() {
   const cardSet = {};
 
-  return await axios.get("http://3.36.7.233:3000/playercard/").then((res) => {
-    const data = res.data;
-    const major = data.filter(
-      (item) => 29 <= item.card_id && item.card_id < 39
-    );
+  return await axios
+    .get("http://3.36.7.233:3000/mainfacilitycard/")
+    .then((res) => {
+      const major = res.data;
 
-    major.map((item, index) => {
-      const image_key = image_R[item.card_id];
-      const imagePath = all_Images[image_key];
-      // console.log(index, " ?? ", image_key, " ?? ", imagePath);
-      cardSet[image_key] = {
-        id: item.card_id,
-        path: imagePath,
-        activated: item.activate,
-      };
+      major.map((item, index) => {
+        const image_key = image_R[item.card_id];
+        const imagePath = all_Images[image_key];
+        // player_id가 1,2이면 activated 1
+        // player_id가 0이면 activated 0
+        let activated;
+        if ((item.player_id === 1) | (item.player_id === 2)) {
+          activated = 1;
+        } else {
+          activated = 0;
+        }
+        // console.log(index, " ?? ", image_key, " ?? ", imagePath);
+        cardSet[image_key] = {
+          id: item.card_id,
+          path: imagePath,
+          activated: activated,
+        };
+      });
+
+      return cardSet;
     });
-
-    return cardSet;
-  });
 }
 
 export async function raiseAnimal(pid, type, position) {
@@ -390,8 +394,8 @@ export async function isRoundEnd() {
 
 export async function roundEnd() {
   return await axios
-    .get('http://3.36.7.233:3000/gameStatus/round_end/')
-    .then(res => res.data);
+    .get("http://3.36.7.233:3000/gameStatus/round_end/")
+    .then((res) => res.data);
 }
 
 export async function updatePenInFarmboard(pid, pos) {
@@ -405,12 +409,12 @@ export async function updatePenInFarmboard(pid, pos) {
       animal_num: 0,
       board_id: pid,
     })
-    .then(res => res.data);
+    .then((res) => res.data);
 }
 
 export async function createPenposition(pid, pos) {
   return await axios
-    .post('http://3.36.7.233:3000/penposition/', {
+    .post("http://3.36.7.233:3000/penposition/", {
       animal_type: 0,
       max_num: 2,
       current_num: 0,

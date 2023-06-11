@@ -121,11 +121,11 @@ export default function Land({ data, pid }) {
                     queryClient.invalidateQueries(["farmBoard", pid]);
                     queryClient.invalidateQueries(["resource"]);
 
-                    setPrompt({
-                      message: "방이 만들어졌습니다.",
-                      buttons: [],
-                    });
-                    clearPromptMsg();
+                    // setPrompt({
+                    //   message: "방이 만들어졌습니다.",
+                    //   buttons: [],
+                    // });
+                    // clearPromptMsg();
                     // 3초
                     console.log("방 만들기 끝");
 
@@ -197,7 +197,7 @@ export default function Land({ data, pid }) {
                   if (validStableArr.includes(clickedLand)) {
                     // 외양간 짓기
                     console.log("유효한 번호입니다.");
-                    constructStable(pid, clickedLand).then((res) => {
+                    await constructStable(pid, clickedLand).then((res) => {
                       console.log("외양간 만들기 성공 !");
                       return res.data;
                     });
@@ -222,6 +222,7 @@ export default function Land({ data, pid }) {
                         "그곳에는 외양간을 만들 수 없습니다. 다시 선택하세요.",
                       buttons: [],
                     });
+
                     setCondition(4);
                   }
                 } else if (condition === 5) {
@@ -234,6 +235,11 @@ export default function Land({ data, pid }) {
                     queryClient.invalidateQueries(["farmBoard", pid]);
                     queryClient.invalidateQueries(["resource"]);
                     console.log("방 만들기 끝");
+                    setPrompt({
+                      message: "방이 만들어졌습니다.",
+                      buttons: [],
+                    });
+                    clearPromptMsg(); // 3초
                   } else {
                     setPrompt({
                       message:

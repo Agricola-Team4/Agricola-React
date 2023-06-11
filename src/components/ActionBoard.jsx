@@ -233,7 +233,7 @@ export default function ActionBoard() {
             // no : 그냥 turn 끝
             break;
           case 2: // 방만 가능
-            console.log("방, 외양간 만들 수 있는 case ", action_case);
+            console.log("방 만들 수 있는 case ", action_case);
             setPrompt({
               message: "방을 만드시겠습니까?",
               buttons: [

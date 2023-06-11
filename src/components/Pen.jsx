@@ -1,15 +1,37 @@
 import React from 'react';
 import { playerRed, resource } from '../constants/imageContants';
-import { raiseAnimal } from '../api/agricola';
+import { getResourceNumById, raiseAnimal } from '../api/agricola';
+import { useBackgroundContext } from '../context/BackgroundContext';
+import { useAuthContext } from '../context/AuthContext';
+import { useQueryClient } from '@tanstack/react-query';
 
 export default function Pen({ isStable, type, num, position }) {
+  const { setPrompt } = useBackgroundContext();
+  const { setIsFbActive, setIsAbActive } = useAuthContext();
+  const queryClient = useQueryClient();
   return (
     <div
       className="bg-empty bg-clip-border bg-contain bg-no-repeat flex flex-wrap justify-center items-center p-2"
-      onClick={() => {
+      onClick={async () => {
         console.log('hello');
         const pid = 1;
-        raiseAnimal(pid, 1, position);
+        const sheepNum = await getResourceNumById(pid, 7);
+        if (sheepNum > 0) {
+          raiseAnimal(pid, 1, position)
+            .then(() => {
+              queryClient.invalidateQueries(['resource']);
+              queryClient.invalidateQueries(['farmBoard']);
+            })
+            .catch(() => {
+              setPrompt({ message: '', buttons: [] });
+              setIsFbActive(false);
+              setIsAbActive(true);
+            });
+        } else {
+          setPrompt({ message: '', buttons: [] });
+          setIsFbActive(false);
+          setIsAbActive(true);
+        }
       }}
     >
       <div className="basis-1/2 aspect-square flex justify-center items-center">

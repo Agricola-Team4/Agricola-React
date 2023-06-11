@@ -4,10 +4,17 @@ import Field from './Field';
 import Pen from './Pen';
 import Empty from './Empty';
 import { useBackgroundContext } from '../context/BackgroundContext';
-import { buildFence, takeAction, constructLand } from '../api/agricola';
+import {
+  buildFence,
+  takeAction,
+  constructLand,
+  updatePenInFarmboard,
+  createPenposition,
+} from '../api/agricola';
 import { useAuthContext } from '../context/AuthContext';
 import { useActionBoard } from '../hooks/useActionBoard';
 import { useQueryClient } from '@tanstack/react-query';
+import { fencePos } from '../constants/fencePos';
 
 export default function Land({ data, pid }) {
   const {
@@ -17,11 +24,29 @@ export default function Land({ data, pid }) {
     validLandArr,
     condition,
     setCondition,
+    fencePosition1,
+    setFencePosition1,
   } = useBackgroundContext();
 
   const { setIsFbActive, setIsAbActive } = useAuthContext();
 
   const queryClient = useQueryClient();
+
+  const updateFenceposition = (pos, fencePosition, setFencePosition) => {
+    const box = { ...fencePosition };
+    box[fencePos[pos].top] = true;
+    box[fencePos[pos].left] = true;
+    box[fencePos[pos].right] = true;
+    box[fencePos[pos].bottom] = true;
+    // console.log(box);
+    // for (let a of arr) {
+    //   box[farmBoard[a.position_id].top] = a.top;
+    //   box[farmBoard[a.position_id].left] = a.left;
+    //   box[farmBoard[a.position_id].right] = a.right;
+    //   box[farmBoard[a.position_id].bottom] = a.bottom;
+    // }
+    setFencePosition(box);
+  };
 
   return (
     <div className="relative basis-9/31 aspect-square cursor-pointer transition duration-150 ease-in hover:scale-105 p-0.5 ">
@@ -97,6 +122,44 @@ export default function Land({ data, pid }) {
                   ]);
                 } else if (condition === 3) {
                   setCondition(0);
+                } else if (condition === -1) {
+                  // build fence 대안용
+                  const pid = 1;
+                  await updatePenInFarmboard(pid, data.position);
+                  await createPenposition(pid, data.position);
+                  updateFenceposition(
+                    data.position,
+                    fencePosition1,
+                    setFencePosition1
+                  );
+                  queryClient.invalidateQueries(['farmBoard', pid]);
+                  setPrompt({ message: '', buttons: [] });
+                  setIsFbActive(false);
+                  setIsAbActive(true);
+                  setCondition(0);
+                  // setPrompt({
+                  //   message: '울타리를 치고 싶은 땅을 모두 선택하세요.',
+                  //   buttons: [
+                  //     {
+                  //       text: '최종선택완료',
+                  //       onClick: () => {
+                  //         const pid = 1;
+                  //         console.log('짝은어레이');
+                  //         setPrompt({ message: '', buttons: [] });
+
+                  //         setIsFbActive(false);
+                  //         setIsAbActive(true);
+                  //         setCondition(0);
+                  //       },
+                  //     },
+                  //     {
+                  //       text: '이어서 치기',
+                  //       onClick: () => {
+                  //         console.log('이어서 치기');
+                  //       },
+                  //     },
+                  //   ],
+                  // });
                 }
               }}
             />

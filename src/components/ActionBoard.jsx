@@ -326,6 +326,8 @@ export default function ActionBoard() {
       onClick: async () => {
         const a = await takeAction(pid, 18, 1);
         // animalEvent({ name: '양', num: data[17].acc_resource });
+        queryClient.invalidateQueries(['resource']);
+        queryClient.invalidateQueries(['actionBoard']);
         if (a !== 0) {
           setPrompt({
             message: '동물을 키울 울타리를 선택하세요!',
@@ -349,29 +351,16 @@ export default function ActionBoard() {
           <img className="w-1/4" src="/img/fence_icon.png" alt="fence" />
         </div>
       ),
-      onClick: () => {
+      onClick: async () => {
+        // await takeAction(pid, 17, 1);
+        queryClient.invalidateQueries(['actionBoard']);
         setPrompt({
-          message: '울타리를 치고 싶은 땅을 모두 선택하세요.',
-          buttons: [
-            {
-              text: '최종선택완료',
-              onClick: () => {
-                const pid = 1;
-                console.log('짝은어레이', []);
-                // buildFence(pid, [updatedPosArr]);
-              },
-            },
-            {
-              text: '이어서 치기',
-              onClick: () => {
-                console.log('이어서 치기');
-              },
-            },
-          ],
+          message: '울타리를 치고 싶은 땅을  선택하세요.',
+          buttons: [],
         });
-        setCondition(1);
         setIsFbActive(true);
         setIsAbActive(false);
+        setCondition(-1);
       },
       isAccumul: calcAccumul(16),
       isOcuupied: data && data[16].is_occupied,

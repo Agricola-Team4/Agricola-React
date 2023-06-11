@@ -4,6 +4,7 @@ import { useBackgroundContext } from "../context/BackgroundContext";
 import { activateCard, takeAction } from "../api/agricola";
 import { useAuthContext } from "../context/AuthContext";
 import { useCardBoard } from "../hooks/useCardBoard";
+import { QueryClient } from "@tanstack/react-query";
 
 export default function Card({
   id,
@@ -29,6 +30,7 @@ export default function Card({
 
   const { setIsAbActive, setIsCsActive, pid } = useAuthContext();
   const { useCard } = useCardBoard();
+  const queryClient = new QueryClient();
 
   const handleClickPossible = () => {
     if (0 < id && id <= 14) {
@@ -61,7 +63,7 @@ export default function Card({
 
         if (condition === 9) {
           // 직접 activate card 시키기
-          await activateCard(pid, cid);
+          await activateCard(pid, id);
           setPrompt({
             message: "카드가 활성화 되었습니다.",
             buttons: [],
@@ -76,7 +78,7 @@ export default function Card({
 
           clearPromptMsg(2000);
         } else {
-          // 21 - 집개조,  23- 기본가족늘리기, 5 - 교습
+          // 21 - 집개조,  23- 기본가족늘리기, 5 - 교습, 19- 곡식활용 중 빵굽기
           useCard.mutate({
             pid,
             aid: condition,
@@ -97,7 +99,10 @@ export default function Card({
       <img
         className={`w-44 transition duration-150 ease-out hover:ease-in hover:scale-105 cursor-pointer ${
           isActive && !isActCardBoard && "opacity-30"
-        } ${(isActive || !handleClickPossible()) && "pointer-events-none"}`}
+        } ${
+          ((isMcActive ? false : isActive) || !handleClickPossible()) &&
+          "pointer-events-none"
+        }`}
         src={cardPath}
         alt={cardPath}
       />

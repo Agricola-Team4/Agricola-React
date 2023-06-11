@@ -1,17 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 
-export default function Fence({ ratio, isVertical, isActive }) {
-  // const [isActive, setIsActive] = useState(false);
-
+export default function Fence({ ratio, isVertical, isActive, pid }) {
   return (
     <div
-      className={`${ratio} bg-fence	p-1 rounded-lg 
+      className={`${ratio} ${
+        pid % 2 ? 'bg-fenceRed' : 'bg-fenceBlue'
+      }	rounded-lg border-2 border-black 
       ${isVertical ? '' : 'aspect-9/1'} ${
-        isActive ? 'opacity-100' : 'opacity-20'
+        isActive ? 'opacity-100' : 'opacity-10'
       }`}
-      // onClick={() => {
-      //   setIsActive(!isActive);
-      // }}
     ></div>
   );
 }

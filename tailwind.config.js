@@ -38,6 +38,8 @@ module.exports = withMT({
       },
       backgroundColor: {
         fence: 'rgb(120 53 15)',
+        fenceRed: 'rgb(191 16 15)',
+        fenceBlue: 'rgb(64 210 208)',
       },
     },
   },

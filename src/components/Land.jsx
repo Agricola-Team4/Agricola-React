@@ -51,13 +51,6 @@ export default function Land({ data, pid }) {
     box[fencePos[pos].left] = true;
     box[fencePos[pos].right] = true;
     box[fencePos[pos].bottom] = true;
-    // console.log(box);
-    // for (let a of arr) {
-    //   box[farmBoard[a.position_id].top] = a.top;
-    //   box[farmBoard[a.position_id].left] = a.left;
-    //   box[farmBoard[a.position_id].right] = a.right;
-    //   box[farmBoard[a.position_id].bottom] = a.bottom;
-    // }
     setFencePosition(box);
   };
 
@@ -68,6 +61,7 @@ export default function Land({ data, pid }) {
           0: (
             <Empty
               isStable={false}
+              pid={pid}
               onClick={async () => {
                 if (condition === 1) {
                   // '울타리' 클릭 이벤트
@@ -328,14 +322,16 @@ export default function Land({ data, pid }) {
               type={data && data.animal_type}
               num={data && data.animal_num}
               position={data && data.position}
+              pid={pid}
             />
           ),
-          4: <Empty isStable={true} />,
+          4: <Empty isStable={true} pid={pid} />,
           5: (
             <Pen
               isStable={true}
               type={data && data.animal_type}
               num={data && data.animal_num}
+              pid={pid}
             />
           ),
         }[data && data.position_type]

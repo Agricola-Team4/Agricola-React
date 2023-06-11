@@ -1,10 +1,9 @@
-import React from 'react';
-import { jobImages } from '../constants/imageContants';
-import { useBackgroundContext } from '../context/BackgroundContext';
-import { activateCard, takeAction } from '../api/agricola';
-import { useAuthContext } from '../context/AuthContext';
-import { useCardBoard } from '../hooks/useCardBoard';
-import { useQueryClient } from '@tanstack/react-query';
+import React from "react";
+import { jobImages } from "../constants/imageContants";
+import { useBackgroundContext } from "../context/BackgroundContext";
+import { activateCard, takeAction } from "../api/agricola";
+import { useAuthContext } from "../context/AuthContext";
+import { useCardBoard } from "../hooks/useCardBoard";
 
 export default function Card({
   id,
@@ -30,7 +29,6 @@ export default function Card({
 
   const { setIsAbActive, setIsCsActive, pid } = useAuthContext();
   const { useCard } = useCardBoard();
-  const queryClient = useQueryClient();
 
   const handleClickPossible = () => {
     if (0 < id && id <= 14) {
@@ -48,9 +46,9 @@ export default function Card({
     }
   };
 
-  const clearPromptMsg = time => {
+  const clearPromptMsg = (time) => {
     setTimeout(() => {
-      setPrompt({ message: '', buttons: [] });
+      setPrompt({ message: "", buttons: [] });
     }, time);
   };
 
@@ -58,27 +56,27 @@ export default function Card({
     <div
       className={`${ratio} flex justify-center items-center w-full h-1/2 p-2  bg-white`}
       onClick={async () => {
-        console.log('card id : ', id, '를 activate 해야합니다');
+        console.log("card id : ", id, "를 activate 해야합니다");
         // takeAction(2, 21, id);
 
         if (condition === 9) {
           // 직접 activate card 시키기
-          await activateCard(pid, id);
+          await activateCard(pid, cid);
           setPrompt({
-            message: '카드가 활성화 되었습니다.',
+            message: "카드가 활성화 되었습니다.",
             buttons: [],
           });
-          queryClient.invalidateQueries(['haveCardData']);
-          queryClient.invalidateQueries(['majorCardData']);
-          queryClient.invalidateQueries(['actCardData']);
-          queryClient.invalidateQueries(['actionBoard']);
-          queryClient.invalidateQueries(['farmBoard']);
-          queryClient.invalidateQueries(['resource']);
+          queryClient.invalidateQueries(["haveCardData"]);
+          queryClient.invalidateQueries(["majorCardData"]);
+          queryClient.invalidateQueries(["actCardData"]);
+          queryClient.invalidateQueries(["actionBoard"]);
+          queryClient.invalidateQueries(["farmBoard"]);
+          queryClient.invalidateQueries(["resource"]);
           setCondition(0);
 
           clearPromptMsg(2000);
         } else {
-          // 21 - 집개조,  23- 기본가족늘리기, 5 - 교습
+          // 21 - 집개조,  23- 기본가족늘리기, 5 - 교습, 19- 곡식활용 중 빵굽기
           useCard.mutate({
             pid,
             aid: condition,
@@ -98,8 +96,11 @@ export default function Card({
     >
       <img
         className={`w-44 transition duration-150 ease-out hover:ease-in hover:scale-105 cursor-pointer ${
-          isActive && !isActCardBoard && 'opacity-30'
-        } ${(isActive || !handleClickPossible()) && 'pointer-events-none'}`}
+          isActive && !isActCardBoard && "opacity-30"
+        } ${
+          ((isMcActive ? false : isActive) || !handleClickPossible()) &&
+          "pointer-events-none"
+        }`}
         src={cardPath}
         alt={cardPath}
       />

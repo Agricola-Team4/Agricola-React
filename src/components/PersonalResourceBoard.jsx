@@ -47,15 +47,13 @@ export default function PersonalResourceBoard({ pid }) {
     },
     getFirstPlayer: { data: fp },
   } = useResource(pid);
-
+  // console.log("what is ", pid, " fp ? : ", fp);
   return (
     <>
       <div className="flex flex-row justify-center bg-brown-100 mb-1 rounded-lg p-1">
         <div className="basis-2/12 flex flex-col items-center pt-3 justify-center border-r-2">
           {/* // 테스트 필요 */}
-          {true && (
-            <img className="w-4 absolute top-1 z-10" src={first} alt="" />
-          )}
+          {fp && <img className="w-4 absolute top-1 z-10" src={first} alt="" />}
           <Profile
             img={pid === 1 ? profile_img1 : profile_img2}
             name={pid === 1 ? "dongree" : "hyeseon"}

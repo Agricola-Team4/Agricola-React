@@ -47,13 +47,20 @@ export function useCardBoard() {
 
       onError: (err) => {
         console.log("err msg", err, "condition ", condition);
-        if ((condition = 5)) {
+        if (condition === 5) {
           console.log("err msg", err.response.data.error);
           setPrompt({
             message: "교습 행동을 위한 음식이 부족합니다.",
             buttons: [],
           });
+          clearPromptMsg(2000);
           // clearPromptMsg(3000);
+        } else if (condition === 19) {
+          setPrompt({
+            message: "곡식이 없어 빵굽기를 할 수 없습니다.",
+            buttons: [],
+          });
+          clearPromptMsg(2000);
         }
       },
     }

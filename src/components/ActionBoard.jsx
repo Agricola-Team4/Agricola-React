@@ -965,9 +965,6 @@ export default function ActionBoard() {
             },
           ],
         });
-
-        await takeAction(pid, 19, 1);
-        queryClient.invalidateQueries(["actionBoard"]);
       },
       isAccumul: calcAccumul(18),
       isOcuupied: data && data[18].is_occupied,

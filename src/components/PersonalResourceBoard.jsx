@@ -1,25 +1,26 @@
-import React from 'react';
-import sheep_img from '../assets/images/sheep_icon.png';
-import cow_img from '../assets/images/cow_icon.png';
-import reed_img from '../assets/images/reed_icon.png';
-import boar_img from '../assets/images/boar_icon.png';
-import grain_img from '../assets/images/grain_icon.png';
-import soil_img from '../assets/images/soil_icon.png';
-import stone_img from '../assets/images/stone_icon.png';
-import vege_img from '../assets/images/vege_icon.png';
-import wood_img from '../assets/images/wood_icon.png';
-import food_img from '../assets/images/food_icon.png';
-import profile_img1 from '../assets/images/example.jpg';
-import profile_img2 from '../assets/images/korea.png';
-import farmer_red_img from '../assets/images/farmer_icon_red.png';
-import fence_red_img from '../assets/images/fence_icon_red.png';
-import stable_red_img from '../assets/images/stable_icon_red.png';
-import farmer_blue_img from '../assets/images/farmer_icon_blue.png';
-import fence_blue_img from '../assets/images/fence_icon_blue.png';
-import stable_blue_img from '../assets/images/stable_icon_blue.png';
-import useResource from '../hooks/useResource';
-import ResourceInfo from './ResourceInfo';
-import Profile from './Profile';
+import React from "react";
+import sheep_img from "../assets/images/sheep_icon.png";
+import cow_img from "../assets/images/cow_icon.png";
+import reed_img from "../assets/images/reed_icon.png";
+import boar_img from "../assets/images/boar_icon.png";
+import grain_img from "../assets/images/grain_icon.png";
+import soil_img from "../assets/images/soil_icon.png";
+import stone_img from "../assets/images/stone_icon.png";
+import vege_img from "../assets/images/vege_icon.png";
+import wood_img from "../assets/images/wood_icon.png";
+import food_img from "../assets/images/food_icon.png";
+import profile_img1 from "../assets/images/example.jpg";
+import profile_img2 from "../assets/images/baby.JPG";
+import farmer_red_img from "../assets/images/farmer_icon_red.png";
+import fence_red_img from "../assets/images/fence_icon_red.png";
+import stable_red_img from "../assets/images/stable_icon_red.png";
+import farmer_blue_img from "../assets/images/farmer_icon_blue.png";
+import fence_blue_img from "../assets/images/fence_icon_blue.png";
+import stable_blue_img from "../assets/images/stable_icon_blue.png";
+import first from "../assets/images/first_icon.png";
+import useResource from "../hooks/useResource";
+import ResourceInfo from "./ResourceInfo";
+import Profile from "./Profile";
 
 export default function PersonalResourceBoard({ pid }) {
   const {
@@ -44,15 +45,20 @@ export default function PersonalResourceBoard({ pid }) {
         stable,
       } = {},
     },
+    getFirstPlayer: { data: fp },
   } = useResource(pid);
 
   return (
     <>
       <div className="flex flex-row justify-center bg-brown-100 mb-1 rounded-lg p-1">
-        <div className="basis-2/12 flex flex-col items-center pt-4 border-r-2">
+        <div className="basis-2/12 flex flex-col items-center pt-3 justify-center border-r-2">
+          {/* // 테스트 필요 */}
+          {true && (
+            <img className="w-4 absolute top-1 z-10" src={first} alt="" />
+          )}
           <Profile
             img={pid === 1 ? profile_img1 : profile_img2}
-            name={pid === 1 ? 'dongree' : 'hyeseon'}
+            name={pid === 1 ? "dongree" : "hyeseon"}
           />
         </div>
 

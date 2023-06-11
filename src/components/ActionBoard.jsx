@@ -42,6 +42,9 @@ export default function ActionBoard() {
     setValidRoomArr,
     validStableArr,
     setValidStableArr,
+    setIsMcActive,
+    setIsScActive,
+    setIsJcActive,
   } = useBackgroundContext();
 
   const {
@@ -685,6 +688,7 @@ export default function ActionBoard() {
         });
         setCondition(23);
         pid === 1 ? openP1HaveSlot() : openP2HaveSlot();
+        setIsScActive(true);
         setIsAbActive(false);
         setIsCsActive(true);
       },
@@ -760,6 +764,8 @@ export default function ActionBoard() {
           ],
         });
         setCondition(21);
+        setIsScActive(true);
+        setIsMcActive(true);
         setIsAbActive(false);
         setIsCsActive(true);
       },

@@ -15,6 +15,7 @@ export default function CardSlotBoard({
 }) {
   console.log('card slot condition', condition);
   const { isCsActive } = useAuthContext();
+
   return (
     <>
       <motion.div

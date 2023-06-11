@@ -21,10 +21,30 @@ export default function Card({
     setPrompt,
     condition,
     setCondition,
+    isMcActive,
+    isScActive,
+    isJcActive,
+    initCardActive,
   } = useBackgroundContext();
 
   const { setIsAbActive, setIsCsActive } = useAuthContext();
   const { useCard } = useCardBoard();
+
+  const handleClickPossible = () => {
+    if (0 < id && id <= 14) {
+      // 직업카드
+      if (isJcActive) return true;
+      else return false;
+    } else if (14 < id && id <= 28) {
+      // 보조설비
+      if (isScActive) return true;
+      else return false;
+    } else {
+      // 주요설비
+      if (isMcActive) return true;
+      else return false;
+    }
+  };
 
   return (
     <div
@@ -49,13 +69,13 @@ export default function Card({
         setCondition(0);
         setIsAbActive(true);
         setIsCsActive(false);
+        initCardActive();
       }}
     >
       <img
         className={`w-44 transition duration-150 ease-out hover:ease-in hover:scale-105 cursor-pointer ${
-          isActive && !isActCardBoard && 'opacity-30 pointer-events-none'
-        }`}
-        // h-full
+          isActive && !isActCardBoard && 'opacity-30'
+        } ${(isActive || !handleClickPossible()) && 'pointer-events-none'}`}
         src={cardPath}
         alt={cardPath}
       />

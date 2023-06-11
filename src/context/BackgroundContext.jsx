@@ -123,15 +123,15 @@ export function BackgroundContextProvider({ children }) {
   // 21 : 집개조
   const [condition, setCondition] = useState(0);
 
-  // const [isMcActive, setIsMcActive] = useState(false);
-  // const [isScActive, setIsScActive] = useState(false);
-  // const [isJcActive, setIsJcActive] = useState(false);
+  const [isMcActive, setIsMcActive] = useState(false);
+  const [isScActive, setIsScActive] = useState(false);
+  const [isJcActive, setIsJcActive] = useState(false);
 
-  // const initCardActive = () => {
-  //   setIsMcActive(false);
-  //   setIsScActive(false);
-  //   setIsJcActive(false);
-  // };
+  const initCardActive = () => {
+    setIsMcActive(false);
+    setIsScActive(false);
+    setIsJcActive(false);
+  };
 
   const getSelectedPosArr = () => {
     console.log(selectedPosArr);
@@ -279,13 +279,13 @@ export function BackgroundContextProvider({ children }) {
         setValidRoomArr,
         validStableArr,
         setValidStableArr,
-        // isMcActive,
-        // setIsMcActive,
-        // isScActive,
-        // setIsScActive,
-        // isJcActive,
-        // setIsJcActive,
-        // initCardActive,
+        isMcActive,
+        setIsMcActive,
+        isScActive,
+        setIsScActive,
+        isJcActive,
+        setIsJcActive,
+        initCardActive,
       }}
     >
       {children}

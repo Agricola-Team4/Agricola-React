@@ -1,5 +1,6 @@
-import axios from "axios";
-import { createContext, useContext, useEffect, useState } from "react";
+import axios from 'axios';
+import { createContext, useContext, useEffect, useState } from 'react';
+import { setFirstPlayer } from '../api/agricola';
 
 export const AuthContext = createContext();
 
@@ -12,11 +13,12 @@ export function AuthContextProvider({ children }) {
 
   useEffect(() => {
     // player 정보 가져오기 http://3.36.7.233:3000/player
-    axios
-      .get("http://3.36.7.233:3000/player/choose_first_player")
-      .then((res) => {
-        console.log("첫번째 플레이어 뽑습니다", res.data);
-      });
+    // axios
+    //   .get("http://3.36.7.233:3000/player/choose_first_player")
+    //   .then((res) => {
+    //     console.log("첫번째 플레이어 뽑습니다", res.data);
+    //   });
+    setFirstPlayer();
   }, []);
 
   return (

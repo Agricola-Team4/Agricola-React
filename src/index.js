@@ -1,38 +1,35 @@
-import React from "react";
-import ReactDOM from "react-dom/client";
-import "./index.css";
-import App from "./App";
-import reportWebVitals from "./reportWebVitals";
-
-import { RouterProvider } from "react-router-dom";
-import { createBrowserRouter } from "react-router-dom";
-
-import Login from "./components/Login";
-import { AuthContextProvider } from "./context/AuthContext";
-import DragTest from "./components/DragTest";
-import { BackgroundContextProvider } from "./context/BackgroundContext";
-
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import React from 'react';
+import ReactDOM from 'react-dom/client';
+import './index.css';
+import App from './App';
+import reportWebVitals from './reportWebVitals';
+import { RouterProvider } from 'react-router-dom';
+import { createBrowserRouter } from 'react-router-dom';
+import Login from './components/Login';
+import { AuthContextProvider } from './context/AuthContext';
+import DragTest from './components/DragTest';
+import { BackgroundContextProvider } from './context/BackgroundContext';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { WebSocketProvider } from './context/WebSocketContext';
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <App />,
     errorElement: <div>에러</div>,
   },
   {
-    path: "/login",
+    path: '/login',
     element: <Login />,
   },
   {
-    path: "/dragTest",
+    path: '/dragTest',
     element: <DragTest />,
   },
 ]);
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
+const root = ReactDOM.createRoot(document.getElementById('root'));
 
 const queryClient = new QueryClient();
 root.render(
@@ -40,7 +37,9 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
         <BackgroundContextProvider>
-          <RouterProvider router={router} />
+          <WebSocketProvider>
+            <RouterProvider router={router} />
+          </WebSocketProvider>
         </BackgroundContextProvider>
       </AuthContextProvider>
       <ReactQueryDevtools />

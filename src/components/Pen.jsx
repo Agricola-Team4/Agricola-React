@@ -1,20 +1,17 @@
-
 import React from 'react';
-import { playerRed, resource } from '../constants/imageContants';
+import { playerRed, playerBlue, resource } from '../constants/imageContants';
 import { getResourceNumById, raiseAnimal } from '../api/agricola';
 import { useBackgroundContext } from '../context/BackgroundContext';
 import { useAuthContext } from '../context/AuthContext';
 import { useQueryClient } from '@tanstack/react-query';
 
-
-export default function Pen({ isStable, type, num, position }) {
+export default function Pen({ isStable, type, num, position, pid }) {
   const { setPrompt } = useBackgroundContext();
   const { setIsFbActive, setIsAbActive } = useAuthContext();
   const queryClient = useQueryClient();
   return (
     <div
       className="bg-empty bg-clip-border bg-contain bg-no-repeat flex flex-wrap justify-center items-center p-2"
-
       onClick={async () => {
         console.log('hello');
 
@@ -42,8 +39,8 @@ export default function Pen({ isStable, type, num, position }) {
         {isStable && (
           <img
             className="basis-6/12"
-            style={{ height: "auto", width: "40px" }}
-            src={playerRed.stable}
+            style={{ height: 'auto', width: '40px' }}
+            src={pid % 2 ? playerRed.stable : playerBlue.stable}
             alt="외양간"
           />
         )}

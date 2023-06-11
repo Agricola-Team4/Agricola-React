@@ -13,8 +13,9 @@ export default function CardSlotBoard({
   close,
   isActCardBoard,
 }) {
-  console.log('condition', condition);
+  console.log('card slot condition', condition);
   const { isCsActive } = useAuthContext();
+
   return (
     <>
       <motion.div
@@ -53,11 +54,11 @@ export default function CardSlotBoard({
             }`}
           >
             {condition ? (
-              Object.values(imageSet).map(data => (
+              Object.values(imageSet).map((data, idx) => (
                 <Card
                   key={data.id}
                   id={data.id}
-                  cardType={data.path}
+                  cardPath={data.path}
                   ratio={ratio}
                   isActive={data.activated}
                   isActCardBoard={isActCardBoard}

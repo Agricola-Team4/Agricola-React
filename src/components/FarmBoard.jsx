@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import Fence from './Fence';
 import Land from './Land';
 import { useAuthContext } from '../context/AuthContext';
@@ -23,24 +23,28 @@ export default function FarmBoard({ pid }) {
         ratio="basis-9/31"
         isVertical={false}
         isActive={fencePosition && fencePosition[1]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-9/31"
         isVertical={false}
         isActive={fencePosition && fencePosition[2]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-9/31"
         isVertical={false}
         isActive={fencePosition && fencePosition[3]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[4]}
+        pid={pid}
       />
       <Land
         data={
@@ -57,6 +61,7 @@ export default function FarmBoard({ pid }) {
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[5]}
+        pid={pid}
       />
       <Land
         data={
@@ -73,6 +78,7 @@ export default function FarmBoard({ pid }) {
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[6]}
+        pid={pid}
       />
       <Land
         data={
@@ -89,30 +95,35 @@ export default function FarmBoard({ pid }) {
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[7]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-9/31"
         isVertical={false}
         isActive={fencePosition && fencePosition[8]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-9/31"
         isVertical={false}
         isActive={fencePosition && fencePosition[9]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-9/31"
         isVertical={false}
         isActive={fencePosition && fencePosition[10]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[11]}
+        pid={pid}
       />
       <Land
         data={
@@ -128,6 +139,7 @@ export default function FarmBoard({ pid }) {
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[12]}
+        pid={pid}
       />
       <Land
         data={
@@ -143,6 +155,7 @@ export default function FarmBoard({ pid }) {
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[13]}
+        pid={pid}
       />
       <Land
         data={
@@ -158,30 +171,35 @@ export default function FarmBoard({ pid }) {
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[14]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-9/31"
         isVertical={false}
         isActive={fencePosition && fencePosition[15]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-9/31"
         isVertical={false}
         isActive={fencePosition && fencePosition[16]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-9/31"
         isVertical={false}
         isActive={fencePosition && fencePosition[17]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[18]}
+        pid={pid}
       />
       <Land
         data={
@@ -197,6 +215,7 @@ export default function FarmBoard({ pid }) {
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[19]}
+        pid={pid}
       />
       <Land
         data={
@@ -212,6 +231,7 @@ export default function FarmBoard({ pid }) {
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[20]}
+        pid={pid}
       />
       <Land
         data={
@@ -227,30 +247,35 @@ export default function FarmBoard({ pid }) {
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[21]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-9/31"
         isVertical={false}
         isActive={fencePosition && fencePosition[22]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-9/31"
         isVertical={false}
         isActive={fencePosition && fencePosition[23]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-9/31"
         isVertical={false}
         isActive={fencePosition && fencePosition[24]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[25]}
+        pid={pid}
       />
       <Land
         data={
@@ -266,6 +291,7 @@ export default function FarmBoard({ pid }) {
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[26]}
+        pid={pid}
       />
       <Land
         data={
@@ -281,6 +307,7 @@ export default function FarmBoard({ pid }) {
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[27]}
+        pid={pid}
       />
       <Land
         data={
@@ -296,30 +323,35 @@ export default function FarmBoard({ pid }) {
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[28]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-9/31"
         isVertical={false}
         isActive={fencePosition && fencePosition[29]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-9/31"
         isVertical={false}
         isActive={fencePosition && fencePosition[30]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-9/31"
         isVertical={false}
         isActive={fencePosition && fencePosition[31]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[32]}
+        pid={pid}
       />
       <Land
         data={
@@ -335,6 +367,7 @@ export default function FarmBoard({ pid }) {
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[33]}
+        pid={pid}
       />
       <Land
         data={
@@ -350,6 +383,7 @@ export default function FarmBoard({ pid }) {
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[34]}
+        pid={pid}
       />
       <Land
         data={
@@ -365,24 +399,28 @@ export default function FarmBoard({ pid }) {
         ratio="basis-1/31"
         isVertical={true}
         isActive={fencePosition && fencePosition[35]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-9/31"
         isVertical={false}
         isActive={fencePosition && fencePosition[36]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-9/31"
         isVertical={false}
         isActive={fencePosition && fencePosition[37]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
       <Fence
         ratio="basis-9/31"
         isVertical={false}
         isActive={fencePosition && fencePosition[38]}
+        pid={pid}
       />
       <div className="basis-1/31"></div>
     </section>

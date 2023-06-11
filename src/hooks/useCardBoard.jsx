@@ -20,15 +20,18 @@ export function useCardBoard() {
 
   // const queryKey
 
-  const useCard = useMutation(({ pid, cid }) => takeAction(pid, 21, cid), {
-    onSuccess: () => {
-      queryClient.invalidateQueries(['haveCardData']);
-      queryClient.invalidateQueries(['majorCardData']);
-      queryClient.invalidateQueries(['actCardData']);
-      queryClient.invalidateQueries(['actionBoard']);
-      queryClient.invalidateQueries(['farmBoard']);
-    }, // queryKey 유효성 제거
-  });
+  const useCard = useMutation(
+    ({ pid, aid, cid }) => takeAction(pid, aid, cid),
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['haveCardData']);
+        queryClient.invalidateQueries(['majorCardData']);
+        queryClient.invalidateQueries(['actCardData']);
+        queryClient.invalidateQueries(['actionBoard']);
+        queryClient.invalidateQueries(['farmBoard']);
+      }, // queryKey 유효성 제거
+    }
+  );
 
   return {
     haveCardDataQuery,

@@ -1,28 +1,27 @@
-import React from "react";
-import sheep_img from "../assets/images/sheep_icon.png";
-import cow_img from "../assets/images/cow_icon.png";
-import reed_img from "../assets/images/reed_icon.png";
-import boar_img from "../assets/images/boar_icon.png";
-import grain_img from "../assets/images/grain_icon.png";
-import soil_img from "../assets/images/soil_icon.png";
-import stone_img from "../assets/images/stone_icon.png";
-import vege_img from "../assets/images/vege_icon.png";
-import wood_img from "../assets/images/wood_icon.png";
-import food_img from "../assets/images/food_icon.png";
-import profile_img1 from "../assets/images/example.jpg";
-import profile_img2 from "../assets/images/korea.png";
-import farmer_red_img from "../assets/images/farmer_icon_red.png";
-import fence_red_img from "../assets/images/fence_icon_red.png";
-import stable_red_img from "../assets/images/stable_icon_red.png";
-import useResource from "../hooks/useResource";
-import ResourceInfo from "./ResourceInfo";
-import Profile from "./Profile";
-import { useAuthContext } from "../context/AuthContext";
-import axios from "axios";
+import React from 'react';
+import sheep_img from '../assets/images/sheep_icon.png';
+import cow_img from '../assets/images/cow_icon.png';
+import reed_img from '../assets/images/reed_icon.png';
+import boar_img from '../assets/images/boar_icon.png';
+import grain_img from '../assets/images/grain_icon.png';
+import soil_img from '../assets/images/soil_icon.png';
+import stone_img from '../assets/images/stone_icon.png';
+import vege_img from '../assets/images/vege_icon.png';
+import wood_img from '../assets/images/wood_icon.png';
+import food_img from '../assets/images/food_icon.png';
+import profile_img1 from '../assets/images/example.jpg';
+import profile_img2 from '../assets/images/korea.png';
+import farmer_red_img from '../assets/images/farmer_icon_red.png';
+import fence_red_img from '../assets/images/fence_icon_red.png';
+import stable_red_img from '../assets/images/stable_icon_red.png';
+import farmer_blue_img from '../assets/images/farmer_icon_blue.png';
+import fence_blue_img from '../assets/images/fence_icon_blue.png';
+import stable_blue_img from '../assets/images/stable_icon_blue.png';
+import useResource from '../hooks/useResource';
+import ResourceInfo from './ResourceInfo';
+import Profile from './Profile';
 
 export default function PersonalResourceBoard({ pid }) {
-  // const { pid } = useAuthContext();
-  // console.log(pid);
   const {
     resourceQuery: {
       isLadoing,
@@ -53,7 +52,7 @@ export default function PersonalResourceBoard({ pid }) {
         <div className="basis-2/12 flex flex-col items-center pt-4 border-r-2">
           <Profile
             img={pid === 1 ? profile_img1 : profile_img2}
-            name={pid === 1 ? "dongree" : "hyeseon"}
+            name={pid === 1 ? 'dongree' : 'hyeseon'}
           />
         </div>
 
@@ -128,13 +127,13 @@ export default function PersonalResourceBoard({ pid }) {
           <div className="basis-2/7 flex flex-col justify-center items-center">
             <div className="flex flex-row pb-2">
               <ResourceInfo
-                img={farmer_red_img}
+                img={pid % 2 ? farmer_red_img : farmer_blue_img}
                 num={farmer}
                 alt="farmer_red"
                 basis="basis-1/2"
               />
               <ResourceInfo
-                img={farmer_red_img}
+                img={pid % 2 ? farmer_red_img : farmer_blue_img}
                 num={baby}
                 alt="baby"
                 basis="basis-1/2"
@@ -142,13 +141,13 @@ export default function PersonalResourceBoard({ pid }) {
             </div>
             <div className="flex">
               <ResourceInfo
-                img={fence_red_img}
+                img={pid % 2 ? fence_red_img : fence_blue_img}
                 num={fence}
                 alt="fence_red"
                 basis="basis-1/2"
               />
               <ResourceInfo
-                img={stable_red_img}
+                img={pid % 2 ? stable_red_img : stable_blue_img}
                 num={stable}
                 alt="stable_red"
                 basis="basis-1/2"

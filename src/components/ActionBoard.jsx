@@ -23,6 +23,12 @@ export default function ActionBoard() {
 
   const queryClient = useQueryClient();
 
+  const clearPromptMsg = () => {
+    setTimeout(() => {
+      setPrompt({ message: "", buttons: [] });
+    }, 3000);
+  };
+
   const {
     setPrompt,
     openMajorSlot,
@@ -215,21 +221,17 @@ export default function ActionBoard() {
                       buttons: [],
                     });
                     setCondition(0);
-                    setTimeout(function () {
-                      setPrompt({
-                        message: "",
-                        buttons: [],
-                      });
-                    }, 3000); // 3초
+                    clearPromptMsg();
                     setIsAbActive(true);
                     setIsFbActive(false);
                   },
                 },
               ],
             });
-          // yes : 외양간 로직 후 끝
+            // yes : 외양간 로직 후 끝
 
-          // no : 그냥 turn 끝
+            // no : 그냥 turn 끝
+            break;
           case 2: // 방만 가능
             console.log("방, 외양간 만들 수 있는 case ", action_case);
             setPrompt({
@@ -265,32 +267,24 @@ export default function ActionBoard() {
                       buttons: [],
                     });
                     setCondition(0);
-                    setTimeout(function () {
-                      setPrompt({
-                        message: "",
-                        buttons: [],
-                      });
-                    }, 3000); // 3초
+                    clearPromptMsg();
                     setIsAbActive(true);
                     setIsFbActive(false);
                   },
                 },
               ],
             });
+            break;
           case -1:
             setPrompt({
               message: "아무 행동도 할 수 없습니다.",
               buttons: [],
             });
             setCondition(0);
-            setTimeout(function () {
-              setPrompt({
-                message: "",
-                buttons: [],
-              });
-            }, 3000); // 3초
-
+            clearPromptMsg();
+            break;
           default:
+            console.log("default");
             break;
         }
         // 초기화

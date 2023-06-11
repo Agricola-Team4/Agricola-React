@@ -35,11 +35,6 @@ export default function Land({ data, pid }) {
     validStableArr,
     setValidStableArr,
   } = useBackgroundContext();
-  const clearPromptMsg = () => {
-    setTimeout(() => {
-      setPrompt({ message: '', buttons: [] });
-    }, 3000);
-  };
 
   const { setIsFbActive, setIsAbActive } = useAuthContext();
 
@@ -52,6 +47,12 @@ export default function Land({ data, pid }) {
     box[fencePos[pos].right] = true;
     box[fencePos[pos].bottom] = true;
     setFencePosition(box);
+  };
+
+  const clearPromptMsg = time => {
+    setTimeout(() => {
+      setPrompt({ message: '', buttons: [] });
+    }, time);
   };
 
   return (
@@ -180,8 +181,8 @@ export default function Land({ data, pid }) {
                               message: '행동이 종료되었습니다.',
                               buttons: [],
                             });
+                            clearPromptMsg(3000);
                             setCondition(0);
-                            clearPromptMsg();
                             setIsAbActive(true);
                             setIsFbActive(false);
                           },
@@ -225,7 +226,7 @@ export default function Land({ data, pid }) {
                       message: '외양간이 만들어졌습니다.',
                       buttons: [],
                     });
-                    clearPromptMsg(); // 3초
+                    clearPromptMsg(3000); // 3초
 
                     console.log('외양간 만들기 끝');
 
@@ -255,7 +256,7 @@ export default function Land({ data, pid }) {
                       message: '방이 만들어졌습니다.',
                       buttons: [],
                     });
-                    clearPromptMsg(); // 3초
+                    clearPromptMsg(3000); // 3초
                   } else {
                     setPrompt({
                       message:

@@ -20,7 +20,6 @@ export default function Pen({ isStable, type, num, position, pid }) {
     <div
       className="bg-empty bg-clip-border bg-contain bg-no-repeat flex flex-wrap justify-center items-center p-2"
       onClick={async () => {
-        const pid = 1;
         const sheepNum = await getResourceNumById(pid, 7);
         if (sheepNum > 0) {
           raiseAnimal(pid, 1, position, socket)

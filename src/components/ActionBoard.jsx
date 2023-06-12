@@ -501,14 +501,13 @@ export default function ActionBoard() {
         setCondition(2);
         const result = await takeAction(pid, 12, 1, socket);
         queryClient.invalidateQueries(['actionBoard']);
+        queryClient.invalidateQueries(['farmBoard']);
 
         console.log('resss', result);
         console.log('resss2', result.lands);
         // 농지 condition으로 변경
         setValidLandArr(result.lands);
         console.log('validLandArr', validLandArr);
-        const isEnd = await isRoundEnd();
-        isEnd && roundEnd();
       },
       isAccumul: calcAccumul(11),
       isOcuupied: data && data[11].is_occupied,
@@ -824,7 +823,7 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        // await takeAction(pid, 17, 1);
+        await takeAction(pid, 17, 1, socket);
         queryClient.invalidateQueries(['actionBoard']);
         setPrompt({
           message: '울타리를 치고 싶은 땅을  선택하세요.',
@@ -1136,7 +1135,6 @@ export default function ActionBoard() {
             {
               text: '보조설비',
               onClick: () => {
-                const pid = 1;
                 pid === 1 ? openP1HaveSlot() : openP2HaveSlot();
               },
             },

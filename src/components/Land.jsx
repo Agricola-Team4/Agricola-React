@@ -14,11 +14,14 @@ import {
   constructRoom,
   getAvailableSlot,
   constructStable,
+  isRoundEnd,
+  roundEnd,
 } from '../api/agricola';
 import { useAuthContext } from '../context/AuthContext';
 import { useActionBoard } from '../hooks/useActionBoard';
 import { useQueryClient } from '@tanstack/react-query';
 import { fencePos } from '../constants/fencePos';
+import { useWebSocketContext } from '../context/WebSocketContext';
 
 export default function Land({ data, pid }) {
   const {
@@ -30,11 +33,14 @@ export default function Land({ data, pid }) {
     setCondition,
     fencePosition1,
     setFencePosition1,
+    fencePosition2,
+    setFencePosition2,
     validRoomArr,
     setValidRoomArr,
     validStableArr,
     setValidStableArr,
   } = useBackgroundContext();
+  const { socket } = useWebSocketContext();
 
   const { setIsFbActive, setIsAbActive } = useAuthContext();
 
@@ -75,7 +81,6 @@ export default function Land({ data, pid }) {
                       {
                         text: '최종선택완료',
                         onClick: () => {
-                          const pid = 1;
                           console.log('짝은어레이', updatedPosArr);
                           // buildFence(pid, [updatedPosArr]);
                           setPrompt({ message: '', buttons: [] });
@@ -110,13 +115,15 @@ export default function Land({ data, pid }) {
                   console.log('validarr', validLandArr);
                   if (validLandArr.includes(clickedLand)) {
                     // 밭 짓기
-                    await constructLand(pid, clickedLand);
+                    await constructLand(pid, clickedLand, socket);
                     console.log('pid??', pid);
 
                     setPrompt({ message: '', buttons: [] });
                     setCondition(0);
                     setIsFbActive(true);
                     setIsAbActive(true);
+                    const isEnd = await isRoundEnd();
+                    isEnd && roundEnd();
                   } else {
                     setPrompt({
                       message:
@@ -134,7 +141,7 @@ export default function Land({ data, pid }) {
 
                   if (validRoomArr.includes(clickedLand)) {
                     console.log('유효한 번호입니다.');
-                    await constructRoom(pid, clickedLand);
+                    await constructRoom(pid, clickedLand, socket);
                     queryClient.invalidateQueries(['farmBoard', pid]);
                     queryClient.invalidateQueries(['resource']);
 
@@ -214,10 +221,12 @@ export default function Land({ data, pid }) {
                   if (validStableArr.includes(clickedLand)) {
                     // 외양간 짓기
                     console.log('유효한 번호입니다.');
-                    await constructStable(pid, clickedLand).then(res => {
-                      console.log('외양간 만들기 성공 !');
-                      return res.data;
-                    });
+                    await constructStable(pid, clickedLand, socket).then(
+                      res => {
+                        console.log('외양간 만들기 성공 !');
+                        return res.data;
+                      }
+                    );
 
                     queryClient.invalidateQueries(['farmBoard', pid]);
                     queryClient.invalidateQueries(['resource']);
@@ -248,7 +257,7 @@ export default function Land({ data, pid }) {
 
                   if (validRoomArr.includes(clickedLand)) {
                     console.log('유효한 번호입니다.');
-                    await constructRoom(pid, clickedLand);
+                    await constructRoom(pid, clickedLand, socket);
                     queryClient.invalidateQueries(['farmBoard', pid]);
                     queryClient.invalidateQueries(['resource']);
                     console.log('방 만들기 끝');
@@ -267,19 +276,27 @@ export default function Land({ data, pid }) {
                   }
                 } else if (condition === -1) {
                   // build fence 대안용
-                  const pid = 1;
-                  await updatePenInFarmboard(pid, data.position);
-                  await createPenposition(pid, data.position);
-                  updateFenceposition(
-                    data.position,
-                    fencePosition1,
-                    setFencePosition1
-                  );
-                  queryClient.invalidateQueries(['farmBoard', pid]);
-                  setPrompt({ message: '', buttons: [] });
-                  setIsFbActive(false);
-                  setIsAbActive(true);
-                  setCondition(0);
+
+                  await updatePenInFarmboard(pid, data.position, socket);
+                  createPenposition(pid, data.position, socket).then(() => {
+                    pid % 2
+                      ? updateFenceposition(
+                          data.position,
+                          fencePosition1,
+                          setFencePosition1
+                        )
+                      : updateFenceposition(
+                          data.position,
+                          fencePosition2,
+                          setFencePosition2
+                        );
+                    queryClient.invalidateQueries(['farmBoard', pid]);
+                    setPrompt({ message: '', buttons: [] });
+                    setIsFbActive(false);
+                    setIsAbActive(true);
+                    setCondition(0);
+                  });
+
                   // setPrompt({
                   //   message: '울타리를 치고 싶은 땅을 모두 선택하세요.',
                   //   buttons: [

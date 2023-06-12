@@ -176,6 +176,7 @@ export async function takeAction(pid, aid, cid, socket) {
       action_id: aid,
       card_id: cid,
     };
+    console.log(socket);
     socket.send(JSON.stringify(message));
     console.log('takeaction');
     socket.onmessage = e => {
@@ -399,6 +400,7 @@ export async function constructLand(pid, land_num, socket) {
       player_id: pid,
       land_num: land_num,
     };
+    console.log(socket);
     socket.send(JSON.stringify(message));
 
     socket.onmessage = e => {
@@ -470,7 +472,7 @@ export async function roundEnd() {
 export async function updatePenInFarmboard(pid, pos, socket) {
   return new Promise((resolve, reject) => {
     const message = {
-      type: 'boardposition',
+      type: 'patch_boardposition',
       id: `${(pid - 1) * 15 + pos}`,
       position: pos,
       position_type: 3,
@@ -496,7 +498,7 @@ export async function updatePenInFarmboard(pid, pos, socket) {
 export async function createPenposition(pid, pos, socket) {
   return new Promise((resolve, reject) => {
     const message = {
-      type: 'penposition',
+      type: 'post_penposition',
       animal_type: 0,
       max_num: 2,
       current_num: 0,

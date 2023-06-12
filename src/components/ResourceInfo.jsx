@@ -11,7 +11,8 @@ export default function ResourceInfo({ img, num, alt, basis }) {
       />
       <p className="text-xs font-bold">
         {num}
-        {(alt === 'fence_red' || alt === 'stable_red') && '/15'}
+        {alt === 'fence_red' && '/15'}
+        {alt === 'stable_red' && '/4'}
       </p>
     </div>
   );

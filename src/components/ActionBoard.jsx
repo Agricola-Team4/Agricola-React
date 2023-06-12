@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from './Box';
 import RoundBox from './RoundBox';
 import useResource from '../hooks/useResource';
@@ -7,6 +7,7 @@ import { useAuthContext } from '../context/AuthContext';
 import {
   getActionBoard,
   getAvailableSlot,
+  getCurrentRound,
   getMyturn,
   isRoundEnd,
   roundEnd,
@@ -51,6 +52,12 @@ export default function ActionBoard() {
     actionBoardQuery: { isLadoing, error, data },
   } = useActionBoard();
   // console.log("validLandArr", validLandArr);
+
+  const [roundround, setRoundRound] = useState(5);
+
+  useEffect(() => {
+    getCurrentRound().then(a => setRoundRound(a[0].round));
+  }, []);
 
   const { animalEvent } = useFarmBoard();
   const calcAccumul = idx => {
@@ -136,7 +143,7 @@ export default function ActionBoard() {
         }
         setIsFbActive(false);
         setIsAbActive(false);
-        const result = await takeAction(pid, 8, 1, socket);
+        const result = await takeAction(pid, 8, 1, socket, queryClient);
         queryClient.invalidateQueries(['actionBoard']);
         const action_case = result.code;
         console.log('?', action_case);
@@ -348,7 +355,7 @@ export default function ActionBoard() {
               text: '선플레이어',
               onClick: async () => {
                 // 선플레이어
-                await takeAction(pid, 9, 1, socket);
+                await takeAction(pid, 9, 1, socket, queryClient);
                 queryClient.invalidateQueries(['firstPlayer', pid]);
                 queryClient.invalidateQueries(['actionBoard']);
 
@@ -397,7 +404,7 @@ export default function ActionBoard() {
               text: '보조설비',
               onClick: async () => {
                 // 보조설비
-                await takeAction(pid, 9, 1, socket);
+                await takeAction(pid, 9, 1, socket, queryClient);
                 setCondition(9);
                 setIsCsActive(true);
                 setIsScActive(true);
@@ -432,7 +439,7 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 10, 1, socket);
+        await takeAction(pid, 10, 1, socket, queryClient);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
         queryClient.invalidateQueries(['farmBoard', pid]);
@@ -464,7 +471,7 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 11, 1, socket);
+        await takeAction(pid, 11, 1, socket, queryClient);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['farmBoard', pid]);
         queryClient.invalidateQueries(['resource', pid]);
@@ -500,7 +507,7 @@ export default function ActionBoard() {
           buttons: [],
         });
         setCondition(2);
-        const result = await takeAction(pid, 12, 1, socket);
+        const result = await takeAction(pid, 12, 1, socket, queryClient);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['farmBoard']);
 
@@ -535,7 +542,7 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 13, 1, socket);
+        await takeAction(pid, 13, 1, socket, queryClient);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
         queryClient.invalidateQueries(['farmBoard', pid]);
@@ -640,7 +647,7 @@ export default function ActionBoard() {
       //     clearPromptMsg(2000);
       //     return;
       //   }
-      //   await takeAction(pid, 14, 1);
+      //   await takeAction(pid, 14, 1, socket, queryClient);
       //   queryClient.invalidateQueries(["actionBoard"]);
       //   queryClient.invalidateQueries(["resource", pid]);
       //   const isEnd = await isRoundEnd();
@@ -679,7 +686,7 @@ export default function ActionBoard() {
       //     clearPromptMsg(2000);
       //     return;
       //   }
-      //   await takeAction(pid, 15, 1);
+      //   await takeAction(pid, 15, 1, socket, queryClient);
       //   queryClient.invalidateQueries(["actionBoard"]);
       //   queryClient.invalidateQueries(["resource", pid]);
       //   const isEnd = await isRoundEnd();
@@ -711,32 +718,32 @@ export default function ActionBoard() {
           <img className="w-1/4" src="/img/food_icon.png" alt="food" />
         </>
       ),
-      // onClick: async () => {
-      //   const isMyTurn = await getMyturn(pid);
-      //   if (!isMyTurn) {
-      //     setPrompt({
-      //       message: '당신의 턴이 아닙니다.',
-      //       buttons: [],
-      //     });
-      //     clearPromptMsg(2000);
-      //     return;
-      //   }
-      //   await takeAction(pid, 16, 1);
-      //   queryClient.invalidateQueries(["actionBoard"]);
-      //   queryClient.invalidateQueries(["resource", pid]);
-      //   const isEnd = await isRoundEnd();
-      //   isEnd && roundEnd().then(()=>openRoundCard());
-      // },
+      onClick: async () => {
+        const isMyTurn = await getMyturn(pid);
+        if (!isMyTurn) {
+          setPrompt({
+            message: '당신의 턴이 아닙니다.',
+            buttons: [],
+          });
+          clearPromptMsg(2000);
+          return;
+        }
+        await takeAction(pid, 16, 1, socket, queryClient);
+        queryClient.invalidateQueries(['actionBoard']);
+        queryClient.invalidateQueries(['resource', pid]);
+        const isEnd = await isRoundEnd();
+        isEnd && roundEnd().then(() => openRoundCard());
+      },
 
       //임시로 만든 플레이어 초기화 버튼
-      onClick: async () => {
-        await axios
-          .get('http://3.36.7.233:3000/player/choose_first_player')
-          .then(res => {
-            console.log('첫번째 플레이어 뽑습니다', res.data);
-          });
-        queryClient.invalidateQueries(['firstPlayer']);
-      },
+      // onClick: async () => {
+      //   await axios
+      //     .get('http://3.36.7.233:3000/player/choose_first_player')
+      //     .then(res => {
+      //       console.log('첫번째 플레이어 뽑습니다', res.data);
+      //     });
+      //   queryClient.invalidateQueries(['firstPlayer']);
+      // },
 
       isAccumul: calcAccumul(15),
       isOcuupied: data && data[15].is_occupied,
@@ -764,7 +771,7 @@ export default function ActionBoard() {
           return;
         }
 
-        await takeAction(pid, 18, 1, socket)
+        await takeAction(pid, 18, 1, socket, queryClient)
           .then(res => {
             switch (res.case) {
               case 0:
@@ -827,7 +834,7 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 17, 1, socket);
+        await takeAction(pid, 17, 1, socket, queryClient);
         queryClient.invalidateQueries(['actionBoard']);
         setPrompt({
           message: '울타리를 치고 싶은 땅을  선택하세요.',
@@ -1012,7 +1019,7 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 22, 1, socket);
+        await takeAction(pid, 22, 1, socket, queryClient);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
         queryClient.invalidateQueries(['farmBoard', pid]);
@@ -1186,7 +1193,7 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 25, 1, socket);
+        await takeAction(pid, 25, 1, socket, queryClient);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
         queryClient.invalidateQueries(['farmBoard', pid]);
@@ -1218,7 +1225,7 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 24, 1, socket);
+        await takeAction(pid, 24, 1, socket, queryClient);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
         queryClient.invalidateQueries(['farmBoard', pid]);
@@ -1251,7 +1258,7 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 26, 1, socket);
+        await takeAction(pid, 26, 1, socket, queryClient);
         const isEnd = await isRoundEnd();
         isEnd && roundEnd().then(() => openRoundCard());
       },
@@ -1280,7 +1287,7 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 27, 1, socket);
+        await takeAction(pid, 27, 1, socket, queryClient);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
         queryClient.invalidateQueries(['farmBoard', pid]);
@@ -1312,7 +1319,7 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 29, 1, socket);
+        await takeAction(pid, 29, 1, socket, queryClient);
         const isEnd = await isRoundEnd();
         isEnd && roundEnd().then(() => openRoundCard());
       },
@@ -1344,7 +1351,7 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 28, 1, socket);
+        await takeAction(pid, 28, 1, socket, queryClient);
         const isEnd = await isRoundEnd();
         isEnd && roundEnd().then(() => openRoundCard());
       },
@@ -1388,7 +1395,7 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 30, 1, socket);
+        await takeAction(pid, 30, 1, socket, queryClient);
         const isEnd = await isRoundEnd();
         isEnd && roundEnd().then(() => openRoundCard());
       },
@@ -1416,6 +1423,7 @@ export default function ActionBoard() {
 
   const renderRound = (round, basis, roundNum, inum) => {
     return round.map((info, idx) => {
+      // return idx + inum < roundround ? (
       return roundArray[idx + inum] ? (
         <Box
           ratio={basis}
@@ -1578,6 +1586,7 @@ export default function ActionBoard() {
       <div className="basis-1/5"></div>
       {renderRound(round5, 'basis-1/5', 5, 11)}
       {roundArray[13] ? (
+        // 13 < roundround ? (
         <Box
           ratio="basis-1/5"
           isSquare={true}

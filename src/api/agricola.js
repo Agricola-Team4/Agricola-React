@@ -166,7 +166,7 @@ export async function getTurn() {
     });
 }
 
-export async function takeAction(pid, aid, cid, socket) {
+export async function takeAction(pid, aid, cid, socket, queryClient) {
   const turn = await getTurn();
   return new Promise((resolve, reject) => {
     const message = {
@@ -182,6 +182,13 @@ export async function takeAction(pid, aid, cid, socket) {
     socket.onmessage = e => {
       const receivedData = JSON.parse(e.data);
       resolve(receivedData);
+      queryClient.invalidateQueries(['actionBoard']);
+      queryClient.invalidateQueries(['farmBoard']);
+      queryClient.invalidateQueries(['resource']);
+      queryClient.invalidateQueries(['haveCardData']);
+      queryClient.invalidateQueries(['majorCardData']);
+      queryClient.invalidateQueries(['actCardData']);
+      queryClient.invalidateQueries(['firstPlayer']);
     };
     socket.onerror = error => {
       reject(error);

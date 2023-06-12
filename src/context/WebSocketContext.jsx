@@ -10,7 +10,7 @@ export function WebSocketProvider({ children }) {
 
   useEffect(() => {
     const newSocket = new WebSocket(
-      'ws://3.36.7.233:3000/ws/agricola/player_2/'
+      'ws://3.36.7.233:3000/ws/agricola/player_1/'
     );
 
     newSocket.onopen = () => {
@@ -19,13 +19,13 @@ export function WebSocketProvider({ children }) {
 
     newSocket.onmessage = res => {
       console.log(res);
-      // queryClient.invalidateQueries(['actionBoard']);
-      // queryClient.invalidateQueries(['farmBoard']);
-      // queryClient.invalidateQueries(['resource']);
-      // queryClient.invalidateQueries(['haveCardData']);
-      // queryClient.invalidateQueries(['majorCardData']);
-      // queryClient.invalidateQueries(['actCardData']);
-      // queryClient.invalidateQueries(['firstPlayer']);
+      queryClient.invalidateQueries(['actionBoard']);
+      queryClient.invalidateQueries(['farmBoard']);
+      queryClient.invalidateQueries(['resource']);
+      queryClient.invalidateQueries(['haveCardData']);
+      queryClient.invalidateQueries(['majorCardData']);
+      queryClient.invalidateQueries(['actCardData']);
+      queryClient.invalidateQueries(['firstPlayer']);
     };
 
     newSocket.onclose = () => {

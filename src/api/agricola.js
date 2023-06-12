@@ -248,11 +248,12 @@ export async function buildFence(id, arr, socket) {
     const message = {
       type: 'build_fence',
       player_id: id,
-      fence_array: arr,
+      fence_array: JSON.stringify(arr),
     };
     socket.send(JSON.stringify(message));
 
     socket.onmessage = e => {
+      console.log(e);
       const receivedData = JSON.parse(e.data);
       resolve(receivedData);
     };
@@ -391,6 +392,7 @@ export async function raiseAnimal(pid, type, position, socket) {
     socket.send(JSON.stringify(message));
 
     socket.onmessage = e => {
+      console.log(e);
       const receivedData = JSON.parse(e.data);
       resolve(receivedData);
     };
@@ -485,11 +487,12 @@ export async function roundEnd(socket, queryClient, callback) {
     socket.send(JSON.stringify(message));
 
     socket.onmessage = e => {
+      console.log(e);
       const receivedData = JSON.parse(e.data);
       resolve(receivedData);
-      callback();
       queryClient.invalidateQueries(['actionBoard']);
       queryClient.invalidateQueries(['farmBoard']);
+      callback();
     };
     socket.onerror = error => {
       reject(error);
@@ -497,23 +500,41 @@ export async function roundEnd(socket, queryClient, callback) {
   });
 }
 
-// export async function periodEnd(socket, queryClient) {
-//   return new Promise((resolve, reject) => {
-//     const message = {
-//       type: 'period_end',
-//     };
-//     socket.send(JSON.stringify(message));
+export async function periodEnd(socket) {
+  return new Promise((resolve, reject) => {
+    const message = {
+      type: 'period_end',
+    };
+    socket.send(JSON.stringify(message));
 
-//     socket.onmessage = e => {
-//       const receivedData = JSON.parse(e.data);
-//       resolve(receivedData);
-//
-//     };
-//     socket.onerror = error => {
-//       reject(error);
-//     };
-//   });
-// }
+    socket.onmessage = e => {
+      console.log(e);
+      const receivedData = JSON.parse(e.data);
+      resolve(receivedData);
+    };
+    socket.onerror = error => {
+      reject(error);
+    };
+  });
+}
+
+export async function caclulateScore(socket) {
+  return new Promise((resolve, reject) => {
+    const message = {
+      type: 'calculate_score',
+    };
+    socket.send(JSON.stringify(message));
+
+    socket.onmessage = e => {
+      console.log(e);
+      const receivedData = JSON.parse(e.data);
+      resolve(receivedData);
+    };
+    socket.onerror = error => {
+      reject(error);
+    };
+  });
+}
 
 export async function getCurrentRound() {
   return await axios
@@ -569,7 +590,7 @@ export async function createPenposition(
     socket.onmessage = e => {
       const receivedData = JSON.parse(e.data);
       resolve(receivedData.data);
-      updateFenceposition(fencePosition, setFencePosition);
+      updateFenceposition(pos, fencePosition, setFencePosition);
     };
     socket.onerror = error => {
       reject(error);

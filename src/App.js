@@ -26,6 +26,7 @@ function App() {
     closeP1ActSlot,
     closeP2HaveSlot,
     closeP2ActSlot,
+    isEnd,
   } = useBackgroundContext();
 
   const {

@@ -1,6 +1,11 @@
 import React from 'react';
 import { playerRed, playerBlue, resource } from '../constants/imageContants';
-import { getResourceNumById, raiseAnimal } from '../api/agricola';
+import {
+  getResourceNumById,
+  isRoundEnd,
+  raiseAnimal,
+  roundEnd,
+} from '../api/agricola';
 import { useBackgroundContext } from '../context/BackgroundContext';
 import { useAuthContext } from '../context/AuthContext';
 import { useQueryClient } from '@tanstack/react-query';
@@ -21,6 +26,7 @@ export default function Pen({ isStable, type, num, position, pid }) {
       className="bg-empty bg-clip-border bg-contain bg-no-repeat flex flex-wrap justify-center items-center p-2"
       onClick={async () => {
         const sheepNum = await getResourceNumById(pid, 7);
+
         if (sheepNum > 0) {
           raiseAnimal(pid, 1, position, socket)
             .then(() => {
@@ -38,6 +44,7 @@ export default function Pen({ isStable, type, num, position, pid }) {
               setIsFbActive(false);
               setIsAbActive(true);
             });
+          console.log('hello');
         } else {
           setPrompt({
             message: '사용할 수 있는 가축이 없습니다.',

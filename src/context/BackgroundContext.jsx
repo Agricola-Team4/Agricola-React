@@ -290,6 +290,8 @@ export function BackgroundContextProvider({ children }) {
         initCardActive,
         isEnd,
         setIsEnd,
+        fencePosArr,
+        setFencePosArr,
       }}
     >
       {children}

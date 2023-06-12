@@ -5,6 +5,7 @@ import useResource from '../hooks/useResource';
 import MajorCardBox from './MajorCardBox';
 import { useAuthContext } from '../context/AuthContext';
 import {
+  buildFence,
   getActionBoard,
   getAvailableSlot,
   getCurrentRound,
@@ -836,12 +837,12 @@ export default function ActionBoard() {
         await takeAction(pid, 17, 1, socket, queryClient);
         queryClient.invalidateQueries(['actionBoard']);
         setPrompt({
-          message: '울타리를 치고 싶은 땅을  선택하세요.',
+          message: '울타리를 치고 싶은 땅을 모두 선택하세요.',
           buttons: [],
         });
         setIsFbActive(true);
         setIsAbActive(false);
-        setCondition(-1);
+        setCondition(1);
       },
       isAccumul: calcAccumul(16),
       isOcuupied: data && data[16].is_occupied,

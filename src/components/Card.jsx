@@ -93,6 +93,7 @@ export default function Card({
             aid: condition,
             cid: id,
             socket,
+            queryClient,
           });
         }
 

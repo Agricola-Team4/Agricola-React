@@ -20,7 +20,7 @@ export function AuthContextProvider({ children }) {
     //   .then((res) => {
     //     console.log("첫번째 플레이어 뽑습니다", res.data);
     //   });
-    setFirstPlayer();
+    // setFirstPlayer();
     queryClient.invalidateQueries(['firstPlayer']);
     console.log('나는', pid);
   }, []);

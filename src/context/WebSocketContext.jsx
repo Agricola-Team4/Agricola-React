@@ -7,11 +7,15 @@ export function WebSocketProvider({ children }) {
 
   useEffect(() => {
     const newSocket = new WebSocket(
-      'ws://3.36.7.233:3000/ws/agricola2/player_1/'
+      'ws://3.36.7.233:3000/ws/agricola/player_1/'
     );
 
     newSocket.onopen = () => {
       console.log('WebSocket connection established');
+    };
+
+    newSocket.onmessage = () => {
+      console.log('hello');
     };
 
     newSocket.onclose = () => {
@@ -24,9 +28,8 @@ export function WebSocketProvider({ children }) {
       newSocket.close();
     };
   }, []);
-
   return (
-    <WebSocketContext.Provider value={socket}>
+    <WebSocketContext.Provider value={{ socket }}>
       {children}
     </WebSocketContext.Provider>
   );

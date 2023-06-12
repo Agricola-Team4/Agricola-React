@@ -397,15 +397,6 @@ export async function getMyturn(pid) {
     });
 }
 
-export async function getTurn() {
-  return await axios
-    .get('http://3.36.7.233:3000/gamestatus/get_turn/')
-    .then(res => {
-      console.log('현재 turn값은 : ', res.data.turn);
-      return res.data.turn;
-    });
-}
-
 export async function getActionBoard() {
   return axios.get('http://3.36.7.233:3000/actionbox').then(res => res.data);
 }
@@ -550,4 +541,40 @@ export async function firstPlayerData(pid) {
   return await axios
     .get(`http://3.36.7.233:3000/player/${pid}/`)
     .then(res => res.data.fst_player);
+}
+
+export function test(socket) {
+  socket.onopen = () => {
+    socket.send('hello');
+  };
+  socket.onmessage = e => {
+    console.log(e);
+  };
+}
+
+export async function test2(pid, rid, socket) {
+  return new Promise((resolve, reject) => {
+    socket.onopen = () => {
+      const message = {
+        type: 'get_player_resource',
+        player_id: pid,
+        resource: rid,
+      };
+      socket.send(JSON.stringify(message));
+      console.log('asdkfjlaskdfjasdkl');
+    };
+    socket.send('hello');
+    console.log('asdfasdf');
+
+    socket.onmessage = e => {
+      const receivedData = JSON.parse(e.data);
+
+      if (receivedData.action === 'get_player_resource_response') {
+        resolve(receivedData.data);
+      }
+    };
+    socket.onerror = error => {
+      reject(error);
+    };
+  });
 }

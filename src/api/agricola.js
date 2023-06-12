@@ -149,25 +149,48 @@ export async function getTurn() {
 }
 
 // 💪🏻 Action Board - Take Action 💪🏻
-export async function takeAction(pid, aid, cid) {
-  console.log('action id는 ', aid, ' pid는 ', pid);
+// export async function takeAction(pid, aid, cid) {
+//   console.log('action id는 ', aid, ' pid는 ', pid);
+//   const turn = await getTurn();
+//   console.log(turn, pid, aid, cid);
+//   return await axios
+//     .post('http://3.36.7.233:3000/familyposition/take_action/', {
+//       turn: turn,
+//       player_id: pid,
+//       action_id: aid,
+//       card_id: cid,
+//     })
+//     .then(res => {
+//       console.log('(turn:', turn, ') ', pid, '가 ', aid, '액션을 하였습니다.');
+//       console.log('res.data : ', res.data);
+//       return res.data;
+//     })
+//     .catch(err => {
+//       console.log('오류가났대요 : ', err.response.data);
+//     });
+// }
+
+export async function takeAction(pid, aid, cid, socket) {
   const turn = await getTurn();
-  console.log(turn, pid, aid, cid);
-  return await axios
-    .post('http://3.36.7.233:3000/familyposition/take_action/', {
-      turn: turn,
+  return new Promise((resolve, reject) => {
+    const message = {
+      type: 'take_action',
+      turn,
       player_id: pid,
       action_id: aid,
       card_id: cid,
-    })
-    .then(res => {
-      console.log('(turn:', turn, ') ', pid, '가 ', aid, '액션을 하였습니다.');
-      console.log('res.data : ', res.data);
-      return res.data;
-    })
-    .catch(err => {
-      console.log('오류가났대요 : ', err.response.data);
-    });
+    };
+    socket.send(JSON.stringify(message));
+    console.log('takeaction');
+    socket.onmessage = e => {
+      const receivedData = JSON.parse(e.data);
+      console.log(receivedData);
+      resolve(receivedData);
+    };
+    socket.onerror = error => {
+      reject(error);
+    };
+  });
 }
 
 export async function getActionBoard() {

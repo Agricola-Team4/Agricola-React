@@ -20,8 +20,14 @@ import axios from 'axios';
 import { useWebSocketContext } from '../context/WebSocketContext';
 
 export default function ActionBoard() {
-  const { pid, setIsFbActive, isAbActive, setIsAbActive, setIsCsActive } =
-    useAuthContext();
+  const {
+    pid,
+    setIsFbActive,
+    isAbActive,
+    setIsAbActive,
+    setIsCsActive,
+    openRoundCard,
+  } = useAuthContext();
   const { socket } = useWebSocketContext();
   const queryClient = useQueryClient();
 
@@ -380,7 +386,7 @@ export default function ActionBoard() {
                             buttons: [],
                           });
                           const isEnd = await isRoundEnd();
-                          isEnd && roundEnd();
+                          isEnd && roundEnd.then(() => openRoundCard())();
 
                           setTimeout(() => {
                             setPrompt({ message: '', buttons: [] });
@@ -436,7 +442,7 @@ export default function ActionBoard() {
         queryClient.invalidateQueries(['resource', pid]);
         queryClient.invalidateQueries(['farmBoard', pid]);
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd();
+        isEnd && roundEnd().then(() => openRoundCard());
       },
       isAccumul: calcAccumul(9),
       isOcuupied: data && data[9].is_occupied,
@@ -468,7 +474,7 @@ export default function ActionBoard() {
         queryClient.invalidateQueries(['farmBoard', pid]);
         queryClient.invalidateQueries(['resource', pid]);
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd();
+        isEnd && roundEnd().then(() => openRoundCard());
       },
       isAccumul: calcAccumul(10),
       isOcuupied: data && data[10].is_occupied,
@@ -539,7 +545,7 @@ export default function ActionBoard() {
         queryClient.invalidateQueries(['resource', pid]);
         queryClient.invalidateQueries(['farmBoard', pid]);
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd();
+        isEnd && roundEnd().then(() => openRoundCard());
       },
       isAccumul: calcAccumul(12),
       isOcuupied: data && data[12].is_occupied,
@@ -640,7 +646,7 @@ export default function ActionBoard() {
       //   queryClient.invalidateQueries(["actionBoard"]);
       //   queryClient.invalidateQueries(["resource", pid]);
       //   const isEnd = await isRoundEnd();
-      //   isEnd && roundEnd();
+      // isEnd && roundEnd().then(()=>openRoundCard());
       // },
       // 임시 initial api
       onClick: async () => {
@@ -679,7 +685,7 @@ export default function ActionBoard() {
       //   queryClient.invalidateQueries(["actionBoard"]);
       //   queryClient.invalidateQueries(["resource", pid]);
       //   const isEnd = await isRoundEnd();
-      //   isEnd && roundEnd();
+      //   isEnd && roundEnd().then(()=>openRoundCard());
       // },
       onClick: async () => {
         await axios
@@ -721,7 +727,7 @@ export default function ActionBoard() {
       //   queryClient.invalidateQueries(["actionBoard"]);
       //   queryClient.invalidateQueries(["resource", pid]);
       //   const isEnd = await isRoundEnd();
-      //   isEnd && roundEnd();
+      //   isEnd && roundEnd().then(()=>openRoundCard());
       // },
 
       //임시로 만든 플레이어 초기화 버튼
@@ -1014,7 +1020,7 @@ export default function ActionBoard() {
         queryClient.invalidateQueries(['farmBoard', pid]);
 
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd();
+        isEnd && roundEnd().then(() => openRoundCard());
       },
       isAccumul: calcAccumul(21),
       isOcuupied: data && data[21].is_occupied,
@@ -1187,7 +1193,7 @@ export default function ActionBoard() {
         queryClient.invalidateQueries(['resource', pid]);
         queryClient.invalidateQueries(['farmBoard', pid]);
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd();
+        isEnd && roundEnd().then(() => openRoundCard());
       },
       isAccumul: calcAccumul(24),
       isOcuupied: data && data[24].is_occupied,
@@ -1220,7 +1226,7 @@ export default function ActionBoard() {
         queryClient.invalidateQueries(['farmBoard', pid]);
 
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd();
+        isEnd && roundEnd().then(() => openRoundCard());
       },
       isAccumul: calcAccumul(23),
       isOcuupied: data && data[23].is_occupied,
@@ -1249,7 +1255,7 @@ export default function ActionBoard() {
         }
         await takeAction(pid, 26, 1, socket);
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd();
+        isEnd && roundEnd().then(() => openRoundCard());
       },
       isAccumul: calcAccumul(25),
       isOcuupied: data && data[25].is_occupied,
@@ -1282,7 +1288,7 @@ export default function ActionBoard() {
         queryClient.invalidateQueries(['farmBoard', pid]);
 
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd();
+        isEnd && roundEnd().then(() => openRoundCard());
       },
       isAccumul: calcAccumul(26),
       isOcuupied: data && data[26].is_occupied,
@@ -1310,7 +1316,7 @@ export default function ActionBoard() {
         }
         await takeAction(pid, 29, 1, socket);
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd();
+        isEnd && roundEnd().then(() => openRoundCard());
       },
       isAccumul: calcAccumul(28),
       isOcuupied: data && data[28].is_occupied,
@@ -1342,7 +1348,7 @@ export default function ActionBoard() {
         }
         await takeAction(pid, 28, 1, socket);
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd();
+        isEnd && roundEnd().then(() => openRoundCard());
       },
       isAccumul: calcAccumul(27),
       isOcuupied: data && data[27].is_occupied,
@@ -1386,7 +1392,7 @@ export default function ActionBoard() {
         }
         await takeAction(pid, 30, 1, socket);
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd();
+        isEnd && roundEnd().then(() => openRoundCard());
       },
       isAccumul: calcAccumul(29),
       isOcuupied: data && data[29].is_occupied,

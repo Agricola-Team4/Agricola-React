@@ -464,8 +464,15 @@ export async function isRoundEnd() {
 }
 
 export async function roundEnd() {
+  console.log('round_end');
   return await axios
-    .get('http://3.36.7.233:3000/gameStatus/round_end/')
+    .get('http://3.36.7.233:3000/gamestatus/round_end/')
+    .then(res => res.data);
+}
+
+export async function getCurrentRound() {
+  return await axios
+    .get('http://3.36.7.233:3000/gamestatus/')
     .then(res => res.data);
 }
 

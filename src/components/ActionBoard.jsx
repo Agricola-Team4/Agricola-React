@@ -20,14 +20,9 @@ import axios from 'axios';
 import { useWebSocketContext } from '../context/WebSocketContext';
 
 export default function ActionBoard() {
-  const {
-    pid,
-    setIsFbActive,
-    isAbActive,
-    setIsAbActive,
-    setIsCsActive,
-    openRoundCard,
-  } = useAuthContext();
+  const { pid, setIsFbActive, isAbActive, setIsAbActive, setIsCsActive } =
+    useAuthContext();
+  const { openRoundCard } = useBackgroundContext();
   const { socket } = useWebSocketContext();
   const queryClient = useQueryClient();
 
@@ -545,7 +540,10 @@ export default function ActionBoard() {
         queryClient.invalidateQueries(['resource', pid]);
         queryClient.invalidateQueries(['farmBoard', pid]);
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd().then(() => openRoundCard());
+        isEnd &&
+          roundEnd().then(() => {
+            openRoundCard();
+          });
       },
       isAccumul: calcAccumul(12),
       isOcuupied: data && data[12].is_occupied,

@@ -39,6 +39,7 @@ export default function Land({ data, pid }) {
     setValidRoomArr,
     validStableArr,
     setValidStableArr,
+    openRoundCard,
   } = useBackgroundContext();
   const { socket } = useWebSocketContext();
 
@@ -123,7 +124,10 @@ export default function Land({ data, pid }) {
                     setIsFbActive(true);
                     setIsAbActive(true);
                     const isEnd = await isRoundEnd();
-                    isEnd && roundEnd();
+                    isEnd &&
+                      roundEnd().then(() => {
+                        openRoundCard();
+                      });
                   } else {
                     setPrompt({
                       message:

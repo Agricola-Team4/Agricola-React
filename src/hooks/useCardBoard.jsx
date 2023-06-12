@@ -4,60 +4,60 @@ import {
   getPlayerHaveCard,
   takeAction,
   takeActionAndUpdateCardBoard,
-} from "../api/agricola";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { useBackgroundContext } from "../context/BackgroundContext";
+} from '../api/agricola';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import { useBackgroundContext } from '../context/BackgroundContext';
 
 export function useCardBoard() {
   const queryClient = useQueryClient();
   const { setPrompt, condition, setCondition } = useBackgroundContext();
-  const clearPromptMsg = (time) => {
+  const clearPromptMsg = time => {
     setTimeout(() => {
-      setPrompt({ message: "", buttons: [] });
+      setPrompt({ message: '', buttons: [] });
     }, time);
   };
-  const haveCardDataQuery = useQuery(["haveCardData"], () =>
+  const haveCardDataQuery = useQuery(['haveCardData'], () =>
     getPlayerHaveCard()
   );
 
-  const actCardDataQuery = useQuery(["actCardData"], () => getPlayerActCard());
+  const actCardDataQuery = useQuery(['actCardData'], () => getPlayerActCard());
 
-  const majorCardDataQuery = useQuery(["majorCardData"], () => getMajorCard());
+  const majorCardDataQuery = useQuery(['majorCardData'], () => getMajorCard());
 
   // const queryKey
 
   const useCard = useMutation(
-    ({ pid, aid, cid }) => takeAction(pid, aid, cid),
+    ({ pid, aid, cid, socket }) => takeAction(pid, aid, cid, socket),
     {
       onSuccess: () => {
         setPrompt({
-          message: "카드가 활성화 되었습니다.",
+          message: '카드가 활성화 되었습니다.',
           buttons: [],
         });
-        queryClient.invalidateQueries(["haveCardData"]);
-        queryClient.invalidateQueries(["majorCardData"]);
-        queryClient.invalidateQueries(["actCardData"]);
-        queryClient.invalidateQueries(["actionBoard"]);
-        queryClient.invalidateQueries(["farmBoard"]);
-        queryClient.invalidateQueries(["resource"]);
+        queryClient.invalidateQueries(['haveCardData']);
+        queryClient.invalidateQueries(['majorCardData']);
+        queryClient.invalidateQueries(['actCardData']);
+        queryClient.invalidateQueries(['actionBoard']);
+        queryClient.invalidateQueries(['farmBoard']);
+        queryClient.invalidateQueries(['resource']);
         setCondition(0);
 
         clearPromptMsg(3000);
       }, // queryKey 유효성 제거
 
-      onError: (err) => {
-        console.log("err msg", err, "condition ", condition);
+      onError: err => {
+        console.log('err msg', err, 'condition ', condition);
         if (condition === 5) {
-          console.log("err msg", err.response.data.error);
+          console.log('err msg', err.response.data.error);
           setPrompt({
-            message: "교습 행동을 위한 음식이 부족합니다.",
+            message: '교습 행동을 위한 음식이 부족합니다.',
             buttons: [],
           });
           clearPromptMsg(2000);
           // clearPromptMsg(3000);
         } else if (condition === 19) {
           setPrompt({
-            message: "곡식이 없어 빵굽기를 할 수 없습니다.",
+            message: '곡식이 없어 빵굽기를 할 수 없습니다.',
             buttons: [],
           });
           clearPromptMsg(2000);

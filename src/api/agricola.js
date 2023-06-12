@@ -2,6 +2,22 @@ import axios from 'axios';
 import { resource_R } from '../constants/resourceConstants';
 import { image_R, all_Images } from '../constants/imageContants';
 
+// export async function getFarmBoard(id, socket) {
+//   return new Promise((resolve, reject) => {
+//     const message = {
+//       type: 'get_all_position',
+//       player_id: id,
+//     };
+//     socket.send(JSON.stringify(message));
+//     socket.onmessage = e => {
+//       const receivedData = JSON.parse(e.data);
+//       resolve(receivedData);
+//     };
+//     socket.onerror = error => {
+//       reject(error);
+//     };
+//   });
+// }
 export async function getFarmBoard(id) {
   return axios
     .post('http://3.36.7.233:3000/boardposition/get_all_position/', {
@@ -113,22 +129,24 @@ export async function getResource(pid, rid) {
   return resource_num;
 }
 
-export async function updateOneResource(pid, rid, num) {
-  return await axios
-    .put('http://3.36.7.233:3000/playerresource/update_player_resource/', {
+export async function updateOneResource(pid, rid, num, socket) {
+  return new Promise((resolve, reject) => {
+    const message = {
+      type: 'update_player_resource',
       player_id: pid,
       resource_id: rid,
       num: num,
-    })
-    .then(res => {
-      console.log('update !!!!!!!!!!!', pid, rid, num);
-      return res.data;
-    });
+    };
+    socket.send(JSON.stringify(message));
 
-  // const updated_resource_num = data.resource_num;
-  // // console.log("updated_resource_num", updated_resource_num);
-
-  // return updated_resource_num;
+    socket.onmessage = e => {
+      const receivedData = JSON.parse(e.data);
+      resolve(receivedData);
+    };
+    socket.onerror = error => {
+      reject(error);
+    };
+  });
 }
 
 export async function getMyturn(pid) {
@@ -148,28 +166,6 @@ export async function getTurn() {
     });
 }
 
-// 💪🏻 Action Board - Take Action 💪🏻
-// export async function takeAction(pid, aid, cid) {
-//   console.log('action id는 ', aid, ' pid는 ', pid);
-//   const turn = await getTurn();
-//   console.log(turn, pid, aid, cid);
-//   return await axios
-//     .post('http://3.36.7.233:3000/familyposition/take_action/', {
-//       turn: turn,
-//       player_id: pid,
-//       action_id: aid,
-//       card_id: cid,
-//     })
-//     .then(res => {
-//       console.log('(turn:', turn, ') ', pid, '가 ', aid, '액션을 하였습니다.');
-//       console.log('res.data : ', res.data);
-//       return res.data;
-//     })
-//     .catch(err => {
-//       console.log('오류가났대요 : ', err.response.data);
-//     });
-// }
-
 export async function takeAction(pid, aid, cid, socket) {
   const turn = await getTurn();
   return new Promise((resolve, reject) => {
@@ -184,7 +180,6 @@ export async function takeAction(pid, aid, cid, socket) {
     console.log('takeaction');
     socket.onmessage = e => {
       const receivedData = JSON.parse(e.data);
-      console.log(receivedData);
       resolve(receivedData);
     };
     socket.onerror = error => {
@@ -216,25 +211,47 @@ export async function login({ id, pw }) {
     });
 
   return login_result;
-
-  // const updated_resource_num = data.resource_num;
-  // // console.log("updated_resource_num", updated_resource_num);
-
-  // return updated_resource_num;
 }
 
-export async function buildFence(id, arr) {
-  const fence_arr = await axios
-    .post('http://3.36.7.233:3000/fenceposition/build_fence/', {
+// export async function login({ id, pw }, socket) {
+//   return new Promise((resolve, reject) => {
+//     const message = {
+//       type: 'login',
+//       user_id: id,
+//       user_pw: pw,
+//     };
+//     socket.send(JSON.stringify(message));
+
+//     socket.onmessage = e => {
+//       const receivedData = JSON.parse(e.data);
+
+//       if (receivedData.action === 'login_response') {
+//         resolve(receivedData.data);
+//       }
+//     };
+//     socket.onerror = error => {
+//       reject(error);
+//     };
+//   });
+// }
+
+export async function buildFence(id, arr, socket) {
+  return new Promise((resolve, reject) => {
+    const message = {
+      type: 'build_fence',
       player_id: id,
       fence_array: arr,
-    })
-    .then(res => res.data)
-    .catch(err => {
-      console.log(err);
-    });
+    };
+    socket.send(JSON.stringify(message));
 
-  return fence_arr.position_arr;
+    socket.onmessage = e => {
+      const receivedData = JSON.parse(e.data);
+      resolve(receivedData);
+    };
+    socket.onerror = error => {
+      reject(error);
+    };
+  });
 }
 
 export async function getPlayerHaveCard() {
@@ -355,39 +372,81 @@ export async function getMajorCard() {
     });
 }
 
-export async function raiseAnimal(pid, type, position) {
-  return await axios
-    .put('http://3.36.7.233:3000/playerboardstatus/raise_animal/', {
+export async function raiseAnimal(pid, type, position, socket) {
+  return new Promise((resolve, reject) => {
+    const message = {
+      type: 'raise_animal',
       player_id: pid,
       animal_type: type,
       position: position,
-    })
-    .then(res => res.data);
+    };
+    socket.send(JSON.stringify(message));
+
+    socket.onmessage = e => {
+      const receivedData = JSON.parse(e.data);
+      resolve(receivedData);
+    };
+    socket.onerror = error => {
+      reject(error);
+    };
+  });
 }
 
-export async function constructLand(pid, land_num) {
-  return await axios
-    .put('http://3.36.7.233:3000/boardposition/construct_land/', {
+export async function constructLand(pid, land_num, socket) {
+  return new Promise((resolve, reject) => {
+    const message = {
+      type: 'construct_land',
       player_id: pid,
       land_num: land_num,
-    })
-    .then(res => res.data);
+    };
+    socket.send(JSON.stringify(message));
+
+    socket.onmessage = e => {
+      const receivedData = JSON.parse(e.data);
+      resolve(receivedData.data);
+    };
+    socket.onerror = error => {
+      reject(error);
+    };
+  });
 }
-export async function constructRoom(pid, land_num) {
-  return await axios
-    .put('http://3.36.7.233:3000/boardposition/construct_room/', {
+
+export async function constructRoom(pid, land_num, socket) {
+  return new Promise((resolve, reject) => {
+    const message = {
+      type: 'construct_room',
       player_id: pid,
       position: land_num,
-    })
-    .then(res => res.data);
+    };
+    socket.send(JSON.stringify(message));
+
+    socket.onmessage = e => {
+      const receivedData = JSON.parse(e.data);
+
+      resolve(receivedData);
+    };
+    socket.onerror = error => {
+      reject(error);
+    };
+  });
 }
-export async function constructStable(pid, land_num) {
-  return await axios
-    .put('http://3.36.7.233:3000/boardposition/construct_cowshed/', {
+export async function constructStable(pid, land_num, socket) {
+  return new Promise((resolve, reject) => {
+    const message = {
+      type: 'construct_cowshed',
       player_id: pid,
       position: land_num,
-    })
-    .then(res => res.data);
+    };
+    socket.send(JSON.stringify(message));
+
+    socket.onmessage = e => {
+      const receivedData = JSON.parse(e.data);
+      resolve(receivedData);
+    };
+    socket.onerror = error => {
+      reject(error);
+    };
+  });
 }
 
 export async function getPlayerInfo() {
@@ -408,9 +467,11 @@ export async function roundEnd() {
     .then(res => res.data);
 }
 
-export async function updatePenInFarmboard(pid, pos) {
-  return await axios
-    .patch(`http://3.36.7.233:3000/boardposition/${(pid - 1) * 15 + pos}/`, {
+export async function updatePenInFarmboard(pid, pos, socket) {
+  return new Promise((resolve, reject) => {
+    const message = {
+      type: 'boardposition',
+      id: `${(pid - 1) * 15 + pos}`,
       position: pos,
       position_type: 3,
       is_fam: false,
@@ -418,20 +479,40 @@ export async function updatePenInFarmboard(pid, pos) {
       vege_num: 0,
       animal_num: 0,
       board_id: pid,
-    })
-    .then(res => res.data);
+    };
+    socket.send(JSON.stringify(message));
+
+    socket.onmessage = e => {
+      const receivedData = JSON.parse(e.data);
+
+      resolve(receivedData.data);
+    };
+    socket.onerror = error => {
+      reject(error);
+    };
+  });
 }
 
-export async function createPenposition(pid, pos) {
-  return await axios
-    .post('http://3.36.7.233:3000/penposition/', {
+export async function createPenposition(pid, pos, socket) {
+  return new Promise((resolve, reject) => {
+    const message = {
+      type: 'penposition',
       animal_type: 0,
       max_num: 2,
       current_num: 0,
       position_list: `[${pos}]`,
       board_id: pid,
-    })
-    .then(res => res.data);
+    };
+    socket.send(JSON.stringify(message));
+
+    socket.onmessage = e => {
+      const receivedData = JSON.parse(e.data);
+      resolve(receivedData.data);
+    };
+    socket.onerror = error => {
+      reject(error);
+    };
+  });
 }
 
 export async function getAvailableSlot(pid, type) {
@@ -448,12 +529,22 @@ export async function firstPlayerData(pid) {
     .then(res => res.data.fst_player);
 }
 
-export async function activateCard(pid, cid) {
-  return await axios
-    .put('http://3.36.7.233:3000/playercard/activate_card/', {
+export async function activateCard(pid, cid, socket) {
+  return new Promise((resolve, reject) => {
+    const message = {
+      type: 'activate_card',
       activate: 1,
       player_id: pid,
       card_id: cid,
-    })
-    .then(res => res.data);
+    };
+    socket.send(JSON.stringify(message));
+
+    socket.onmessage = e => {
+      const receivedData = JSON.parse(e.data);
+      resolve(receivedData.data);
+    };
+    socket.onerror = error => {
+      reject(error);
+    };
+  });
 }

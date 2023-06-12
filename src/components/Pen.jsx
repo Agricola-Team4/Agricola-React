@@ -4,10 +4,12 @@ import { getResourceNumById, raiseAnimal } from '../api/agricola';
 import { useBackgroundContext } from '../context/BackgroundContext';
 import { useAuthContext } from '../context/AuthContext';
 import { useQueryClient } from '@tanstack/react-query';
+import { useWebSocketContext } from '../context/WebSocketContext';
 
 export default function Pen({ isStable, type, num, position, pid }) {
   const { setPrompt } = useBackgroundContext();
   const { setIsFbActive, setIsAbActive } = useAuthContext();
+  const { socket } = useWebSocketContext();
   const queryClient = useQueryClient();
   const clearPromptMsg = time => {
     setTimeout(() => {
@@ -21,7 +23,7 @@ export default function Pen({ isStable, type, num, position, pid }) {
         const pid = 1;
         const sheepNum = await getResourceNumById(pid, 7);
         if (sheepNum > 0) {
-          raiseAnimal(pid, 1, position)
+          raiseAnimal(pid, 1, position, socket)
             .then(() => {
               queryClient.invalidateQueries(['resource']);
               queryClient.invalidateQueries(['farmBoard']);

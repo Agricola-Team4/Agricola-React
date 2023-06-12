@@ -1,13 +1,15 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { getFarmBoard } from '../api/agricola';
 import { useBackgroundContext } from '../context/BackgroundContext';
+import { useWebSocketContext } from '../context/WebSocketContext';
 
 export default function useFarmBoard(pid) {
   const queryClient = useQueryClient();
+  const { socket } = useWebSocketContext();
 
   const farmBoardQuery = useQuery(
     ['farmBoard', pid || ''],
-    () => getFarmBoard(pid),
+    () => getFarmBoard(pid, socket),
     { enabled: !!pid }
   );
   const { setIsAnimal } = useBackgroundContext();

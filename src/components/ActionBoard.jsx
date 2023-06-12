@@ -135,7 +135,7 @@ export default function ActionBoard() {
         }
         setIsFbActive(false);
         setIsAbActive(false);
-        const result = await takeAction(pid, 8, 1);
+        const result = await takeAction(pid, 8, 1, socket);
         queryClient.invalidateQueries(['actionBoard']);
         const action_case = result.code;
         console.log('?', action_case);
@@ -347,7 +347,7 @@ export default function ActionBoard() {
               text: '선플레이어',
               onClick: async () => {
                 // 선플레이어
-                await takeAction(pid, 9, 1);
+                await takeAction(pid, 9, 1, socket);
                 queryClient.invalidateQueries(['firstPlayer', pid]);
                 queryClient.invalidateQueries(['actionBoard']);
 
@@ -374,11 +374,13 @@ export default function ActionBoard() {
                       },
                       {
                         text: 'No',
-                        onClick: () => {
+                        onClick: async () => {
                           setPrompt({
                             message: '행동이 종료되었습니다.',
                             buttons: [],
                           });
+                          const isEnd = await isRoundEnd();
+                          isEnd && roundEnd();
 
                           setTimeout(() => {
                             setPrompt({ message: '', buttons: [] });
@@ -394,7 +396,7 @@ export default function ActionBoard() {
               text: '보조설비',
               onClick: async () => {
                 // 보조설비
-                await takeAction(pid, 9, 1);
+                await takeAction(pid, 9, 1, socket);
                 setCondition(9);
                 setIsCsActive(true);
                 setIsScActive(true);
@@ -429,7 +431,7 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 10, 1);
+        await takeAction(pid, 10, 1, socket);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
         const isEnd = await isRoundEnd();
@@ -496,7 +498,7 @@ export default function ActionBoard() {
           buttons: [],
         });
         setCondition(2);
-        const result = await takeAction(pid, 12, 1);
+        const result = await takeAction(pid, 12, 1, socket);
         queryClient.invalidateQueries(['actionBoard']);
 
         console.log('resss', result);
@@ -504,6 +506,8 @@ export default function ActionBoard() {
         // 농지 condition으로 변경
         setValidLandArr(result.lands);
         console.log('validLandArr', validLandArr);
+        const isEnd = await isRoundEnd();
+        isEnd && roundEnd();
       },
       isAccumul: calcAccumul(11),
       isOcuupied: data && data[11].is_occupied,
@@ -530,7 +534,7 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 13, 1);
+        await takeAction(pid, 13, 1, socket);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
         const isEnd = await isRoundEnd();
@@ -755,7 +759,7 @@ export default function ActionBoard() {
           return;
         }
 
-        await takeAction(pid, 18, 1)
+        await takeAction(pid, 18, 1, socket)
           .then(res => {
             switch (res.case) {
               case 0:
@@ -1003,7 +1007,7 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 22, 1);
+        await takeAction(pid, 22, 1, socket);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
         const isEnd = await isRoundEnd();
@@ -1176,7 +1180,7 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 25, 1);
+        await takeAction(pid, 25, 1, socket);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
         const isEnd = await isRoundEnd();
@@ -1207,7 +1211,7 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 24, 1);
+        await takeAction(pid, 24, 1, socket);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
         const isEnd = await isRoundEnd();
@@ -1238,7 +1242,9 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 26, 1);
+        await takeAction(pid, 26, 1, socket);
+        const isEnd = await isRoundEnd();
+        isEnd && roundEnd();
       },
       isAccumul: calcAccumul(25),
       isOcuupied: data && data[25].is_occupied,
@@ -1265,7 +1271,7 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 27, 1);
+        await takeAction(pid, 27, 1, socket);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
         const isEnd = await isRoundEnd();
@@ -1295,7 +1301,9 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 29, 1);
+        await takeAction(pid, 29, 1, socket);
+        const isEnd = await isRoundEnd();
+        isEnd && roundEnd();
       },
       isAccumul: calcAccumul(28),
       isOcuupied: data && data[28].is_occupied,
@@ -1325,7 +1333,9 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 28, 1);
+        await takeAction(pid, 28, 1, socket);
+        const isEnd = await isRoundEnd();
+        isEnd && roundEnd();
       },
       isAccumul: calcAccumul(27),
       isOcuupied: data && data[27].is_occupied,
@@ -1367,7 +1377,9 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        await takeAction(pid, 30, 1);
+        await takeAction(pid, 30, 1, socket);
+        const isEnd = await isRoundEnd();
+        isEnd && roundEnd();
       },
       isAccumul: calcAccumul(29),
       isOcuupied: data && data[29].is_occupied,

@@ -188,7 +188,6 @@ export async function takeAction(pid, aid, cid, socket, queryClient) {
       queryClient.invalidateQueries(['haveCardData']);
       queryClient.invalidateQueries(['majorCardData']);
       queryClient.invalidateQueries(['actCardData']);
-      queryClient.invalidateQueries(['firstPlayer']);
     };
     socket.onerror = error => {
       reject(error);
@@ -470,11 +469,30 @@ export async function isRoundEnd() {
   return false;
 }
 
-export async function roundEnd() {
-  console.log('round_end');
-  return await axios
-    .get('http://3.36.7.233:3000/gamestatus/round_end/')
-    .then(res => res.data);
+// export async function roundEnd() {
+//   console.log('round_end');
+//   return await axios
+//     .get('http://3.36.7.233:3000/gamestatus/round_end/')
+//     .then(res => res.data);
+// }
+
+export async function roundEnd(socket, queryClient) {
+  return new Promise((resolve, reject) => {
+    const message = {
+      type: 'round_end',
+    };
+    socket.send(JSON.stringify(message));
+
+    socket.onmessage = e => {
+      const receivedData = JSON.parse(e.data);
+      resolve(receivedData);
+      queryClient.invalidateQueries(['actionBoard']);
+      queryClient.invalidateQueries(['farmBoard']);
+    };
+    socket.onerror = error => {
+      reject(error);
+    };
+  });
 }
 
 export async function getCurrentRound() {
@@ -534,7 +552,7 @@ export async function createPenposition(pid, pos, socket) {
 export async function getAvailableSlot(pid, type) {
   return await axios
     .get(
-      `http://3.36.7.233:3000/boardposition/get_available_slots/?player_id=${pid}&type=${type}`
+      `http://3.36.7.233:3000/boardposition/get_available_slots/?player_id=${pid}&slot_type=${type}`
     )
     .then(res => res.data.available);
 }

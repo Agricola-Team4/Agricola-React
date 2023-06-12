@@ -125,7 +125,7 @@ export default function Land({ data, pid }) {
                     setIsAbActive(true);
                     const isEnd = await isRoundEnd();
                     isEnd &&
-                      roundEnd().then(() => {
+                      roundEnd(socket, queryClient).then(() => {
                         openRoundCard();
                       });
                   } else {

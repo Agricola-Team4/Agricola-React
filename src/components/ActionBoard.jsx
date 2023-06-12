@@ -434,6 +434,7 @@ export default function ActionBoard() {
         await takeAction(pid, 10, 1, socket);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
+        queryClient.invalidateQueries(['farmBoard', pid]);
         const isEnd = await isRoundEnd();
         isEnd && roundEnd();
       },
@@ -537,6 +538,7 @@ export default function ActionBoard() {
         await takeAction(pid, 13, 1, socket);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
+        queryClient.invalidateQueries(['farmBoard', pid]);
         const isEnd = await isRoundEnd();
         isEnd && roundEnd();
       },
@@ -691,9 +693,9 @@ export default function ActionBoard() {
         queryClient.invalidateQueries(['resource']);
       },
 
-      isAccumul: calcAccumul(9),
-      isOcuupied: data && data[9].is_occupied,
-      pid: data && data[9].player_id,
+      isAccumul: calcAccumul(14),
+      isOcuupied: data && data[14].is_occupied,
+      pid: data && data[14].player_id,
     },
     {
       id: 16,
@@ -1010,6 +1012,8 @@ export default function ActionBoard() {
         await takeAction(pid, 22, 1, socket);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
+        queryClient.invalidateQueries(['farmBoard', pid]);
+
         const isEnd = await isRoundEnd();
         isEnd && roundEnd();
       },
@@ -1183,6 +1187,7 @@ export default function ActionBoard() {
         await takeAction(pid, 25, 1, socket);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
+        queryClient.invalidateQueries(['farmBoard', pid]);
         const isEnd = await isRoundEnd();
         isEnd && roundEnd();
       },
@@ -1214,6 +1219,8 @@ export default function ActionBoard() {
         await takeAction(pid, 24, 1, socket);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
+        queryClient.invalidateQueries(['farmBoard', pid]);
+
         const isEnd = await isRoundEnd();
         isEnd && roundEnd();
       },
@@ -1274,6 +1281,8 @@ export default function ActionBoard() {
         await takeAction(pid, 27, 1, socket);
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
+        queryClient.invalidateQueries(['farmBoard', pid]);
+
         const isEnd = await isRoundEnd();
         isEnd && roundEnd();
       },

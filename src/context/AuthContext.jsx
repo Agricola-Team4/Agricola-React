@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { createContext, useContext, useEffect, useState } from 'react';
 import { setFirstPlayer } from '../api/agricola';
+import { useQueryClient } from '@tanstack/react-query';
 
 export const AuthContext = createContext();
 
@@ -10,6 +11,7 @@ export function AuthContextProvider({ children }) {
   const [isFbActive, setIsFbActive] = useState(false);
   const [isAbActive, setIsAbActive] = useState(true);
   const [isCsActive, setIsCsActive] = useState(false);
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     // player 정보 가져오기 http://3.36.7.233:3000/player
@@ -19,6 +21,7 @@ export function AuthContextProvider({ children }) {
     //     console.log("첫번째 플레이어 뽑습니다", res.data);
     //   });
     setFirstPlayer();
+    queryClient.invalidateQueries(['firstPlayer']);
     console.log('나는', pid);
   }, []);
 

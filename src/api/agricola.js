@@ -194,7 +194,9 @@ export async function takeAction(pid, aid, cid, socket) {
 }
 
 export async function getActionBoard() {
-  return axios.get('http://3.36.7.233:3000/actionbox').then(res => res.data);
+  return axios
+    .get('http://3.36.7.233:3000/actionbox/get_actions_with_pid/')
+    .then(res => res.data);
 }
 
 // login

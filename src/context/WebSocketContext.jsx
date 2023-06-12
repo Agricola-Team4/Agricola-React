@@ -1,9 +1,12 @@
+import { useQueryClient } from '@tanstack/react-query';
 import React, { createContext, useContext, useEffect, useState } from 'react';
 
 export const WebSocketContext = createContext();
 
 export function WebSocketProvider({ children }) {
   const [socket, setSocket] = useState(null);
+
+  const queryClient = useQueryClient();
 
   useEffect(() => {
     const newSocket = new WebSocket(
@@ -14,8 +17,15 @@ export function WebSocketProvider({ children }) {
       console.log('WebSocket connection established');
     };
 
-    newSocket.onmessage = () => {
-      console.log('hello');
+    newSocket.onmessage = res => {
+      console.log(res);
+      queryClient.invalidateQueries(['actionBoard']);
+      queryClient.invalidateQueries(['farmBoard']);
+      queryClient.invalidateQueries(['resource']);
+      queryClient.invalidateQueries(['haveCardData']);
+      queryClient.invalidateQueries(['majorCardData']);
+      queryClient.invalidateQueries(['actCardData']);
+      queryClient.invalidateQueries(['firstPlayer']);
     };
 
     newSocket.onclose = () => {

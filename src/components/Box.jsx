@@ -11,8 +11,8 @@ export default function Box({
   onClick,
   isAccumul,
   isOcuupied,
+  pid,
 }) {
-  const { pid } = useAuthContext();
   return (
     <div className={`${ratio} p-0.5 relative `} onClick={onClick}>
       <div

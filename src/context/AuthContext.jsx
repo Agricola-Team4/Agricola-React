@@ -19,6 +19,7 @@ export function AuthContextProvider({ children }) {
     //     console.log("첫번째 플레이어 뽑습니다", res.data);
     //   });
     setFirstPlayer();
+    console.log('나는', pid);
   }, []);
 
   return (

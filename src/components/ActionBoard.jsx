@@ -311,6 +311,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(7),
       isOcuupied: data && data[7].is_occupied,
+      pid: data && data[7].player_id,
     },
     {
       id: 9,
@@ -407,6 +408,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(8),
       isOcuupied: data && data[8].is_occupied,
+      pid: data && data[8].player_id,
     },
     {
       id: 10,
@@ -435,6 +437,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(9),
       isOcuupied: data && data[9].is_occupied,
+      pid: data && data[9].player_id,
     },
     {
       id: 11,
@@ -466,6 +469,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(10),
       isOcuupied: data && data[10].is_occupied,
+      pid: data && data[10].player_id,
     },
     {
       id: 12,
@@ -503,6 +507,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(11),
       isOcuupied: data && data[11].is_occupied,
+      pid: data && data[11].player_id,
     },
     {
       id: 13,
@@ -533,6 +538,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(12),
       isOcuupied: data && data[12].is_occupied,
+      pid: data && data[12].player_id,
     },
     {
       id: 5,
@@ -602,6 +608,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(4),
       isOcuupied: data && data[4].is_occupied,
+      pid: data && data[4].player_id,
     },
     {
       id: 14,
@@ -642,6 +649,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(13),
       isOcuupied: data && data[13].is_occupied,
+      pid: data && data[13].player_id,
     },
     {
       id: 15,
@@ -681,6 +689,7 @@ export default function ActionBoard() {
 
       isAccumul: calcAccumul(9),
       isOcuupied: data && data[9].is_occupied,
+      pid: data && data[9].player_id,
     },
     {
       id: 16,
@@ -722,6 +731,7 @@ export default function ActionBoard() {
 
       isAccumul: calcAccumul(15),
       isOcuupied: data && data[15].is_occupied,
+      pid: data && data[15].player_id,
     },
     {
       id: 18,
@@ -785,6 +795,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(17),
       isOcuupied: data && data[17].is_occupied,
+      pid: data && data[17].player_id,
     },
     {
       id: 17,
@@ -819,6 +830,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(16),
       isOcuupied: data && data[16].is_occupied,
+      pid: data && data[16].player_id,
     },
     {
       id: 20,
@@ -876,6 +888,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(19),
       isOcuupied: data && data[19].is_occupied,
+      pid: data && data[19].player_id,
     },
     {
       id: 19,
@@ -967,6 +980,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(18),
       isOcuupied: data && data[18].is_occupied,
+      pid: data && data[18].player_id,
     },
     {
       id: 22,
@@ -997,6 +1011,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(21),
       isOcuupied: data && data[21].is_occupied,
+      pid: data && data[21].player_id,
     },
     {
       id: 23,
@@ -1053,6 +1068,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(22),
       isOcuupied: data && data[22].is_occupied,
+      pid: data && data[22].player_id,
     },
 
     {
@@ -1139,6 +1155,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(20),
       isOcuupied: data && data[20].is_occupied,
+      pid: data && data[20].player_id,
     },
     {
       id: 25,
@@ -1167,6 +1184,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(24),
       isOcuupied: data && data[24].is_occupied,
+      pid: data && data[24].player_id,
     },
     {
       id: 24,
@@ -1197,6 +1215,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(23),
       isOcuupied: data && data[23].is_occupied,
+      pid: data && data[23].player_id,
     },
     {
       id: 26,
@@ -1223,6 +1242,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(25),
       isOcuupied: data && data[25].is_occupied,
+      pid: data && data[25].player_id,
     },
     {
       id: 27,
@@ -1253,6 +1273,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(26),
       isOcuupied: data && data[26].is_occupied,
+      pid: data && data[26].player_id,
     },
     {
       id: 29,
@@ -1278,6 +1299,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(28),
       isOcuupied: data && data[28].is_occupied,
+      pid: data && data[28].player_id,
     },
     {
       id: 28,
@@ -1307,6 +1329,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(27),
       isOcuupied: data && data[27].is_occupied,
+      pid: data && data[27].player_id,
     },
     {
       id: 30,
@@ -1348,6 +1371,7 @@ export default function ActionBoard() {
       },
       isAccumul: calcAccumul(29),
       isOcuupied: data && data[29].is_occupied,
+      pid: data && data[29].player_id,
     },
   ];
 
@@ -1378,6 +1402,7 @@ export default function ActionBoard() {
           onClick={info.onClick}
           isAccumul={info.isAccumul}
           isOcuupied={info.isOcuupied}
+          pid={info.pid}
         >
           {info.childTags}
         </Box>
@@ -1406,6 +1431,7 @@ export default function ActionBoard() {
         onClick={action[0].onClick}
         isAccumul={action[0].isAccumul}
         isOcuupied={action[0].isOcuupied}
+        pid={action[0].pid}
       >
         {action[0].childTags}
       </Box>
@@ -1419,6 +1445,7 @@ export default function ActionBoard() {
           onClick={action[1].onClick}
           isAccumul={action[1].isAccumul}
           isOcuupied={action[1].isOcuupied}
+          pid={action[1].pid}
         >
           {action[1].childTags}
         </Box>
@@ -1430,6 +1457,7 @@ export default function ActionBoard() {
           onClick={action[2].onClick}
           isAccumul={action[2].isAccumul}
           isOcuupied={action[2].isOcuupied}
+          pid={action[2].pid}
         >
           {action[2].childTags}
         </Box>
@@ -1441,6 +1469,7 @@ export default function ActionBoard() {
         onClick={action[3].onClick}
         isAccumul={action[3].isAccumul}
         isOcuupied={action[3].isOcuupied}
+        pid={action[3].pid}
       >
         {action[3].childTags}
       </Box>
@@ -1454,6 +1483,7 @@ export default function ActionBoard() {
           onClick={action[4].onClick}
           isAccumul={action[4].isAccumul}
           isOcuupied={action[4].isOcuupied}
+          pid={action[4].pid}
         >
           {action[4].childTags}
         </Box>
@@ -1465,6 +1495,7 @@ export default function ActionBoard() {
           onClick={action[5].onClick}
           isAccumul={action[5].isAccumul}
           isOcuupied={action[5].isOcuupied}
+          pid={action[5].pid}
         >
           {action[5].childTags}
         </Box>
@@ -1476,6 +1507,7 @@ export default function ActionBoard() {
           onClick={action[6].onClick}
           isAccumul={action[6].isAccumul}
           isOcuupied={action[6].isOcuupied}
+          pid={action[6].pid}
         >
           {action[6].childTags}
         </Box>
@@ -1487,6 +1519,7 @@ export default function ActionBoard() {
           onClick={action[7].onClick}
           isAccumul={action[7].isAccumul}
           isOcuupied={action[7].isOcuupied}
+          pid={action[7].pid}
         >
           {action[7].childTags}
         </Box>
@@ -1498,6 +1531,7 @@ export default function ActionBoard() {
           onClick={action[8].onClick}
           isAccumul={action[8].isAccumul}
           isOcuupied={action[8].isOcuupied}
+          pid={action[8].pid}
         >
           {action[8].childTags}
         </Box>
@@ -1509,6 +1543,7 @@ export default function ActionBoard() {
           onClick={action[9].onClick}
           isAccumul={action[9].isAccumul}
           isOcuupied={action[9].isOcuupied}
+          pid={action[9].pid}
         >
           {action[9].childTags}
         </Box>
@@ -1527,6 +1562,7 @@ export default function ActionBoard() {
           onClick={action[23].onClick}
           isAccumul={action[23].isAccumul}
           isOcuupied={action[23].isOcuupied}
+          pid={action[23].pid}
         >
           {action[23].childTags}
         </Box>

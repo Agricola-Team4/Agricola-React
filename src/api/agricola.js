@@ -188,6 +188,7 @@ export async function takeAction(pid, aid, cid, socket, queryClient) {
       queryClient.invalidateQueries(['haveCardData']);
       queryClient.invalidateQueries(['majorCardData']);
       queryClient.invalidateQueries(['actCardData']);
+      queryClient.invalidateQueries(['firstPlayer']);
     };
     socket.onerror = error => {
       reject(error);
@@ -476,7 +477,7 @@ export async function isRoundEnd() {
 //     .then(res => res.data);
 // }
 
-export async function roundEnd(socket, queryClient) {
+export async function roundEnd(socket, queryClient, callback) {
   return new Promise((resolve, reject) => {
     const message = {
       type: 'round_end',
@@ -486,6 +487,7 @@ export async function roundEnd(socket, queryClient) {
     socket.onmessage = e => {
       const receivedData = JSON.parse(e.data);
       resolve(receivedData);
+      callback();
       queryClient.invalidateQueries(['actionBoard']);
       queryClient.invalidateQueries(['farmBoard']);
     };
@@ -494,6 +496,24 @@ export async function roundEnd(socket, queryClient) {
     };
   });
 }
+
+// export async function periodEnd(socket, queryClient) {
+//   return new Promise((resolve, reject) => {
+//     const message = {
+//       type: 'period_end',
+//     };
+//     socket.send(JSON.stringify(message));
+
+//     socket.onmessage = e => {
+//       const receivedData = JSON.parse(e.data);
+//       resolve(receivedData);
+//
+//     };
+//     socket.onerror = error => {
+//       reject(error);
+//     };
+//   });
+// }
 
 export async function getCurrentRound() {
   return await axios
@@ -527,7 +547,14 @@ export async function updatePenInFarmboard(pid, pos, socket) {
   });
 }
 
-export async function createPenposition(pid, pos, socket) {
+export async function createPenposition(
+  pid,
+  pos,
+  socket,
+  updateFenceposition,
+  fencePosition,
+  setFencePosition
+) {
   return new Promise((resolve, reject) => {
     const message = {
       type: 'post_penposition',
@@ -542,6 +569,7 @@ export async function createPenposition(pid, pos, socket) {
     socket.onmessage = e => {
       const receivedData = JSON.parse(e.data);
       resolve(receivedData.data);
+      updateFenceposition(fencePosition, setFencePosition);
     };
     socket.onerror = error => {
       reject(error);

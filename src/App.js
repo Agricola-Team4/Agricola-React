@@ -7,6 +7,7 @@ import PlayerContainer from './components/PlayerContainer';
 import MouseComponent from './components/MouseComponent';
 import { buildFence } from './api/agricola';
 import { useBackgroundContext } from './context/BackgroundContext';
+import ScoreBoard from './components/ScoreBoard';
 
 const aa = [
   { id: 8, left: true, right: true, top: true, bottom: true },
@@ -151,6 +152,7 @@ function App() {
           ) : (
             ''
           )}
+          {isEnd ? <ScoreBoard /> : ''}
         </AnimatePresence>
       </div>
 

@@ -124,10 +124,7 @@ export default function Land({ data, pid }) {
                     setIsFbActive(true);
                     setIsAbActive(true);
                     const isEnd = await isRoundEnd();
-                    isEnd &&
-                      roundEnd(socket, queryClient).then(() => {
-                        openRoundCard();
-                      });
+                    isEnd && roundEnd(socket, queryClient, openRoundCard);
                   } else {
                     setPrompt({
                       message:
@@ -187,11 +184,14 @@ export default function Land({ data, pid }) {
                         },
                         {
                           text: 'No',
-                          onClick: () => {
+                          onClick: async () => {
                             setPrompt({
                               message: '행동이 종료되었습니다.',
                               buttons: [],
                             });
+                            const isEnd = await isRoundEnd();
+                            isEnd &&
+                              roundEnd(socket, queryClient, openRoundCard);
                             clearPromptMsg(3000);
                             setCondition(0);
                             setIsAbActive(true);
@@ -243,6 +243,8 @@ export default function Land({ data, pid }) {
 
                     console.log('외양간 만들기 끝');
 
+                    const isEnd = await isRoundEnd();
+                    isEnd && roundEnd(socket, queryClient, openRoundCard);
                     setIsFbActive(false);
                     setIsAbActive(true);
                     setCondition(0);
@@ -282,24 +284,34 @@ export default function Land({ data, pid }) {
                   // build fence 대안용
 
                   await updatePenInFarmboard(pid, data.position, socket);
-                  createPenposition(pid, data.position, socket).then(() => {
-                    pid % 2
-                      ? updateFenceposition(
-                          data.position,
-                          fencePosition1,
-                          setFencePosition1
-                        )
-                      : updateFenceposition(
-                          data.position,
-                          fencePosition2,
-                          setFencePosition2
-                        );
-                    queryClient.invalidateQueries(['farmBoard', pid]);
-                    setPrompt({ message: '', buttons: [] });
-                    setIsFbActive(false);
-                    setIsAbActive(true);
-                    setCondition(0);
-                  });
+                  createPenposition(
+                    pid,
+                    data.position,
+                    socket,
+                    updateFenceposition,
+                    pid % 2 ? fencePosition1 : fencePosition2,
+                    pid % 2 ? setFencePosition1 : setFencePosition2
+                  );
+                  // .then(() => {
+                  //   pid % 2
+                  //     ? updateFenceposition(
+                  //         data.position,
+                  //         fencePosition1,
+                  //         setFencePosition1
+                  //       )
+                  //     : updateFenceposition(
+                  //         data.position,
+                  //         fencePosition2,
+                  //         setFencePosition2
+                  //       );
+                  // });
+                  const isEnd = await isRoundEnd();
+                  isEnd && roundEnd(socket, queryClient, openRoundCard);
+                  queryClient.invalidateQueries(['farmBoard', pid]);
+                  setPrompt({ message: '', buttons: [] });
+                  setIsFbActive(false);
+                  setIsAbActive(true);
+                  setCondition(0);
 
                   // setPrompt({
                   //   message: '울타리를 치고 싶은 땅을 모두 선택하세요.',

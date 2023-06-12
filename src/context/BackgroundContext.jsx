@@ -148,6 +148,8 @@ export function BackgroundContextProvider({ children }) {
   const [isP2HaveOpen, setIsP2HaveOpen] = useState(false);
   const [isP2ActOpen, setIsP2ActOpen] = useState(false);
 
+  const [isEnd, setIsEnd] = useState(false);
+
   const openRoundCard = () => {
     if (round < 14) {
       setRoundArray(prev => {
@@ -286,6 +288,8 @@ export function BackgroundContextProvider({ children }) {
         isJcActive,
         setIsJcActive,
         initCardActive,
+        isEnd,
+        setIsEnd,
       }}
     >
       {children}

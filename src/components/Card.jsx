@@ -1,7 +1,12 @@
 import React from 'react';
 import { jobImages } from '../constants/imageContants';
 import { useBackgroundContext } from '../context/BackgroundContext';
-import { activateCard, takeAction } from '../api/agricola';
+import {
+  activateCard,
+  isRoundEnd,
+  roundEnd,
+  takeAction,
+} from '../api/agricola';
 import { useAuthContext } from '../context/AuthContext';
 import { useCardBoard } from '../hooks/useCardBoard';
 import { QueryClient } from '@tanstack/react-query';
@@ -27,6 +32,7 @@ export default function Card({
     isScActive,
     isJcActive,
     initCardActive,
+    openRoundCard,
   } = useBackgroundContext();
   const { socket } = useWebSocketContext();
 
@@ -77,7 +83,8 @@ export default function Card({
           queryClient.invalidateQueries(['farmBoard']);
           queryClient.invalidateQueries(['resource']);
           setCondition(0);
-
+          const isEnd = await isRoundEnd();
+          isEnd && roundEnd(socket, queryClient, openRoundCard);
           clearPromptMsg(2000);
         } else {
           // 21 - 집개조,  23- 기본가족늘리기, 5 - 교습, 19- 곡식활용 중 빵굽기
@@ -88,11 +95,15 @@ export default function Card({
             socket,
           });
         }
+
         closeMajorSlot();
         closeP1HaveSlot();
         closeP1ActSlot();
         closeP2HaveSlot();
         closeP2ActSlot();
+
+        const isEnd = await isRoundEnd();
+        isEnd && roundEnd(socket, queryClient, openRoundCard);
 
         setIsAbActive(true);
         setIsCsActive(false);

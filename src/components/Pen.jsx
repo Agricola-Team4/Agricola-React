@@ -7,7 +7,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { useWebSocketContext } from '../context/WebSocketContext';
 
 export default function Pen({ isStable, type, num, position, pid }) {
-  const { setPrompt } = useBackgroundContext();
+  const { setPrompt, openRoundCard } = useBackgroundContext();
   const { setIsFbActive, setIsAbActive } = useAuthContext();
   const { socket } = useWebSocketContext();
   const queryClient = useQueryClient();
@@ -27,11 +27,13 @@ export default function Pen({ isStable, type, num, position, pid }) {
               queryClient.invalidateQueries(['resource']);
               queryClient.invalidateQueries(['farmBoard']);
             })
-            .catch(err => {
+            .catch(async err => {
               setPrompt({
                 message: '우리의 수용량을 초과하였습니다.',
                 buttons: [],
               });
+              const isEnd = await isRoundEnd();
+              isEnd && roundEnd(socket, queryClient, openRoundCard);
               clearPromptMsg(2000);
               setIsFbActive(false);
               setIsAbActive(true);
@@ -41,6 +43,8 @@ export default function Pen({ isStable, type, num, position, pid }) {
             message: '사용할 수 있는 가축이 없습니다.',
             buttons: [],
           });
+          const isEnd = await isRoundEnd();
+          isEnd && roundEnd(socket, queryClient, openRoundCard);
           clearPromptMsg(2000);
           setIsFbActive(false);
           setIsAbActive(true);

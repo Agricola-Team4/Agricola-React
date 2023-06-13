@@ -11,6 +11,7 @@ export default function useRoundArr() {
       onSuccess: () => {
         queryClient.invalidateQueries(['farmBoard']);
         queryClient.invalidateQueries(['actionBoard']);
+        queryClient.invalidateQueries(['roundArray']);
       }, // queryKey 유효성 제거
     }
   );

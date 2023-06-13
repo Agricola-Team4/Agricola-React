@@ -16,5 +16,5 @@ export default function useFence() {
     }
   );
 
-  return <></>;
+  return { fenceArrQuery, postFence };
 }

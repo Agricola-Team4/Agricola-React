@@ -6,7 +6,7 @@ import { useQueryClient } from '@tanstack/react-query';
 export const AuthContext = createContext();
 
 export function AuthContextProvider({ children }) {
-  const [pid, setPid] = useState(2);
+  const [pid, setPid] = useState(1);
   const [pid2, setPid2] = useState(2);
   const [isFbActive, setIsFbActive] = useState(false);
   const [isAbActive, setIsAbActive] = useState(true);

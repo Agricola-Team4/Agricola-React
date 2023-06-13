@@ -225,7 +225,7 @@ export default function Land({ data, pid }) {
                     setIsFbActive(true);
                     setIsAbActive(true);
                     const isEnd = await isRoundEnd();
-                    isEnd && endRound.mutate({ socket, queryClient });
+                    isEnd && roundEnd(socket, queryClient);
                   } else {
                     setPrompt({
                       message:
@@ -291,7 +291,7 @@ export default function Land({ data, pid }) {
                               buttons: [],
                             });
                             const isEnd = await isRoundEnd();
-                            isEnd && endRound.mutate({ socket, queryClient });
+                            isEnd && roundEnd(socket, queryClient);
                             clearPromptMsg(3000);
                             setCondition(0);
                             setIsAbActive(true);
@@ -344,7 +344,7 @@ export default function Land({ data, pid }) {
                     console.log('외양간 만들기 끝');
 
                     const isEnd = await isRoundEnd();
-                    isEnd && endRound.mutate({ socket, queryClient });
+                    isEnd && roundEnd(socket, queryClient);
                     setIsFbActive(false);
                     setIsAbActive(true);
                     setCondition(0);

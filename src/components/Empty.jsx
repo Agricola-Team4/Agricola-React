@@ -15,7 +15,7 @@ export default function Empty({ isStable, onClick, pid }) {
           </div>
           <div className="basis-1/4"></div>
           <div className="basis-1/2 flex justify-center items-center">
-            <img src={resource.cow} alt="동물" />
+            {/* <img src={resource.cow} alt="동물" /> */}
           </div>
         </div>
       )}

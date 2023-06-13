@@ -31,9 +31,15 @@ export default function Pen({ isStable, type, num, position, pid }) {
 
         if (sheepNum > 0) {
           raiseAnimal(pid, 1, position, socket)
-            .then(() => {
+            .then(async () => {
               queryClient.invalidateQueries(['resource']);
               queryClient.invalidateQueries(['farmBoard']);
+              const isEnd = await isRoundEnd();
+              // isEnd && endRound.mutate({ socket, queryClient });
+              isEnd && roundEnd(socket, queryClient);
+              clearPromptMsg(2000);
+              setIsFbActive(false);
+              setIsAbActive(true);
             })
             .catch(async err => {
               setPrompt({
@@ -41,7 +47,8 @@ export default function Pen({ isStable, type, num, position, pid }) {
                 buttons: [],
               });
               const isEnd = await isRoundEnd();
-              isEnd && endRound.mutate({ socket, queryClient });
+              // isEnd && endRound.mutate({ socket, queryClient });
+              isEnd && roundEnd(socket, queryClient);
               clearPromptMsg(2000);
               setIsFbActive(false);
               setIsAbActive(true);
@@ -52,11 +59,6 @@ export default function Pen({ isStable, type, num, position, pid }) {
             message: '사용할 수 있는 가축이 없습니다.',
             buttons: [],
           });
-          const isEnd = await isRoundEnd();
-          isEnd && endRound.mutate({ socket, queryClient });
-          clearPromptMsg(2000);
-          setIsFbActive(false);
-          setIsAbActive(true);
         }
       }}
     >

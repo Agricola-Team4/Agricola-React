@@ -49,6 +49,7 @@ export default function ActionBoard() {
     setIsScActive,
     setIsJcActive,
     roundArray,
+    setIsEnd
   } = useBackgroundContext();
 
   const {

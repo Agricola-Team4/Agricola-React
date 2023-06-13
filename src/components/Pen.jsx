@@ -37,8 +37,18 @@ export default function Pen({ isStable, type, num, position, pid }) {
               const isEnd = await isRoundEnd();
               // isEnd && endRound.mutate({ socket, queryClient });
               isEnd &&
-                roundEnd(socket, queryClient).then(() => {
+                roundEnd(socket, queryClient).then(async () => {
                   openRoundCard();
+                  queryClient.invalidateQueries(['farmBoard']);
+                  queryClient.invalidateQueries(['actionBoard']);
+                  queryClient.invalidateQueries(['roundArray']);
+                  const a = await getCurrentRound();
+                  // console.log(a);
+                  // console.log(a.round);
+                  if (a[0].round === 8) {
+                    console.log('modal!');
+                    setIsEnd(true);
+                  }
                 });
               clearPromptMsg(2000);
               setIsFbActive(false);
@@ -52,8 +62,18 @@ export default function Pen({ isStable, type, num, position, pid }) {
               const isEnd = await isRoundEnd();
               // isEnd && endRound.mutate({ socket, queryClient });
               isEnd &&
-                roundEnd(socket, queryClient).then(() => {
+                roundEnd(socket, queryClient).then(async () => {
                   openRoundCard();
+                  queryClient.invalidateQueries(['farmBoard']);
+                  queryClient.invalidateQueries(['actionBoard']);
+                  queryClient.invalidateQueries(['roundArray']);
+                  const a = await getCurrentRound();
+                  // console.log(a);
+                  // console.log(a.round);
+                  if (a[0].round === 8) {
+                    console.log('modal!');
+                    setIsEnd(true);
+                  }
                 });
               clearPromptMsg(2000);
               setIsFbActive(false);

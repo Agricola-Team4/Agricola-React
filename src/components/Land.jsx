@@ -226,7 +226,19 @@ export default function Land({ data, pid }) {
                     setIsAbActive(true);
                     const isEnd = await isRoundEnd();
                     isEnd &&
-                      roundEnd(socket, queryClient).then(() => openRoundCard());
+                      roundEnd(socket, queryClient).then(async () => {
+                        openRoundCard();
+                        queryClient.invalidateQueries(['farmBoard']);
+                        queryClient.invalidateQueries(['actionBoard']);
+                        queryClient.invalidateQueries(['roundArray']);
+                        const a = await getCurrentRound();
+                        // console.log(a);
+                        // console.log(a.round);
+                        if (a[0].round === 8) {
+                          console.log('modal!');
+                          setIsEnd(true);
+                        }
+                      });
                   } else {
                     setPrompt({
                       message:
@@ -293,9 +305,19 @@ export default function Land({ data, pid }) {
                             });
                             const isEnd = await isRoundEnd();
                             isEnd &&
-                              roundEnd(socket, queryClient).then(() =>
-                                openRoundCard()
-                              );
+                              roundEnd(socket, queryClient).then(async () => {
+                                openRoundCard();
+                                queryClient.invalidateQueries(['farmBoard']);
+                                queryClient.invalidateQueries(['actionBoard']);
+                                queryClient.invalidateQueries(['roundArray']);
+                                const a = await getCurrentRound();
+                                // console.log(a);
+                                // console.log(a.round);
+                                if (a[0].round === 8) {
+                                  console.log('modal!');
+                                  setIsEnd(true);
+                                }
+                              });
                             clearPromptMsg(3000);
                             setCondition(0);
                             setIsAbActive(true);
@@ -349,7 +371,19 @@ export default function Land({ data, pid }) {
 
                     const isEnd = await isRoundEnd();
                     isEnd &&
-                      roundEnd(socket, queryClient).then(() => openRoundCard());
+                      roundEnd(socket, queryClient).then(async () => {
+                        openRoundCard();
+                        queryClient.invalidateQueries(['farmBoard']);
+                        queryClient.invalidateQueries(['actionBoard']);
+                        queryClient.invalidateQueries(['roundArray']);
+                        const a = await getCurrentRound();
+                        // console.log(a);
+                        // console.log(a.round);
+                        if (a[0].round === 8) {
+                          console.log('modal!');
+                          setIsEnd(true);
+                        }
+                      });
                     setIsFbActive(false);
                     setIsAbActive(true);
                     setCondition(0);

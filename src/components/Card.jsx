@@ -86,8 +86,18 @@ export default function Card({
           setCondition(0);
           const isEnd = await isRoundEnd();
           isEnd &&
-            roundEnd(socket, queryClient).then(() => {
+            roundEnd(socket, queryClient).then(async () => {
               openRoundCard();
+              queryClient.invalidateQueries(['farmBoard']);
+              queryClient.invalidateQueries(['actionBoard']);
+              queryClient.invalidateQueries(['roundArray']);
+              const a = await getCurrentRound();
+              // console.log(a);
+              // console.log(a.round);
+              if (a[0].round === 8) {
+                console.log('modal!');
+                setIsEnd(true);
+              }
             });
           clearPromptMsg(2000);
         } else {
@@ -109,8 +119,18 @@ export default function Card({
 
         const isEnd = await isRoundEnd();
         isEnd &&
-          roundEnd(socket, queryClient).then(() => {
+          roundEnd(socket, queryClient).then(async () => {
             openRoundCard();
+            queryClient.invalidateQueries(['farmBoard']);
+            queryClient.invalidateQueries(['actionBoard']);
+            queryClient.invalidateQueries(['roundArray']);
+            const a = await getCurrentRound();
+            // console.log(a);
+            // console.log(a.round);
+            if (a[0].round === 8) {
+              console.log('modal!');
+              setIsEnd(true);
+            }
           });
         setIsAbActive(true);
         setIsCsActive(false);

@@ -1,6 +1,7 @@
 import React from 'react';
 import { playerRed, playerBlue, resource } from '../constants/imageContants';
 import {
+  getCurrentRound,
   getResourceNumById,
   isRoundEnd,
   raiseAnimal,
@@ -13,7 +14,7 @@ import { useWebSocketContext } from '../context/WebSocketContext';
 import useRoundArr from '../hooks/useRoundArr';
 
 export default function Pen({ isStable, type, num, position, pid }) {
-  const { setPrompt, openRoundCard } = useBackgroundContext();
+  const { setPrompt, openRoundCard,setIsEnd } = useBackgroundContext();
   const { setIsFbActive, setIsAbActive } = useAuthContext();
   const { socket } = useWebSocketContext();
   const queryClient = useQueryClient();

@@ -3,6 +3,7 @@ import { jobImages } from '../constants/imageContants';
 import { useBackgroundContext } from '../context/BackgroundContext';
 import {
   activateCard,
+  getCurrentRound,
   isRoundEnd,
   roundEnd,
   takeAction,
@@ -34,6 +35,7 @@ export default function Card({
     isJcActive,
     initCardActive,
     openRoundCard,
+    setIsEnd
   } = useBackgroundContext();
   const { socket } = useWebSocketContext();
   const { endRound } = useRoundArr();

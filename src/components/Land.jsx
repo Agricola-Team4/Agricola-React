@@ -16,6 +16,7 @@ import {
   constructStable,
   isRoundEnd,
   roundEnd,
+  getCurrentRound,
 } from '../api/agricola';
 import { useAuthContext } from '../context/AuthContext';
 import { useActionBoard } from '../hooks/useActionBoard';
@@ -43,6 +44,7 @@ export default function Land({ data, pid }) {
     openRoundCard,
     fencePosArr,
     setFencePosArr,
+    setIsEnd
   } = useBackgroundContext();
 
   const fencePos = {

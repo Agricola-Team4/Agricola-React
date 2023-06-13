@@ -500,6 +500,12 @@ export async function roundEnd(socket, queryClient, callback) {
   });
 }
 
+export async function getRoundArray() {
+  return await axios
+    .get('http://3.36.7.233:3000/fstplayer/get_round_array/')
+    .then(res => res.data);
+}
+
 export async function periodEnd(socket) {
   return new Promise((resolve, reject) => {
     const message = {

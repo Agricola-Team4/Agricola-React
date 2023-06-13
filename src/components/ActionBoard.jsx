@@ -20,6 +20,7 @@ import { useBackgroundContext } from '../context/BackgroundContext';
 import { useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { useWebSocketContext } from '../context/WebSocketContext';
+import useRoundArr from '../hooks/useRoundArr';
 
 export default function ActionBoard() {
   const { pid, setIsFbActive, isAbActive, setIsAbActive, setIsCsActive } =
@@ -39,7 +40,7 @@ export default function ActionBoard() {
     setCondition,
     validLandArr,
     setValidLandArr,
-    roundArray,
+    // d,
     validRoomArr,
     setValidRoomArr,
     validStableArr,
@@ -52,7 +53,11 @@ export default function ActionBoard() {
   const {
     actionBoardQuery: { isLadoing, error, data },
   } = useActionBoard();
+  const {
+    roundArrQuery: { data: d },
+  } = useRoundArr();
   // console.log("validLandArr", validLandArr);
+  console.log(d);
 
   const [roundround, setRoundRound] = useState(5);
 
@@ -1424,7 +1429,7 @@ export default function ActionBoard() {
   const renderRound = (round, basis, roundNum, inum) => {
     return round.map((info, idx) => {
       // return idx + inum < roundround ? (
-      return roundArray[idx + inum] ? (
+      return d && d.round_array[idx + inum] ? (
         <Box
           ratio={basis}
           isSquare={true}
@@ -1585,7 +1590,7 @@ export default function ActionBoard() {
       </div>
       <div className="basis-1/5"></div>
       {renderRound(round5, 'basis-1/5', 5, 11)}
-      {roundArray[13] ? (
+      {d && d.round_array[13] ? (
         // 13 < roundround ? (
         <Box
           ratio="basis-1/5"

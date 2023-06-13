@@ -9,7 +9,7 @@ import {
 } from '../api/agricola';
 import { useAuthContext } from '../context/AuthContext';
 import { useCardBoard } from '../hooks/useCardBoard';
-import { QueryClient } from '@tanstack/react-query';
+import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import { useWebSocketContext } from '../context/WebSocketContext';
 
 export default function Card({
@@ -38,7 +38,7 @@ export default function Card({
 
   const { setIsAbActive, setIsCsActive, pid } = useAuthContext();
   const { useCard } = useCardBoard();
-  const queryClient = new QueryClient();
+  const queryClient = useQueryClient();
 
   const handleClickPossible = () => {
     if (0 < id && id <= 14) {

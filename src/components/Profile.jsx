@@ -1,7 +1,7 @@
 import { Avatar } from '@material-tailwind/react';
 import { useAuthContext } from '../context/AuthContext';
 import { useBackgroundContext } from '../context/BackgroundContext';
-import { isRoundEnd, periodEnd } from '../api/agricola';
+import { getRoundArray, isRoundEnd, periodEnd } from '../api/agricola';
 import { test, test2 } from '../api/websocket-test';
 import { useWebSocketContext } from '../context/WebSocketContext';
 
@@ -19,9 +19,9 @@ export default function Profile({ img, name }) {
         setIsCsActive(false);
         setPrompt({ message: '', buttons: [] });
         openRoundCard();
-        // test(socket);
-        // test2(1, 1, socket).then(a => console.log(a));
-        periodEnd(socket);
+
+        // periodEnd(socket).then(res => console.log(res));
+        getRoundArray().then(res => console.log(res));
         const message = {
           type: 'get_player_resource',
           player_id: 1,

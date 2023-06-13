@@ -24,10 +24,10 @@ export default function Profile({ img, name }) {
         setIsCsActive(false);
         setPrompt({ message: '', buttons: [] });
         openRoundCard();
+        // getCalculateScore(1, socket).then(res => console.log(res));
 
         // periodEnd(socket).then(res => console.log(res));
         // getRoundArray().then(res => console.log(res));
-        // getCalculateScore(1, socket).then(res => console.log(res));
         // const message = {
         //   type: 'get_player_resource',
         //   player_id: 1,

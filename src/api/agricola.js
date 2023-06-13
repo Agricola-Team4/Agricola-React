@@ -392,7 +392,7 @@ export async function raiseAnimal(pid, type, position, socket) {
     socket.send(JSON.stringify(message));
 
     socket.onmessage = e => {
-      console.log(e);
+      console.log(e.data);
       const receivedData = JSON.parse(e.data);
       resolve(receivedData);
     };
@@ -520,6 +520,14 @@ export async function getCalculateScore(pid, socket) {
   });
 }
 
+// export async function getCalculateScore(pid) {
+//   return await axios
+//     .get(
+//       `http://3.36.7.233:3000/playerboardstatus/calculate_score/?player_id=${pid}/`
+//     )
+//     .then(res => res.data);
+// }
+
 export async function getRoundArray() {
   return await axios
     .get('http://3.36.7.233:3000/fstplayer/get_round_array/')
@@ -544,11 +552,13 @@ export async function periodEnd(socket) {
   });
 }
 
-export async function caclulateScore(socket) {
+export async function getCaclulateScore(pid, socket) {
   return new Promise((resolve, reject) => {
     const message = {
       type: 'calculate_score',
+      player_id: pid,
     };
+    console.log('adsfasdf');
     socket.send(JSON.stringify(message));
 
     socket.onmessage = e => {

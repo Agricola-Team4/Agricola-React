@@ -57,13 +57,8 @@ export default function ActionBoard() {
     roundArrQuery: { data: d },
   } = useRoundArr();
   // console.log("validLandArr", validLandArr);
-  console.log(d);
 
-  const [roundround, setRoundRound] = useState(5);
-
-  useEffect(() => {
-    getCurrentRound().then(a => setRoundRound(a[0].round));
-  }, []);
+  const { endRound } = useRoundArr();
 
   const { animalEvent } = useFarmBoard();
   const calcAccumul = idx => {
@@ -394,7 +389,7 @@ export default function ActionBoard() {
                             buttons: [],
                           });
                           const isEnd = await isRoundEnd();
-                          isEnd && roundEnd(socket, queryClient, openRoundCard);
+                          isEnd && endRound.mutate({ socket, queryClient });
 
                           setTimeout(() => {
                             setPrompt({ message: '', buttons: [] });
@@ -417,7 +412,7 @@ export default function ActionBoard() {
                 setIsJcActive(false);
                 setIsAbActive(false);
                 const isEnd = await isRoundEnd();
-                isEnd && roundEnd(socket, queryClient, openRoundCard);
+                isEnd && endRound.mutate({ socket, queryClient });
                 pid === 1 ? openP1HaveSlot() : openP2HaveSlot();
               },
             },
@@ -452,7 +447,7 @@ export default function ActionBoard() {
         queryClient.invalidateQueries(['resource', pid]);
         queryClient.invalidateQueries(['farmBoard', pid]);
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd(socket, queryClient, openRoundCard);
+        isEnd && endRound.mutate({ socket, queryClient });
       },
       isAccumul: calcAccumul(9),
       isOcuupied: data && data[9].is_occupied,
@@ -484,7 +479,7 @@ export default function ActionBoard() {
         queryClient.invalidateQueries(['farmBoard', pid]);
         queryClient.invalidateQueries(['resource', pid]);
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd(socket, queryClient, openRoundCard);
+        isEnd && endRound.mutate({ socket, queryClient });
       },
       isAccumul: calcAccumul(10),
       isOcuupied: data && data[10].is_occupied,
@@ -507,7 +502,7 @@ export default function ActionBoard() {
           clearPromptMsg(2000);
           return;
         }
-        // useValidLand.mutate({ pid });
+        // useValidLand.mutate({socket}{ pid });
         setIsFbActive(true);
         setIsAbActive(false);
         setPrompt({
@@ -555,7 +550,7 @@ export default function ActionBoard() {
         queryClient.invalidateQueries(['resource', pid]);
         queryClient.invalidateQueries(['farmBoard', pid]);
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd(socket, queryClient, openRoundCard);
+        isEnd && endRound.mutate({ socket, queryClient });
       },
       isAccumul: calcAccumul(12),
       isOcuupied: data && data[12].is_occupied,
@@ -656,7 +651,7 @@ export default function ActionBoard() {
       //   queryClient.invalidateQueries(["actionBoard"]);
       //   queryClient.invalidateQueries(["resource", pid]);
       //   const isEnd = await isRoundEnd();
-      // isEnd && roundEnd(socket, queryClient, openRoundCard);
+      // isEnd &&endRound.mutate({socket})
       // },
       // 임시 initial api
       onClick: async () => {
@@ -695,7 +690,7 @@ export default function ActionBoard() {
       //   queryClient.invalidateQueries(["actionBoard"]);
       //   queryClient.invalidateQueries(["resource", pid]);
       //   const isEnd = await isRoundEnd();
-      //   isEnd && roundEnd(socket, queryClient, openRoundCard);
+      //   isEnd &&endRound.mutate({socket})
       // },
       onClick: async () => {
         await axios
@@ -737,7 +732,7 @@ export default function ActionBoard() {
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['resource', pid]);
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd(socket, queryClient, openRoundCard);
+        isEnd && endRound.mutate({ socket, queryClient });
       },
 
       //임시로 만든 플레이어 초기화 버튼
@@ -841,13 +836,17 @@ export default function ActionBoard() {
         }
         await takeAction(pid, 17, 1, socket, queryClient);
         queryClient.invalidateQueries(['actionBoard']);
+        // setPrompt({
+        //   message: '울타리를 치고 싶은 땅을 모두 선택하세요.',
+        //   buttons: [],
+        // });
         setPrompt({
-          message: '울타리를 치고 싶은 땅을 모두 선택하세요.',
+          message: '울타리를 치고 싶은 땅을  선택하세요.',
           buttons: [],
         });
         setIsFbActive(true);
         setIsAbActive(false);
-        setCondition(1);
+        setCondition(-1);
       },
       isAccumul: calcAccumul(16),
       isOcuupied: data && data[16].is_occupied,
@@ -1030,7 +1029,7 @@ export default function ActionBoard() {
         queryClient.invalidateQueries(['farmBoard', pid]);
 
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd(socket, queryClient, openRoundCard);
+        isEnd && endRound.mutate({ socket, queryClient });
       },
       isAccumul: calcAccumul(21),
       isOcuupied: data && data[21].is_occupied,
@@ -1203,7 +1202,7 @@ export default function ActionBoard() {
         queryClient.invalidateQueries(['resource', pid]);
         queryClient.invalidateQueries(['farmBoard', pid]);
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd(socket, queryClient, openRoundCard);
+        isEnd && endRound.mutate({ socket, queryClient });
       },
       isAccumul: calcAccumul(24),
       isOcuupied: data && data[24].is_occupied,
@@ -1236,7 +1235,7 @@ export default function ActionBoard() {
         queryClient.invalidateQueries(['farmBoard', pid]);
 
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd(socket, queryClient, openRoundCard);
+        isEnd && endRound.mutate({ socket, queryClient });
       },
       isAccumul: calcAccumul(23),
       isOcuupied: data && data[23].is_occupied,
@@ -1265,7 +1264,7 @@ export default function ActionBoard() {
         }
         await takeAction(pid, 26, 1, socket, queryClient);
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd(socket, queryClient, openRoundCard);
+        isEnd && endRound.mutate({ socket, queryClient });
       },
       isAccumul: calcAccumul(25),
       isOcuupied: data && data[25].is_occupied,
@@ -1298,7 +1297,7 @@ export default function ActionBoard() {
         queryClient.invalidateQueries(['farmBoard', pid]);
 
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd(socket, queryClient, openRoundCard);
+        isEnd && endRound.mutate({ socket, queryClient });
       },
       isAccumul: calcAccumul(26),
       isOcuupied: data && data[26].is_occupied,
@@ -1326,7 +1325,7 @@ export default function ActionBoard() {
         }
         await takeAction(pid, 29, 1, socket, queryClient);
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd(socket, queryClient, openRoundCard);
+        isEnd && endRound.mutate({ socket, queryClient });
       },
       isAccumul: calcAccumul(28),
       isOcuupied: data && data[28].is_occupied,
@@ -1358,7 +1357,7 @@ export default function ActionBoard() {
         }
         await takeAction(pid, 28, 1, socket, queryClient);
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd(socket, queryClient, openRoundCard);
+        isEnd && endRound.mutate({ socket, queryClient });
       },
       isAccumul: calcAccumul(27),
       isOcuupied: data && data[27].is_occupied,
@@ -1402,7 +1401,7 @@ export default function ActionBoard() {
         }
         await takeAction(pid, 30, 1, socket, queryClient);
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd(socket, queryClient, openRoundCard);
+        isEnd && endRound.mutate({ socket, queryClient });
       },
       isAccumul: calcAccumul(29),
       isOcuupied: data && data[29].is_occupied,

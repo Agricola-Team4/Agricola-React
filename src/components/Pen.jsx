@@ -10,6 +10,7 @@ import { useBackgroundContext } from '../context/BackgroundContext';
 import { useAuthContext } from '../context/AuthContext';
 import { useQueryClient } from '@tanstack/react-query';
 import { useWebSocketContext } from '../context/WebSocketContext';
+import useRoundArr from '../hooks/useRoundArr';
 
 export default function Pen({ isStable, type, num, position, pid }) {
   const { setPrompt, openRoundCard } = useBackgroundContext();
@@ -21,6 +22,7 @@ export default function Pen({ isStable, type, num, position, pid }) {
       setPrompt({ message: '', buttons: [] });
     }, time);
   };
+  const endRound = useRoundArr();
   return (
     <div
       className="bg-empty bg-clip-border bg-contain bg-no-repeat flex flex-wrap justify-center items-center p-2"
@@ -39,7 +41,7 @@ export default function Pen({ isStable, type, num, position, pid }) {
                 buttons: [],
               });
               const isEnd = await isRoundEnd();
-              isEnd && roundEnd(socket, queryClient, openRoundCard);
+              isEnd && endRound.mutate({ socket, queryClient });
               clearPromptMsg(2000);
               setIsFbActive(false);
               setIsAbActive(true);
@@ -51,7 +53,7 @@ export default function Pen({ isStable, type, num, position, pid }) {
             buttons: [],
           });
           const isEnd = await isRoundEnd();
-          isEnd && roundEnd(socket, queryClient, openRoundCard);
+          isEnd && endRound.mutate({ socket, queryClient });
           clearPromptMsg(2000);
           setIsFbActive(false);
           setIsAbActive(true);

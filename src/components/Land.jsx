@@ -22,6 +22,7 @@ import { useActionBoard } from '../hooks/useActionBoard';
 import { useQueryClient } from '@tanstack/react-query';
 // import { fencePos } from '../constants/fencePos';
 import { useWebSocketContext } from '../context/WebSocketContext';
+import useRoundArr from '../hooks/useRoundArr';
 
 export default function Land({ data, pid }) {
   const {
@@ -138,7 +139,7 @@ export default function Land({ data, pid }) {
   };
 
   const { socket } = useWebSocketContext();
-
+  const endRound = useRoundArr();
   const { setIsFbActive, setIsAbActive } = useAuthContext();
 
   const queryClient = useQueryClient();
@@ -156,7 +157,6 @@ export default function Land({ data, pid }) {
       setPrompt({ message: '', buttons: [] });
     }, time);
   };
-
   return (
     <div className="relative basis-9/31 aspect-square cursor-pointer transition duration-150 ease-in hover:scale-105 p-0.5 ">
       {
@@ -225,7 +225,7 @@ export default function Land({ data, pid }) {
                     setIsFbActive(true);
                     setIsAbActive(true);
                     const isEnd = await isRoundEnd();
-                    isEnd && roundEnd(socket, queryClient, openRoundCard);
+                    isEnd && endRound.mutate({ socket, queryClient });
                   } else {
                     setPrompt({
                       message:
@@ -291,8 +291,7 @@ export default function Land({ data, pid }) {
                               buttons: [],
                             });
                             const isEnd = await isRoundEnd();
-                            isEnd &&
-                              roundEnd(socket, queryClient, openRoundCard);
+                            isEnd && endRound.mutate({ socket, queryClient });
                             clearPromptMsg(3000);
                             setCondition(0);
                             setIsAbActive(true);
@@ -345,7 +344,7 @@ export default function Land({ data, pid }) {
                     console.log('외양간 만들기 끝');
 
                     const isEnd = await isRoundEnd();
-                    isEnd && roundEnd(socket, queryClient, openRoundCard);
+                    isEnd && endRound.mutate({ socket, queryClient });
                     setIsFbActive(false);
                     setIsAbActive(true);
                     setCondition(0);
@@ -383,7 +382,7 @@ export default function Land({ data, pid }) {
                   }
                 } else if (condition === -1) {
                   // build fence 대안용
-
+                  console.log(data.position);
                   await updatePenInFarmboard(pid, data.position, socket);
                   createPenposition(
                     pid,
@@ -407,7 +406,7 @@ export default function Land({ data, pid }) {
                   //       );
                   // });
                   const isEnd = await isRoundEnd();
-                  isEnd && roundEnd(socket, queryClient, openRoundCard);
+                  isEnd && endRound.mutate({ socket, queryClient });
                   queryClient.invalidateQueries(['farmBoard', pid]);
                   setPrompt({ message: '', buttons: [] });
                   setIsFbActive(false);

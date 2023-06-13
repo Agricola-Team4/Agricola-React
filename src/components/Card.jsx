@@ -11,6 +11,7 @@ import { useAuthContext } from '../context/AuthContext';
 import { useCardBoard } from '../hooks/useCardBoard';
 import { QueryClient, useQueryClient } from '@tanstack/react-query';
 import { useWebSocketContext } from '../context/WebSocketContext';
+import useRoundArr from '../hooks/useRoundArr';
 
 export default function Card({
   id,
@@ -35,7 +36,7 @@ export default function Card({
     openRoundCard,
   } = useBackgroundContext();
   const { socket } = useWebSocketContext();
-
+  const { endRound } = useRoundArr();
   const { setIsAbActive, setIsCsActive, pid } = useAuthContext();
   const { useCard } = useCardBoard();
   const queryClient = useQueryClient();
@@ -84,7 +85,7 @@ export default function Card({
           queryClient.invalidateQueries(['resource']);
           setCondition(0);
           const isEnd = await isRoundEnd();
-          isEnd && roundEnd(socket, queryClient, openRoundCard);
+          isEnd && endRound.mutate({ socket, queryClient });
           clearPromptMsg(2000);
         } else {
           // 21 - 집개조,  23- 기본가족늘리기, 5 - 교습, 19- 곡식활용 중 빵굽기
@@ -104,7 +105,7 @@ export default function Card({
         closeP2ActSlot();
 
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd(socket, queryClient, openRoundCard);
+        isEnd && endRound.mutate({ socket, queryClient });
 
         setIsAbActive(true);
         setIsCsActive(false);

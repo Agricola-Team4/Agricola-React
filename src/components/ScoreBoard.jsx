@@ -20,12 +20,13 @@ export default function ScoreBoard() {
       }}
     >
       <div
-        style={{ height: `650px`, width: `$1000px` }}
-        className="absolute w-fit py-8 px-10 bg-yellow-200 rounded-lg border-8 border-yellow-700 flex justify-center items-center"
+        style={{ height: `450px`, width: `800px` }}
+        className="absolute w-fit flex-col py-8 px-10 bg-yellow-200 rounded-lg border-8 border-yellow-700 flex justify-center items-center"
       >
-        <p>You Win! You Lose!</p>
-        <p>Your Score 10</p>
-        <p></p>
+        <p className="text-4xl font-bold">You Win!</p>
+        {/* <p>Your Score 10</p>
+        <p></p> */}
+        <p className="mt-2">총 점수 : 15</p>
       </div>
     </motion.div>
   );

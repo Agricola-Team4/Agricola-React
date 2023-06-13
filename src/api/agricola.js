@@ -479,7 +479,7 @@ export async function isRoundEnd() {
 //     .then(res => res.data);
 // }
 
-export async function roundEnd(socket, queryClient, callback) {
+export async function roundEnd(socket, queryClient) {
   return new Promise((resolve, reject) => {
     const message = {
       type: 'round_end',
@@ -490,9 +490,29 @@ export async function roundEnd(socket, queryClient, callback) {
       console.log(e);
       const receivedData = JSON.parse(e.data);
       resolve(receivedData);
-      queryClient.invalidateQueries(['actionBoard']);
       queryClient.invalidateQueries(['farmBoard']);
-      callback();
+      queryClient.invalidateQueries(['actionBoard']);
+      queryClient.invalidateQueries(['roundArray']);
+    };
+    socket.onerror = error => {
+      reject(error);
+    };
+  });
+}
+
+export async function getCalculateScore(pid, socket) {
+  return new Promise((resolve, reject) => {
+    const message = {
+      type: 'get_calculate_score',
+      player_id: pid,
+    };
+    console.log('hello');
+    socket.send(JSON.stringify(message));
+
+    socket.onmessage = e => {
+      console.log(e);
+      const receivedData = JSON.parse(e.data);
+      resolve(receivedData);
     };
     socket.onerror = error => {
       reject(error);
@@ -564,6 +584,7 @@ export async function updatePenInFarmboard(pid, pos, socket) {
     socket.send(JSON.stringify(message));
 
     socket.onmessage = e => {
+      console.log(e);
       const receivedData = JSON.parse(e.data);
 
       resolve(receivedData.data);
@@ -594,6 +615,7 @@ export async function createPenposition(
     socket.send(JSON.stringify(message));
 
     socket.onmessage = e => {
+      console.log(e);
       const receivedData = JSON.parse(e.data);
       resolve(receivedData.data);
       updateFenceposition(pos, fencePosition, setFencePosition);

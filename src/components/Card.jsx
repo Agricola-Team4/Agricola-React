@@ -85,7 +85,10 @@ export default function Card({
           queryClient.invalidateQueries(['resource']);
           setCondition(0);
           const isEnd = await isRoundEnd();
-          isEnd && roundEnd(socket, queryClient);
+          isEnd &&
+            roundEnd(socket, queryClient).then(() => {
+              openRoundCard();
+            });
           clearPromptMsg(2000);
         } else {
           // 21 - 집개조,  23- 기본가족늘리기, 5 - 교습, 19- 곡식활용 중 빵굽기
@@ -105,7 +108,10 @@ export default function Card({
         closeP2ActSlot();
 
         const isEnd = await isRoundEnd();
-        isEnd && roundEnd(socket, queryClient);
+        isEnd &&
+          roundEnd(socket, queryClient).then(() => {
+            openRoundCard();
+          });
         setIsAbActive(true);
         setIsCsActive(false);
         initCardActive();

@@ -36,7 +36,10 @@ export default function Pen({ isStable, type, num, position, pid }) {
               queryClient.invalidateQueries(['farmBoard']);
               const isEnd = await isRoundEnd();
               // isEnd && endRound.mutate({ socket, queryClient });
-              isEnd && roundEnd(socket, queryClient);
+              isEnd &&
+                roundEnd(socket, queryClient).then(() => {
+                  openRoundCard();
+                });
               clearPromptMsg(2000);
               setIsFbActive(false);
               setIsAbActive(true);
@@ -48,7 +51,10 @@ export default function Pen({ isStable, type, num, position, pid }) {
               });
               const isEnd = await isRoundEnd();
               // isEnd && endRound.mutate({ socket, queryClient });
-              isEnd && roundEnd(socket, queryClient);
+              isEnd &&
+                roundEnd(socket, queryClient).then(() => {
+                  openRoundCard();
+                });
               clearPromptMsg(2000);
               setIsFbActive(false);
               setIsAbActive(true);

@@ -1,22 +1,16 @@
 ## About the Project
 
----
-
 웹을 사용하여 만든 온라인 보드게임 아그리콜라 프로토타입
 
 <br/>
 
 ## Stack
 
----
-
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black"> <img src="https://img.shields.io/badge/tailwind-FFFFFF?style=for-the-badge&logo=tailwindcss&logoColor=#38BDF8">
 
 <br/>
 
 ## 게임 테스트 방법
-
----
 
 ### player 1
 
@@ -36,16 +30,12 @@ player1, player2 한번 씩 새로고침을 하여 웹소켓 연결 후 게임�
 
 ## 작동 기능 범위 및 한계
 
----
-
 - 현재 5라운드부터 8라운드까지의 플레이가 가능합니다.
 - 울타리(fence), round카드 open, 최종결과 modal은 상대 플레이어에게 보이지 않습니다.
 
 <br/>
 
 ## 시연 시나리오
-
----
 
 player1(dongree), player2(hyeseon)  
 player2(hyeseon)가 선플레이어인 경우

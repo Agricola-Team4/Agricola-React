@@ -14,15 +14,15 @@
 
 ### player 1
 
-1. https://jazzy-trifle-183e7d.netlify.app/ 접속합니다.
-
-### player 2
-
 1. 해당 깃허브 프로젝트 코드를 로컬에 다운로드합니다.
 2. 프로젝트 루트 디렉토리에서 **npm install**을 명령어를 실행합니다.
 3. context폴더 안에 **AuthContext.jsx** 파일에 들어갑니다.
 4. const [pid, setPid] = useState(2);를 **const [pid, setPid] = useState(1);** 로 변경하고 저장합니다.
 5. 프로젝트 루트 디렉토리에서 **npm start**를 명령어를 실행합니다.
+
+### player 2
+
+1. https://jazzy-trifle-183e7d.netlify.app/ 접속합니다.
 
 player1, player2 한번 씩 새로고침을 하여 웹소켓 연결 후 게임을 시작합니다.
 

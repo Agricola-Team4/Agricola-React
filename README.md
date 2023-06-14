@@ -47,7 +47,7 @@ player1 울타리
 
 player2 기본자원  
 player1 양시장  
-player2 기본자원
+player2 기본자원  
 player1 농지
 
 player2 농지  

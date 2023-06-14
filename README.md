@@ -22,7 +22,10 @@
 
 ### player 2
 
-1. https://jazzy-trifle-183e7d.netlify.app/ 접속합니다.
+1. 크롬 브라우저에서 https://jazzy-trifle-183e7d.netlify.app/ 접속합니다.
+2. url 왼쪽에 있는 자물쇠 아이콘을 클릭합니다.
+3. 사이트 설정에 들어갑니다.
+4. 아래로 스크롤하여 '안전하지 않은 콘텐츠'에 허용을 눌러줍니다.
 
 player1, player2 한번 씩 새로고침을 하여 웹소켓 연결 후 게임을 시작합니다.
 

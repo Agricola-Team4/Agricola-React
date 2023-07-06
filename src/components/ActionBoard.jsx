@@ -49,7 +49,7 @@ export default function ActionBoard() {
     setIsScActive,
     setIsJcActive,
     roundArray,
-    setIsEnd
+    setIsEnd,
   } = useBackgroundContext();
 
   const {
@@ -902,7 +902,9 @@ export default function ActionBoard() {
 
                 break;
               case 3:
-              // 주요설비만 있는 경우
+                // 주요설비만 있는 경우
+                break;
+              default:
             }
 
             console.log(res);

@@ -18,7 +18,7 @@ import { image_R, all_Images } from '../constants/imageContants';
 //     };
 //   });
 // }
-export async function getFarmBoard(id) {
+export function getFarmBoard(id) {
   return axios
     .post('http://3.36.7.233:3000/boardposition/get_all_position/', {
       player_id: id,
@@ -30,38 +30,62 @@ export async function getFarmBoard(id) {
 }
 
 // BE api
-export async function setFirstPlayer() {
+export function setFirstPlayer() {
   return axios
     .get('http://3.36.7.233:3000/player/choose_first_player')
     .then(res => res.data);
 }
 
-export async function whoseTurn() {
+export function whoseTurn() {
   // 턴이 홀수이면 선 플레이어의 턴, 짝수이면 다른 플레이어의 턴
   return axios
     .get('http://3.36.7.233:3000/gamestatus/get_turn/')
     .then(res => res.data);
 }
 
-export async function amITurn(pid) {
+export function amITurn(pid) {
   // 턴이 홀수이면 선 플레이어의 턴, 짝수이면 다른 플레이어의 턴
   return axios
     .get(`http://3.36.7.233:3000/gamestatus/my_turn?player_id=${pid}`)
     .then(res => res.data);
 }
 
-// Resource 관련
+// Resource 관련    --  test해보자!
 export async function getAllResource(pid) {
   const resource_object = {};
-  const data = await axios
-    .get(
-      `http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}`
-    )
-    .then(res => {
-      return res.data;
-    });
+  const [data1, data2, data3] = await Promise.all([
+    axios
+      .get(
+        `http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}`
+      )
+      .then(res => {
+        return res.data;
+      }),
+    axios
+      .get(
+        `http://3.36.7.233:3000/playerresource/get_family_resource/?player_id=${pid}`
+      )
+      .then(res => {
+        return res.data;
+      }),
+    axios
+      .get(
+        `http://3.36.7.233:3000/playerresource/get_agricultural_resource/?player_id=${pid}`
+      )
+      .then(res => {
+        return res.data;
+      }),
+  ]);
 
-  data.forEach(item => {
+  // const data = await axios
+  //   .get(
+  //     `http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}`
+  //   )
+  //   .then(res => {
+  //     return res.data;
+  //   });
+
+  data1.forEach(item => {
     const resource_id = item.resource_id;
     const resource_num = item.resource_num;
 
@@ -70,31 +94,32 @@ export async function getAllResource(pid) {
     resource_object[resource_name] = resource_num;
   });
 
-  const data2 = await axios
-    .get(
-      `http://3.36.7.233:3000/playerresource/get_family_resource/?player_id=${pid}`
-    )
-    .then(res => {
-      return res.data;
-    });
+  // const data2 = await axios
+  //   .get(
+  //     `http://3.36.7.233:3000/playerresource/get_family_resource/?player_id=${pid}`
+  //   )
+  //   .then(res => {
+  //     return res.data;
+  //   });
   resource_object['farmer'] = data2.adult;
   resource_object['baby'] = data2.baby;
 
-  const data3 = await axios
-    .get(
-      `http://3.36.7.233:3000/playerresource/get_agricultural_resource/?player_id=${pid}`
-    )
-    .then(res => {
-      return res.data;
-    });
+  // const data3 = await axios
+  //   .get(
+  //     `http://3.36.7.233:3000/playerresource/get_agricultural_resource/?player_id=${pid}`
+  //   )
+  //   .then(res => {
+  //     return res.data;
+  //   });
   resource_object['fence'] = data3.fence;
   resource_object['stable'] = data3.cowshed;
 
   return resource_object;
 }
 
-export async function getResourceNumById(pid, rid) {
-  return await axios
+// * awiat 없어도 될듯? *
+export function getResourceNumById(pid, rid) {
+  return axios
     .get(
       `http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}&resource_id=${rid}`
     )
@@ -103,8 +128,8 @@ export async function getResourceNumById(pid, rid) {
     });
 }
 
-export async function getUserResource(pid) {
-  return await axios
+export function getUserResource(pid) {
+  return axios
     .get(
       `http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}`
     )
@@ -114,22 +139,19 @@ export async function getUserResource(pid) {
     });
 }
 
-export async function getResource(pid, rid) {
-  const data = await axios
+// test 해보자!
+export function getResource(pid, rid) {
+  return axios
     .get(
       `http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}&resource_id=${rid}`
     )
     .then(res => {
-      return res.data[1];
+      return res.data[1].resource_num;
     });
-
-  const resource_num = data.resource_num;
-  // console.log("num", resource_num);
-
-  return resource_num;
 }
 
-export async function updateOneResource(pid, rid, num, socket) {
+// async 키워드 제거
+export function updateOneResource(pid, rid, num, socket) {
   return new Promise((resolve, reject) => {
     const message = {
       type: 'update_player_resource',
@@ -149,21 +171,19 @@ export async function updateOneResource(pid, rid, num, socket) {
   });
 }
 
-export async function getMyturn(pid) {
-  return await axios
+export function getMyturn(pid) {
+  return axios
     .get(`http://3.36.7.233:3000/gamestatus/my_turn?player_id=${pid}`)
     .then(res => {
       return res.data.my_turn;
     });
 }
 
-export async function getTurn() {
-  return await axios
-    .get('http://3.36.7.233:3000/gamestatus/get_turn/')
-    .then(res => {
-      console.log('현재 turn값은 : ', res.data.turn);
-      return res.data.turn;
-    });
+export function getTurn() {
+  return axios.get('http://3.36.7.233:3000/gamestatus/get_turn/').then(res => {
+    console.log('현재 turn값은 : ', res.data.turn);
+    return res.data.turn;
+  });
 }
 
 export async function takeAction(pid, aid, cid, socket, queryClient) {
@@ -196,16 +216,15 @@ export async function takeAction(pid, aid, cid, socket, queryClient) {
   });
 }
 
-export async function getActionBoard() {
+export function getActionBoard() {
   return axios
     .get('http://3.36.7.233:3000/actionbox/get_actions_with_pid/')
     .then(res => res.data);
 }
 
 // login
-export async function login({ id, pw }) {
-  console.log('id', id, ' pw', pw);
-  const login_result = await axios
+export function login({ id, pw }) {
+  return axios
     .post('http://3.36.7.233:3000/account/login/', {
       user_id: id,
       user_pw: pw,
@@ -217,8 +236,6 @@ export async function login({ id, pw }) {
     .catch(err => {
       return console.log('err msg : ', err.response.data);
     });
-
-  return login_result;
 }
 
 // export async function login({ id, pw }, socket) {
@@ -243,7 +260,7 @@ export async function login({ id, pw }) {
 //   });
 // }
 
-export async function buildFence(id, arr, socket) {
+export function buildFence(id, arr, socket) {
   return new Promise((resolve, reject) => {
     const message = {
       type: 'build_fence',
@@ -263,10 +280,10 @@ export async function buildFence(id, arr, socket) {
   });
 }
 
-export async function getPlayerHaveCard() {
+export function getPlayerHaveCard() {
   const player1_cardSet = {};
   const player2_cardSet = {};
-  return await axios.get('http://3.36.7.233:3000/playercard/').then(res => {
+  return axios.get('http://3.36.7.233:3000/playercard/').then(res => {
     const data = res.data;
     const notMajor = data.filter(
       item => !(29 <= item.card_id && item.card_id < 39)
@@ -284,6 +301,7 @@ export async function getPlayerHaveCard() {
         path: imagePath,
         activated: item.activate,
       };
+      return 0;
     });
     // console.log("arr1", player1_cardSet);
 
@@ -298,6 +316,7 @@ export async function getPlayerHaveCard() {
         path: imagePath,
         activated: item.activate,
       };
+      return 0;
     });
     // console.log("arr2", player2_cardSet);
 
@@ -305,17 +324,17 @@ export async function getPlayerHaveCard() {
   });
 }
 
-export async function getPlayerActCard() {
+export function getPlayerActCard() {
   // player 별로 activate 되어있는 카드만 가지고 온다.
   const player1_cardSet = {};
   const player2_cardSet = {};
-  return await axios.get('http://3.36.7.233:3000/playercard/').then(res => {
+  return axios.get('http://3.36.7.233:3000/playercard/').then(res => {
     const data = res.data;
     const activated = data.filter(item => item.activate === 1);
     // console.log("notmajor", notMajor);
     if (activated.length === 0) {
       return 0;
-      console.log('activated undefined');
+      // console.log('activated undefined');
     } else {
       const player1CardArr = activated.filter(item => item.player_id === 1);
       // console.log("arr", player1CardArr);
@@ -328,6 +347,7 @@ export async function getPlayerActCard() {
           path: imagePath,
           activated: item.activate,
         };
+        return 0;
       });
       // console.log("arr1", player1_cardSet);
 
@@ -342,6 +362,7 @@ export async function getPlayerActCard() {
           path: imagePath,
           activated: item.activate,
         };
+        return 0;
       });
       // console.log("arr2", player2_cardSet);
 
@@ -350,38 +371,37 @@ export async function getPlayerActCard() {
   });
 }
 
-export async function getMajorCard() {
+export function getMajorCard() {
   const cardSet = {};
 
-  return await axios
-    .get('http://3.36.7.233:3000/mainfacilitycard/')
-    .then(res => {
-      const major = res.data;
+  return axios.get('http://3.36.7.233:3000/mainfacilitycard/').then(res => {
+    const major = res.data;
 
-      major.map((item, index) => {
-        const image_key = image_R[item.card_id];
-        const imagePath = all_Images[image_key];
-        // player_id가 1,2이면 activated 1
-        // player_id가 0이면 activated 0
-        let activated;
-        if ((item.player_id === 1) | (item.player_id === 2)) {
-          activated = 1;
-        } else {
-          activated = 0;
-        }
-        // console.log(index, " ?? ", image_key, " ?? ", imagePath);
-        cardSet[image_key] = {
-          id: item.card_id,
-          path: imagePath,
-          activated: activated,
-        };
-      });
-
-      return cardSet;
+    major.map((item, index) => {
+      const image_key = image_R[item.card_id];
+      const imagePath = all_Images[image_key];
+      // player_id가 1,2이면 activated 1
+      // player_id가 0이면 activated 0
+      let activated;
+      if ((item.player_id === 1) | (item.player_id === 2)) {
+        activated = 1;
+      } else {
+        activated = 0;
+      }
+      // console.log(index, " ?? ", image_key, " ?? ", imagePath);
+      cardSet[image_key] = {
+        id: item.card_id,
+        path: imagePath,
+        activated: activated,
+      };
+      return 0;
     });
+
+    return cardSet;
+  });
 }
 
-export async function raiseAnimal(pid, type, position, socket) {
+export function raiseAnimal(pid, type, position, socket) {
   return new Promise((resolve, reject) => {
     const message = {
       type: 'raise_animal',
@@ -402,7 +422,7 @@ export async function raiseAnimal(pid, type, position, socket) {
   });
 }
 
-export async function constructLand(pid, land_num, socket) {
+export function constructLand(pid, land_num, socket) {
   return new Promise((resolve, reject) => {
     const message = {
       type: 'construct_land',
@@ -422,7 +442,7 @@ export async function constructLand(pid, land_num, socket) {
   });
 }
 
-export async function constructRoom(pid, land_num, socket) {
+export function constructRoom(pid, land_num, socket) {
   return new Promise((resolve, reject) => {
     const message = {
       type: 'construct_room',
@@ -441,7 +461,7 @@ export async function constructRoom(pid, land_num, socket) {
     };
   });
 }
-export async function constructStable(pid, land_num, socket) {
+export function constructStable(pid, land_num, socket) {
   return new Promise((resolve, reject) => {
     const message = {
       type: 'construct_cowshed',
@@ -460,10 +480,8 @@ export async function constructStable(pid, land_num, socket) {
   });
 }
 
-export async function getPlayerInfo() {
-  return await axios
-    .get('http://3.36.7.233:3000/player/')
-    .then(res => res.data);
+export function getPlayerInfo() {
+  return axios.get('http://3.36.7.233:3000/player/').then(res => res.data);
 }
 
 export async function isRoundEnd() {
@@ -479,7 +497,7 @@ export async function isRoundEnd() {
 //     .then(res => res.data);
 // }
 
-export async function roundEnd(socket, queryClient) {
+export function roundEnd(socket, queryClient) {
   return new Promise((resolve, reject) => {
     const message = {
       type: 'round_end',
@@ -500,7 +518,7 @@ export async function roundEnd(socket, queryClient) {
   });
 }
 
-export async function getCalculateScore(pid, socket) {
+export function getCalculateScore(pid, socket) {
   return new Promise((resolve, reject) => {
     const message = {
       type: 'get_calculate_score',
@@ -528,13 +546,13 @@ export async function getCalculateScore(pid, socket) {
 //     .then(res => res.data);
 // }
 
-export async function getRoundArray() {
-  return await axios
+export function getRoundArray() {
+  return axios
     .get('http://3.36.7.233:3000/fstplayer/get_round_array/')
     .then(res => res.data);
 }
 
-export async function periodEnd(socket) {
+export function periodEnd(socket) {
   return new Promise((resolve, reject) => {
     const message = {
       type: 'period_end',
@@ -552,7 +570,7 @@ export async function periodEnd(socket) {
   });
 }
 
-export async function getCaclulateScore(pid, socket) {
+export function getCaclulateScore(pid, socket) {
   return new Promise((resolve, reject) => {
     const message = {
       type: 'calculate_score',
@@ -572,13 +590,11 @@ export async function getCaclulateScore(pid, socket) {
   });
 }
 
-export async function getCurrentRound() {
-  return await axios
-    .get('http://3.36.7.233:3000/gamestatus/')
-    .then(res => res.data);
+export function getCurrentRound() {
+  return axios.get('http://3.36.7.233:3000/gamestatus/').then(res => res.data);
 }
 
-export async function updatePenInFarmboard(pid, pos, socket) {
+export function updatePenInFarmboard(pid, pos, socket) {
   return new Promise((resolve, reject) => {
     const message = {
       type: 'patch_boardposition',
@@ -605,7 +621,7 @@ export async function updatePenInFarmboard(pid, pos, socket) {
   });
 }
 
-export async function createPenposition(
+export function createPenposition(
   pid,
   pos,
   socket,
@@ -636,21 +652,21 @@ export async function createPenposition(
   });
 }
 
-export async function getAvailableSlot(pid, type) {
-  return await axios
+export function getAvailableSlot(pid, type) {
+  return axios
     .get(
       `http://3.36.7.233:3000/boardposition/get_available_slots/?player_id=${pid}&slot_type=${type}`
     )
     .then(res => res.data.available);
 }
 
-export async function firstPlayerData(pid) {
-  return await axios
+export function firstPlayerData(pid) {
+  return axios
     .get(`http://3.36.7.233:3000/player/${pid}/`)
     .then(res => res.data.fst_player);
 }
 
-export async function activateCard(pid, cid, socket) {
+export function activateCard(pid, cid, socket) {
   return new Promise((resolve, reject) => {
     const message = {
       type: 'activate_card',

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import Box from './Box';
+import ActionBox from './ActionBox';
 import RoundBox from './RoundBox';
 import useResource from '../hooks/useResource';
 import MajorCardBox from './MajorCardBox';
@@ -63,7 +63,7 @@ export default function ActionBoard() {
   const { endRound } = useRoundArr();
 
   const { animalEvent } = useFarmBoard();
-  const calcAccumul = idx => {
+  const calcAccumul = (idx) => {
     return (
       data &&
       data[idx].acc_resource !== null &&
@@ -71,10 +71,41 @@ export default function ActionBoard() {
     );
   };
 
-  const clearPromptMsg = time => {
+  const clearPromptMsg = (time) => {
     setTimeout(() => {
       setPrompt({ message: '', buttons: [] });
     }, time);
+  };
+
+  const basicAction = async (actionId) => {
+    const isMyTurn = await getMyturn(pid);
+    if (!isMyTurn) {
+      setPrompt({
+        message: '당신의 턴이 아닙니다.',
+        buttons: [],
+      });
+      clearPromptMsg(2000);
+      return;
+    }
+    await takeAction(pid, action, actionId, socket, queryClient);
+    queryClient.invalidateQueries(['actionBoard']);
+    queryClient.invalidateQueries(['farmBoard', pid]);
+    queryClient.invalidateQueries(['resource', pid]);
+    const isEnd = await isRoundEnd();
+    isEnd &&
+      roundEnd(socket, queryClient).then(async () => {
+        openRoundCard();
+        queryClient.invalidateQueries(['farmBoard']);
+        queryClient.invalidateQueries(['actionBoard']);
+        queryClient.invalidateQueries(['roundArray']);
+        const a = await getCurrentRound();
+        // console.log(a);
+        // console.log(a.round);
+        if (a[0].round === 8) {
+          console.log('modal!');
+          setIsEnd(true);
+        }
+      });
   };
 
   const action = [
@@ -460,36 +491,7 @@ export default function ActionBoard() {
           <img className="w-1/4" src="/img/grain_icon.png" alt="grain" />
         </>
       ),
-      onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
-        await takeAction(pid, 10, 1, socket, queryClient);
-        queryClient.invalidateQueries(['actionBoard']);
-        queryClient.invalidateQueries(['resource', pid]);
-        queryClient.invalidateQueries(['farmBoard', pid]);
-        const isEnd = await isRoundEnd();
-        isEnd &&
-          roundEnd(socket, queryClient).then(async () => {
-            openRoundCard();
-            queryClient.invalidateQueries(['farmBoard']);
-            queryClient.invalidateQueries(['actionBoard']);
-            queryClient.invalidateQueries(['roundArray']);
-            const a = await getCurrentRound();
-            // console.log(a);
-            // console.log(a.round);
-            if (a[0].round === 8) {
-              console.log('modal!');
-              setIsEnd(true);
-            }
-          });
-      },
+      onClick: () => basicAction(10),
       isAccumul: calcAccumul(9),
       isOcuupied: data && data[9].is_occupied,
       pid: data && data[9].player_id,
@@ -505,36 +507,7 @@ export default function ActionBoard() {
           <img className="w-1/3" src="/img/wood_icon.png" alt="wood" />
         </>
       ),
-      onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
-        await takeAction(pid, 11, 1, socket, queryClient);
-        queryClient.invalidateQueries(['actionBoard']);
-        queryClient.invalidateQueries(['farmBoard', pid]);
-        queryClient.invalidateQueries(['resource', pid]);
-        const isEnd = await isRoundEnd();
-        isEnd &&
-          roundEnd(socket, queryClient).then(async () => {
-            openRoundCard();
-            queryClient.invalidateQueries(['farmBoard']);
-            queryClient.invalidateQueries(['actionBoard']);
-            queryClient.invalidateQueries(['roundArray']);
-            const a = await getCurrentRound();
-            // console.log(a);
-            // console.log(a.round);
-            if (a[0].round === 8) {
-              console.log('modal!');
-              setIsEnd(true);
-            }
-          });
-      },
+      onClick: () => basicAction(11),
       isAccumul: calcAccumul(10),
       isOcuupied: data && data[10].is_occupied,
       pid: data && data[10].player_id,
@@ -546,34 +519,7 @@ export default function ActionBoard() {
         <img className="w-1/3" src="/img/farmland_icon.png" alt="farmland" />
       ),
 
-      onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
-        // useValidLand.mutate({socket}{ pid });
-        setIsFbActive(true);
-        setIsAbActive(false);
-        setPrompt({
-          message: '밭을 만들 땅을 클릭하세요.',
-          buttons: [],
-        });
-        setCondition(2);
-        const result = await takeAction(pid, 12, 1, socket, queryClient);
-        queryClient.invalidateQueries(['actionBoard']);
-        queryClient.invalidateQueries(['farmBoard']);
-
-        console.log('resss', result);
-        console.log('resss2', result.lands);
-        // 농지 condition으로 변경
-        setValidLandArr(result.lands);
-        console.log('validLandArr', validLandArr);
-      },
+      onClick: () => basicAction(12),
       isAccumul: calcAccumul(11),
       isOcuupied: data && data[11].is_occupied,
       pid: data && data[11].player_id,
@@ -589,36 +535,7 @@ export default function ActionBoard() {
           <img className="w-1/4" src="/img/soil_icon.png" alt="soil" />
         </>
       ),
-      onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
-        await takeAction(pid, 13, 1, socket, queryClient);
-        queryClient.invalidateQueries(['actionBoard']);
-        queryClient.invalidateQueries(['resource', pid]);
-        queryClient.invalidateQueries(['farmBoard', pid]);
-        const isEnd = await isRoundEnd();
-        isEnd &&
-          roundEnd(socket, queryClient).then(async () => {
-            openRoundCard();
-            queryClient.invalidateQueries(['farmBoard']);
-            queryClient.invalidateQueries(['actionBoard']);
-            queryClient.invalidateQueries(['roundArray']);
-            const a = await getCurrentRound();
-            // console.log(a);
-            // console.log(a.round);
-            if (a[0].round === 8) {
-              console.log('modal!');
-              setIsEnd(true);
-            }
-          });
-      },
+      onClick: () => basicAction(13),
       isAccumul: calcAccumul(12),
       isOcuupied: data && data[12].is_occupied,
       pid: data && data[12].player_id,
@@ -704,35 +621,7 @@ export default function ActionBoard() {
           <img className="w-1/4" src="/img/reed_icon.png" alt="reed" />
         </>
       ),
-      onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
-        await takeAction(pid, 14, 1, socket, queryClient);
-        queryClient.invalidateQueries(['actionBoard']);
-        queryClient.invalidateQueries(['resource', pid]);
-        const isEnd = await isRoundEnd();
-        isEnd &&
-          roundEnd(socket, queryClient).then(async () => {
-            openRoundCard();
-            queryClient.invalidateQueries(['farmBoard']);
-            queryClient.invalidateQueries(['actionBoard']);
-            queryClient.invalidateQueries(['roundArray']);
-            const a = await getCurrentRound();
-            // console.log(a);
-            // console.log(a.round);
-            if (a[0].round === 8) {
-              console.log('modal!');
-              setIsEnd(true);
-            }
-          });
-      },
+      onClick: () => basicAction(14),
       // 임시 initial api
       // onClick: async () => {
       //   await axios.get('http://3.36.7.233:3000/account/initial/').then(res => {
@@ -756,35 +645,7 @@ export default function ActionBoard() {
           <img className="w-1/4" src="/img/food_icon.png" alt="food" />
         </>
       ),
-      onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
-        await takeAction(pid, 15, 1, socket, queryClient);
-        queryClient.invalidateQueries(['actionBoard']);
-        queryClient.invalidateQueries(['resource', pid]);
-        const isEnd = await isRoundEnd();
-        isEnd &&
-          roundEnd(socket, queryClient).then(async () => {
-            openRoundCard();
-            queryClient.invalidateQueries(['farmBoard']);
-            queryClient.invalidateQueries(['actionBoard']);
-            queryClient.invalidateQueries(['roundArray']);
-            const a = await getCurrentRound();
-            // console.log(a);
-            // console.log(a.round);
-            if (a[0].round === 8) {
-              console.log('modal!');
-              setIsEnd(true);
-            }
-          });
-      },
+      onClick: () => basicAction(15),
       // onClick: async () => {
       //   await axios
       //     .get('http://3.36.7.233:3000/gamestatus/round_end/')
@@ -811,35 +672,7 @@ export default function ActionBoard() {
           <img className="w-1/4" src="/img/food_icon.png" alt="food" />
         </>
       ),
-      onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
-        await takeAction(pid, 16, 1, socket, queryClient);
-        queryClient.invalidateQueries(['actionBoard']);
-        queryClient.invalidateQueries(['resource', pid]);
-        const isEnd = await isRoundEnd();
-        isEnd &&
-          roundEnd(socket, queryClient).then(async () => {
-            openRoundCard();
-            queryClient.invalidateQueries(['farmBoard']);
-            queryClient.invalidateQueries(['actionBoard']);
-            queryClient.invalidateQueries(['roundArray']);
-            const a = await getCurrentRound();
-            // console.log(a);
-            // console.log(a.round);
-            if (a[0].round === 8) {
-              console.log('modal!');
-              setIsEnd(true);
-            }
-          });
-      },
+      onClick: () => basicAction(16),
 
       //임시로 만든 플레이어 초기화 버튼
       // onClick: async () => {
@@ -878,7 +711,7 @@ export default function ActionBoard() {
         }
 
         await takeAction(pid, 18, 1, socket, queryClient)
-          .then(res => {
+          .then((res) => {
             switch (res.case) {
               case 0:
                 // 아무것도 없는 경우
@@ -909,7 +742,7 @@ export default function ActionBoard() {
 
             console.log(res);
           })
-          .catch(err => {
+          .catch((err) => {
             console.log(err);
           });
         queryClient.invalidateQueries(['resource']);
@@ -1121,37 +954,7 @@ export default function ActionBoard() {
           <img className="w-1/3" src="/img/stone_icon.png" alt="stone" />
         </>
       ),
-      onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
-        await takeAction(pid, 22, 1, socket, queryClient);
-        queryClient.invalidateQueries(['actionBoard']);
-        queryClient.invalidateQueries(['resource', pid]);
-        queryClient.invalidateQueries(['farmBoard', pid]);
-
-        const isEnd = await isRoundEnd();
-        isEnd &&
-          roundEnd(socket, queryClient).then(async () => {
-            openRoundCard();
-            queryClient.invalidateQueries(['farmBoard']);
-            queryClient.invalidateQueries(['actionBoard']);
-            queryClient.invalidateQueries(['roundArray']);
-            const a = await getCurrentRound();
-            // console.log(a);
-            // console.log(a.round);
-            if (a[0].round === 8) {
-              console.log('modal!');
-              setIsEnd(true);
-            }
-          });
-      },
+      onClick: () => basicAction(22),
       isAccumul: calcAccumul(21),
       isOcuupied: data && data[21].is_occupied,
       pid: data && data[21].player_id,
@@ -1308,36 +1111,7 @@ export default function ActionBoard() {
           <img className="w-1/3" src="/img/vege_icon.png" alt="vegetable" />
         </>
       ),
-      onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
-        await takeAction(pid, 25, 1, socket, queryClient);
-        queryClient.invalidateQueries(['actionBoard']);
-        queryClient.invalidateQueries(['resource', pid]);
-        queryClient.invalidateQueries(['farmBoard', pid]);
-        const isEnd = await isRoundEnd();
-        isEnd &&
-          roundEnd(socket, queryClient).then(async () => {
-            openRoundCard();
-            queryClient.invalidateQueries(['farmBoard']);
-            queryClient.invalidateQueries(['actionBoard']);
-            queryClient.invalidateQueries(['roundArray']);
-            const a = await getCurrentRound();
-            // console.log(a);
-            // console.log(a.round);
-            if (a[0].round === 8) {
-              console.log('modal!');
-              setIsEnd(true);
-            }
-          });
-      },
+      onClick: () => basicAction(25),
       isAccumul: calcAccumul(24),
       isOcuupied: data && data[24].is_occupied,
       pid: data && data[24].player_id,
@@ -1353,37 +1127,7 @@ export default function ActionBoard() {
           <img className="w-1/3" src="/img/boar_icon.png" alt="boar" />
         </>
       ),
-      onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
-        await takeAction(pid, 24, 1, socket, queryClient);
-        queryClient.invalidateQueries(['actionBoard']);
-        queryClient.invalidateQueries(['resource', pid]);
-        queryClient.invalidateQueries(['farmBoard', pid]);
-
-        const isEnd = await isRoundEnd();
-        isEnd &&
-          roundEnd(socket, queryClient).then(async () => {
-            openRoundCard();
-            queryClient.invalidateQueries(['farmBoard']);
-            queryClient.invalidateQueries(['actionBoard']);
-            queryClient.invalidateQueries(['roundArray']);
-            const a = await getCurrentRound();
-            // console.log(a);
-            // console.log(a.round);
-            if (a[0].round === 8) {
-              console.log('modal!');
-              setIsEnd(true);
-            }
-          });
-      },
+      onClick: () => basicAction(24),
       isAccumul: calcAccumul(23),
       isOcuupied: data && data[23].is_occupied,
       pid: data && data[23].player_id,
@@ -1399,33 +1143,7 @@ export default function ActionBoard() {
           <img className="w-1/3" src="/img/cow_icon.png" alt="cow" />
         </>
       ),
-      onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
-        await takeAction(pid, 26, 1, socket, queryClient);
-        const isEnd = await isRoundEnd();
-        isEnd &&
-          roundEnd(socket, queryClient).then(async () => {
-            openRoundCard();
-            queryClient.invalidateQueries(['farmBoard']);
-            queryClient.invalidateQueries(['actionBoard']);
-            queryClient.invalidateQueries(['roundArray']);
-            const a = await getCurrentRound();
-            // console.log(a);
-            // console.log(a.round);
-            if (a[0].round === 8) {
-              console.log('modal!');
-              setIsEnd(true);
-            }
-          });
-      },
+      onClick: () => basicAction(26),
       isAccumul: calcAccumul(25),
       isOcuupied: data && data[25].is_occupied,
       pid: data && data[25].player_id,
@@ -1441,37 +1159,7 @@ export default function ActionBoard() {
           <img className="w-1/3" src="/img/stone_icon.png" alt="stone" />
         </>
       ),
-      onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
-        await takeAction(pid, 27, 1, socket, queryClient);
-        queryClient.invalidateQueries(['actionBoard']);
-        queryClient.invalidateQueries(['resource', pid]);
-        queryClient.invalidateQueries(['farmBoard', pid]);
-
-        const isEnd = await isRoundEnd();
-        isEnd &&
-          roundEnd(socket, queryClient).then(async () => {
-            openRoundCard();
-            queryClient.invalidateQueries(['farmBoard']);
-            queryClient.invalidateQueries(['actionBoard']);
-            queryClient.invalidateQueries(['roundArray']);
-            const a = await getCurrentRound();
-            // console.log(a);
-            // console.log(a.round);
-            if (a[0].round === 8) {
-              console.log('modal!');
-              setIsEnd(true);
-            }
-          });
-      },
+      onClick: () => basicAction(27),
       isAccumul: calcAccumul(26),
       isOcuupied: data && data[26].is_occupied,
       pid: data && data[26].player_id,
@@ -1623,200 +1311,113 @@ export default function ActionBoard() {
 
   const { updateResource, updateBaby } = useResource();
 
-  const shuffle = arr => arr.sort(() => Math.random() - 0.5);
-
-  // const shuffledRound1 = shuffle(round1);
-  // const shuffledRound2 = shuffle(round2);
-  // const shuffledRound3 = shuffle(round3);
-  // const shuffledRound4 = shuffle(round4);
-  // const shuffledRound5 = shuffle(round5);
+  const shuffle = (arr) => arr.sort(() => Math.random() - 0.5);
 
   const round1 = action.slice(10, 14);
   const round2 = action.slice(14, 17);
   const round3 = action.slice(17, 19);
   const round4 = action.slice(19, 21);
   const round5 = action.slice(21, 23);
+  const round6 = action.slice(23, 24);
 
-  const renderRound = (round, basis, roundNum, inum) => {
+  const renderActionsByRound = (round, basis, roundNum) => {
+    let startPointByRound = 0;
+    switch (roundNum) {
+      case 1:
+        startPointByRound = 0;
+        break;
+      case 2:
+        startPointByRound = 4;
+        break;
+      case 3:
+        startPointByRound = 7;
+        break;
+      case 4:
+        startPointByRound = 9;
+        break;
+      case 5:
+        startPointByRound = 11;
+        break;
+      case 6:
+        startPointByRound = 13;
+        break;
+      default:
+        throw new Error('round error');
+    }
+
     return round.map((info, idx) => {
-      // return idx + inum < roundround ? (
-      return roundArray[idx + inum] ? (
-        <Box
+      return roundArray[startPointByRound + idx] ? (
+        <ActionBox
           ratio={basis}
           isSquare={true}
-          title={info.title}
+          actionProperty={info}
           key={idx}
-          onClick={info.onClick}
-          isAccumul={info.isAccumul}
-          isOcuupied={info.isOcuupied}
-          pid={info.pid}
-        >
-          {info.childTags}
-        </Box>
+        />
       ) : (
         <RoundBox ratio={basis} round={roundNum} key={idx} />
       );
     });
   };
 
-  // const shuffle = arr => arr.sort(() => Math.random() - 0.5);
-
-  // const shuffledRound1 = shuffle(round1);
-  // const shuffledRound2 = shuffle(round2);
-  // const shuffledRound3 = shuffle(round3);
-  // const shuffledRound4 = shuffle(round4);
-  // const shuffledRound5 = shuffle(round5);
-
   return (
     <div
       className={`flex flex-wrap pr-28 ${!isAbActive && 'pointer-events-none'}`}
     >
-      <Box
-        ratio="basis-1/5"
-        isSquare={true}
-        title={action[0].title}
-        onClick={action[0].onClick}
-        isAccumul={action[0].isAccumul}
-        isOcuupied={action[0].isOcuupied}
-        pid={action[0].pid}
-      >
-        {action[0].childTags}
-      </Box>
-      {renderRound(round1, 'basis-1/5', 1, 0)}
+      <ActionBox ratio="basis-1/5" isSquare={true} actionProperty={action[0]} />
+      {renderActionsByRound(round1, 'basis-1/5', 1)}
       <div className="basis-1/5  flex flex-col">
-        <Box
+        <ActionBox
           ratio="basis-1/2"
           isSquare={false}
-          extraStyle="h-full"
-          title={action[1].title}
-          onClick={action[1].onClick}
-          isAccumul={action[1].isAccumul}
-          isOcuupied={action[1].isOcuupied}
-          pid={action[1].pid}
-        >
-          {action[1].childTags}
-        </Box>
-        <Box
+          actionProperty={action[1]}
+        />
+        <ActionBox
           ratio="basis-1/2"
           isSquare={false}
-          extraStyle="h-full"
-          title={action[2].title}
-          onClick={action[2].onClick}
-          isAccumul={action[2].isAccumul}
-          isOcuupied={action[2].isOcuupied}
-          pid={action[2].pid}
-        >
-          {action[2].childTags}
-        </Box>
+          actionProperty={action[2]}
+        />
       </div>
-      <Box
-        ratio="basis-1/5"
-        isSquare={true}
-        title={action[3].title}
-        onClick={action[3].onClick}
-        isAccumul={action[3].isAccumul}
-        isOcuupied={action[3].isOcuupied}
-        pid={action[3].pid}
-      >
-        {action[3].childTags}
-      </Box>
-      {renderRound(round2, 'basis-1/5', 2, 4)}
-      <div className="basis-2/5   flex flex-wrap">
-        <Box
+      <ActionBox ratio="basis-1/5" isSquare={true} actionProperty={action[3]} />
+      {renderActionsByRound(round2, 'basis-1/5', 2)}
+      <div className="basis-2/5 flex flex-wrap">
+        <ActionBox
           ratio="basis-1/2"
           isSquare={false}
-          extraStyle="h-full"
-          title={action[4].title}
-          onClick={action[4].onClick}
-          isAccumul={action[4].isAccumul}
-          isOcuupied={action[4].isOcuupied}
-          pid={action[4].pid}
-        >
-          {action[4].childTags}
-        </Box>
-        <Box
+          actionProperty={action[4]}
+        />
+        <ActionBox
           ratio="basis-1/2"
           isSquare={false}
-          extraStyle="h-full"
-          title={action[5].title}
-          onClick={action[5].onClick}
-          isAccumul={action[5].isAccumul}
-          isOcuupied={action[5].isOcuupied}
-          pid={action[5].pid}
-        >
-          {action[5].childTags}
-        </Box>
-        <Box
+          actionProperty={action[5]}
+        />
+        <ActionBox
           ratio="basis-1/2"
           isSquare={false}
-          extraStyle="h-full"
-          title={action[6].title}
-          onClick={action[6].onClick}
-          isAccumul={action[6].isAccumul}
-          isOcuupied={action[6].isOcuupied}
-          pid={action[6].pid}
-        >
-          {action[6].childTags}
-        </Box>
-        <Box
+          actionProperty={action[6]}
+        />
+        <ActionBox
           ratio="basis-1/2"
           isSquare={false}
-          extraStyle="h-full"
-          title={action[7].title}
-          onClick={action[7].onClick}
-          isAccumul={action[7].isAccumul}
-          isOcuupied={action[7].isOcuupied}
-          pid={action[7].pid}
-        >
-          {action[7].childTags}
-        </Box>
-        <Box
+          actionProperty={action[7]}
+        />
+        <ActionBox
           ratio="basis-1/2"
           isSquare={false}
-          extraStyle="h-full"
-          title={action[8].title}
-          onClick={action[8].onClick}
-          isAccumul={action[8].isAccumul}
-          isOcuupied={action[8].isOcuupied}
-          pid={action[8].pid}
-        >
-          {action[8].childTags}
-        </Box>
-        <Box
+          actionProperty={action[8]}
+        />
+        <ActionBox
           ratio="basis-1/2"
           isSquare={false}
-          extraStyle="h-full"
-          title={action[9].title}
-          onClick={action[9].onClick}
-          isAccumul={action[9].isAccumul}
-          isOcuupied={action[9].isOcuupied}
-          pid={action[9].pid}
-        >
-          {action[9].childTags}
-        </Box>
+          actionProperty={action[9]}
+        />
       </div>
-      <div className="basis-2/5 aspect-square    flex flex-wrap">
-        {renderRound(round3, 'basis-1/2', 3, 7)}
-        {renderRound(round4, 'basis-1/2', 4, 9)}
+      <div className="basis-2/5 aspect-square flex flex-wrap">
+        {renderActionsByRound(round3, 'basis-1/2', 3)}
+        {renderActionsByRound(round4, 'basis-1/2', 4)}
       </div>
       <div className="basis-1/5"></div>
-      {renderRound(round5, 'basis-1/5', 5, 11)}
-      {roundArray[13] ? (
-        // 13 < roundround ? (
-        <Box
-          ratio="basis-1/5"
-          isSquare={true}
-          title={action[23].title}
-          onClick={action[23].onClick}
-          isAccumul={action[23].isAccumul}
-          isOcuupied={action[23].isOcuupied}
-          pid={action[23].pid}
-        >
-          {action[23].childTags}
-        </Box>
-      ) : (
-        <RoundBox ratio="basis-1/5" round="6" />
-      )}
+      {renderActionsByRound(round5, 'basis-1/5', 5)}
+      {renderActionsByRound(round6, 'basis-1/5', 6)}
       <MajorCardBox ratio="basis-1/5" isSquare={true} />
     </div>
   );

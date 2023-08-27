@@ -18,36 +18,36 @@ import { image_R, all_Images } from '../constants/imageContants';
 //     };
 //   });
 // }
-export function getFarmBoard(id) {
+export async function getFarmBoard(id) {
   return axios
-    .post('http://3.36.7.233:3000/boardposition/get_all_position/', {
+    .post(`${process.env.REACT_APP_URL}/boardposition/get_all_position/`, {
       player_id: id,
     })
-    .then(res => {
+    .then((res) => {
       // console.log(res.data);
       return res.data;
     });
 }
 
 // BE api
-export function setFirstPlayer() {
+export async function setFirstPlayer() {
   return axios
-    .get('http://3.36.7.233:3000/player/choose_first_player')
-    .then(res => res.data);
+    .get(`${process.env.REACT_APP_URL}/player/choose_first_player`)
+    .then((res) => res.data);
 }
 
-export function whoseTurn() {
+export async function whoseTurn() {
   // 턴이 홀수이면 선 플레이어의 턴, 짝수이면 다른 플레이어의 턴
   return axios
-    .get('http://3.36.7.233:3000/gamestatus/get_turn/')
-    .then(res => res.data);
+    .get(`${process.env.REACT_APP_URL}/gamestatus/get_turn/`)
+    .then((res) => res.data);
 }
 
-export function amITurn(pid) {
+export async function amITurn(pid) {
   // 턴이 홀수이면 선 플레이어의 턴, 짝수이면 다른 플레이어의 턴
   return axios
-    .get(`http://3.36.7.233:3000/gamestatus/my_turn?player_id=${pid}`)
-    .then(res => res.data);
+    .get(`${process.env.REACT_APP_URL}/gamestatus/my_turn?player_id=${pid}`)
+    .then((res) => res.data);
 }
 
 // Resource 관련    --  test해보자!
@@ -56,36 +56,36 @@ export async function getAllResource(pid) {
   const [data1, data2, data3] = await Promise.all([
     axios
       .get(
-        `http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}`
+        `${process.env.REACT_APP_URL}/playerresource/get_player_resource?player_id=${pid}`
       )
-      .then(res => {
+      .then((res) => {
         return res.data;
       }),
     axios
       .get(
-        `http://3.36.7.233:3000/playerresource/get_family_resource/?player_id=${pid}`
+        `${process.env.REACT_APP_URL}/playerresource/get_family_resource/?player_id=${pid}`
       )
-      .then(res => {
+      .then((res) => {
         return res.data;
       }),
     axios
       .get(
-        `http://3.36.7.233:3000/playerresource/get_agricultural_resource/?player_id=${pid}`
+        `${process.env.REACT_APP_URL}/playerresource/get_agricultural_resource/?player_id=${pid}`
       )
-      .then(res => {
+      .then((res) => {
         return res.data;
       }),
   ]);
 
   // const data = await axios
   //   .get(
-  //     `http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}`
+  //     `${process.env.REACT_APP_URL}/playerresource/get_player_resource?player_id=${pid}`
   //   )
   //   .then(res => {
   //     return res.data;
   //   });
 
-  data1.forEach(item => {
+  data1.forEach((item) => {
     const resource_id = item.resource_id;
     const resource_num = item.resource_num;
 
@@ -96,7 +96,7 @@ export async function getAllResource(pid) {
 
   // const data2 = await axios
   //   .get(
-  //     `http://3.36.7.233:3000/playerresource/get_family_resource/?player_id=${pid}`
+  //     `${process.env.REACT_APP_URL}/playerresource/get_family_resource/?player_id=${pid}`
   //   )
   //   .then(res => {
   //     return res.data;
@@ -106,7 +106,7 @@ export async function getAllResource(pid) {
 
   // const data3 = await axios
   //   .get(
-  //     `http://3.36.7.233:3000/playerresource/get_agricultural_resource/?player_id=${pid}`
+  //     `${process.env.REACT_APP_URL}/playerresource/get_agricultural_resource/?player_id=${pid}`
   //   )
   //   .then(res => {
   //     return res.data;
@@ -118,34 +118,34 @@ export async function getAllResource(pid) {
 }
 
 // * awiat 없어도 될듯? *
-export function getResourceNumById(pid, rid) {
+export async function getResourceNumById(pid, rid) {
   return axios
     .get(
-      `http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}&resource_id=${rid}`
+      `${process.env.REACT_APP_URL}/playerresource/get_player_resource?player_id=${pid}&resource_id=${rid}`
     )
-    .then(res => {
+    .then((res) => {
       return res.data.resource_num;
     });
 }
 
-export function getUserResource(pid) {
+export async function getUserResource(pid) {
   return axios
     .get(
-      `http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}`
+      `${process.env.REACT_APP_URL}/playerresource/get_player_resource?player_id=${pid}`
     )
-    .then(res => {
+    .then((res) => {
       console.log(res.data);
       return res.data;
     });
 }
 
 // test 해보자!
-export function getResource(pid, rid) {
+export async function getResource(pid, rid) {
   return axios
     .get(
-      `http://3.36.7.233:3000/playerresource/get_player_resource?player_id=${pid}&resource_id=${rid}`
+      `${process.env.REACT_APP_URL}/playerresource/get_player_resource?player_id=${pid}&resource_id=${rid}`
     )
-    .then(res => {
+    .then((res) => {
       return res.data[1].resource_num;
     });
 }
@@ -161,29 +161,31 @@ export function updateOneResource(pid, rid, num, socket) {
     };
     socket.send(JSON.stringify(message));
 
-    socket.onmessage = e => {
+    socket.onmessage = (e) => {
       const receivedData = JSON.parse(e.data);
       resolve(receivedData);
     };
-    socket.onerror = error => {
+    socket.onerror = (error) => {
       reject(error);
     };
   });
 }
 
-export function getMyturn(pid) {
+export async function getMyturn(pid) {
   return axios
-    .get(`http://3.36.7.233:3000/gamestatus/my_turn?player_id=${pid}`)
-    .then(res => {
+    .get(`${process.env.REACT_APP_URL}/gamestatus/my_turn?player_id=${pid}`)
+    .then((res) => {
       return res.data.my_turn;
     });
 }
 
-export function getTurn() {
-  return axios.get('http://3.36.7.233:3000/gamestatus/get_turn/').then(res => {
-    console.log('현재 turn값은 : ', res.data.turn);
-    return res.data.turn;
-  });
+export async function getTurn() {
+  return axios
+    .get(`${process.env.REACT_APP_URL}/gamestatus/get_turn/`)
+    .then((res) => {
+      console.log('현재 turn값은 : ', res.data.turn);
+      return res.data.turn;
+    });
 }
 
 export async function takeAction(pid, aid, cid, socket, queryClient) {
@@ -199,7 +201,7 @@ export async function takeAction(pid, aid, cid, socket, queryClient) {
     console.log(socket);
     socket.send(JSON.stringify(message));
     console.log('takeaction');
-    socket.onmessage = e => {
+    socket.onmessage = (e) => {
       const receivedData = JSON.parse(e.data);
       resolve(receivedData);
       queryClient.invalidateQueries(['actionBoard']);
@@ -210,30 +212,33 @@ export async function takeAction(pid, aid, cid, socket, queryClient) {
       queryClient.invalidateQueries(['actCardData']);
       queryClient.invalidateQueries(['firstPlayer']);
     };
-    socket.onerror = error => {
+    socket.onerror = (error) => {
       reject(error);
     };
   });
 }
 
-export function getActionBoard() {
+export async function getActionBoard() {
   return axios
-    .get('http://3.36.7.233:3000/actionbox/get_actions_with_pid/')
-    .then(res => res.data);
+    .get(`${process.env.REACT_APP_URL}/actionbox/get_actions_with_pid`)
+    .then((res) => {
+      // console.log(res);
+      return res.data;
+    });
 }
 
 // login
 export function login({ id, pw }) {
   return axios
-    .post('http://3.36.7.233:3000/account/login/', {
+    .post(`${process.env.REACT_APP_URL}/account/login/`, {
       user_id: id,
       user_pw: pw,
     })
-    .then(res => {
+    .then((res) => {
       console.log('login');
       return res.data.player_id;
     })
-    .catch(err => {
+    .catch((err) => {
       return console.log('err msg : ', err.response.data);
     });
 }
@@ -269,12 +274,12 @@ export function buildFence(id, arr, socket) {
     };
     socket.send(JSON.stringify(message));
 
-    socket.onmessage = e => {
+    socket.onmessage = (e) => {
       console.log(e);
       const receivedData = JSON.parse(e.data);
       resolve(receivedData);
     };
-    socket.onerror = error => {
+    socket.onerror = (error) => {
       reject(error);
     };
   });
@@ -283,14 +288,14 @@ export function buildFence(id, arr, socket) {
 export function getPlayerHaveCard() {
   const player1_cardSet = {};
   const player2_cardSet = {};
-  return axios.get('http://3.36.7.233:3000/playercard/').then(res => {
+  return axios.get(`${process.env.REACT_APP_URL}/playercard/`).then((res) => {
     const data = res.data;
     const notMajor = data.filter(
-      item => !(29 <= item.card_id && item.card_id < 39)
+      (item) => !(29 <= item.card_id && item.card_id < 39)
     );
     // console.log("notmajor", notMajor);
 
-    const player1CardArr = notMajor.filter(item => item.player_id === 1);
+    const player1CardArr = notMajor.filter((item) => item.player_id === 1);
     // console.log("arr", player1CardArr);
     player1CardArr.map((item, index) => {
       const image_key = image_R[item.card_id];
@@ -305,7 +310,7 @@ export function getPlayerHaveCard() {
     });
     // console.log("arr1", player1_cardSet);
 
-    const player2CardArr = notMajor.filter(item => item.player_id === 2);
+    const player2CardArr = notMajor.filter((item) => item.player_id === 2);
     player2CardArr.map((item, index) => {
       const image_key = image_R[item.card_id];
       const imagePath = all_Images[image_key];
@@ -328,15 +333,15 @@ export function getPlayerActCard() {
   // player 별로 activate 되어있는 카드만 가지고 온다.
   const player1_cardSet = {};
   const player2_cardSet = {};
-  return axios.get('http://3.36.7.233:3000/playercard/').then(res => {
+  return axios.get(`${process.env.REACT_APP_URL}/playercard/`).then((res) => {
     const data = res.data;
-    const activated = data.filter(item => item.activate === 1);
+    const activated = data.filter((item) => item.activate === 1);
     // console.log("notmajor", notMajor);
     if (activated.length === 0) {
       return 0;
       // console.log('activated undefined');
     } else {
-      const player1CardArr = activated.filter(item => item.player_id === 1);
+      const player1CardArr = activated.filter((item) => item.player_id === 1);
       // console.log("arr", player1CardArr);
       player1CardArr.map((item, index) => {
         const image_key = image_R[item.card_id];
@@ -351,7 +356,7 @@ export function getPlayerActCard() {
       });
       // console.log("arr1", player1_cardSet);
 
-      const player2CardArr = activated.filter(item => item.player_id === 2);
+      const player2CardArr = activated.filter((item) => item.player_id === 2);
       player2CardArr.map((item, index) => {
         const image_key = image_R[item.card_id];
         const imagePath = all_Images[image_key];
@@ -374,31 +379,33 @@ export function getPlayerActCard() {
 export function getMajorCard() {
   const cardSet = {};
 
-  return axios.get('http://3.36.7.233:3000/mainfacilitycard/').then(res => {
-    const major = res.data;
+  return axios
+    .get(`${process.env.REACT_APP_URL}/mainfacilitycard/`)
+    .then((res) => {
+      const major = res.data;
 
-    major.map((item, index) => {
-      const image_key = image_R[item.card_id];
-      const imagePath = all_Images[image_key];
-      // player_id가 1,2이면 activated 1
-      // player_id가 0이면 activated 0
-      let activated;
-      if ((item.player_id === 1) | (item.player_id === 2)) {
-        activated = 1;
-      } else {
-        activated = 0;
-      }
-      // console.log(index, " ?? ", image_key, " ?? ", imagePath);
-      cardSet[image_key] = {
-        id: item.card_id,
-        path: imagePath,
-        activated: activated,
-      };
-      return 0;
+      major.map((item, index) => {
+        const image_key = image_R[item.card_id];
+        const imagePath = all_Images[image_key];
+        // player_id가 1,2이면 activated 1
+        // player_id가 0이면 activated 0
+        let activated;
+        if ((item.player_id === 1) | (item.player_id === 2)) {
+          activated = 1;
+        } else {
+          activated = 0;
+        }
+        // console.log(index, " ?? ", image_key, " ?? ", imagePath);
+        cardSet[image_key] = {
+          id: item.card_id,
+          path: imagePath,
+          activated: activated,
+        };
+        return 0;
+      });
+
+      return cardSet;
     });
-
-    return cardSet;
-  });
 }
 
 export function raiseAnimal(pid, type, position, socket) {
@@ -411,12 +418,12 @@ export function raiseAnimal(pid, type, position, socket) {
     };
     socket.send(JSON.stringify(message));
 
-    socket.onmessage = e => {
+    socket.onmessage = (e) => {
       console.log(e.data);
       const receivedData = JSON.parse(e.data);
       resolve(receivedData);
     };
-    socket.onerror = error => {
+    socket.onerror = (error) => {
       reject(error);
     };
   });
@@ -432,11 +439,11 @@ export function constructLand(pid, land_num, socket) {
     console.log(socket);
     socket.send(JSON.stringify(message));
 
-    socket.onmessage = e => {
+    socket.onmessage = (e) => {
       const receivedData = JSON.parse(e.data);
       resolve(receivedData.data);
     };
-    socket.onerror = error => {
+    socket.onerror = (error) => {
       reject(error);
     };
   });
@@ -451,12 +458,12 @@ export function constructRoom(pid, land_num, socket) {
     };
     socket.send(JSON.stringify(message));
 
-    socket.onmessage = e => {
+    socket.onmessage = (e) => {
       const receivedData = JSON.parse(e.data);
 
       resolve(receivedData);
     };
-    socket.onerror = error => {
+    socket.onerror = (error) => {
       reject(error);
     };
   });
@@ -470,18 +477,20 @@ export function constructStable(pid, land_num, socket) {
     };
     socket.send(JSON.stringify(message));
 
-    socket.onmessage = e => {
+    socket.onmessage = (e) => {
       const receivedData = JSON.parse(e.data);
       resolve(receivedData);
     };
-    socket.onerror = error => {
+    socket.onerror = (error) => {
       reject(error);
     };
   });
 }
 
 export function getPlayerInfo() {
-  return axios.get('http://3.36.7.233:3000/player/').then(res => res.data);
+  return axios
+    .get(`${process.env.REACT_APP_URL}/player/`)
+    .then((res) => res.data);
 }
 
 export async function isRoundEnd() {
@@ -493,7 +502,7 @@ export async function isRoundEnd() {
 // export async function roundEnd() {
 //   console.log('round_end');
 //   return await axios
-//     .get('http://3.36.7.233:3000/gamestatus/round_end/')
+//     .get('${process.env.REACT_APP_URL}/gamestatus/round_end/')
 //     .then(res => res.data);
 // }
 
@@ -504,7 +513,7 @@ export function roundEnd(socket, queryClient) {
     };
     socket.send(JSON.stringify(message));
 
-    socket.onmessage = e => {
+    socket.onmessage = (e) => {
       console.log(e);
       const receivedData = JSON.parse(e.data);
       resolve(receivedData);
@@ -512,7 +521,7 @@ export function roundEnd(socket, queryClient) {
       queryClient.invalidateQueries(['actionBoard']);
       queryClient.invalidateQueries(['roundArray']);
     };
-    socket.onerror = error => {
+    socket.onerror = (error) => {
       reject(error);
     };
   });
@@ -527,12 +536,12 @@ export function getCalculateScore(pid, socket) {
     console.log('hello');
     socket.send(JSON.stringify(message));
 
-    socket.onmessage = e => {
+    socket.onmessage = (e) => {
       console.log(e);
       const receivedData = JSON.parse(e.data);
       resolve(receivedData);
     };
-    socket.onerror = error => {
+    socket.onerror = (error) => {
       reject(error);
     };
   });
@@ -541,15 +550,15 @@ export function getCalculateScore(pid, socket) {
 // export async function getCalculateScore(pid) {
 //   return await axios
 //     .get(
-//       `http://3.36.7.233:3000/playerboardstatus/calculate_score/?player_id=${pid}/`
+//       `${process.env.REACT_APP_URL}/playerboardstatus/calculate_score/?player_id=${pid}/`
 //     )
 //     .then(res => res.data);
 // }
 
-export function getRoundArray() {
+export async function getRoundArray() {
   return axios
-    .get('http://3.36.7.233:3000/fstplayer/get_round_array/')
-    .then(res => res.data);
+    .get(`${process.env.REACT_APP_URL}/fstplayer/get_round_array/`)
+    .then((res) => res.data);
 }
 
 export function periodEnd(socket) {
@@ -559,12 +568,12 @@ export function periodEnd(socket) {
     };
     socket.send(JSON.stringify(message));
 
-    socket.onmessage = e => {
+    socket.onmessage = (e) => {
       console.log(e);
       const receivedData = JSON.parse(e.data);
       resolve(receivedData);
     };
-    socket.onerror = error => {
+    socket.onerror = (error) => {
       reject(error);
     };
   });
@@ -579,19 +588,21 @@ export function getCaclulateScore(pid, socket) {
     console.log('adsfasdf');
     socket.send(JSON.stringify(message));
 
-    socket.onmessage = e => {
+    socket.onmessage = (e) => {
       console.log(e);
       const receivedData = JSON.parse(e.data);
       resolve(receivedData);
     };
-    socket.onerror = error => {
+    socket.onerror = (error) => {
       reject(error);
     };
   });
 }
 
-export function getCurrentRound() {
-  return axios.get('http://3.36.7.233:3000/gamestatus/').then(res => res.data);
+export async function getCurrentRound() {
+  return axios
+    .get(`${process.env.REACT_APP_URL}/gamestatus/`)
+    .then((res) => res.data);
 }
 
 export function updatePenInFarmboard(pid, pos, socket) {
@@ -609,13 +620,13 @@ export function updatePenInFarmboard(pid, pos, socket) {
     };
     socket.send(JSON.stringify(message));
 
-    socket.onmessage = e => {
+    socket.onmessage = (e) => {
       console.log(e);
       const receivedData = JSON.parse(e.data);
 
       resolve(receivedData.data);
     };
-    socket.onerror = error => {
+    socket.onerror = (error) => {
       reject(error);
     };
   });
@@ -640,30 +651,30 @@ export function createPenposition(
     };
     socket.send(JSON.stringify(message));
 
-    socket.onmessage = e => {
+    socket.onmessage = (e) => {
       console.log(e);
       const receivedData = JSON.parse(e.data);
       resolve(receivedData.data);
       updateFenceposition(pos, fencePosition, setFencePosition);
     };
-    socket.onerror = error => {
+    socket.onerror = (error) => {
       reject(error);
     };
   });
 }
 
-export function getAvailableSlot(pid, type) {
+export async function getAvailableSlot(pid, type) {
   return axios
     .get(
-      `http://3.36.7.233:3000/boardposition/get_available_slots/?player_id=${pid}&slot_type=${type}`
+      `${process.env.REACT_APP_URL}/boardposition/get_available_slots/?player_id=${pid}&slot_type=${type}`
     )
-    .then(res => res.data.available);
+    .then((res) => res.data.available);
 }
 
-export function firstPlayerData(pid) {
+export async function firstPlayerData(pid) {
   return axios
-    .get(`http://3.36.7.233:3000/player/${pid}/`)
-    .then(res => res.data.fst_player);
+    .get(`${process.env.REACT_APP_URL}/player/${pid}/`)
+    .then((res) => res.data.fst_player);
 }
 
 export function activateCard(pid, cid, socket) {
@@ -676,11 +687,11 @@ export function activateCard(pid, cid, socket) {
     };
     socket.send(JSON.stringify(message));
 
-    socket.onmessage = e => {
+    socket.onmessage = (e) => {
       const receivedData = JSON.parse(e.data);
       resolve(receivedData.data);
     };
-    socket.onerror = error => {
+    socket.onerror = (error) => {
       reject(error);
     };
   });

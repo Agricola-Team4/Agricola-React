@@ -77,7 +77,7 @@ export default function ActionBoard() {
     }, time);
   };
 
-  const basicAction = async (actionId) => {
+  const checkMyTurn = async () => {
     const isMyTurn = await getMyturn(pid);
     if (!isMyTurn) {
       setPrompt({
@@ -87,10 +87,9 @@ export default function ActionBoard() {
       clearPromptMsg(2000);
       return;
     }
-    await takeAction(pid, action, actionId, socket, queryClient);
-    queryClient.invalidateQueries(['actionBoard']);
-    queryClient.invalidateQueries(['farmBoard', pid]);
-    queryClient.invalidateQueries(['resource', pid]);
+  };
+
+  const checkIsEndRound = async () => {
     const isEnd = await isRoundEnd();
     isEnd &&
       roundEnd(socket, queryClient).then(async () => {
@@ -99,13 +98,22 @@ export default function ActionBoard() {
         queryClient.invalidateQueries(['actionBoard']);
         queryClient.invalidateQueries(['roundArray']);
         const a = await getCurrentRound();
-        // console.log(a);
-        // console.log(a.round);
         if (a[0].round === 8) {
           console.log('modal!');
           setIsEnd(true);
         }
       });
+  };
+
+  const basicAction = async (actionId) => {
+    checkMyTurn();
+
+    await takeAction(pid, action, actionId, socket, queryClient);
+    queryClient.invalidateQueries(['actionBoard']);
+    queryClient.invalidateQueries(['farmBoard', pid]);
+    queryClient.invalidateQueries(['resource', pid]);
+
+    checkIsEndRound();
   };
 
   const action = [
@@ -166,15 +174,7 @@ export default function ActionBoard() {
         </div>
       ),
       onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
+        checkMyTurn();
         setIsFbActive(false);
         setIsAbActive(false);
         const result = await takeAction(pid, 8, 1, socket, queryClient);
@@ -373,15 +373,7 @@ export default function ActionBoard() {
         </>
       ),
       onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
+        checkMyTurn();
         setPrompt({
           message: '어떤 행동을 하고 싶으신가요?',
           buttons: [
@@ -564,15 +556,7 @@ export default function ActionBoard() {
         </div>
       ),
       onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
+        checkMyTurn();
         setPrompt({
           message: '활성화 시키고 싶은 직업카드를 선택해주세요',
           buttons: [],
@@ -700,15 +684,7 @@ export default function ActionBoard() {
         </>
       ),
       onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
+        checkMyTurn();
 
         await takeAction(pid, 18, 1, socket, queryClient)
           .then((res) => {
@@ -766,15 +742,7 @@ export default function ActionBoard() {
         </div>
       ),
       onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
+        checkMyTurn();
         await takeAction(pid, 17, 1, socket, queryClient);
         queryClient.invalidateQueries(['actionBoard']);
         // setPrompt({
@@ -813,15 +781,7 @@ export default function ActionBoard() {
         </>
       ),
       onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
+        checkMyTurn();
         setPrompt({
           message: '어떤 카드를 활성화시키고 싶으신가요?',
           buttons: [
@@ -866,15 +826,7 @@ export default function ActionBoard() {
         </>
       ),
       onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
+        checkMyTurn();
         setPrompt({
           message: '어떤 행동을 하고 싶으신가요?',
           buttons: [
@@ -979,15 +931,7 @@ export default function ActionBoard() {
         </>
       ),
       onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
+        checkMyTurn();
         setPrompt({
           message: '활성화 시키고 싶은 보조설비를 선택해주세요',
           buttons: [
@@ -1052,15 +996,7 @@ export default function ActionBoard() {
         </div>
       ),
       onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
+        checkMyTurn();
         // 1. 프롬프트 띄우기
         setPrompt({
           message: '어떤 카드를 활성화시키고 싶으신가요?',
@@ -1175,15 +1111,7 @@ export default function ActionBoard() {
         />
       ),
       onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
+        checkMyTurn();
         await takeAction(pid, 29, 1, socket, queryClient);
         const isEnd = await isRoundEnd();
         isEnd &&
@@ -1220,15 +1148,7 @@ export default function ActionBoard() {
         </div>
       ),
       onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
+        checkMyTurn();
         await takeAction(pid, 28, 1, socket, queryClient);
         const isEnd = await isRoundEnd();
         isEnd &&
@@ -1277,15 +1197,7 @@ export default function ActionBoard() {
         </div>
       ),
       onClick: async () => {
-        const isMyTurn = await getMyturn(pid);
-        if (!isMyTurn) {
-          setPrompt({
-            message: '당신의 턴이 아닙니다.',
-            buttons: [],
-          });
-          clearPromptMsg(2000);
-          return;
-        }
+        checkMyTurn();
         await takeAction(pid, 30, 1, socket, queryClient);
         const isEnd = await isRoundEnd();
         isEnd &&

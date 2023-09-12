@@ -33,14 +33,14 @@ export async function getFarmBoard(id) {
 export async function setFirstPlayer() {
   return axios
     .get(`${process.env.REACT_APP_URL}/player/choose_first_player`)
-    .then((res) => res.data);
+    .then((res) => {console.log("첫번째 플레이어는: ",res.data); return res.data});
 }
 
 export async function whoseTurn() {
   // 턴이 홀수이면 선 플레이어의 턴, 짝수이면 다른 플레이어의 턴
   return axios
     .get(`${process.env.REACT_APP_URL}/gamestatus/get_turn/`)
-    .then((res) => res.data);
+    .then((res) => {console.log("누구 턴이니",res.data); return res.data});
 }
 
 export async function amITurn(pid) {
@@ -187,36 +187,56 @@ export async function getTurn() {
       return res.data.turn;
     });
 }
-
-export async function takeAction(pid, aid, cid, socket, queryClient) {
+export async function takeAction(pid, aid, cid) {
+  console.log('action id는 ', aid, ' pid는 ', pid);
   const turn = await getTurn();
-  return new Promise((resolve, reject) => {
-    const message = {
-      type: 'take_action',
-      turn,
+  console.log("turn: ",turn, "pid : ", pid, "aid : ",aid, "cid : ",cid);
+  return await axios
+    .post(`${process.env.REACT_APP_URL}/familyposition/take_action/`, {
+      turn: turn,
       player_id: pid,
       action_id: aid,
       card_id: cid,
-    };
-    console.log(socket);
-    socket.send(JSON.stringify(message));
-    console.log('takeaction');
-    socket.onmessage = (e) => {
-      const receivedData = JSON.parse(e.data);
-      resolve(receivedData);
-      queryClient.invalidateQueries(['actionBoard']);
-      queryClient.invalidateQueries(['farmBoard']);
-      queryClient.invalidateQueries(['resource']);
-      queryClient.invalidateQueries(['haveCardData']);
-      queryClient.invalidateQueries(['majorCardData']);
-      queryClient.invalidateQueries(['actCardData']);
-      queryClient.invalidateQueries(['firstPlayer']);
-    };
-    socket.onerror = (error) => {
-      reject(error);
-    };
-  });
+    })
+    .then(res => {
+      console.log('(turn:', turn, ') ', pid, '가 ', aid, '액션을 하였습니다.');
+      console.log('res.data : ', res.data);
+      return res.data;
+    })
+    .catch(err => {
+      console.log('오류가났대요 : ', err.response.data);
+    });
 }
+
+// export async function takeAction(pid, aid, cid, socket, queryClient) {
+//   const turn = await getTurn();
+//   return new Promise((resolve, reject) => {
+//     const message = {
+//       type: 'take_action',
+//       turn,
+//       player_id: pid,
+//       action_id: aid,
+//       card_id: cid,
+//     };
+//     console.log(socket);
+//     socket.send(JSON.stringify(message));
+//     console.log('takeaction');
+//     socket.onmessage = (e) => {
+//       const receivedData = JSON.parse(e.data);
+//       resolve(receivedData);
+//       queryClient.invalidateQueries(['actionBoard']);
+//       queryClient.invalidateQueries(['farmBoard']);
+//       queryClient.invalidateQueries(['resource']);
+//       queryClient.invalidateQueries(['haveCardData']);
+//       queryClient.invalidateQueries(['majorCardData']);
+//       queryClient.invalidateQueries(['actCardData']);
+//       queryClient.invalidateQueries(['firstPlayer']);
+//     };
+//     socket.onerror = (error) => {
+//       reject(error);
+//     };
+//   });
+// }
 
 export async function getActionBoard() {
   return axios

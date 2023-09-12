@@ -79,6 +79,7 @@ export default function ActionBoard() {
 
   const checkMyTurn = async () => {
     const isMyTurn = await getMyturn(pid);
+    console.log("isMyTurn : ", isMyTurn)
     if (!isMyTurn) {
       setPrompt({
         message: '당신의 턴이 아닙니다.',
@@ -106,9 +107,11 @@ export default function ActionBoard() {
   };
 
   const basicAction = async (actionId) => {
-    checkMyTurn();
+    // checkMyTurn();
 
-    await takeAction(pid, action, actionId, socket, queryClient);
+    // await takeAction(pid, action, actionId, socket, queryClient);
+    await takeAction(pid, actionId,1);
+
     queryClient.invalidateQueries(['actionBoard']);
     queryClient.invalidateQueries(['farmBoard', pid]);
     queryClient.invalidateQueries(['resource', pid]);
@@ -174,10 +177,10 @@ export default function ActionBoard() {
         </div>
       ),
       onClick: async () => {
-        checkMyTurn();
+        // checkMyTurn();
         setIsFbActive(false);
         setIsAbActive(false);
-        const result = await takeAction(pid, 8, 1, socket, queryClient);
+        const result = await takeAction(pid, 8, 1);
         queryClient.invalidateQueries(['actionBoard']);
         const action_case = result.code;
         console.log('?', action_case);
@@ -373,7 +376,7 @@ export default function ActionBoard() {
         </>
       ),
       onClick: async () => {
-        checkMyTurn();
+        // checkMyTurn();
         setPrompt({
           message: '어떤 행동을 하고 싶으신가요?',
           buttons: [
@@ -381,7 +384,7 @@ export default function ActionBoard() {
               text: '선플레이어',
               onClick: async () => {
                 // 선플레이어
-                await takeAction(pid, 9, 1, socket, queryClient);
+                await takeAction(pid, 9, 1);
                 queryClient.invalidateQueries(['firstPlayer', pid]);
                 queryClient.invalidateQueries(['actionBoard']);
 
@@ -443,7 +446,7 @@ export default function ActionBoard() {
               text: '보조설비',
               onClick: async () => {
                 // 보조설비
-                await takeAction(pid, 9, 1, socket, queryClient);
+                await takeAction(pid, 9, 1);
                 setCondition(9);
                 setIsCsActive(true);
                 setIsScActive(true);
@@ -556,7 +559,7 @@ export default function ActionBoard() {
         </div>
       ),
       onClick: async () => {
-        checkMyTurn();
+        // checkMyTurn();
         setPrompt({
           message: '활성화 시키고 싶은 직업카드를 선택해주세요',
           buttons: [],
@@ -605,17 +608,17 @@ export default function ActionBoard() {
           <img className="w-1/4" src="/img/reed_icon.png" alt="reed" />
         </>
       ),
-      onClick: () => basicAction(14),
-      // 임시 initial api
-      // onClick: async () => {
-      //   await axios.get('http://3.36.7.233:3000/account/initial/').then(res => {
-      //     console.log('initial api호출', res.data);
-      //   });
-      //   queryClient.invalidateQueries(['actionBoard']);
-      //   queryClient.invalidateQueries(['farmBoard']);
-      //   queryClient.invalidateQueries(['resource']);
-      //   queryClient.invalidateQueries(['firstPlayer']);
-      // },
+//      onClick: () => basicAction(14),
+       //임시 initial api
+        onClick: async () => {
+        await axios.get('http://127.0.0.1:8000/account/init_/').then(res => {
+            console.log('initial api호출', res.data);
+          });
+          queryClient.invalidateQueries(['actionBoard']);
+          queryClient.invalidateQueries(['farmBoard']);
+          queryClient.invalidateQueries(['resource']);
+          queryClient.invalidateQueries(['firstPlayer']);
+        },
       isAccumul: calcAccumul(13),
       isOcuupied: data && data[13].is_occupied,
       pid: data && data[13].player_id,
@@ -684,9 +687,9 @@ export default function ActionBoard() {
         </>
       ),
       onClick: async () => {
-        checkMyTurn();
+        // checkMyTurn();
 
-        await takeAction(pid, 18, 1, socket, queryClient)
+        await takeAction(pid, 18, 1)
           .then((res) => {
             switch (res.case) {
               case 0:
@@ -742,8 +745,8 @@ export default function ActionBoard() {
         </div>
       ),
       onClick: async () => {
-        checkMyTurn();
-        await takeAction(pid, 17, 1, socket, queryClient);
+        // checkMyTurn();
+        await takeAction(pid, 17, 1);
         queryClient.invalidateQueries(['actionBoard']);
         // setPrompt({
         //   message: '울타리를 치고 싶은 땅을 모두 선택하세요.',
@@ -781,7 +784,7 @@ export default function ActionBoard() {
         </>
       ),
       onClick: async () => {
-        checkMyTurn();
+        // checkMyTurn();
         setPrompt({
           message: '어떤 카드를 활성화시키고 싶으신가요?',
           buttons: [
@@ -826,7 +829,7 @@ export default function ActionBoard() {
         </>
       ),
       onClick: async () => {
-        checkMyTurn();
+        // checkMyTurn();
         setPrompt({
           message: '어떤 행동을 하고 싶으신가요?',
           buttons: [
@@ -931,7 +934,7 @@ export default function ActionBoard() {
         </>
       ),
       onClick: async () => {
-        checkMyTurn();
+        // checkMyTurn();
         setPrompt({
           message: '활성화 시키고 싶은 보조설비를 선택해주세요',
           buttons: [
@@ -996,7 +999,7 @@ export default function ActionBoard() {
         </div>
       ),
       onClick: async () => {
-        checkMyTurn();
+        // checkMyTurn();
         // 1. 프롬프트 띄우기
         setPrompt({
           message: '어떤 카드를 활성화시키고 싶으신가요?',
@@ -1111,8 +1114,8 @@ export default function ActionBoard() {
         />
       ),
       onClick: async () => {
-        checkMyTurn();
-        await takeAction(pid, 29, 1, socket, queryClient);
+        // checkMyTurn();
+        await takeAction(pid, 29, 1);
         const isEnd = await isRoundEnd();
         isEnd &&
           roundEnd(socket, queryClient).then(async () => {
@@ -1148,8 +1151,8 @@ export default function ActionBoard() {
         </div>
       ),
       onClick: async () => {
-        checkMyTurn();
-        await takeAction(pid, 28, 1, socket, queryClient);
+        // checkMyTurn();
+        await takeAction(pid, 28, 1);
         const isEnd = await isRoundEnd();
         isEnd &&
           roundEnd(socket, queryClient).then(async () => {
@@ -1197,8 +1200,8 @@ export default function ActionBoard() {
         </div>
       ),
       onClick: async () => {
-        checkMyTurn();
-        await takeAction(pid, 30, 1, socket, queryClient);
+        // checkMyTurn();
+        await takeAction(pid, 30, 1);
         const isEnd = await isRoundEnd();
         isEnd &&
           roundEnd(socket, queryClient).then(async () => {

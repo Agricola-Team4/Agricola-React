@@ -56,7 +56,7 @@ export default function PersonalResourceBoard({ pid }) {
           {fp && <img className="w-4 absolute top-1 z-10" src={first} alt="" />}
           <Profile
             img={pid === 1 ? profile_img1 : profile_img2}
-            name={pid === 1 ? "dongree" : "hyeseon"}
+            name={pid === 1 ? `dongree ${pid}` : `hyeseon ${pid}`}
           />
         </div>
 

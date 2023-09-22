@@ -12,6 +12,8 @@ import { BackgroundContextProvider } from './context/BackgroundContext';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { WebSocketProvider } from './context/WebSocketContext';
+import { IsActiveContextProvider } from './context/IsActiveContext';
+import { OpenCardProvider } from './context/OpenCardContext';
 
 const router = createBrowserRouter([
   {
@@ -37,9 +39,13 @@ root.render(
     <QueryClientProvider client={queryClient}>
       <AuthContextProvider>
         <BackgroundContextProvider>
+          {/* <IsActiveContextProvider> */}
+          {/* <OpenCardProvider> */}
           <WebSocketProvider>
             <RouterProvider router={router} />
           </WebSocketProvider>
+          {/* </OpenCardProvider> */}
+          {/* </IsActiveContextProvider> */}
         </BackgroundContextProvider>
       </AuthContextProvider>
       <ReactQueryDevtools />

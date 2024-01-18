@@ -54,6 +54,7 @@ export default function ActionBoard() {
 
   const {
     actionBoardQuery: { isLadoing, error, data },
+    basicAction,
   } = useActionBoard();
   // const {
   //   roundArrQuery: { data: d },
@@ -106,18 +107,18 @@ export default function ActionBoard() {
       });
   };
 
-  const basicAction = async (actionId) => {
-    // checkMyTurn();
+  // const basicAction = async (actionId, queryClient) => {
+  //   // checkMyTurn();
 
-    // await takeAction(pid, action, actionId, socket, queryClient);
-    await takeAction(pid, actionId,1);
+  //   // await takeAction(pid, action, actionId, socket, queryClient);
+  //   await takeAction(pid, actionId,1);
 
-    queryClient.invalidateQueries(['actionBoard']);
-    queryClient.invalidateQueries(['farmBoard', pid]);
-    queryClient.invalidateQueries(['resource', pid]);
+  //   queryClient.invalidateQueries(['actionBoard']);
+  //   queryClient.invalidateQueries(['farmBoard', pid]);
+  //   queryClient.invalidateQueries(['resource', pid]);
 
-    checkIsEndRound();
-  };
+  //   checkIsEndRound();
+  // };
 
   const action = [
     {
@@ -611,7 +612,7 @@ export default function ActionBoard() {
 //      onClick: () => basicAction(14),
        //임시 initial api
         onClick: async () => {
-        await axios.get('http://127.0.0.1:8000/account/init_/').then(res => {
+        await axios.get('http://127.0.0.1:8000/gamestatus/round_end/').then(res => {
             console.log('initial api호출', res.data);
           });
           queryClient.invalidateQueries(['actionBoard']);

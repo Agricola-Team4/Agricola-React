@@ -9,6 +9,16 @@ export function useActionBoard() {
   const queryClient = useQueryClient();
 
   const actionBoardQuery = useQuery(['actionBoard'], () => getActionBoard());
+
+  const basicAction = async (actionId) => {
+    await takeAction(pid, actionId,1);
+
+    queryClient.invalidateQueries(['actionBoard']);
+    queryClient.invalidateQueries(['farmBoard', pid]);
+    queryClient.invalidateQueries(['resource', pid]);
+
+  };
+
   // const updateFarmBoard = useMutation(() => updateFarmBoard(), {
   //   onSuccess: () => queryClient.invalidateQueries(['farmBoard']), // queryKey 유효성 제거
   // });
@@ -25,6 +35,6 @@ export function useActionBoard() {
   //   },
   // });
 
-  return { actionBoardQuery };
+  return { actionBoardQuery, basicAction};
   // validLandQuery, useValidLand
 }

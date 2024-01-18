@@ -184,7 +184,7 @@ export default function Land({ data, pid }) {
                           buildFence(pid, fencePosArr, socket).then(res => {
                             console.log(res);
                           });
-                          setPrompt({ message: '', buttons: [] });
+                          clearPromptMsg(0);
                           setFencePosArr([]);
                           setSelectedPosArr([]);
                           setIsFbActive(false);

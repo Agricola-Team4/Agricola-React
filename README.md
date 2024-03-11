@@ -1,6 +1,6 @@
 # 아그리콜라 (Agricola)
 
-<p align='center'><img width="50%" src="https://github.com/Agricola-Team4/Agricola-React/assets/68095803/28efdf7f-0303-41e4-a8dc-f1dc8e0f932a"/></p>
+<p align='center'><img width="30%" src="https://github.com/Agricola-Team4/Agricola-React/assets/68095803/28efdf7f-0303-41e4-a8dc-f1dc8e0f932a"/></p>
 
 ## About the Project
 
@@ -20,13 +20,13 @@
 
 ## Architecture Design
 
-<p align='center'><img  src="https://github.com/Agricola-Team4/Agricola-React/assets/68095803/c57dc75e-4546-46d7-908b-e3dc94bac495"/></p>
+<p align='center'><img width="90%" src="https://github.com/Agricola-Team4/Agricola-React/assets/68095803/c57dc75e-4546-46d7-908b-e3dc94bac495"/></p>
 
 <br/>
 
 ## 게임 화면
 
-<p align='center'><img  src="https://github.com/Agricola-Team4/Agricola-React/assets/68095803/3146e05d-2acf-4e77-89ec-e62e98604b43"/></p>
+<p align='center'><img width="90%" src="https://github.com/Agricola-Team4/Agricola-React/assets/68095803/3146e05d-2acf-4e77-89ec-e62e98604b43"/></p>
 
 <br/>
 
